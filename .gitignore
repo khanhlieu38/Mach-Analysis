@@ -10,7 +10,4 @@ __pycache__/
 Thumbs.db
 
 # Quarto
-.quarto/
-
-/.quarto/
 **/*.quarto_ipynb
