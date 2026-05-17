@@ -1,0 +1,22 @@
+# Raw data with PII - NEVER commit
+data/raw/
+
+# Rendered output
+_output/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Quarto
+.quarto/
+
+/.quarto/
+**/*.quarto_ipynb
+
+# Backup files
+*.bak
