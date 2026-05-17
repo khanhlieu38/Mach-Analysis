@@ -1,9 +1,23 @@
 # Raw data with PII - NEVER commit
 data/raw/
 
+# Python
+__pycache__/
+*.pyc
+
 # OS
 .DS_Store
 Thumbs.db
 
 # Quarto
+.quarto/
 **/*.quarto_ipynb
+
+# Old rendered output (deployed version lives in docs/)
+_output/
+
+# Backup files
+*.bak
+
+# Local Claude Code config
+.claude/
