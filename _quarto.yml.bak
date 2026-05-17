@@ -1,0 +1,18 @@
+project:
+  title: "MẠCH — Non-Participant Interview Analysis"
+  output-dir: _output
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: true
+    code-fold: true
+    code-summary: "Xem code"
+    lang: vi
+    date-format: "DD/MM/YYYY"
+    embed-resources: true
+    fig-responsive: true
