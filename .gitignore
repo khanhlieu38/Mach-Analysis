@@ -1,9 +1,6 @@
 # Raw data with PII - NEVER commit
 data/raw/
 
-# Rendered output
-_output/
-
 # Python
 __pycache__/
 *.pyc
