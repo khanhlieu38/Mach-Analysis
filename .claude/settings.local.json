@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(quarto render *)",
+      "Bash(pip install *)",
+      "Bash(python -c ' *)",
+      "Bash(python -X utf8 -c ' *)",
+      "Bash(explorer.exe \"_output\\\\report.html\")",
+      "Bash(cmd.exe //c start \"\" \"_output\\\\report.html\")",
+      "Bash(sed 's/<[^>]*>//g')",
+      "Bash(quarto --version)",
+      "Bash(mv report.qmd.tmp report.qmd)",
+      "Bash(git config *)"
+    ]
+  }
+}
