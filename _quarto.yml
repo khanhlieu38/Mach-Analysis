@@ -1,6 +1,6 @@
 project:
   title: "MẠCH — Non-Participant Interview Analysis"
-  output-dir: _output
+  output-dir: docs
 
 format:
   html:
