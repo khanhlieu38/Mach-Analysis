@@ -1,3 +1,23 @@
+"""
+viz_helpers.py — Plotly chart helpers for MẠCH studies.
+
+REQUIRED CSV SCHEMA (quotes.csv):
+- theme values used by charts:
+    "concept_reaction" — for diverging_bar()
+    "barrier"          — for barrier_heatmap()
+- subtheme values:
+    "ideal_keyword"    — for keyword_bar()
+
+If quotes.csv uses different theme/subtheme values, charts render
+EMPTY silently (no error raised). Match these exact strings when
+filling CSV from interview data.
+
+See CONVENTIONS.md at repo root for:
+- Full schema and ref_id format
+- Confidence label criteria
+- Prose-forward writing rules
+"""
+
 import pandas as pd
 import plotly.graph_objects as go
 from pathlib import Path
