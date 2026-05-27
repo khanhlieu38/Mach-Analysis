@@ -1,0 +1,23 @@
+---
+title: "Phương pháp"
+---
+
+## Thiết kế nghiên cứu
+
+TODO: semi-structured interviews, recruitment, ethics
+
+## Sample (12 participants)
+
+TODO: table demographic từ participants.csv
+
+## Limitations
+
+TODO:
+
+- WYSIATI check (ai vắng mặt trong sample)
+- Sampling notes: Trương Liêu (miền Nam), Thầy Thắng (partial data)
+- Data Gap: Ẩm thực chưa được probe đủ
+
+## Confidence levels
+
+TODO: 3 levels — Cao / Trung bình / Tín hiệu sớm

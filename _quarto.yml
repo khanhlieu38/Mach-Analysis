@@ -1,35 +1,47 @@
 project:
-  type: book
+  type: website
   output-dir: docs
 
-book:
-  title: "MẠCH — Research Reports"
-  author: "Lieu Duong Quoc Khanh — Data Scientist"
-  date: today
-  date-format: "DD/MM/YYYY"
-  language: vi
-  chapters:
-    - index.qmd
-    - part: "Non-Participant Interviews (2026)"
-      chapters:
-        - reports/nonparticipant-2026/01-dashboard.qmd
-        - reports/nonparticipant-2026/02-sample.qmd
-        - reports/nonparticipant-2026/03-theme1.qmd
-        - reports/nonparticipant-2026/04-theme2.qmd
-        - reports/nonparticipant-2026/05-language-bank.qmd
-        - reports/nonparticipant-2026/06-recommendations.qmd
+execute:
+  freeze: auto
+  echo: false
+  warning: false
+
+website:
+  title: "MẠCH · Nghiên cứu định tính"
+  navbar:
+    left:
+      - text: "Tổng quan"
+        file: index.qmd
+      - text: "Pre-tour Research 2026"
+        menu:
+          - text: "Overview"
+            file: studies/pretour-research-2026/overview.qmd
+          - text: "Phương pháp"
+            file: studies/pretour-research-2026/methodology.qmd
+          - text: "Phát hiện"
+            file: studies/pretour-research-2026/findings.qmd
+          - text: "12 Participants"
+            file: studies/pretour-research-2026/participants.qmd
+          - text: "Quote Bank"
+            file: studies/pretour-research-2026/quote-bank.qmd
+          - text: "---"
+          - text: "Tour Design Team"
+            file: studies/pretour-research-2026/audiences/tour-design.qmd
+          - text: "Content & Media Team"
+            file: studies/pretour-research-2026/audiences/content.qmd
+          - text: "Data Team"
+            file: studies/pretour-research-2026/audiences/data.qmd
+          - text: "Finance Team"
+            file: studies/pretour-research-2026/audiences/finance.qmd
 
 format:
   html:
     theme: cosmo
-    css: styles.css
+    css: shared/styles.css
     toc: true
     toc-depth: 3
-    toc-location: left
-    number-sections: true
+    number-sections: false
+    lang: vi
     code-fold: true
     code-summary: "Xem code"
-    lang: vi
-    date-format: "DD/MM/YYYY"
-    embed-resources: true
-    fig-responsive: true

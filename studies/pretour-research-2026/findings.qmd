@@ -1,0 +1,24 @@
+---
+title: "Phát hiện"
+jupyter: python3
+---
+
+## Pattern 1 — Tour Design
+
+TODO: definition, occurrence (~10/12), evidence quotes, implication
+
+## Pattern 2 — Social Dependency
+
+TODO
+
+## Pattern 3 — Identity Mismatch
+
+TODO
+
+## Patterns bổ sung
+
+TODO: Cảnh giác văn hoá dàn dựng, Phụ nữ tâm linh
+
+## 2 Signals mới cần explore
+
+TODO: Vietnamese Studies / Foreign Visitors, Destination Credibility

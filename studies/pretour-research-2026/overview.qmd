@@ -1,0 +1,19 @@
+---
+title: "Overview"
+---
+
+::: {.callout-note}
+**TL;DR** — TODO: 1 paragraph executive summary với key finding chính
+:::
+
+## Sample
+
+TODO: 1 paragraph prose giới thiệu 12 participants, 2 nhóm (7 chưa từng + 5 đã từng)
+
+## 3 patterns chính
+
+TODO: Pattern 1 (Tour Design), Pattern 2 (Social Dependency), Pattern 3 (Identity Mismatch)
+
+## 2 signals mới
+
+TODO: Vietnamese Studies / Foreign Visitors, Destination Credibility

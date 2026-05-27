@@ -1,0 +1,19 @@
+---
+title: "Cho Finance Team"
+---
+
+## Price bands theo profile
+
+TODO:
+
+- Hiếu: < 10 triệu
+- Dương: < 5 triệu
+- Chung: 200 triệu+
+
+## Cost delta table
+
+TODO: current pricing vs willingness-to-pay gap
+
+## Pricing implications cho pilot tour
+
+TODO
