@@ -1,0 +1,33 @@
+---
+title: "Quote Bank"
+jupyter: python3
+---
+
+```{python}
+#| label: setup
+#| echo: false
+
+import sys
+from pathlib import Path
+
+def _find_root(start):
+    for p in [start] + list(start.parents):
+        if (p / "_quarto.yml").exists():
+            return p
+    return start
+
+_root = _find_root(Path.cwd())
+sys.path.insert(0, str(_root / "shared"))
+
+from viz_helpers import load_study_data
+
+participants_df, quotes_df = load_study_data(_root / "studies" / "pretour-research-2026")
+```
+
+TODO: render searchable table từ `quotes_df` — ví dụ dùng `quotes_df.to_html()` hoặc thư viện `itables`.
+
+```{python}
+#| output: asis
+
+print(f"Total quotes: {len(quotes_df)}")
+```

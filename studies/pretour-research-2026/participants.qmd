@@ -1,0 +1,53 @@
+---
+title: "12 Participants — Deep Dives"
+---
+
+<!-- Ordered by convert likelihood: True Target → Non-target -->
+
+## P01 — [Tên] (True Target)
+
+TODO: Profile → 3-4 rào cản → Kết luận
+
+## P02 — Trương Liêu (True Convert)
+
+TODO
+
+## P03 — [Tên]
+
+TODO
+
+## P04 — [Tên]
+
+TODO
+
+## P05 — [Tên]
+
+TODO
+
+## P06 — [Tên]
+
+TODO
+
+## P07 — [Tên]
+
+TODO
+
+## P08 — [Tên]
+
+TODO
+
+## P09 — [Tên]
+
+TODO
+
+## P10 — [Tên]
+
+TODO
+
+## P11 — [Tên]
+
+TODO
+
+## P12 — [Tên] (Non-target)
+
+TODO

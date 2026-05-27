@@ -21,3 +21,15 @@ _output/
 
 # Local Claude Code config
 .claude/
+
+# Quarto freeze cache
+_freeze/
+*_files/
+*_cache/
+
+# Python environments
+.venv/
+venv/
+
+# Raw sensitive data per study
+studies/*/data/raw/

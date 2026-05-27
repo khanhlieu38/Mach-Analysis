@@ -1,0 +1,2 @@
+quote_id,pid,theme,subtheme,quote_full,quote_short,context,confidence_level,ref_id
+Q001,P01,convert_intent,decision,"Vô cùng ý nghĩa — cá nhân sẽ tham gia","sẽ tham gia","Khi được hỏi có tham gia tour không",high,T_P01_p2

@@ -1,38 +1,74 @@
-# MẠCH — Non-Participant Interview Analysis
+# MẠCH Analysis
 
-## Quick Start
+Quarto Website chứa các báo cáo nghiên cứu định tính cho dự án MẠCH — concept tour văn hóa trải nghiệm tại Việt Nam.
 
-### Prerequisites
-- Python 3.9+
-- Quarto CLI (https://quarto.org/docs/get-started/)
-- VS Code + Quarto extension (recommended)
+## Studies hiện có
 
-### Render report
+- **pretour-research-2026** — 12 phỏng vấn pre-tour, pilot Nam Định 07/2026
+
+## Setup
+
+Prerequisites: Python 3.9+, Quarto CLI, VS Code + Quarto extension.
+
 ```bash
-cd mach-nonparticipant-analysis
-quarto render report.qmd
+quarto preview     # local dev server
+quarto render      # build static site → docs/
 ```
 
-Output: `_output/report.html` — mở trong browser, share link cho team qua Notion.
+## Structure
 
-### File structure
 ```
-├── _quarto.yml              # Project config
-├── report.qmd               # Main report (narrative + code)
-├── data/
-│   ├── raw/                  # PII data — KHÔNG commit Git
-│   └── processed/
-│       └── interview_data.py # Structured interview data
-├── figures/                  # Charts (auto-generated)
-├── _output/                  # Rendered HTML/PDF
-└── .gitignore
+├── _quarto.yml                      # Website config, navbar
+├── index.qmd                        # Landing page
+├── shared/
+│   ├── styles.css                   # Prose-forward stylesheet
+│   └── viz_helpers.py               # Plotly chart functions (DataFrame-based)
+├── studies/
+│   └── pretour-research-2026/
+│       ├── data/
+│       │   ├── participants.csv     # 1 row per participant
+│       │   └── quotes.csv           # 1 row per quote/observation
+│       ├── overview.qmd
+│       ├── methodology.qmd
+│       ├── findings.qmd
+│       ├── participants.qmd
+│       ├── quote-bank.qmd
+│       └── audiences/
+│           ├── tour-design.qmd
+│           ├── content.qmd
+│           ├── data.qmd
+│           └── finance.qmd
+└── docs/                            # Output → GitHub Pages
 ```
 
-### Workflow cho tour tiếp theo
-1. Thu thập interview notes → đưa vào `data/raw/`
-2. Structure data → tạo file mới trong `data/processed/`
-3. Copy `report.qmd` → sửa narrative + update data source
-4. `quarto render` → review → share
+## Thêm study mới
 
-### PII Warning
-`data/raw/` chứa PII. KHÔNG commit lên Git. KHÔNG share ngoài team.
+1. Tạo `studies/<segment>-<year>/` theo cùng pattern
+2. Thêm `data/participants.csv` + `data/quotes.csv`
+3. Copy chapter templates từ `pretour-research-2026/`
+4. Cập nhật `_quarto.yml` → thêm navbar menu
+5. Cập nhật `index.qmd` → thêm link sang study mới
+
+## Import pattern cho chapters dùng Python
+
+```python
+import sys
+from pathlib import Path
+
+def _find_root(start):
+    for p in [start] + list(start.parents):
+        if (p / "_quarto.yml").exists():
+            return p
+    return start
+
+_root = _find_root(Path.cwd())
+sys.path.insert(0, str(_root / "shared"))
+
+from viz_helpers import load_study_data, diverging_bar, keyword_bar, barrier_heatmap
+
+participants_df, quotes_df = load_study_data(_root / "studies" / "pretour-research-2026")
+```
+
+## PII Warning
+
+`studies/*/data/raw/` chứa PII. KHÔNG commit lên Git. KHÔNG share ngoài team.
