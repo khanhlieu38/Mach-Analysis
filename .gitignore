@@ -35,4 +35,7 @@ venv/
 # Raw sensitive data per study
 studies/*/data/raw/
 
+# StatiCrypt salt file — contains encryption salt, never commit
+.staticrypt.json
+
 /.quarto/
