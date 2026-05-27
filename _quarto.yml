@@ -11,8 +11,6 @@ website:
   title: "MẠCH · Nghiên cứu định tính"
   navbar:
     left:
-      - text: "Tổng quan"
-        file: index.qmd
       - text: "Pre-tour Research 2026"
         menu:
           - text: "Overview"

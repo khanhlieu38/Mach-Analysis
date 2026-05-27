@@ -22,10 +22,11 @@ _output/
 # Local Claude Code config
 .claude/
 
-# Quarto freeze cache
+# Quarto freeze cache and execution artifacts
 _freeze/
 *_files/
 *_cache/
+*.quarto_ipynb
 
 # Python environments
 .venv/
@@ -33,3 +34,5 @@ venv/
 
 # Raw sensitive data per study
 studies/*/data/raw/
+
+/.quarto/
