@@ -1,0 +1,17 @@
+---
+title: "Ngân hàng ngôn ngữ — Input cho Content Team"
+---
+
+| Card đang dùng (suy từ phản ứng) | Non-participants tự nói |
+|---|---|
+| tìm hiểu, nghiên cứu, lịch sử | trải nghiệm, khám phá, thử |
+| kiến thức, thông tin | cảm xúc, cảm giác, bất ngờ |
+| chương trình, lịch trình | câu chuyện, con người, khoảnh khắc |
+| tín ngưỡng, đạo Mẫu | linh thiêng, kết nối, được trở thành con người thật |
+| hoạt động văn hóa biểu diễn | sống cùng, nấu ăn cùng, tham gia cùng |
+
+::: {.callout-tip}
+## Action cho Content Team
+
+Đếm số lần xuất hiện từ cột trái vs cột phải trong concept card hiện tại. Nếu cột trái > cột phải → rewrite. Mục tiêu: cột phải chiếm ≥70% từ khóa chính trên card.
+:::

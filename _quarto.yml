@@ -1,6 +1,23 @@
 project:
-  title: "MẠCH — Non-Participant Interview Analysis"
+  type: book
   output-dir: docs
+
+book:
+  title: "MẠCH — Research Reports"
+  author: "Lieu Duong Quoc Khanh — Data Scientist"
+  date: today
+  date-format: "DD/MM/YYYY"
+  language: vi
+  chapters:
+    - index.qmd
+    - part: "Non-Participant Interviews (2026)"
+      chapters:
+        - reports/nonparticipant-2026/01-dashboard.qmd
+        - reports/nonparticipant-2026/02-sample.qmd
+        - reports/nonparticipant-2026/03-theme1.qmd
+        - reports/nonparticipant-2026/04-theme2.qmd
+        - reports/nonparticipant-2026/05-language-bank.qmd
+        - reports/nonparticipant-2026/06-recommendations.qmd
 
 format:
   html:

@@ -1,0 +1,24 @@
+---
+title: "Giới thiệu"
+subtitle: "Data-driven briefs cho concept iteration | Internal use only"
+number-sections: false
+---
+
+Đây là tập hợp các báo cáo phân tích nghiên cứu người dùng phục vụ việc phát triển sản phẩm **MẠCH** — concept tour văn hóa trải nghiệm tại Việt Nam.
+
+## Các nghiên cứu
+
+### Non-Participant Interviews (2026)
+
+Phân tích 4 phỏng vấn sâu với người chưa từng tham gia tour văn hóa. Mục tiêu: hiểu barriers và ngôn ngữ của non-participant segment để iteration concept card trước pilot tour Nam Định (07/2026).
+
+- [Executive Dashboard](reports/nonparticipant-2026/01-dashboard.qmd) — KPIs và findings chính
+- [Sample Overview](reports/nonparticipant-2026/02-sample.qmd) — Profile 4 respondents
+- [Theme 1: Concept quá nặng kiến thức](reports/nonparticipant-2026/03-theme1.qmd)
+- [Theme 2: Trải nghiệm sống đậm hơn học thuật](reports/nonparticipant-2026/04-theme2.qmd)
+- [Ngân hàng ngôn ngữ](reports/nonparticipant-2026/05-language-bank.qmd) — Input cho Content Team
+- [Recommendations & Next Steps](reports/nonparticipant-2026/06-recommendations.qmd)
+
+## Cách dùng book này
+
+Mỗi chapter là một HTML file độc lập — có thể share trực tiếp link của từng chapter. Navigation sidebar bên trái cho phép di chuyển giữa các phần.

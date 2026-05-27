@@ -1,0 +1,68 @@
+---
+title: "Executive Dashboard"
+jupyter: python3
+number-sections: false
+---
+
+```{python}
+#| label: setup
+#| echo: false
+
+import sys
+from pathlib import Path
+
+def _find_root(start):
+    for p in [start] + list(start.parents):
+        if (p / "_quarto.yml").exists():
+            return p
+    return start
+
+sys.path.insert(0, str(_find_root(Path.cwd()) / "data" / "processed"))
+
+from interview_data import interviews
+from viz_helpers import kpi_tiles, finding_badges
+
+import warnings
+warnings.filterwarnings('ignore')
+```
+
+::: {.callout-important}
+## TL;DR
+
+**4/4 non-participants thấy concept "nặng kiến thức".** Concept card cần rewrite từ ngôn ngữ giáo dục ("học, biết, tìm hiểu") sang ngôn ngữ trải nghiệm ("gặp, cảm, làm") trước pilot tour Nam Định (07/2026).
+:::
+
+**Mục đích:** Phân tích 4 interviews với người chưa từng tham gia tour văn hóa, phục vụ concept iteration trước pilot tour Nam Định.
+
+```{python}
+#| label: kpi-dashboard
+#| echo: false
+#| output: asis
+
+print(kpi_tiles([
+    {"value": "4", "label": "Non-participants", "sub": "phỏng vấn sâu, có chủ đích"},
+    {"value": "4/4", "label": "Nêu 'kiến thức quá nặng'", "sub": "khi liệt kê barriers"},
+    {"value": "4/4", "label": "Phản ứng có điều kiện", "sub": "không ai 100% positive — đều kèm 'nhưng/nếu'"},
+    {"value": "0/4", "label": "Nhắc 'kiến thức'", "sub": "trong khoảnh khắc đáng nhớ"},
+]))
+```
+
+## Findings chính
+
+```{python}
+#| label: finding-badges
+#| echo: false
+#| output: asis
+
+findings = [
+    {"label": "Concept card đang nói ngôn ngữ giảng dạy, không phải mời trải nghiệm", "tier": "Cao"},
+    {"label": "Trải nghiệm sống / con người đậm hơn nội dung học thuật", "tier": "Trung bình"},
+    {"label": "Trust phải đến trước content — người dẫn dắt uy tín, vùng an toàn", "tier": "Trung bình"},
+    {"label": "Giá không phải barrier thật — perceived value mới là vấn đề", "tier": "Tín hiệu sớm"},
+]
+print(finding_badges(findings))
+```
+
+::: {.callout-note}
+**Giới hạn:** n=4, non-participant segment only. Data là interview notes (đã qua filter của interviewer), không phải verbatim transcript.
+:::
