@@ -15,6 +15,17 @@ quarto preview     # local dev server
 quarto render      # build static site → docs/
 ```
 
+## Writing & Editing
+
+Trước khi viết content cho bất kỳ chapter nào, đọc [CONVENTIONS.md](CONVENTIONS.md) — đây là contract giữa người viết và stylesheet/structure. Cover:
+
+- Document architecture (findings vs audiences) + write order bắt buộc
+- Confidence label criteria (Cao / Trung bình / Tín hiệu sớm)
+- ref_id format cho audit trail
+- CSV scope (what goes in, what doesn't)
+- Freeze gotcha workaround khi update CSV
+- Prose-forward writing rules + callout discipline
+
 ## Structure
 
 ```
