@@ -1,0 +1,61 @@
+---
+title: "Theme 2 — Trải nghiệm sống đậm hơn nội dung học thuật"
+jupyter: python3
+---
+
+```{python}
+#| label: setup
+#| echo: false
+
+import sys
+from pathlib import Path
+
+def _find_root(start):
+    for p in [start] + list(start.parents):
+        if (p / "_quarto.yml").exists():
+            return p
+    return start
+
+sys.path.insert(0, str(_find_root(Path.cwd()) / "data" / "processed"))
+
+from interview_data import interviews
+from viz_helpers import keyword_bar, quote_cards
+
+import warnings
+warnings.filterwarnings('ignore')
+```
+
+Khi nhớ lại trải nghiệm du lịch tốt nhất: **2/4 (NP01, NP03)** mô tả rõ kết nối với con người ("nhảy múa với người lạ", "sống với người bản địa"); **2/4 (NP02, NP04)** mô tả cuộc sống / nơi chốn / trekking. Điểm chung **4/4**: không ai nhắc "kiến thức" hay "thông tin" trong khoảnh khắc đáng nhớ — trải nghiệm sống đậm hơn nội dung học thuật.
+
+## Từ khóa "trải nghiệm lý tưởng"
+
+```{python}
+#| label: fig-keywords
+#| echo: false
+#| fig-cap: "Tần suất keyword — hover để xem ai đã nhắc"
+
+keyword_bar(interviews).show()
+```
+
+## Khoảnh khắc đáng nhớ nhất
+
+```{python}
+#| label: theme2-moments
+#| echo: false
+#| output: asis
+
+print(quote_cards(interviews, ('ideal_experience', 'memorable_moment')))
+```
+
+NP01 articulate rõ hai tầng nghĩa của "con người" trong du lịch:
+
+- **Nghĩa đen:** Chủ thể văn hóa hiện hữu tại thời điểm đó (nghệ nhân, người dân địa phương)
+- **Nghĩa bóng:** Khoảnh khắc giao thoa giữa bản thân và người bản địa
+
+::: {.callout-important}
+## Product Thinking — Ai làm gì khác?
+
+- **Content team:** Đặt câu "bạn sẽ GẶP ai?" trước câu "bạn sẽ BIẾT gì?"
+- **Tour design (Trang):** Mỗi block trong itinerary có yếu tố con người thật — không phải video, không phải tái hiện
+- **Marketing:** Testimonial sau pilot capture khoảnh khắc kết nối, không phải kiến thức thu được
+:::

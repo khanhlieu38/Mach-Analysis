@@ -1,0 +1,71 @@
+---
+title: "Theme 1 — Concept quá \"nặng kiến thức\""
+jupyter: python3
+---
+
+```{python}
+#| label: setup
+#| echo: false
+
+import sys
+from pathlib import Path
+
+def _find_root(start):
+    for p in [start] + list(start.parents):
+        if (p / "_quarto.yml").exists():
+            return p
+    return start
+
+sys.path.insert(0, str(_find_root(Path.cwd()) / "data" / "processed"))
+
+from interview_data import interviews
+from viz_helpers import diverging_bar, barrier_heatmap, quote_cards
+
+neg_keywords = ['kén', 'hàn lâm', 'sợ', 'ngộp', 'nặng', 'khô khan',
+                'cứng ngắc', 'nghiên cứu', 'học tập', 'mệt']
+pos_keywords = ['hay', 'mới', 'vui', 'trải nghiệm', 'hứng thú', 'phong phú', 'thú vị']
+
+import warnings
+warnings.filterwarnings('ignore')
+```
+
+Cả 4 người đều thấy concept card quá nặng kiến thức — đây là barrier nhất quán nhất. Khác biệt nằm ở mức độ và cách diễn đạt: 2 người (NP01, NP02) phản ứng tiêu cực ngay từ đầu, 2 người còn lại (NP03, NP04) phản ứng tích cực rồi kèm qualifier "nhưng nặng kiến thức / cần đồng hành".
+
+## Phản ứng đầu tiên với concept card
+
+```{python}
+#| label: fig-diverging
+#| echo: false
+#| fig-cap: "Diverging bar — di chuyển chuột vào thanh để xem keyword cụ thể"
+
+diverging_bar(interviews, neg_keywords, pos_keywords).show()
+```
+
+```{python}
+#| label: theme1-quotes
+#| echo: false
+#| output: asis
+
+print(quote_cards(interviews, ('concept_reaction', 'first_impression')))
+```
+
+## Cross-check: Khi hỏi về barriers nói chung
+
+```{python}
+#| label: fig-barriers
+#| echo: false
+#| fig-cap: "Heatmap — hover vào ô để xem barrier raw text"
+
+barrier_categories = {
+    'Kiến thức quá nặng': ['hàn lâm', 'kiến thức', 'khô khan', 'nghiên cứu',
+                           'ngộp', 'thông tin', 'lĩnh hội', 'nhồi nhét'],
+    'Thiếu trust/an toàn': ['sợ', 'uy tín', 'hook', 'chưa biết'],
+    'Thiếu người đồng hành': ['đồng hành', 'bạn bè', 'chủ động'],
+    'Không phù hợp lifestyle': ['gia đình', 'con', 'an toàn', 'nghỉ dưỡng'],
+    'Thiếu hoạt động/flexibility': ['cứng ngắc', 'sôi nổi', 'hoạt động']
+}
+
+barrier_heatmap(interviews, barrier_categories).show()
+```
+
+**"Kiến thức quá nặng" là barrier duy nhất xuất hiện ở 4/4** — saturation đạt. Các barrier khác (trust, đồng hành, lifestyle, flexibility) phân hóa theo profile cá nhân, không có pattern dominant nào ngoài kiến thức.

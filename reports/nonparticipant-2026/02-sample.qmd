@@ -1,0 +1,45 @@
+---
+title: "Sample Overview"
+jupyter: python3
+---
+
+```{python}
+#| label: setup
+#| echo: false
+
+import sys
+from pathlib import Path
+
+def _find_root(start):
+    for p in [start] + list(start.parents):
+        if (p / "_quarto.yml").exists():
+            return p
+    return start
+
+sys.path.insert(0, str(_find_root(Path.cwd()) / "data" / "processed"))
+
+from interview_data import interviews
+from viz_helpers import profile_cards
+
+import warnings
+warnings.filterwarnings('ignore')
+```
+
+Profile rất đa dạng — từ senior business 50+ (budget >50M) đến nhân viên văn phòng 18–29. Đây là strength (nhiều góc nhìn) nhưng cũng là limitation (không thể generalize cho 1 segment cụ thể).
+
+```{python}
+#| label: profile-cards
+#| echo: false
+#| output: asis
+
+print(profile_cards(interviews))
+```
+
+::: {.callout-note}
+## WYSIATI Check — Ai thiếu trong sample?
+
+- Không có nam giới trẻ (20-30) làm nghề tự do/sáng tạo
+- Không có người từ ngoài Hà Nội/miền Bắc
+- Không có người đã từng đi tour văn hóa (participant segment)
+- Không có người có background tín ngưỡng/tâm linh sâu
+:::
