@@ -1,0 +1,338 @@
+[
+  {
+    "objectID": "studies/pretour-research-2026/quote-bank.html",
+    "href": "studies/pretour-research-2026/quote-bank.html",
+    "title": "Quote Bank",
+    "section": "",
+    "text": "TODO: render searchable table từ quotes_df — ví dụ dùng quotes_df.to_html() hoặc thư viện itables.\nTotal quotes: 1"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/overview.html",
+    "href": "studies/pretour-research-2026/overview.html",
+    "title": "Overview",
+    "section": "",
+    "text": "Note\n\n\n\nTL;DR — TODO: 1 paragraph executive summary với key finding chính"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/overview.html#sample",
+    "href": "studies/pretour-research-2026/overview.html#sample",
+    "title": "Overview",
+    "section": "Sample",
+    "text": "Sample\nTODO: 1 paragraph prose giới thiệu 12 participants, 2 nhóm (7 chưa từng + 5 đã từng)"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/overview.html#patterns-chính",
+    "href": "studies/pretour-research-2026/overview.html#patterns-chính",
+    "title": "Overview",
+    "section": "3 patterns chính",
+    "text": "3 patterns chính\nTODO: Pattern 1 (Tour Design), Pattern 2 (Social Dependency), Pattern 3 (Identity Mismatch)"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/overview.html#signals-mới",
+    "href": "studies/pretour-research-2026/overview.html#signals-mới",
+    "title": "Overview",
+    "section": "2 signals mới",
+    "text": "2 signals mới\nTODO: Vietnamese Studies / Foreign Visitors, Destination Credibility"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/findings.html",
+    "href": "studies/pretour-research-2026/findings.html",
+    "title": "Phát hiện",
+    "section": "",
+    "text": "TODO: definition, occurrence (~10/12), evidence quotes, implication"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/findings.html#pattern-1-tour-design",
+    "href": "studies/pretour-research-2026/findings.html#pattern-1-tour-design",
+    "title": "Phát hiện",
+    "section": "",
+    "text": "TODO: definition, occurrence (~10/12), evidence quotes, implication"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/findings.html#pattern-2-social-dependency",
+    "href": "studies/pretour-research-2026/findings.html#pattern-2-social-dependency",
+    "title": "Phát hiện",
+    "section": "Pattern 2 — Social Dependency",
+    "text": "Pattern 2 — Social Dependency\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/findings.html#pattern-3-identity-mismatch",
+    "href": "studies/pretour-research-2026/findings.html#pattern-3-identity-mismatch",
+    "title": "Phát hiện",
+    "section": "Pattern 3 — Identity Mismatch",
+    "text": "Pattern 3 — Identity Mismatch\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/findings.html#patterns-bổ-sung",
+    "href": "studies/pretour-research-2026/findings.html#patterns-bổ-sung",
+    "title": "Phát hiện",
+    "section": "Patterns bổ sung",
+    "text": "Patterns bổ sung\nTODO: Cảnh giác văn hoá dàn dựng, Phụ nữ tâm linh"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/findings.html#signals-mới-cần-explore",
+    "href": "studies/pretour-research-2026/findings.html#signals-mới-cần-explore",
+    "title": "Phát hiện",
+    "section": "2 Signals mới cần explore",
+    "text": "2 Signals mới cần explore\nTODO: Vietnamese Studies / Foreign Visitors, Destination Credibility"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/finance.html",
+    "href": "studies/pretour-research-2026/audiences/finance.html",
+    "title": "Cho Finance Team",
+    "section": "",
+    "text": "TODO:\n\nHiếu: &lt; 10 triệu\nDương: &lt; 5 triệu\nChung: 200 triệu+"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/finance.html#price-bands-theo-profile",
+    "href": "studies/pretour-research-2026/audiences/finance.html#price-bands-theo-profile",
+    "title": "Cho Finance Team",
+    "section": "",
+    "text": "TODO:\n\nHiếu: &lt; 10 triệu\nDương: &lt; 5 triệu\nChung: 200 triệu+"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/finance.html#cost-delta-table",
+    "href": "studies/pretour-research-2026/audiences/finance.html#cost-delta-table",
+    "title": "Cho Finance Team",
+    "section": "Cost delta table",
+    "text": "Cost delta table\nTODO: current pricing vs willingness-to-pay gap"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/finance.html#pricing-implications-cho-pilot-tour",
+    "href": "studies/pretour-research-2026/audiences/finance.html#pricing-implications-cho-pilot-tour",
+    "title": "Cho Finance Team",
+    "section": "Pricing implications cho pilot tour",
+    "text": "Pricing implications cho pilot tour\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/content.html",
+    "href": "studies/pretour-research-2026/audiences/content.html",
+    "title": "Cho Content & Media Team",
+    "section": "",
+    "text": "TODO: cột trái (card đang dùng) vs cột phải (vocabulary participants tự dùng)"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/content.html#language-bank",
+    "href": "studies/pretour-research-2026/audiences/content.html#language-bank",
+    "title": "Cho Content & Media Team",
+    "section": "",
+    "text": "TODO: cột trái (card đang dùng) vs cột phải (vocabulary participants tự dùng)"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/content.html#verbatim-quotes-có-thể-dùng-làm-copy",
+    "href": "studies/pretour-research-2026/audiences/content.html#verbatim-quotes-có-thể-dùng-làm-copy",
+    "title": "Cho Content & Media Team",
+    "section": "Verbatim quotes có thể dùng làm copy",
+    "text": "Verbatim quotes có thể dùng làm copy\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/content.html#media-strategy-theo-segment",
+    "href": "studies/pretour-research-2026/audiences/content.html#media-strategy-theo-segment",
+    "title": "Cho Content & Media Team",
+    "section": "Media strategy theo segment",
+    "text": "Media strategy theo segment\nTODO"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "MẠCH · Nghiên cứu định tính",
+    "section": "",
+    "text": "TODO: 2-3 paragraph intro về MẠCH research program và mục tiêu."
+  },
+  {
+    "objectID": "index.html#studies-hiện-có",
+    "href": "index.html#studies-hiện-có",
+    "title": "MẠCH · Nghiên cứu định tính",
+    "section": "Studies hiện có",
+    "text": "Studies hiện có\n\nPre-tour Research 2026\n12 phỏng vấn sâu với người tham gia tiềm năng — phân tích pre-tour cho pilot Nam Định 07/2026.\n→ Vào Overview\nMore studies will appear here as they’re added."
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/data.html",
+    "href": "studies/pretour-research-2026/audiences/data.html",
+    "title": "Cho Data Team",
+    "section": "",
+    "text": "TODO: semi-structured design, saturation notes"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/data.html#methodology-reflection",
+    "href": "studies/pretour-research-2026/audiences/data.html#methodology-reflection",
+    "title": "Cho Data Team",
+    "section": "",
+    "text": "TODO: semi-structured design, saturation notes"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/data.html#codebook",
+    "href": "studies/pretour-research-2026/audiences/data.html#codebook",
+    "title": "Cho Data Team",
+    "section": "Codebook",
+    "text": "Codebook\nTODO: themes, subthemes, confidence levels"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/data.html#next-research-questions",
+    "href": "studies/pretour-research-2026/audiences/data.html#next-research-questions",
+    "title": "Cho Data Team",
+    "section": "Next research questions",
+    "text": "Next research questions\nTODO:\n\nẨm thực hypothesis (chưa được probe đủ trong study này)\nForeign Visitors / Vietnamese Studies hypothesis\nFollow-up survey design cho post-pilot"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/data.html#data-gaps",
+    "href": "studies/pretour-research-2026/audiences/data.html#data-gaps",
+    "title": "Cho Data Team",
+    "section": "Data gaps",
+    "text": "Data gaps\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/tour-design.html",
+    "href": "studies/pretour-research-2026/audiences/tour-design.html",
+    "title": "Cho Tour Design Team",
+    "section": "",
+    "text": "TODO: barriers liên quan đến tour design"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/tour-design.html#action-items",
+    "href": "studies/pretour-research-2026/audiences/tour-design.html#action-items",
+    "title": "Cho Tour Design Team",
+    "section": "3 action items",
+    "text": "3 action items\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/tour-design.html#pattern-cảnh-giác-văn-hoá-dàn-dựng-giả",
+    "href": "studies/pretour-research-2026/audiences/tour-design.html#pattern-cảnh-giác-văn-hoá-dàn-dựng-giả",
+    "title": "Cho Tour Design Team",
+    "section": "Pattern — Cảnh giác văn hoá dàn dựng giả",
+    "text": "Pattern — Cảnh giác văn hoá dàn dựng giả\nTODO: evidence quotes, implication cho itinerary design"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/audiences/tour-design.html#quotes-hỗ-trợ",
+    "href": "studies/pretour-research-2026/audiences/tour-design.html#quotes-hỗ-trợ",
+    "title": "Cho Tour Design Team",
+    "section": "Quotes hỗ trợ",
+    "text": "Quotes hỗ trợ\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/methodology.html",
+    "href": "studies/pretour-research-2026/methodology.html",
+    "title": "Phương pháp",
+    "section": "",
+    "text": "TODO: semi-structured interviews, recruitment, ethics"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/methodology.html#thiết-kế-nghiên-cứu",
+    "href": "studies/pretour-research-2026/methodology.html#thiết-kế-nghiên-cứu",
+    "title": "Phương pháp",
+    "section": "",
+    "text": "TODO: semi-structured interviews, recruitment, ethics"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/methodology.html#sample-12-participants",
+    "href": "studies/pretour-research-2026/methodology.html#sample-12-participants",
+    "title": "Phương pháp",
+    "section": "Sample (12 participants)",
+    "text": "Sample (12 participants)\nTODO: table demographic từ participants.csv"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/methodology.html#limitations",
+    "href": "studies/pretour-research-2026/methodology.html#limitations",
+    "title": "Phương pháp",
+    "section": "Limitations",
+    "text": "Limitations\nTODO:\n\nWYSIATI check (ai vắng mặt trong sample)\nSampling notes: Trương Liêu (miền Nam), Thầy Thắng (partial data)\nData Gap: Ẩm thực chưa được probe đủ"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/methodology.html#confidence-levels",
+    "href": "studies/pretour-research-2026/methodology.html#confidence-levels",
+    "title": "Phương pháp",
+    "section": "Confidence levels",
+    "text": "Confidence levels\nTODO: 3 levels — Cao / Trung bình / Tín hiệu sớm"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/participants.html",
+    "href": "studies/pretour-research-2026/participants.html",
+    "title": "12 Participants — Deep Dives",
+    "section": "",
+    "text": "TODO: Profile → 3-4 rào cản → Kết luận"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/participants.html#p01-tên-true-target",
+    "href": "studies/pretour-research-2026/participants.html#p01-tên-true-target",
+    "title": "12 Participants — Deep Dives",
+    "section": "",
+    "text": "TODO: Profile → 3-4 rào cản → Kết luận"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/participants.html#p02-trương-liêu-true-convert",
+    "href": "studies/pretour-research-2026/participants.html#p02-trương-liêu-true-convert",
+    "title": "12 Participants — Deep Dives",
+    "section": "P02 — Trương Liêu (True Convert)",
+    "text": "P02 — Trương Liêu (True Convert)\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/participants.html#p03-tên",
+    "href": "studies/pretour-research-2026/participants.html#p03-tên",
+    "title": "12 Participants — Deep Dives",
+    "section": "P03 — [Tên]",
+    "text": "P03 — [Tên]\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/participants.html#p04-tên",
+    "href": "studies/pretour-research-2026/participants.html#p04-tên",
+    "title": "12 Participants — Deep Dives",
+    "section": "P04 — [Tên]",
+    "text": "P04 — [Tên]\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/participants.html#p05-tên",
+    "href": "studies/pretour-research-2026/participants.html#p05-tên",
+    "title": "12 Participants — Deep Dives",
+    "section": "P05 — [Tên]",
+    "text": "P05 — [Tên]\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/participants.html#p06-tên",
+    "href": "studies/pretour-research-2026/participants.html#p06-tên",
+    "title": "12 Participants — Deep Dives",
+    "section": "P06 — [Tên]",
+    "text": "P06 — [Tên]\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/participants.html#p07-tên",
+    "href": "studies/pretour-research-2026/participants.html#p07-tên",
+    "title": "12 Participants — Deep Dives",
+    "section": "P07 — [Tên]",
+    "text": "P07 — [Tên]\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/participants.html#p08-tên",
+    "href": "studies/pretour-research-2026/participants.html#p08-tên",
+    "title": "12 Participants — Deep Dives",
+    "section": "P08 — [Tên]",
+    "text": "P08 — [Tên]\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/participants.html#p09-tên",
+    "href": "studies/pretour-research-2026/participants.html#p09-tên",
+    "title": "12 Participants — Deep Dives",
+    "section": "P09 — [Tên]",
+    "text": "P09 — [Tên]\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/participants.html#p10-tên",
+    "href": "studies/pretour-research-2026/participants.html#p10-tên",
+    "title": "12 Participants — Deep Dives",
+    "section": "P10 — [Tên]",
+    "text": "P10 — [Tên]\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/participants.html#p11-tên",
+    "href": "studies/pretour-research-2026/participants.html#p11-tên",
+    "title": "12 Participants — Deep Dives",
+    "section": "P11 — [Tên]",
+    "text": "P11 — [Tên]\nTODO"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/participants.html#p12-tên-non-target",
+    "href": "studies/pretour-research-2026/participants.html#p12-tên-non-target",
+    "title": "12 Participants — Deep Dives",
+    "section": "P12 — [Tên] (Non-target)",
+    "text": "P12 — [Tên] (Non-target)\nTODO"
+  }
+]
