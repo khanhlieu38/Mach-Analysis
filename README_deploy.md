@@ -36,7 +36,7 @@ rm -rf _freeze/ && bash deploy.sh
 
 - **KHÔNG share password qua email.** Chỉ Zalo/Slack riêng tư.
 - Password không được lưu trong bất kỳ file nào trong repo.
-- `.staticrypt.json` (salt file) đã trong `.gitignore` — không commit.
+- `.staticrypt.json` (salt file) **nên commit** — chứa encryption salt, giúp git diff clean. Không chứa password.
 - Nếu cần đổi password: chạy lại `deploy.sh` với password mới — toàn bộ HTML sẽ được re-encrypt.
 
 ## Test local
