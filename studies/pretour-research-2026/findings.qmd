@@ -148,6 +148,27 @@ PATTERN_INTERPRETATION = {
         "— một người được mời kéo thêm 1-2 người quen. Cần quan sát xem pilot tháng 7/2026 "
         "có xác nhận điều này không. Chi tiết về cách tiếp cận → trang Leadership."
     ),
+    "P4": (
+        "Bảy trong 14 người nhắc đến lo ngại về văn hoá dàn dựng — nhưng **quan điểm "
+        "không đồng nhất**, và sự khác biệt đó chính là insight quan trọng nhất của pattern này.\n\n"
+        "Nhóm phản đối rõ (P01, P06, P14): cảm giác \"bị diễn\" xuất hiện khi người địa phương "
+        "đóng vai thay vì sống thật — tour Hà Tây tái hiện hoạt ảnh, làng du lịch Trung Quốc, "
+        "chợ Măng Đen bị người Kinh thuê lại. Cơ chế chung: khách nhận ra ranh giới giữa "
+        "\"đang sống\" và \"đang diễn cho mình xem.\"\n\n"
+        "Nhóm chấp nhận có điều kiện (P08, P11): dàn dựng *có tổ chức, chuyên nghiệp* thì "
+        "tích cực — là hình thức quảng bá văn hoá. Vấn đề chỉ xảy ra khi có *biến tấu* "
+        "làm mất đi bản chất gốc.\n\n"
+        "Nhóm định nghĩa lại (P07, P09): hai trường hợp này không phủ nhận dàn dựng mà "
+        "đặt tiêu chí khác — P09 nói thẳng authenticity là sự chân thành trong thái độ "
+        "phục vụ, không phải hình thức; P07 thấy cho thuê trang phục hầu đồng để chụp ảnh "
+        "là tích cực. Đây là tổng hợp từ hai góc nhìn riêng biệt, không phải định nghĩa "
+        "chung của cả nhóm.\n\n"
+        "**Câu hỏi thiết kế chưa có câu trả lời** *(suy luận từ data, không phải lời khách trực tiếp)*: "
+        "pattern này đặt ra một câu hỏi mà pilot tháng 7/2026 phải trả lời — với hầu đồng tại Phủ Dầy, "
+        "ranh giới giữa \"nghi lễ thật có khách chứng kiến\" và \"nghi lễ được sắp xếp cho khách xem\" "
+        "trông như thế nào trong thực tế, và MẠCH sẽ giải thích ranh giới đó với khách như thế nào "
+        "khi được hỏi? Chi tiết → trang Tour-design."
+    ),
 }
 ```
 
