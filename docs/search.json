@@ -49,67 +49,74 @@
     "text": "Cohort 1 — 14 phỏng vấn semi-structured pre-tour cho pilot Nam Định 7/2026. Phát hiện chia 3 lớp: patterns (rào cản lặp lại), hypothesis (giả thuyết chưa có data trực tiếp), signals (cơ hội cần explore). Số occurrence trong trang compute từ data/quotes.csv qua shared/viz_helpers.py — KHÔNG hardcode (Rule #1)."
   },
   {
-    "objectID": "studies/pretour-research-2026/findings.html#p1-tour-design-quá-thụ-động-cao",
-    "href": "studies/pretour-research-2026/findings.html#p1-tour-design-quá-thụ-động-cao",
+    "objectID": "studies/pretour-research-2026/findings.html#bảng-tổng-9-finding-theo-độ-tin-cậy",
+    "href": "studies/pretour-research-2026/findings.html#bảng-tổng-9-finding-theo-độ-tin-cậy",
     "title": "Phát hiện",
-    "section": "P1 — Tour Design quá thụ động (Cao)",
-    "text": "P1 — Tour Design quá thụ động (Cao)\nTODO: definition, evidence quotes, implication cho tour design.\n(chưa extract data)"
+    "section": "Bảng tổng — 9 finding theo độ tin cậy",
+    "text": "Bảng tổng — 9 finding theo độ tin cậy\n\n\n\n\n\n\n\n\n\n\nPattern\nOccurrence\nLens\nConfidence\nNote\n\n\n\n\nP1 — Tour Design quá thụ động\n11/14\n7 KH / 4 ngành\nCao\nĐa số nguồn là khách thật, không phải artifact ngành.\n\n\nP2 — Social Dependency (người đồng hành/gia đình là yếu tố quyết định)\n5/14\n4 KH / 1 ngành\nCao\nĐúng sàn (~5 nguồn) + 2 ngoại lệ thoải mái đi một mình (P03, P07) — phải ghi kèm 2 ngoại lệ khi báo cáo để minh bạch.\n\n\nP3 — Identity Mismatch (“tour cho người khác, không hẳn tôi”)\n10/14\n7 KH / 2 ngành / 1 lead\nTrung bình\nNhiều nguồn (~10) nhưng TRÁI CHIỀU — một số tự loại, một số tự nhận hợp. TB vì thiếu đồng thuận, KHÔNG phải vì ít nguồn. Mâu thuẫn = bản đồ phân khúc (ai self-include vs self-exclude).\n\n\nP4 — Cảnh giác văn hoá “dàn dựng giả”\n7/14\n4 KH / 2 ngành / 1 lead\nTrung bình\n—\n\n\nP5 — Destination Credibility (Nam Định)\n7/14\n4 KH / 2 ngành / 1 lead\nTrung bình\nLà PATTERN (rào cản về uy tín điểm đến), KHÔNG phải signal.\n\n\nS2 — Ẩm thực là đòn bẩy soft\n6/14\n2 KH / 3 ngành / 1 lead (thiên góc nhìn ngành)\nTrung bình\nNâng từ “tín hiệu sớm” — ~6 nguồn, nhu cầu thật trong mẫu. Thiên góc nhìn ngành. SIGNAL có action pilot, KHÔNG phải data gap.\n\n\nP6 — Familiarity Bias văn hoá trong nước (“quá quen, không novel”)\n1/14\n1 KH\nTín hiệu sớm\nChỉ 1 nguồn (P05) — ngưỡng tối thiểu; watch-item cohort 2. KHÔNG gán “gốc Nam Định”.\n\n\nS1 — Vietnamese Studies / Khách nước ngoài\n5/14\n2 KH / 3 ngành (thiên góc nhìn ngành)\nHypothesis\nNhiều nguồn (~5) NHƯNG là phỏng đoán của mẫu về nhóm VẮNG MẶT (khách nước ngoài KHÔNG có trong mẫu) → claim “Tây muốn tour này” CHƯA kiểm được từ data này — cần kiểm với khách nước ngoài thật. Thiên góc nhìn ngành.\n\n\nH1 — Khách quan tâm tín ngưỡng\n4/14\n2 KH / 1 ngành / 1 lead\nHypothesis\nPhạm vi tín ngưỡng BROAD (Phật giáo + Đạo Mẫu + …), KHÔNG chỉ Đạo Mẫu. Nguồn gồm cả nam (P01) lẫn nữ → gender-neutral; báo cáo ghi trung thực “lệch nữ trong mẫu”, TUYỆT ĐỐI KHÔNG “phụ nữ tâm linh”. Caveat: quan tâm tâm linh broad ≠ quan tâm tour Đạo Mẫu cụ thể."
   },
   {
-    "objectID": "studies/pretour-research-2026/findings.html#p2-social-dependency-cao",
-    "href": "studies/pretour-research-2026/findings.html#p2-social-dependency-cao",
+    "objectID": "studies/pretour-research-2026/findings.html#p1-tour-design-quá-thụ-động",
+    "href": "studies/pretour-research-2026/findings.html#p1-tour-design-quá-thụ-động",
     "title": "Phát hiện",
-    "section": "P2 — Social Dependency (Cao)",
-    "text": "P2 — Social Dependency (Cao)\nTODO: definition, evidence, implication.\n(chưa extract data)"
+    "section": "P1 — Tour Design quá thụ động",
+    "text": "P1 — Tour Design quá thụ động\n11/14 khách nhắc · lens: 7 KH / 4 ngành · độ tin cậy: Cao\n\n\n\n\n\n\nNote\n\n\n\nĐa số nguồn là khách thật, không phải artifact ngành.\n\n\n\n“Cần guide uy tín có bằng cấp; chuyên gia nửa vời = không đi”\n— P01 · T_P01_2026Q1_p8\n\n\n“Quá nhiều lịch sử + di chuyển → không enjoy”\n— P03 · T_P03_2026Q1_p3\n\n\n“3n2đ ngộp; cần activity nghỉ ngơi; quá nặng”\n— P02 · T_P02_2026Q1_p10\n\n“Quá nhiều” ở đây là vấn đề liều và cách truyền, không phải khẩu vị: khách phản ứng với lịch trình dày + việc ngồi nghe thụ động, không phải với chiều sâu văn hoá — tín hiệu “muốn nông hơn” rất mỏng (chủ yếu P02 và vài giọng thiên giải trí), còn “quá nhiều” hầu hết nói về số điểm/lịch trình.\nHệ quả: giữ chiều sâu (đó là USP của MẠCH), nhưng giảm liều (bớt điểm mỗi ngày) và chuyển phần thụ động thành khách tự tay làm. Ca khó nhất là Đạo Mẫu — dễ trượt thành “xem diễn”: hoạt động phải để khách dự-vào được, không dàn dựng nghi lễ thành trò diễn (P4), và do đồng thầy/đền duyệt (FPIC). Chi tiết thiết kế lịch trình → trang Tour-design."
   },
   {
-    "objectID": "studies/pretour-research-2026/findings.html#p3-identity-mismatch-trung-bình",
-    "href": "studies/pretour-research-2026/findings.html#p3-identity-mismatch-trung-bình",
+    "objectID": "studies/pretour-research-2026/findings.html#p2-social-dependency-người-đồng-hànhgia-đình-là-yếu-tố-quyết-định",
+    "href": "studies/pretour-research-2026/findings.html#p2-social-dependency-người-đồng-hànhgia-đình-là-yếu-tố-quyết-định",
     "title": "Phát hiện",
-    "section": "P3 — Identity Mismatch (Trung bình)",
-    "text": "P3 — Identity Mismatch (Trung bình)\nTODO: definition, evidence, implication.\n(chưa extract data)"
+    "section": "P2 — Social Dependency (người đồng hành/gia đình là yếu tố quyết định)",
+    "text": "P2 — Social Dependency (người đồng hành/gia đình là yếu tố quyết định)\n5/14 khách nhắc · lens: 4 KH / 1 ngành · độ tin cậy: Cao\n\n\n\n\n\n\nNote\n\n\n\nĐúng sàn (~5 nguồn) + 2 ngoại lệ thoải mái đi một mình (P03, P07) — phải ghi kèm 2 ngoại lệ khi báo cáo để minh bạch.\n\n\n\n“Bị động — đi theo bạn”\n— P04 · T_P04_2026Q1_p13\n\n\n“Bạn đi cùng quyết định việc đi, KHÔNG phải điểm đến”\n— P11 · T_P11_2026Q1_p7\n\n\n“Phải có bạn mới đi (single biggest barrier)”\n— P05 · T_P05_2026Q1_p15\n\nRào cản không phải “không muốn đi” mà là không có đúng người đi cùng. Bốn trong 9 khách thuần (P04, P05, P06, P10) và thêm P11 từ góc nhìn ngành đều cho thấy quyết định đi không hoàn toàn cá nhân, mà bị chi phối bởi người thân thiết đi cùng hoặc người có quyền kéo họ vào chuyến đi.\nHai mức độ: P05 ở mức mạnh — người đồng hành là rào cản lớn nhất, không đi nếu thiếu. P06 và P10 là hai biến thể khác: P06 không bị kéo bởi bạn bè nhưng có thể đi nếu bố mẹ rủ trong khung tín ngưỡng; P10 đã có mức độ quan tâm cao, nhưng quyết định du lịch vẫn xoay quanh con cái và người thân chung mục đích. P04 là trường hợp hỗn hợp: ảnh hưởng bởi bạn bè rủ, nhưng rào cản chính là giai đoạn sống (con nhỏ, ưu tiên nghỉ dưỡng an toàn).\nCần phân biệt: phụ thuộc người đồng hành ≠ cần bằng chứng xã hội. P07 cần thấy người đã đi trước review — đó là bài toán niềm tin, không phải đồng hành.\nGiả thuyết cần kiểm chứng ở pilot: Nếu MẠCH mời đúng người trong một nhóm bạn bè thay vì để từng người tự đăng ký, có thể tạo ra cơ chế kéo tự nhiên — một người được mời kéo thêm 1-2 người quen. Cần quan sát xem pilot tháng 7/2026 có xác nhận điều này không. Chi tiết về cách tiếp cận → trang Leadership."
   },
   {
-    "objectID": "studies/pretour-research-2026/findings.html#p4-cảnh-giác-văn-hoá-dàn-dựng-giả-trung-bình",
-    "href": "studies/pretour-research-2026/findings.html#p4-cảnh-giác-văn-hoá-dàn-dựng-giả-trung-bình",
+    "objectID": "studies/pretour-research-2026/findings.html#p3-identity-mismatch-tour-cho-người-khác-không-hẳn-tôi",
+    "href": "studies/pretour-research-2026/findings.html#p3-identity-mismatch-tour-cho-người-khác-không-hẳn-tôi",
     "title": "Phát hiện",
-    "section": "P4 — Cảnh giác văn hoá “dàn dựng giả” (Trung bình)",
-    "text": "P4 — Cảnh giác văn hoá “dàn dựng giả” (Trung bình)\nTODO: definition, evidence, implication cho itinerary design.\n(chưa extract data)"
+    "section": "P3 — Identity Mismatch (“tour cho người khác, không hẳn tôi”)",
+    "text": "P3 — Identity Mismatch (“tour cho người khác, không hẳn tôi”)\n10/14 khách nhắc · lens: 7 KH / 2 ngành / 1 lead · độ tin cậy: Trung bình\n\n\n\n\n\n\nNote\n\n\n\nNhiều nguồn (~10) nhưng TRÁI CHIỀU — một số tự loại, một số tự nhận hợp. TB vì thiếu đồng thuận, KHÔNG phải vì ít nguồn. Mâu thuẫn = bản đồ phân khúc (ai self-include vs self-exclude).\n\n\n\n“Hàn lâm, kén khách”\n— P01 · T_P01_2026Q1_p7\n\n\n“Concept không rõ target/segment”\n— P03 · T_P03_2026Q1_p3\n\n\n“Concept hàn lâm; target GenZ-GenY”\n— P14 · T_P14_2026Q1_p13\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
   },
   {
-    "objectID": "studies/pretour-research-2026/findings.html#p5-destination-credibility-nam-định-trung-bình",
-    "href": "studies/pretour-research-2026/findings.html#p5-destination-credibility-nam-định-trung-bình",
+    "objectID": "studies/pretour-research-2026/findings.html#p4-cảnh-giác-văn-hoá-dàn-dựng-giả",
+    "href": "studies/pretour-research-2026/findings.html#p4-cảnh-giác-văn-hoá-dàn-dựng-giả",
     "title": "Phát hiện",
-    "section": "P5 — Destination Credibility (Nam Định) (Trung bình)",
-    "text": "P5 — Destination Credibility (Nam Định) (Trung bình)\nTODO: definition, evidence — đây là PATTERN (rào cản về uy tín điểm đến), KHÔNG phải signal.\n(chưa extract data)"
+    "section": "P4 — Cảnh giác văn hoá “dàn dựng giả”",
+    "text": "P4 — Cảnh giác văn hoá “dàn dựng giả”\n7/14 khách nhắc · lens: 4 KH / 2 ngành / 1 lead · độ tin cậy: Trung bình\n\n“Tour Hà Tây mất hồn cốt”\n— P01 · T_P01_2026Q1_p7\n\n\n“Suggest cho thuê trang phục hầu đồng để chụp ảnh (staging tích cực)”\n— P07 · T_P07_2026Q1_p21\n\n\n“Măng đen: người Kinh thuê hết → mất tự nhiên”\n— P14 · T_P14_2026Q1_p14\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
   },
   {
-    "objectID": "studies/pretour-research-2026/findings.html#p6-familiarity-bias-văn-hoá-trong-nước-tín-hiệu-sớm",
-    "href": "studies/pretour-research-2026/findings.html#p6-familiarity-bias-văn-hoá-trong-nước-tín-hiệu-sớm",
+    "objectID": "studies/pretour-research-2026/findings.html#p5-destination-credibility-nam-định",
+    "href": "studies/pretour-research-2026/findings.html#p5-destination-credibility-nam-định",
     "title": "Phát hiện",
-    "section": "P6 — Familiarity Bias văn hoá trong nước (Tín hiệu sớm)",
-    "text": "P6 — Familiarity Bias văn hoá trong nước (Tín hiệu sớm)\nTODO: definition, evidence. KHÔNG gán “gốc Nam Định” (hay bất kỳ quê quán nào) cho participant trừ khi có nguồn xác nhận trong data (mục 7).\n(chưa extract data)"
+    "section": "P5 — Destination Credibility (Nam Định)",
+    "text": "P5 — Destination Credibility (Nam Định)\n7/14 khách nhắc · lens: 4 KH / 2 ngành / 1 lead · độ tin cậy: Trung bình\n\n\n\n\n\n\nNote\n\n\n\nLà PATTERN (rào cản về uy tín điểm đến), KHÔNG phải signal.\n\n\n\n“Nam Định ‘ít khu du lịch’ (perception)”\n— P04 · T_P04_2026Q1_p13\n\n\n“Đền Trần chỉ có dịp đầu năm; thu hút trẻ nhỏ + người nước ngoài”\n— P07 · T_P07_2026Q1_p21\n\n\n“Logistics HCM-Nam Định là rào cản”\n— P14 · T_P14_2026Q1_p13\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
   },
   {
-    "objectID": "studies/pretour-research-2026/findings.html#h1-khách-quan-tâm-tín-ngưỡng-hypothesis",
-    "href": "studies/pretour-research-2026/findings.html#h1-khách-quan-tâm-tín-ngưỡng-hypothesis",
+    "objectID": "studies/pretour-research-2026/findings.html#s2-ẩm-thực-là-đòn-bẩy-soft",
+    "href": "studies/pretour-research-2026/findings.html#s2-ẩm-thực-là-đòn-bẩy-soft",
     "title": "Phát hiện",
-    "section": "H1 — Khách quan tâm tín ngưỡng (Hypothesis)",
-    "text": "H1 — Khách quan tâm tín ngưỡng (Hypothesis)\nTODO: framing gender-neutral (KHÔNG “phụ nữ tâm linh” — mục 7). Note: tò mò Đạo Mẫu cũng xuất hiện ở 2 nữ trẻ → cohort 2 kiểm hook có bó theo tuổi/giới không.\n(chưa extract data)"
+    "section": "S2 — Ẩm thực là đòn bẩy soft",
+    "text": "S2 — Ẩm thực là đòn bẩy soft\n6/14 khách nhắc · lens: 2 KH / 3 ngành / 1 lead · (thiên góc nhìn ngành) · độ tin cậy: Trung bình\n\n\n\n\n\n\nNote\n\n\n\nNâng từ “tín hiệu sớm” — ~6 nguồn, nhu cầu thật trong mẫu. Thiên góc nhìn ngành. SIGNAL có action pilot, KHÔNG phải data gap.\n\n\n\n“Đặc sản + lịch trình nhẹ nhàng”\n— P10 · T_P10_2026Q1_p6\n\n\n“Thiếu ẩm thực + soft part”\n— P03 · T_P03_2026Q1_p3\n\n\n“Ăn cơm + đạp xe cùng địa phương = hấp dẫn”\n— P14 · T_P14_2026Q1_p13\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
   },
   {
-    "objectID": "studies/pretour-research-2026/findings.html#s1-vietnamese-studies-khách-nước-ngoài-tín-hiệu-sớm",
-    "href": "studies/pretour-research-2026/findings.html#s1-vietnamese-studies-khách-nước-ngoài-tín-hiệu-sớm",
+    "objectID": "studies/pretour-research-2026/findings.html#p6-familiarity-bias-văn-hoá-trong-nước-quá-quen-không-novel",
+    "href": "studies/pretour-research-2026/findings.html#p6-familiarity-bias-văn-hoá-trong-nước-quá-quen-không-novel",
     "title": "Phát hiện",
-    "section": "S1 — Vietnamese Studies / Khách nước ngoài (Tín hiệu sớm)",
-    "text": "S1 — Vietnamese Studies / Khách nước ngoài (Tín hiệu sớm)\nTODO: definition, evidence (chủ yếu từ lens=industry → ghi rõ “thiên về góc nhìn ngành”).\n(chưa extract data)"
+    "section": "P6 — Familiarity Bias văn hoá trong nước (“quá quen, không novel”)",
+    "text": "P6 — Familiarity Bias văn hoá trong nước (“quá quen, không novel”)\n1/14 khách nhắc · lens: 1 KH · độ tin cậy: Tín hiệu sớm\n\n\n\n\n\n\nNote\n\n\n\nChỉ 1 nguồn (P05) — ngưỡng tối thiểu; watch-item cohort 2. KHÔNG gán “gốc Nam Định”.\n\n\n\n““Mình ở đấy nên không có nhu cầu” — văn hoá VN quen quá”\n— P05 · T_P05_2026Q1_p16\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
   },
   {
-    "objectID": "studies/pretour-research-2026/findings.html#s2-ẩm-thực-là-đòn-bẩy-soft-tín-hiệu-sớm",
-    "href": "studies/pretour-research-2026/findings.html#s2-ẩm-thực-là-đòn-bẩy-soft-tín-hiệu-sớm",
+    "objectID": "studies/pretour-research-2026/findings.html#s1-vietnamese-studies-khách-nước-ngoài",
+    "href": "studies/pretour-research-2026/findings.html#s1-vietnamese-studies-khách-nước-ngoài",
     "title": "Phát hiện",
-    "section": "S2 — Ẩm thực là đòn bẩy soft (Tín hiệu sớm)",
-    "text": "S2 — Ẩm thực là đòn bẩy soft (Tín hiệu sớm)\nTODO: definition, evidence. Đây là signal có action pilot, KHÔNG phải data gap.\n(chưa extract data)"
+    "section": "S1 — Vietnamese Studies / Khách nước ngoài",
+    "text": "S1 — Vietnamese Studies / Khách nước ngoài\n5/14 khách nhắc · lens: 2 KH / 3 ngành · (thiên góc nhìn ngành) · độ tin cậy: Hypothesis\n\n\n\n\n\n\nNote\n\n\n\nNhiều nguồn (~5) NHƯNG là phỏng đoán của mẫu về nhóm VẮNG MẶT (khách nước ngoài KHÔNG có trong mẫu) → claim “Tây muốn tour này” CHƯA kiểm được từ data này — cần kiểm với khách nước ngoài thật. Thiên góc nhìn ngành.\n\n\n\n“Target = 70% nước ngoài + 30% GenZ”\n— P09 · T_P09_2026Q1_p26\n\n\n“Positioning Vietnamese Studies cho khách nước ngoài”\n— P03 · T_P03_2026Q1_p3\n\n\n“Văn hoá Đền Trần chỉ thu hút trẻ nhỏ + khách nước ngoài”\n— P07 · T_P07_2026Q1_p21\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
+  },
+  {
+    "objectID": "studies/pretour-research-2026/findings.html#h1-khách-quan-tâm-tín-ngưỡng",
+    "href": "studies/pretour-research-2026/findings.html#h1-khách-quan-tâm-tín-ngưỡng",
+    "title": "Phát hiện",
+    "section": "H1 — Khách quan tâm tín ngưỡng",
+    "text": "H1 — Khách quan tâm tín ngưỡng\n4/14 khách nhắc · lens: 2 KH / 1 ngành / 1 lead · độ tin cậy: Hypothesis\n\n\n\n\n\n\nNote\n\n\n\nPhạm vi tín ngưỡng BROAD (Phật giáo + Đạo Mẫu + …), KHÔNG chỉ Đạo Mẫu. Nguồn gồm cả nam (P01) lẫn nữ → gender-neutral; báo cáo ghi trung thực “lệch nữ trong mẫu”, TUYỆT ĐỐI KHÔNG “phụ nữ tâm linh”. Caveat: quan tâm tâm linh broad ≠ quan tâm tour Đạo Mẫu cụ thể.\n\n\n\n“Đã canh hầu trước; muốn hiểu phát triển Đạo Mẫu Nam Định”\n— P05 · T_P05_2026Q1_p16\n\n\n“Rất quan tâm tín ngưỡng thờ Mẫu (H1 strong signal)”\n— P11 · T_P11_2026Q1_p8\n\n\n“Strong convert intent + H1 (tò mò Đạo Mẫu)”\n— P14 · T_P14_2026Q1_p13\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
   },
   {
     "objectID": "studies/pretour-research-2026/audiences/leadership.html",
@@ -172,14 +179,14 @@
     "href": "studies/pretour-research-2026/audiences/data.html#next-research-questions",
     "title": "Cho Data Team",
     "section": "Next research questions",
-    "text": "Next research questions\nTODO:\n\nCohort 2 hook cho H1 — gender/age scoping cho “khách quan tâm tín ngưỡng”.\nS1 (Foreign Visitors / Vietnamese Studies) — survey design.\nFollow-up post-pilot — Nam Định 7/2026 (trust-building event) feedback loop."
+    "text": "Next research questions\nTODO:\n\nCohort 2 recruitment — priority #1: chua_tung × mien_nam — cohort 1 có 8/8 chua_tung là miền Bắc, 0 chua_tung miền Nam. Insight về rào cản khách miền Nam tiềm năng đang thiếu hoàn toàn. Cần recruit có chủ đích nhóm này (lý tưởng cả mien_trung để full coverage).\nCohort 2 hook cho H1 — gender/age scoping cho “khách quan tâm tín ngưỡng”.\nS1 (Foreign Visitors / Vietnamese Studies) — survey design.\nFollow-up post-pilot — Nam Định 7/2026 (trust-building event) feedback loop."
   },
   {
     "objectID": "studies/pretour-research-2026/audiences/data.html#data-gaps",
     "href": "studies/pretour-research-2026/audiences/data.html#data-gaps",
     "title": "Cho Data Team",
     "section": "Data gaps",
-    "text": "Data gaps\nTODO: ghi gaps THẬT (vd: chưa đủ độ tuổi 18-25 trong sample), KHÔNG nhầm signal có action (vd S2 Ẩm thực) thành gap."
+    "text": "Data gaps\nTODO: ghi gaps THẬT, KHÔNG nhầm signal có action (vd S2 Ẩm thực) thành gap. Sample-level gaps đã biết:\n\nchua_tung × mien_nam = 0 (xem methodology.qmd → Limitations → Sampling skew). Đây là gap recruitment phải đóng ở cohort 2, KHÔNG phải gap probe.\nĐộ tuổi 18-25 sparse (chỉ P05 24t, P09 26t, P14 27-28t trong cohort 1)."
   },
   {
     "objectID": "index.html",
@@ -312,7 +319,7 @@
     "href": "studies/pretour-research-2026/methodology.html#limitations",
     "title": "Phương pháp",
     "section": "Limitations",
-    "text": "Limitations\nTODO:\n\nWYSIATI check — ai vắng mặt trong sample (segment, vùng địa lý, lứa tuổi). Mô tả gap theo category, KHÔNG gán quê quán/region cho P-code cụ thể (mục 7).\nSampling notes — fill P-codes cho partial-data participants sau khi extract; ghi chú lens=industry vs lens=customer để diễn giải đúng (mục 3)."
+    "text": "Limitations\nTODO:\n\nWYSIATI check — ai vắng mặt trong sample (segment, vùng địa lý, lứa tuổi). Mô tả gap theo category, KHÔNG gán quê quán/region cho P-code cụ thể (mục 7).\nSampling skew: chua_tung × miền — toàn bộ nhóm chua_tung (8/8) là mien_bac; mien_nam chỉ xuất hiện trong nhóm da_tung (2/2). Hệ quả: cohort 1 không có data về non-participant miền Nam. Insight về rào cản tham gia từ phía Nam (logistics, văn hoá địa phương, willingness-to-pay) đang được suy từ 2 người da_tung miền Nam (P12 nghỉ hưu, P14 founder) — KHÔNG đại diện cho khách hàng tiềm năng miền Nam thuần. Cohort 2 phải recruit có chủ đích chua_tung × mien_nam (và lý tưởng cả mien_trung) để đóng gap này. Compute con số từ participants.csv cross-tab experience × residence, KHÔNG hardcode.\nSampling notes — fill P-codes cho partial-data participants sau khi extract; ghi chú lens=industry vs lens=customer để diễn giải đúng (mục 3)."
   },
   {
     "objectID": "studies/pretour-research-2026/methodology.html#confidence-levels",
@@ -425,75 +432,5 @@
     "title": "14 Participants — Deep Dives",
     "section": "P14",
     "text": "P14\nTODO"
-  },
-  {
-    "objectID": "studies/pretour-research-2026/findings.html#bảng-tổng-9-finding-theo-độ-tin-cậy",
-    "href": "studies/pretour-research-2026/findings.html#bảng-tổng-9-finding-theo-độ-tin-cậy",
-    "title": "Phát hiện",
-    "section": "Bảng tổng — 9 finding theo độ tin cậy",
-    "text": "Bảng tổng — 9 finding theo độ tin cậy\n\n\n\n\n\n\n\n\n\n\nPattern\nOccurrence\nLens\nConfidence\nNote\n\n\n\n\nP1 — Tour Design quá thụ động\n11/14\n7 KH / 4 ngành\nCao\nĐa số nguồn là khách thật, không phải artifact ngành.\n\n\nP2 — Social Dependency (người đồng hành/gia đình là yếu tố quyết định)\n5/14\n4 KH / 1 ngành\nCao\nĐúng sàn (~5 nguồn) + 2 ngoại lệ thoải mái đi một mình (P03, P07) — phải ghi kèm 2 ngoại lệ khi báo cáo để minh bạch.\n\n\nP3 — Identity Mismatch (“tour cho người khác, không hẳn tôi”)\n10/14\n7 KH / 2 ngành / 1 lead\nTrung bình\nNhiều nguồn (~10) nhưng TRÁI CHIỀU — một số tự loại, một số tự nhận hợp. TB vì thiếu đồng thuận, KHÔNG phải vì ít nguồn. Mâu thuẫn = bản đồ phân khúc (ai self-include vs self-exclude).\n\n\nP4 — Cảnh giác văn hoá “dàn dựng giả”\n7/14\n4 KH / 2 ngành / 1 lead\nTrung bình\n—\n\n\nP5 — Destination Credibility (Nam Định)\n7/14\n4 KH / 2 ngành / 1 lead\nTrung bình\nLà PATTERN (rào cản về uy tín điểm đến), KHÔNG phải signal.\n\n\nS2 — Ẩm thực là đòn bẩy soft\n6/14\n2 KH / 3 ngành / 1 lead (thiên góc nhìn ngành)\nTrung bình\nNâng từ “tín hiệu sớm” — ~6 nguồn, nhu cầu thật trong mẫu. Thiên góc nhìn ngành. SIGNAL có action pilot, KHÔNG phải data gap.\n\n\nP6 — Familiarity Bias văn hoá trong nước (“quá quen, không novel”)\n1/14\n1 KH\nTín hiệu sớm\nChỉ 1 nguồn (P05) — ngưỡng tối thiểu; watch-item cohort 2. KHÔNG gán “gốc Nam Định”.\n\n\nS1 — Vietnamese Studies / Khách nước ngoài\n5/14\n2 KH / 3 ngành (thiên góc nhìn ngành)\nHypothesis\nNhiều nguồn (~5) NHƯNG là phỏng đoán của mẫu về nhóm VẮNG MẶT (khách nước ngoài KHÔNG có trong mẫu) → claim “Tây muốn tour này” CHƯA kiểm được từ data này — cần kiểm với khách nước ngoài thật. Thiên góc nhìn ngành.\n\n\nH1 — Khách quan tâm tín ngưỡng\n4/14\n2 KH / 1 ngành / 1 lead\nHypothesis\nPhạm vi tín ngưỡng BROAD (Phật giáo + Đạo Mẫu + …), KHÔNG chỉ Đạo Mẫu. Nguồn gồm cả nam (P01) lẫn nữ → gender-neutral; báo cáo ghi trung thực “lệch nữ trong mẫu”, TUYỆT ĐỐI KHÔNG “phụ nữ tâm linh”. Caveat: quan tâm tâm linh broad ≠ quan tâm tour Đạo Mẫu cụ thể."
-  },
-  {
-    "objectID": "studies/pretour-research-2026/findings.html#p1-tour-design-quá-thụ-động",
-    "href": "studies/pretour-research-2026/findings.html#p1-tour-design-quá-thụ-động",
-    "title": "Phát hiện",
-    "section": "P1 — Tour Design quá thụ động",
-    "text": "P1 — Tour Design quá thụ động\n11/14 khách nhắc · lens: 7 KH / 4 ngành · độ tin cậy: Cao\n\n\n\n\n\n\nNote\n\n\n\nĐa số nguồn là khách thật, không phải artifact ngành.\n\n\n\n“Cần guide uy tín có bằng cấp; chuyên gia nửa vời = không đi”\n— P01 · T_P01_2026Q1_p8\n\n\n“Quá nhiều lịch sử + di chuyển → không enjoy”\n— P03 · T_P03_2026Q1_p3\n\n\n“3n2đ ngộp; cần activity nghỉ ngơi; quá nặng”\n— P02 · T_P02_2026Q1_p10\n\n“Quá nhiều” ở đây là vấn đề liều và cách truyền, không phải khẩu vị: khách phản ứng với lịch trình dày + việc ngồi nghe thụ động, không phải với chiều sâu văn hoá — tín hiệu “muốn nông hơn” rất mỏng (chủ yếu P02 và vài giọng thiên giải trí), còn “quá nhiều” hầu hết nói về số điểm/lịch trình.\nHệ quả: giữ chiều sâu (đó là USP của MẠCH), nhưng giảm liều (bớt điểm mỗi ngày) và chuyển phần thụ động thành khách tự tay làm. Ca khó nhất là Đạo Mẫu — dễ trượt thành “xem diễn”: hoạt động phải để khách dự-vào được, không dàn dựng nghi lễ thành trò diễn (P4), và do đồng thầy/đền duyệt (FPIC). Chi tiết thiết kế lịch trình → trang Tour-design."
-  },
-  {
-    "objectID": "studies/pretour-research-2026/findings.html#p2-social-dependency-người-đồng-hànhgia-đình-là-yếu-tố-quyết-định",
-    "href": "studies/pretour-research-2026/findings.html#p2-social-dependency-người-đồng-hànhgia-đình-là-yếu-tố-quyết-định",
-    "title": "Phát hiện",
-    "section": "P2 — Social Dependency (người đồng hành/gia đình là yếu tố quyết định)",
-    "text": "P2 — Social Dependency (người đồng hành/gia đình là yếu tố quyết định)\n5/14 khách nhắc · lens: 4 KH / 1 ngành · độ tin cậy: Cao\n\n\n\n\n\n\nNote\n\n\n\nĐúng sàn (~5 nguồn) + 2 ngoại lệ thoải mái đi một mình (P03, P07) — phải ghi kèm 2 ngoại lệ khi báo cáo để minh bạch.\n\n\n\n“Bị động — đi theo bạn”\n— P04 · T_P04_2026Q1_p13\n\n\n“Bạn đi cùng quyết định việc đi, KHÔNG phải điểm đến”\n— P11 · T_P11_2026Q1_p7\n\n\n“Phải có bạn mới đi (single biggest barrier)”\n— P05 · T_P05_2026Q1_p15\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
-  },
-  {
-    "objectID": "studies/pretour-research-2026/findings.html#p3-identity-mismatch-tour-cho-người-khác-không-hẳn-tôi",
-    "href": "studies/pretour-research-2026/findings.html#p3-identity-mismatch-tour-cho-người-khác-không-hẳn-tôi",
-    "title": "Phát hiện",
-    "section": "P3 — Identity Mismatch (“tour cho người khác, không hẳn tôi”)",
-    "text": "P3 — Identity Mismatch (“tour cho người khác, không hẳn tôi”)\n10/14 khách nhắc · lens: 7 KH / 2 ngành / 1 lead · độ tin cậy: Trung bình\n\n\n\n\n\n\nNote\n\n\n\nNhiều nguồn (~10) nhưng TRÁI CHIỀU — một số tự loại, một số tự nhận hợp. TB vì thiếu đồng thuận, KHÔNG phải vì ít nguồn. Mâu thuẫn = bản đồ phân khúc (ai self-include vs self-exclude).\n\n\n\n“Hàn lâm, kén khách”\n— P01 · T_P01_2026Q1_p7\n\n\n“Concept không rõ target/segment”\n— P03 · T_P03_2026Q1_p3\n\n\n“Concept hàn lâm; target GenZ-GenY”\n— P14 · T_P14_2026Q1_p13\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
-  },
-  {
-    "objectID": "studies/pretour-research-2026/findings.html#p4-cảnh-giác-văn-hoá-dàn-dựng-giả",
-    "href": "studies/pretour-research-2026/findings.html#p4-cảnh-giác-văn-hoá-dàn-dựng-giả",
-    "title": "Phát hiện",
-    "section": "P4 — Cảnh giác văn hoá “dàn dựng giả”",
-    "text": "P4 — Cảnh giác văn hoá “dàn dựng giả”\n7/14 khách nhắc · lens: 4 KH / 2 ngành / 1 lead · độ tin cậy: Trung bình\n\n“Tour Hà Tây mất hồn cốt”\n— P01 · T_P01_2026Q1_p7\n\n\n“Suggest cho thuê trang phục hầu đồng để chụp ảnh (staging tích cực)”\n— P07 · T_P07_2026Q1_p21\n\n\n“Măng đen: người Kinh thuê hết → mất tự nhiên”\n— P14 · T_P14_2026Q1_p14\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
-  },
-  {
-    "objectID": "studies/pretour-research-2026/findings.html#p5-destination-credibility-nam-định",
-    "href": "studies/pretour-research-2026/findings.html#p5-destination-credibility-nam-định",
-    "title": "Phát hiện",
-    "section": "P5 — Destination Credibility (Nam Định)",
-    "text": "P5 — Destination Credibility (Nam Định)\n7/14 khách nhắc · lens: 4 KH / 2 ngành / 1 lead · độ tin cậy: Trung bình\n\n\n\n\n\n\nNote\n\n\n\nLà PATTERN (rào cản về uy tín điểm đến), KHÔNG phải signal.\n\n\n\n“Nam Định ‘ít khu du lịch’ (perception)”\n— P04 · T_P04_2026Q1_p13\n\n\n“Đền Trần chỉ có dịp đầu năm; thu hút trẻ nhỏ + người nước ngoài”\n— P07 · T_P07_2026Q1_p21\n\n\n“Logistics HCM-Nam Định là rào cản”\n— P14 · T_P14_2026Q1_p13\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
-  },
-  {
-    "objectID": "studies/pretour-research-2026/findings.html#s2-ẩm-thực-là-đòn-bẩy-soft",
-    "href": "studies/pretour-research-2026/findings.html#s2-ẩm-thực-là-đòn-bẩy-soft",
-    "title": "Phát hiện",
-    "section": "S2 — Ẩm thực là đòn bẩy soft",
-    "text": "S2 — Ẩm thực là đòn bẩy soft\n6/14 khách nhắc · lens: 2 KH / 3 ngành / 1 lead · (thiên góc nhìn ngành) · độ tin cậy: Trung bình\n\n\n\n\n\n\nNote\n\n\n\nNâng từ “tín hiệu sớm” — ~6 nguồn, nhu cầu thật trong mẫu. Thiên góc nhìn ngành. SIGNAL có action pilot, KHÔNG phải data gap.\n\n\n\n“Đặc sản + lịch trình nhẹ nhàng”\n— P10 · T_P10_2026Q1_p6\n\n\n“Thiếu ẩm thực + soft part”\n— P03 · T_P03_2026Q1_p3\n\n\n“Ăn cơm + đạp xe cùng địa phương = hấp dẫn”\n— P14 · T_P14_2026Q1_p13\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
-  },
-  {
-    "objectID": "studies/pretour-research-2026/findings.html#p6-familiarity-bias-văn-hoá-trong-nước-quá-quen-không-novel",
-    "href": "studies/pretour-research-2026/findings.html#p6-familiarity-bias-văn-hoá-trong-nước-quá-quen-không-novel",
-    "title": "Phát hiện",
-    "section": "P6 — Familiarity Bias văn hoá trong nước (“quá quen, không novel”)",
-    "text": "P6 — Familiarity Bias văn hoá trong nước (“quá quen, không novel”)\n1/14 khách nhắc · lens: 1 KH · độ tin cậy: Tín hiệu sớm\n\n\n\n\n\n\nNote\n\n\n\nChỉ 1 nguồn (P05) — ngưỡng tối thiểu; watch-item cohort 2. KHÔNG gán “gốc Nam Định”.\n\n\n\n““Mình ở đấy nên không có nhu cầu” — văn hoá VN quen quá”\n— P05 · T_P05_2026Q1_p16\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
-  },
-  {
-    "objectID": "studies/pretour-research-2026/findings.html#s1-vietnamese-studies-khách-nước-ngoài",
-    "href": "studies/pretour-research-2026/findings.html#s1-vietnamese-studies-khách-nước-ngoài",
-    "title": "Phát hiện",
-    "section": "S1 — Vietnamese Studies / Khách nước ngoài",
-    "text": "S1 — Vietnamese Studies / Khách nước ngoài\n5/14 khách nhắc · lens: 2 KH / 3 ngành · (thiên góc nhìn ngành) · độ tin cậy: Hypothesis\n\n\n\n\n\n\nNote\n\n\n\nNhiều nguồn (~5) NHƯNG là phỏng đoán của mẫu về nhóm VẮNG MẶT (khách nước ngoài KHÔNG có trong mẫu) → claim “Tây muốn tour này” CHƯA kiểm được từ data này — cần kiểm với khách nước ngoài thật. Thiên góc nhìn ngành.\n\n\n\n“Target = 70% nước ngoài + 30% GenZ”\n— P09 · T_P09_2026Q1_p26\n\n\n“Positioning Vietnamese Studies cho khách nước ngoài”\n— P03 · T_P03_2026Q1_p3\n\n\n“Văn hoá Đền Trần chỉ thu hút trẻ nhỏ + khách nước ngoài”\n— P07 · T_P07_2026Q1_p21\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
-  },
-  {
-    "objectID": "studies/pretour-research-2026/findings.html#h1-khách-quan-tâm-tín-ngưỡng",
-    "href": "studies/pretour-research-2026/findings.html#h1-khách-quan-tâm-tín-ngưỡng",
-    "title": "Phát hiện",
-    "section": "H1 — Khách quan tâm tín ngưỡng",
-    "text": "H1 — Khách quan tâm tín ngưỡng\n4/14 khách nhắc · lens: 2 KH / 1 ngành / 1 lead · độ tin cậy: Hypothesis\n\n\n\n\n\n\nNote\n\n\n\nPhạm vi tín ngưỡng BROAD (Phật giáo + Đạo Mẫu + …), KHÔNG chỉ Đạo Mẫu. Nguồn gồm cả nam (P01) lẫn nữ → gender-neutral; báo cáo ghi trung thực “lệch nữ trong mẫu”, TUYỆT ĐỐI KHÔNG “phụ nữ tâm linh”. Caveat: quan tâm tâm linh broad ≠ quan tâm tour Đạo Mẫu cụ thể.\n\n\n\n“Đã canh hầu trước; muốn hiểu phát triển Đạo Mẫu Nam Định”\n— P05 · T_P05_2026Q1_p16\n\n\n“Rất quan tâm tín ngưỡng thờ Mẫu (H1 strong signal)”\n— P11 · T_P11_2026Q1_p8\n\n\n“Strong convert intent + H1 (tò mò Đạo Mẫu)”\n— P14 · T_P14_2026Q1_p13\n\n\n[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]"
   }
 ]
