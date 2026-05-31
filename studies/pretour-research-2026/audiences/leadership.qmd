@@ -1,0 +1,27 @@
+---
+title: "Cho Leadership"
+---
+
+## Quyết định cần lock
+
+TODO:
+
+- **Segment ưu tiên cho pilot 7/2026** — dựa distribution của `convert_type` trong `participants.csv` (true_target / conditional). Compute, KHÔNG hardcode.
+- **Pilot 7/2026 = trust-building event**, KHÔNG phải tour thương mại đầu tiên. Định khung kỳ vọng (revenue secondary, signal/learning primary).
+- Lock taxonomy (đã có CLAUDE.md mục 5) và confidence threshold cho từng quyết định: "Cao" → ra quyết định ngay; "Trung bình" → cần cohort 2; "Tín hiệu sớm" / "Hypothesis" → chỉ để hypothesis cho cohort 2.
+
+## Trade-offs
+
+TODO:
+
+- Segment tập trung (true_target) → conversion tốt nhưng sample feedback hẹp.
+- Mở rộng sang conditional/passive → học được nhiều hơn nhưng convert thấp.
+- Pricing: bám `acceptable_tour_price` median sẽ "đúng" về demand nhưng có thể KHÔNG cover cost của trust-building event.
+
+## Open questions cho founder
+
+TODO:
+
+- Pilot 7/2026 đo success bằng metric gì? (NPS? word-of-mouth? cohort 2 conversion?)
+- Khi nào lock B2B Insight-as-a-Service vs tour-as-product? Hiện report internal-only (mục 9) — nếu chuyển B2B phải anonymize + tuân thủ Luật 91/2025/QH15.
+- Cohort 2 ai sample? (H1 gender/age scoping; S1 foreign visitors; S2 ẩm thực).
