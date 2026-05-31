@@ -3,22 +3,167 @@ title: "Phát hiện"
 jupyter: python3
 ---
 
-## Pattern 1 — Tour Design
+```{python}
+#| label: setup
+#| echo: false
 
-TODO: definition, occurrence (~10/12), evidence quotes, implication
+import sys
+from pathlib import Path
 
-## Pattern 2 — Social Dependency
+def _find_root(start):
+    for p in [start] + list(start.parents):
+        if (p / "_quarto.yml").exists():
+            return p
+    return start
 
-TODO
+_root = _find_root(Path.cwd())
+sys.path.insert(0, str(_root / "shared"))
 
-## Pattern 3 — Identity Mismatch
+from viz_helpers import (
+    load_study_data,
+    PATTERN_META,
+    CONFIDENCE_TIERS,
+    pattern_occurrence,
+    pattern_lens_breakdown,
+    patterns_summary_table,
+    quotes_for,
+)
 
-TODO
+participants_df, quotes_df = load_study_data(_root / "studies" / "pretour-research-2026")
 
-## Patterns bổ sung
+# Render-safety guard: nếu CSV chưa extract, mọi pattern section sẽ skip thay vì silent empty.
+_data_ready = len(participants_df) > 0 and len(quotes_df) > 0
 
-TODO: Cảnh giác văn hoá dàn dựng, Phụ nữ tâm linh
+# Pattern order: tier confidence (Cao → Trung bình → Tín hiệu sớm → Hypothesis),
+# rồi occurrence giảm dần — khớp patterns_summary_table().
+_TIER_RANK = {t: i for i, t in enumerate(CONFIDENCE_TIERS)}
 
-## 2 Signals mới cần explore
+def _pattern_order():
+    if not _data_ready:
+        return list(PATTERN_META.keys())
+    pairs = []
+    for pid, meta in PATTERN_META.items():
+        occ = pattern_occurrence(pid, quotes_df, participants_df)
+        pairs.append((pid, _TIER_RANK[meta["confidence"]], -occ["count"]))
+    pairs.sort(key=lambda x: (x[1], x[2]))
+    return [p[0] for p in pairs]
 
-TODO: Vietnamese Studies / Foreign Visitors, Destination Credibility
+PATTERN_ORDER = _pattern_order()
+
+# --- helpers chỉ dùng trong file này ---
+
+def _lens_str(b):
+    parts = []
+    if b["customer"]:  parts.append(f"{b['customer']} KH")
+    if b["industry"]:  parts.append(f"{b['industry']} ngành")
+    if b["lead_user"]: parts.append(f"{b['lead_user']} lead")
+    return " / ".join(parts) if parts else "—"
+
+def _pick_quotes_by_lens(pid_pattern, max_n=3):
+    """Chọn 2–3 quote, ưu tiên trải lens (1 customer + 1 industry nếu pattern có cả hai)."""
+    qs = quotes_for(pid_pattern, quotes_df, participants_df)
+    if len(qs) == 0:
+        return []
+    qs = qs.merge(participants_df[["pid", "lens"]], on="pid", how="left")
+    chosen, used_pids = [], set()
+    # round 1: lấy 1 đại diện mỗi lens (theo thứ tự customer → industry → lead_user)
+    for lens in ("customer", "industry", "lead_user"):
+        if len(chosen) >= max_n:
+            break
+        sub = qs[(qs["lens"] == lens) & (~qs["pid"].isin(used_pids))]
+        if len(sub):
+            row = sub.iloc[0]
+            chosen.append(row)
+            used_pids.add(row["pid"])
+    # round 2: lấp cho đủ max_n bằng pid chưa dùng
+    for _, row in qs.iterrows():
+        if len(chosen) >= max_n:
+            break
+        if row["pid"] in used_pids:
+            continue
+        chosen.append(row)
+        used_pids.add(row["pid"])
+    return chosen[:max_n]
+
+def render_pattern_section(pid_pattern):
+    """Trả về markdown blob: occurrence line + caveat + quotes + slot diễn giải."""
+    meta = PATTERN_META[pid_pattern]
+    occ = pattern_occurrence(pid_pattern, quotes_df, participants_df)
+    lens = pattern_lens_breakdown(pid_pattern, quotes_df, participants_df)
+    leaning_suffix = " · (thiên góc nhìn ngành)" if lens["industry_leaning"] else ""
+    head = (
+        f"**{occ['label']}** khách nhắc · lens: {_lens_str(lens)}"
+        f"{leaning_suffix} · độ tin cậy: **{meta['confidence']}**"
+    )
+    parts = [head, ""]
+    if meta["note"]:
+        parts.append(f"::: {{.callout-note}}")
+        parts.append(meta["note"])
+        parts.append(":::")
+        parts.append("")
+    quotes = _pick_quotes_by_lens(pid_pattern)
+    for row in quotes:
+        text = row["quote_short"] or row["quote_full"]
+        parts.append(f"> \"{text}\"")
+        parts.append(f">")
+        parts.append(f"> — **{row['pid']}** · `{row['ref_id']}`")
+        parts.append("")
+    if not quotes:
+        parts.append("> _(chưa có quote tagged pattern này — đợi extract bổ sung)_\n")
+    interp = PATTERN_INTERPRETATION.get(pid_pattern)
+    if interp:
+        parts.append(interp)
+    else:
+        parts.append("> _[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]_")
+    return "\n".join(parts)
+
+# Diễn giải do người viết — chèn verbatim, KHÔNG reword. Slot trống = giữ placeholder.
+PATTERN_INTERPRETATION = {
+    "P1": (
+        "\"Quá nhiều\" ở đây là vấn đề **liều và cách truyền**, không phải khẩu vị: "
+        "khách phản ứng với lịch trình dày + việc ngồi nghe thụ động, không phải với "
+        "chiều sâu văn hoá — tín hiệu \"muốn nông hơn\" rất mỏng (chủ yếu P02 và vài "
+        "giọng thiên giải trí), còn \"quá nhiều\" hầu hết nói về số điểm/lịch trình.\n\n"
+        "Hệ quả: **giữ chiều sâu** (đó là USP của MẠCH), nhưng **giảm liều** (bớt điểm "
+        "mỗi ngày) và **chuyển phần thụ động thành khách tự tay làm**. Ca khó nhất là "
+        "Đạo Mẫu — dễ trượt thành \"xem diễn\": hoạt động phải để khách dự-vào được, "
+        "không dàn dựng nghi lễ thành trò diễn (P4), và do đồng thầy/đền duyệt (FPIC). "
+        "Chi tiết thiết kế lịch trình → trang Tour-design."
+    ),
+}
+```
+
+Cohort 1 — 14 phỏng vấn semi-structured pre-tour cho pilot Nam Định 7/2026. Phát hiện chia 3 lớp: **patterns** (rào cản lặp lại), **hypothesis** (giả thuyết chưa có data trực tiếp), **signals** (cơ hội cần explore). Số occurrence trong trang compute từ `data/quotes.csv` qua `shared/viz_helpers.py` — KHÔNG hardcode (Rule #1).
+
+> _[em viết: executive framing — 2-3 câu khung đọc cả trang]_
+
+```{python}
+#| echo: false
+#| output: asis
+
+if not _data_ready:
+    print("> ⚠️ **TODO: chưa extract data từ raw PDFs vào CSV.** Các section dưới đây sẽ hiển thị placeholder cho đến khi `data/participants.csv` + `data/quotes.csv` được fill.\n")
+```
+
+## Bảng tổng — 9 finding theo độ tin cậy
+
+```{python}
+#| echo: false
+#| output: asis
+if _data_ready:
+    print(patterns_summary_table(quotes_df, participants_df))
+else:
+    print("_(chưa extract data)_")
+```
+
+```{python}
+#| echo: false
+#| output: asis
+if _data_ready:
+    for _pid in PATTERN_ORDER:
+        meta = PATTERN_META[_pid]
+        print(f"## {_pid} — {meta['name']}")
+        print()
+        print(render_pattern_section(_pid))
+        print()
+```

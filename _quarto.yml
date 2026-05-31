@@ -21,7 +21,7 @@ website:
             file: studies/pretour-research-2026/methodology.qmd
           - text: "Phát hiện"
             file: studies/pretour-research-2026/findings.qmd
-          - text: "12 Participants"
+          - text: "14 Participants"
             file: studies/pretour-research-2026/participants.qmd
           - text: "Quote Bank"
             file: studies/pretour-research-2026/quote-bank.qmd
@@ -34,6 +34,8 @@ website:
             file: studies/pretour-research-2026/audiences/data.qmd
           - text: "Finance Team"
             file: studies/pretour-research-2026/audiences/finance.qmd
+          - text: "Leadership Team"
+            file: studies/pretour-research-2026/audiences/leadership.qmd
 
 format:
   html:

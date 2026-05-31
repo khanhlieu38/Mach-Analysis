@@ -32,7 +32,8 @@ _freeze/
 .venv/
 venv/
 
-# Raw sensitive data per study
-studies/*/data/raw/
+# Raw sensitive data per study (track folder + .gitkeep, ignore content)
+studies/*/data/raw/*
+!studies/*/data/raw/.gitkeep
 
 /.quarto/
