@@ -111,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="../../studies/pretour-research-2026/participants.html">
- <span class="dropdown-text">12 Participants</span></a>
+ <span class="dropdown-text">14 Participants</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../studies/pretour-research-2026/quote-bank.html">
@@ -134,6 +134,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="../../studies/pretour-research-2026/audiences/finance.html">
  <span class="dropdown-text">Finance Team</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../studies/pretour-research-2026/audiences/leadership.html">
+ <span class="dropdown-text">Leadership Team</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -153,8 +157,9 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#sample" id="toc-sample" class="nav-link active" data-scroll-target="#sample">Sample</a></li>
-  <li><a href="#patterns-chính" id="toc-patterns-chính" class="nav-link" data-scroll-target="#patterns-chính">3 patterns chính</a></li>
-  <li><a href="#signals-mới" id="toc-signals-mới" class="nav-link" data-scroll-target="#signals-mới">2 signals mới</a></li>
+  <li><a href="#patterns-rào-cản" id="toc-patterns-rào-cản" class="nav-link" data-scroll-target="#patterns-rào-cản">Patterns (rào cản)</a></li>
+  <li><a href="#hypothesis" id="toc-hypothesis" class="nav-link" data-scroll-target="#hypothesis">Hypothesis</a></li>
+  <li><a href="#signals" id="toc-signals" class="nav-link" data-scroll-target="#signals">Signals</a></li>
   </ul>
 </nav>
     </div>
@@ -190,20 +195,37 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>TL;DR</strong> — TODO: 1 paragraph executive summary với key finding chính</p>
+<p><strong>TL;DR</strong> — TODO: 1 paragraph executive summary với key finding chính. Mọi con số phải <strong>compute từ CSV</strong> (mục 2 CLAUDE.md), KHÔNG hardcode.</p>
 </div>
 </div>
 <section id="sample" class="level2">
 <h2 class="anchored" data-anchor-id="sample">Sample</h2>
-<p>TODO: 1 paragraph prose giới thiệu 12 participants, 2 nhóm (7 chưa từng + 5 đã từng)</p>
+<p>TODO: 1 paragraph prose giới thiệu <strong>14 participants</strong> (8 <code>chua_tung</code> + 6 <code>da_tung</code>); compute counts từ <code>participants.csv</code> để verify mẫu số. Note tag <code>lens</code> (customer / industry / lead_user) chỉ là annotation, KHÔNG filter % (mục 3).</p>
 </section>
-<section id="patterns-chính" class="level2">
-<h2 class="anchored" data-anchor-id="patterns-chính">3 patterns chính</h2>
-<p>TODO: Pattern 1 (Tour Design), Pattern 2 (Social Dependency), Pattern 3 (Identity Mismatch)</p>
+<section id="patterns-rào-cản" class="level2">
+<h2 class="anchored" data-anchor-id="patterns-rào-cản">Patterns (rào cản)</h2>
+<p>TODO: 1 dòng cho mỗi pattern, link đến section deep dive trong <code>findings.qmd</code>.</p>
+<ul>
+<li><strong>P1</strong> — Tour Design quá thụ động <em>(Cao)</em></li>
+<li><strong>P2</strong> — Social Dependency <em>(Cao)</em></li>
+<li><strong>P3</strong> — Identity Mismatch <em>(Trung bình)</em></li>
+<li><strong>P4</strong> — Cảnh giác văn hoá “dàn dựng giả” <em>(Trung bình)</em></li>
+<li><strong>P5</strong> — Destination Credibility (Nam Định) <em>(Trung bình)</em></li>
+<li><strong>P6</strong> — Familiarity Bias văn hoá trong nước <em>(Tín hiệu sớm)</em></li>
+</ul>
 </section>
-<section id="signals-mới" class="level2">
-<h2 class="anchored" data-anchor-id="signals-mới">2 signals mới</h2>
-<p>TODO: Vietnamese Studies / Foreign Visitors, Destination Credibility</p>
+<section id="hypothesis" class="level2">
+<h2 class="anchored" data-anchor-id="hypothesis">Hypothesis</h2>
+<ul>
+<li><strong>H1</strong> — Khách quan tâm tín ngưỡng <em>(Hypothesis)</em> — gender-neutral; cohort 2 sẽ kiểm hook có bó theo tuổi/giới không.</li>
+</ul>
+</section>
+<section id="signals" class="level2">
+<h2 class="anchored" data-anchor-id="signals">Signals</h2>
+<ul>
+<li><strong>S1</strong> — Vietnamese Studies / Khách nước ngoài <em>(Tín hiệu sớm)</em></li>
+<li><strong>S2</strong> — Ẩm thực là đòn bẩy soft <em>(Tín hiệu sớm)</em> — có action pilot, KHÔNG phải data gap.</li>
+</ul>
 
 
 </section>
