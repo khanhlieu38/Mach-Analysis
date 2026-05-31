@@ -169,6 +169,34 @@ PATTERN_INTERPRETATION = {
         "trông như thế nào trong thực tế, và MẠCH sẽ giải thích ranh giới đó với khách như thế nào "
         "khi được hỏi? Chi tiết → trang Tour-design."
     ),
+    "P5": (
+        "Bảy trong 14 người nhắc đến điểm đến Nam Định như một yếu tố ảnh hưởng quyết định — "
+        "nhưng đây không phải một vấn đề duy nhất mà là **ba vấn đề khác bản chất**, "
+        "cần giải pháp riêng.\n\n"
+        "**Vấn đề A — Brand awareness (P08, P09, P07):** Nam Định chưa có vị trí rõ trong đầu "
+        "người ta như một điểm đến du lịch đáng đi. P09 nói thẳng đây là thứ \"cản lại chị\" — "
+        "khi muốn đi, cô tìm thông tin điểm đến trước, và Nam Định không có đủ hình ảnh để "
+        "tạo hứng thú. P08 xác nhận: \"đi Nam Định hiếm khi đi theo cả một hành trình.\" "
+        "P07 — góc nhìn ngành — nhận xét Đền Trần chỉ có sức hút dịp đầu năm, không thu hút "
+        "người trưởng thành quanh năm, và Nam Định cần xây thương hiệu trước. "
+        "*(Suy luận từ data: đây là rào cản upstream cần giải quyết trước khi bán tour, "
+        "không phải trong lịch trình. Chi tiết → trang Leadership.)*\n\n"
+        "**Vấn đề B — Logistics (P14):** Khoảng cách HCM → Nam Định là rào cản thật, "
+        "không phải perception. P14 có intent mạnh — hứng thú với Đạo Mẫu, convert_type "
+        "true_target — nhưng logistics địa lý là điều kiện chưa giải được ở giai đoạn pilot. "
+        "*(Suy luận từ data: khác bản chất với Vấn đề A — giảm giá hay cải thiện nội dung "
+        "không giải quyết được.)*\n\n"
+        "**Vấn đề C — Góc nhìn ngành (P13, partial data):** P13 — giảng viên có background "
+        "3 agency du lịch — nhận xét rằng sau sáp nhập hành chính, các địa phương cần tái "
+        "định vị sản phẩm du lịch; và thứ thu hút không phải điểm đến mà là con người ở đó. "
+        "Đây là observation vĩ mô từ góc nhìn ngành, không phải rào cản cá nhân. "
+        "Transcript P13 ngắn nhất trong cohort (29 dòng) — weight thấp hơn, "
+        "dùng làm tín hiệu bổ sung.\n\n"
+        "P04 và P12 là hai trường hợp nhẹ hơn: P04 có perception \"Nam Định ít khu du lịch\" "
+        "(tín hiệu sớm); P12 cần người tag-along / người dẫn địa bàn — đây là destination "
+        "credibility qua lăng kính chưa quen địa bàn, không phải thiếu intent "
+        "(P12 rate tour 4/5, convert_type true_target)."
+    ),
 }
 ```
 
