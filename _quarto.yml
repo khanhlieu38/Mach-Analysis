@@ -3,6 +3,7 @@ project:
   output-dir: docs
   render:
     - "**/*.qmd"
+    - "!_archive/**"
 
 execute:
   freeze: auto
