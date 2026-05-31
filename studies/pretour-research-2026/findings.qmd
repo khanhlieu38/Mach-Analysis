@@ -130,6 +130,24 @@ PATTERN_INTERPRETATION = {
         "không dàn dựng nghi lễ thành trò diễn (P4), và do đồng thầy/đền duyệt (FPIC). "
         "Chi tiết thiết kế lịch trình → trang Tour-design."
     ),
+    "P2": (
+        "Rào cản không phải \"không muốn đi\" mà là **không có đúng người đi cùng**. "
+        "Bốn trong 9 khách thuần (P04, P05, P06, P10) và thêm P11 từ góc nhìn ngành "
+        "đều cho thấy quyết định đi không hoàn toàn cá nhân, mà bị chi phối bởi người "
+        "thân thiết đi cùng hoặc người có quyền kéo họ vào chuyến đi.\n\n"
+        "Hai mức độ: P05 ở mức *mạnh* — người đồng hành là rào cản lớn nhất, không đi "
+        "nếu thiếu. P06 và P10 là hai biến thể khác: P06 không bị kéo bởi bạn bè nhưng "
+        "có thể đi nếu bố mẹ rủ trong khung tín ngưỡng; P10 đã có mức độ quan tâm cao, "
+        "nhưng quyết định du lịch vẫn xoay quanh con cái và người thân chung mục đích. "
+        "P04 là trường hợp hỗn hợp: ảnh hưởng bởi bạn bè rủ, nhưng rào cản chính là "
+        "giai đoạn sống (con nhỏ, ưu tiên nghỉ dưỡng an toàn).\n\n"
+        "Cần phân biệt: **phụ thuộc người đồng hành ≠ cần bằng chứng xã hội**. "
+        "P07 cần thấy người đã đi trước review — đó là bài toán niềm tin, không phải đồng hành.\n\n"
+        "**Giả thuyết cần kiểm chứng ở pilot:** Nếu MẠCH mời đúng người trong một "
+        "nhóm bạn bè thay vì để từng người tự đăng ký, có thể tạo ra cơ chế kéo tự nhiên "
+        "— một người được mời kéo thêm 1-2 người quen. Cần quan sát xem pilot tháng 7/2026 "
+        "có xác nhận điều này không. Chi tiết về cách tiếp cận → trang Leadership."
+    ),
 }
 ```
 
