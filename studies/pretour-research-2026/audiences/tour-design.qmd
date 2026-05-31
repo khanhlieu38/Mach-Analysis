@@ -2,16 +2,20 @@
 title: "Cho Tour Design Team"
 ---
 
-TODO: barriers liên quan đến tour design
+TODO: tổng hợp barriers liên quan tour design — primary = **P1**, supporting = **P4**.
 
 ## 3 action items
 
-TODO
+TODO: lấy từ implication của P1 (Tour Design quá thụ động) — vd: lịch trình có moment tự khám phá; storytelling đa giọng; có lựa chọn opt-out cho activity nhóm.
 
-## Pattern — Cảnh giác văn hoá dàn dựng giả
+## P1 — Tour Design quá thụ động *(Cao)*
 
-TODO: evidence quotes, implication cho itinerary design
+TODO: evidence quotes, implication cho itinerary design.
+
+## P4 — Cảnh giác văn hoá "dàn dựng giả" *(Trung bình)*
+
+TODO: evidence quotes, implication — tránh re-enactment thuần performative; ưu tiên trải nghiệm với người hành lễ thật.
 
 ## Quotes hỗ trợ
 
-TODO
+TODO: pull từ `quotes_df` filter `pattern_id ∈ ['P1', 'P4']`, confidence_level ∈ ['cao', 'trung_binh'].

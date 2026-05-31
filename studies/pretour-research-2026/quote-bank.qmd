@@ -24,10 +24,22 @@ from viz_helpers import load_study_data
 participants_df, quotes_df = load_study_data(_root / "studies" / "pretour-research-2026")
 ```
 
-TODO: render searchable table từ `quotes_df` — ví dụ dùng `quotes_df.to_html()` hoặc thư viện `itables`.
-
 ```{python}
+#| echo: false
 #| output: asis
 
-print(f"Total quotes: {len(quotes_df)}")
+if len(quotes_df) == 0:
+    print("> ⚠️ **TODO: chưa extract quotes vào `data/quotes.csv`.** Table bên dưới sẽ rỗng cho đến khi quotes được fill.\n")
+else:
+    print(f"Total quotes: **{len(quotes_df)}** · Participants có quote: **{quotes_df['pid'].nunique()}**\n")
+```
+
+TODO: render searchable table từ `quotes_df` bằng `itables`, hỗ trợ filter theo `pattern_id` (P1–P6, H1, S1, S2), `confidence_level` (cao / trung_binh / som / hypothesis), và `pid`. Hide các cột PII-adjacent nếu cần.
+
+```{python}
+#| echo: false
+
+if len(quotes_df) > 0:
+    # TODO: from itables import show; show(quotes_df, ...)
+    pass
 ```
