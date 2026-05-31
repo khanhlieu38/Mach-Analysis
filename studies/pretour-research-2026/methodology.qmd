@@ -4,20 +4,25 @@ title: "Phương pháp"
 
 ## Thiết kế nghiên cứu
 
-TODO: semi-structured interviews, recruitment, ethics
+TODO: semi-structured interviews, recruitment, ethics, consent. Note rằng đây là nghiên cứu định tính pre-tour cho pilot Nam Định 7/2026 (trust-building event, không phải tour thương mại đầu tiên).
 
-## Sample (12 participants)
+## Sample (14 participants)
 
-TODO: table demographic từ participants.csv
+TODO: table demographic từ `participants.csv` — compute distribution của `experience` (chua_tung=8 / da_tung=6), `lens`, `age_group`. KHÔNG hardcode con số (mục 2).
 
 ## Limitations
 
 TODO:
 
-- WYSIATI check (ai vắng mặt trong sample)
-- Sampling notes: Trương Liêu (miền Nam), Thầy Thắng (partial data)
-- Data Gap: Ẩm thực chưa được probe đủ
+- **WYSIATI check** — ai vắng mặt trong sample (segment, vùng địa lý, lứa tuổi). Mô tả gap theo *category*, KHÔNG gán quê quán/region cho P-code cụ thể (mục 7).
+- **Sampling skew: chua_tung × miền** — toàn bộ nhóm `chua_tung` (8/8) là `mien_bac`; `mien_nam` chỉ xuất hiện trong nhóm `da_tung` (2/2). Hệ quả: **cohort 1 không có data về non-participant miền Nam.** Insight về rào cản tham gia từ phía Nam (logistics, văn hoá địa phương, willingness-to-pay) đang được suy từ 2 người `da_tung` miền Nam (P12 nghỉ hưu, P14 founder) — KHÔNG đại diện cho khách hàng tiềm năng miền Nam thuần. Cohort 2 phải recruit có chủ đích `chua_tung × mien_nam` (và lý tưởng cả `mien_trung`) để đóng gap này. Compute con số từ `participants.csv` cross-tab `experience × residence`, KHÔNG hardcode.
+- **Sampling notes** — fill P-codes cho partial-data participants sau khi extract; ghi chú lens=industry vs lens=customer để diễn giải đúng (mục 3).
 
 ## Confidence levels
 
-TODO: 3 levels — Cao / Trung bình / Tín hiệu sớm
+4 levels theo mục 6 CLAUDE.md:
+
+- **Cao** — ≥5 nguồn độc lập (tính cả 14), không ai phản bác trực tiếp → ra quyết định được.
+- **Trung bình** — có dấu hiệu, cần cohort 2 xác nhận.
+- **Tín hiệu sớm** — 1–2 nguồn.
+- **Hypothesis** — chưa có data trực tiếp, chỉ suy từ pattern khác.

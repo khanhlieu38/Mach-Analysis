@@ -4,20 +4,28 @@ title: "Cho Data Team"
 
 ## Methodology reflection
 
-TODO: semi-structured design, saturation notes
+TODO: semi-structured design, saturation notes, mẫu số 14 LOCKED (mục 3).
 
 ## Codebook
 
-TODO: themes, subthemes, confidence levels
+TODO: themes, subthemes mapping. Dùng taxonomy IDs **P1–P6 / H1 / S1–S2** (mục 5) + **4 confidence levels**: `cao` / `trung_binh` / `som` / `hypothesis` (mục 6).
+
+## Standing PII check
+
+Sau MỖI lần thêm/sửa quotes hay participant content (đặc biệt lúc extract): grep toàn bộ 14 tên thật trong `studies/pretour-research-2026/**/*.{qmd,csv}` (loại trừ `data/raw/`). Leak dễ nhất xảy ra lúc extract, không phải lúc sync skeleton. Danh sách tên thật giữ trong `data/raw/crosswalk.csv` (gitignored).
 
 ## Next research questions
 
 TODO:
 
-- Ẩm thực hypothesis (chưa được probe đủ trong study này)
-- Foreign Visitors / Vietnamese Studies hypothesis
-- Follow-up survey design cho post-pilot
+- **Cohort 2 recruitment — priority #1: `chua_tung × mien_nam`** — cohort 1 có 8/8 chua_tung là miền Bắc, 0 chua_tung miền Nam. Insight về rào cản khách miền Nam tiềm năng đang thiếu hoàn toàn. Cần recruit có chủ đích nhóm này (lý tưởng cả `mien_trung` để full coverage).
+- **Cohort 2 hook cho H1** — gender/age scoping cho "khách quan tâm tín ngưỡng".
+- **S1 (Foreign Visitors / Vietnamese Studies)** — survey design.
+- **Follow-up post-pilot** — Nam Định 7/2026 (trust-building event) feedback loop.
 
 ## Data gaps
 
-TODO
+TODO: ghi gaps THẬT, KHÔNG nhầm signal có action (vd S2 Ẩm thực) thành gap. Sample-level gaps đã biết:
+
+- **`chua_tung × mien_nam` = 0** (xem methodology.qmd → Limitations → Sampling skew). Đây là gap recruitment phải đóng ở cohort 2, KHÔNG phải gap probe.
+- Độ tuổi 18-25 sparse (chỉ P05 24t, P09 26t, P14 27-28t trong cohort 1).

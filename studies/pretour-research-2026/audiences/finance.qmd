@@ -4,16 +4,20 @@ title: "Cho Finance Team"
 
 ## Price bands theo profile
 
-TODO:
+TODO: pull P-codes (KHÔNG dùng tên thật — mục 9). Tách rõ 2 khái niệm khác nhau (mục 7):
 
-- Hiếu: < 10 triệu
-- Dương: < 5 triệu
-- Chung: 200 triệu+
+### Mức chi du lịch THẬT (spend)
 
-## Cost delta table
+TODO: distribution của cột `travel_spend_range` trong `participants.csv` — đây là mức người ta đang chi cho du lịch nói chung.
 
-TODO: current pricing vs willingness-to-pay gap
+### Giá tour chấp nhận được (willingness-to-pay)
+
+TODO: distribution của cột `acceptable_tour_price` — giá CHẤP NHẬN ĐƯỢC cho 1 tour MẠCH cụ thể, KHÁC spend.
+
+## Spend vs WTP gap table
+
+TODO: cross-tab `travel_spend_range` × `acceptable_tour_price` per P-code, làm rõ ai trong nhóm willingness-to-pay < current spend (signal về value proposition gap).
 
 ## Pricing implications cho pilot tour
 
-TODO
+TODO: lấy median/range của `acceptable_tour_price` filter `convert_type` ∈ {true_target, conditional} → đó là band cho pilot 7/2026.

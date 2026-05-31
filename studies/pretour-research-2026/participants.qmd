@@ -1,53 +1,62 @@
 ---
-title: "12 Participants — Deep Dives"
+title: "14 Participants — Deep Dives"
 ---
 
-<!-- Ordered by convert likelihood: True Target → Non-target -->
+<!-- ordered by convert_type per CLAUDE.md mục 8; reorder + add convert_type tag (vd "True Target") sau khi participants.csv extract xong -->
+<!-- P-code ↔ real-name lookup ở studies/pretour-research-2026/data/raw/crosswalk.csv (gitignored, never commit) -->
 
-## P01 — [Tên] (True Target)
+## P01
 
-TODO: Profile → 3-4 rào cản → Kết luận
+TODO: Profile → 3-4 rào cản → Kết luận. Compute profile row từ `participants.csv` filter `pid == 'P01'`.
 
-## P02 — Trương Liêu (True Convert)
-
-TODO
-
-## P03 — [Tên]
+## P02
 
 TODO
 
-## P04 — [Tên]
+## P03
 
 TODO
 
-## P05 — [Tên]
+## P04
 
 TODO
 
-## P06 — [Tên]
+## P05
 
 TODO
 
-## P07 — [Tên]
+## P06
 
 TODO
 
-## P08 — [Tên]
+## P07
 
 TODO
 
-## P09 — [Tên]
+## P08
 
 TODO
 
-## P10 — [Tên]
+## P09
 
 TODO
 
-## P11 — [Tên]
+## P10
 
 TODO
 
-## P12 — [Tên] (Non-target)
+## P11
+
+TODO
+
+## P12
+
+TODO
+
+## P13
+
+TODO
+
+## P14
 
 TODO

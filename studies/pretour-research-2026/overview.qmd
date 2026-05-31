@@ -3,17 +3,29 @@ title: "Overview"
 ---
 
 ::: {.callout-note}
-**TL;DR** — TODO: 1 paragraph executive summary với key finding chính
+**TL;DR** — TODO: 1 paragraph executive summary với key finding chính. Mọi con số phải **compute từ CSV** (mục 2 CLAUDE.md), KHÔNG hardcode.
 :::
 
 ## Sample
 
-TODO: 1 paragraph prose giới thiệu 12 participants, 2 nhóm (7 chưa từng + 5 đã từng)
+TODO: 1 paragraph prose giới thiệu **14 participants** (8 `chua_tung` + 6 `da_tung`); compute counts từ `participants.csv` để verify mẫu số. Note tag `lens` (customer / industry / lead_user) chỉ là annotation, KHÔNG filter % (mục 3).
 
-## 3 patterns chính
+## Patterns (rào cản)
 
-TODO: Pattern 1 (Tour Design), Pattern 2 (Social Dependency), Pattern 3 (Identity Mismatch)
+TODO: 1 dòng cho mỗi pattern, link đến section deep dive trong `findings.qmd`.
 
-## 2 signals mới
+- **P1** — Tour Design quá thụ động *(Cao)*
+- **P2** — Social Dependency *(Cao)*
+- **P3** — Identity Mismatch *(Trung bình)*
+- **P4** — Cảnh giác văn hoá "dàn dựng giả" *(Trung bình)*
+- **P5** — Destination Credibility (Nam Định) *(Trung bình)*
+- **P6** — Familiarity Bias văn hoá trong nước *(Tín hiệu sớm)*
 
-TODO: Vietnamese Studies / Foreign Visitors, Destination Credibility
+## Hypothesis
+
+- **H1** — Khách quan tâm tín ngưỡng *(Hypothesis)* — gender-neutral; cohort 2 sẽ kiểm hook có bó theo tuổi/giới không.
+
+## Signals
+
+- **S1** — Vietnamese Studies / Khách nước ngoài *(Tín hiệu sớm)*
+- **S2** — Ẩm thực là đòn bẩy soft *(Tín hiệu sớm)* — có action pilot, KHÔNG phải data gap.

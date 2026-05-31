@@ -4,12 +4,14 @@ title: "Cho Content & Media Team"
 
 ## Language bank
 
-TODO: cột trái (card đang dùng) vs cột phải (vocabulary participants tự dùng)
+TODO: cột trái (card đang dùng) vs cột phải (vocabulary participants tự dùng).
+
+Note: dùng đúng terminology mục 7 CLAUDE.md — vd "**khách quan tâm tín ngưỡng**" (KHÔNG "phụ nữ tâm linh"); tách "**mức chi du lịch**" ≠ "**giá tour chấp nhận được**".
 
 ## Verbatim quotes có thể dùng làm copy
 
-TODO
+TODO: pull từ `quotes_df` filter `confidence_level == 'cao'`, tag theo pattern_id.
 
 ## Media strategy theo segment
 
-TODO
+TODO: segment theo `convert_type` (true_target / conditional / passive / harder / future / non_target).
