@@ -1,0 +1,90 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Quote Bank\"\n",
+        "jupyter: python3\n",
+        "---"
+      ],
+      "id": "86e231e0"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| label: setup\n",
+        "#| echo: false\n",
+        "\n",
+        "import sys\n",
+        "from pathlib import Path\n",
+        "\n",
+        "def _find_root(start):\n",
+        "    for p in [start] + list(start.parents):\n",
+        "        if (p / \"_quarto.yml\").exists():\n",
+        "            return p\n",
+        "    return start\n",
+        "\n",
+        "_root = _find_root(Path.cwd())\n",
+        "sys.path.insert(0, str(_root / \"shared\"))\n",
+        "\n",
+        "from viz_helpers import load_study_data\n",
+        "\n",
+        "participants_df, quotes_df = load_study_data(_root / \"studies\" / \"pretour-research-2026\")"
+      ],
+      "id": "setup",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "#| output: asis\n",
+        "\n",
+        "if len(quotes_df) == 0:\n",
+        "    print(\"> ⚠️ **TODO: chưa extract quotes vào `data/quotes.csv`.** Table bên dưới sẽ rỗng cho đến khi quotes được fill.\\n\")\n",
+        "else:\n",
+        "    print(f\"Total quotes: **{len(quotes_df)}** · Participants có quote: **{quotes_df['pid'].nunique()}**\\n\")"
+      ],
+      "id": "ef39964d",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "TODO: render searchable table từ `quotes_df` bằng `itables`, hỗ trợ filter theo `pattern_id` (P1–P6, H1, S1, S2), `confidence_level` (cao / trung_binh / som / hypothesis), và `pid`. Hide các cột PII-adjacent nếu cần."
+      ],
+      "id": "03ad08e4"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "\n",
+        "if len(quotes_df) > 0:\n",
+        "    # TODO: from itables import show; show(quotes_df, ...)\n",
+        "    pass"
+      ],
+      "id": "fd53e3bc",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "C:\\Users\\khanh\\AppData\\Roaming\\Python\\share\\jupyter\\kernels\\python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
