@@ -278,7 +278,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<div id="a1b0e65c" class="cell" data-execution_count="4">
+<div id="75247e69" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -386,205 +386,6 @@ Note
 </section>
 <section id="p4-cảnh-giác-văn-hoá-dàn-dựng-giả" class="level2">
 <h2 class="anchored" data-anchor-id="p4-cảnh-giác-văn-hoá-dàn-dựng-giả">P4 — Cảnh giác văn hoá “dàn dựng giả”</h2>
-<div id="98bae7e9" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="findings_files/figure-html/cell-8-output-1.png" alt="Dot plot 7 participants P4 theo 3 nhóm quan điểm về dàn dựng" width="827" height="348" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p style="font-size:0.88rem; color:#666; margin-top:0.2rem">
-○ customer · ▪ industry · ◆ lead user
-</p>
-<section id="pattern-interactive-P4" class="pattern-interactive" data-active-pattern="P4">
-<style>
-    #pattern-interactive-P4 {
-        display: grid;
-        gap: 1rem;
-        margin: 1.5rem 0;
-        color: var(--color-text-primary);
-    }
-    #pattern-interactive-P4 .pattern-interactive__intro,
-    #pattern-interactive-P4 .tier-card,
-    #pattern-interactive-P4 .quote-card {
-        background: var(--color-background-primary);
-        border: 1px solid var(--color-border-primary);
-        border-radius: 0.9rem;
-        box-shadow: var(--shadow-sm);
-    }
-    #pattern-interactive-P4 .pattern-interactive__intro {
-        padding: 1rem 1.15rem;
-    }
-    #pattern-interactive-P4 .pattern-interactive__intro p:last-child {
-        margin-bottom: 0;
-    }
-    #pattern-interactive-P4 .pattern-interactive__header {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        align-items: baseline;
-        justify-content: space-between;
-    }
-    #pattern-interactive-P4 .pattern-interactive__header h3,
-    #pattern-interactive-P4 .tier-card h4 {
-        margin: 0;
-    }
-    #pattern-interactive-P4 .pattern-interactive__meta {
-        color: var(--color-text-secondary);
-        font-size: 0.92rem;
-    }
-    #pattern-interactive-P4 .pid-ref {
-        cursor: pointer;
-        font-weight: 700;
-        text-decoration: underline;
-        text-decoration-style: dotted;
-        text-underline-offset: 0.18em;
-    }
-    #pattern-interactive-P4 .pid-ref.is-active {
-        background: var(--color-background-secondary);
-        border-radius: 0.25rem;
-    }
-    #pattern-interactive-P4 .tier-grid {
-        display: grid;
-        gap: 0.75rem;
-        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-    }
-    #pattern-interactive-P4 .tier-card {
-        padding: 0.9rem;
-    }
-    #pattern-interactive-P4 .tier-card__patterns {
-        display: grid;
-        gap: 0.5rem;
-        margin-top: 0.75rem;
-    }
-    #pattern-interactive-P4 .pattern-pill {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 0.65rem;
-        padding: 0.6rem;
-        border: 0.5px solid var(--color-border-primary);
-        border-radius: 0.7rem;
-        background: var(--color-background-secondary);
-    }
-    #pattern-interactive-P4 .pattern-pill.is-active {
-        border: 1.5px solid var(--color-border-primary);
-        background: var(--color-background-secondary);
-        font-weight: 500;
-    }
-    #pattern-interactive-P4 .pattern-pill__id {
-        font-weight: 800;
-    }
-    #pattern-interactive-P4 .pattern-pill__name {
-        color: var(--color-text-secondary);
-    }
-    #pattern-interactive-P4 .pattern-pill.is-active .pattern-pill__name {
-        color: var(--color-text-primary);
-    }
-    #pattern-interactive-P4 .pattern-pill__meta {
-        color: var(--color-text-secondary);
-        font-size: 0.85rem;
-    }
-    #pattern-interactive-P4 .pill-badge {
-        display: inline-block;
-        font-size: 0.72rem;
-        padding: 0.05rem 0.3rem;
-        border-radius: 999px;
-        border: 1px solid var(--color-border-primary);
-        margin-left: 0.35rem;
-        vertical-align: middle;
-        font-weight: 400;
-    }
-    #pattern-interactive-P4 .quote-explorer {
-        display: grid;
-        gap: 0.75rem;
-    }
-    #pattern-interactive-P4 .quote-card {
-        overflow: hidden;
-        background: var(--color-background-primary);
-        border: 0.5px solid var(--color-border-primary);
-        border-radius: 0.9rem;
-        transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
-    }
-    #pattern-interactive-P4 .quote-card:has(button[aria-expanded='true']) {
-        background: var(--color-background-secondary);
-    }
-    #pattern-interactive-P4 .quote-card.is-muted {
-        opacity: 0.5;
-    }
-    #pattern-interactive-P4 .quote-card.is-highlighted {
-        border: 1.5px solid var(--warn);
-        opacity: 1;
-    }
-    #pattern-interactive-P4 .quote-card__summary {
-        width: 100%;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        grid-template-rows: auto auto;
-        gap: 0.35rem 0.75rem;
-        padding: 0.85rem 1rem;
-        border: 0;
-        background: transparent;
-        color: inherit;
-        text-align: left;
-        cursor: pointer;
-        font: inherit;
-    }
-    #pattern-interactive-P4 .quote-card__quote-text {
-        grid-column: 1; grid-row: 1;
-        font-weight: 500;
-        font-size: 14px;
-    }
-    #pattern-interactive-P4 .quote-card__toggle {
-        grid-column: 2; grid-row: 1 / 3;
-        align-self: center;
-        color: var(--color-text-secondary);
-        font-size: 0.85rem;
-        user-select: none;
-    }
-    #pattern-interactive-P4 .quote-card__meta {
-        grid-column: 1; grid-row: 2;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.45rem;
-        align-items: center;
-        color: var(--color-text-secondary);
-        font-size: 12px;
-    }
-    #pattern-interactive-P4 .confidence-badge {
-        border: 1px solid var(--color-border-primary);
-        border-radius: 999px;
-        padding: 0.1rem 0.45rem;
-        background: var(--color-background-secondary);
-        color: var(--color-text-primary);
-    }
-    #pattern-interactive-P4 .quote-card__full {
-        padding: 0 1rem 1rem;
-    }
-    #pattern-interactive-P4 .quote-card__full-text {
-        font-style: italic;
-        font-size: 13px;
-        color: var(--color-text-secondary);
-        border-top: 0.5px solid var(--color-border-primary);
-        padding-top: 0.75rem;
-        margin-top: 0;
-    }
-    #pattern-interactive-P4 .quote-card__ref,
-    #pattern-interactive-P4 .quote-empty {
-        color: var(--color-text-secondary);
-        font-size: 0.86rem;
-    }
-</style>
-<div class="pattern-interactive__header">
-<h3 class="anchored">
-P4 / Cảnh giác văn hoá "dàn dựng giả"
-</h3>
-<div class="pattern-interactive__meta">
-7/14 participants / confidence Trung bình
-</div>
-</div>
-<div class="pattern-interactive__intro">
 <p>
 Khi nói về tour văn hoá, nhiều khách chia sẻ một lo ngại chung: sợ bị xem diễn. Nhưng “dàn dựng” không có nghĩa giống nhau với tất cả mọi người — phản ứng trải từ cảnh giác mạnh đến chấp nhận có điều kiện đến tiêu chí hoàn toàn khác. Đây là lý do confidence Trung bình: không phải vì ít nguồn (7/14), mà vì thiếu đồng thuận về <em>nghĩa</em> của “dàn dựng”.
 </p>
@@ -600,302 +401,68 @@ Khi nói về tour văn hoá, nhiều khách chia sẻ một lo ngại chung: s�
 <p>
 Câu hỏi pilot tháng 7 phải trả lời: với hầu đồng tại Phủ Dầy, ranh giới giữa nghi lễ thật có khách chứng kiến và nghi lễ được sắp xếp cho khách xem trông như thế nào, và MẠCH sẽ giải thích điều đó với khách ra sao?
 </p>
-</div>
-<div class="tier-grid" aria-label="Confidence tier overview">
-<section class="tier-card">
-<h4 class="anchored">
-Tin cậy cao
-</h4>
-<div class="tier-card__patterns">
-<div class="pattern-pill" data-pattern-id="P1">
-<div class="pattern-pill__id">
-P1
-</div>
-<div class="pattern-pill__body">
-<div class="pattern-pill__name">
-Tour Design quá thụ động
-</div>
-<div class="pattern-pill__meta">
-11/14 participants
-</div>
-</div>
-</div>
-<div class="pattern-pill" data-pattern-id="P2">
-<div class="pattern-pill__id">
-P2
-</div>
-<div class="pattern-pill__body">
-<div class="pattern-pill__name">
-Social Dependency (người đồng hành/gia đình là yếu tố quyết định)
-</div>
-<div class="pattern-pill__meta">
-5/14 participants
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="tier-card">
-<h4 class="anchored">
-Trung bình
-</h4>
-<div class="tier-card__patterns">
-<div class="pattern-pill" data-pattern-id="P3">
-<div class="pattern-pill__id">
-P3
-</div>
-<div class="pattern-pill__body">
-<div class="pattern-pill__name">
-Identity Mismatch ("tour cho người khác, không hẳn tôi")
-</div>
-<div class="pattern-pill__meta">
-10/14 participants
-</div>
-</div>
-</div>
-<div class="pattern-pill is-active" data-pattern-id="P4">
-<div class="pattern-pill__id">
-P4
-</div>
-<div class="pattern-pill__body">
-<div class="pattern-pill__name">
-Cảnh giác văn hoá "dàn dựng giả"
-</div>
-<div class="pattern-pill__meta">
-7/14 participants
-</div>
-</div>
-</div>
-<div class="pattern-pill" data-pattern-id="P5">
-<div class="pattern-pill__id">
-P5
-</div>
-<div class="pattern-pill__body">
-<div class="pattern-pill__name">
-Destination Credibility (Nam Định)
-</div>
-<div class="pattern-pill__meta">
-7/14 participants
-</div>
-</div>
-</div>
-<div class="pattern-pill" data-pattern-id="S2">
-<div class="pattern-pill__id">
-S2
-</div>
-<div class="pattern-pill__body">
-<div class="pattern-pill__name">
-Ẩm thực là đòn bẩy soft
-</div>
-<div class="pattern-pill__meta">
-6/14 participants
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="tier-card">
-<h4 class="anchored">
-Cần thêm data
-</h4>
-<div class="tier-card__patterns">
-<div class="pattern-pill" data-pattern-id="S1">
-<div class="pattern-pill__id">
-S1
-</div>
-<div class="pattern-pill__body">
-<div class="pattern-pill__name">
-Vietnamese Studies / Khách nước ngoài<span class="pill-badge">hypothesis</span>
-</div>
-<div class="pattern-pill__meta">
-5/14 participants
-</div>
-</div>
-</div>
-<div class="pattern-pill" data-pattern-id="H1">
-<div class="pattern-pill__id">
-H1
-</div>
-<div class="pattern-pill__body">
-<div class="pattern-pill__name">
-Khách quan tâm tín ngưỡng<span class="pill-badge">hypothesis</span>
-</div>
-<div class="pattern-pill__meta">
-4/14 participants
-</div>
-</div>
-</div>
-<div class="pattern-pill" data-pattern-id="P6">
-<div class="pattern-pill__id">
-P6
-</div>
-<div class="pattern-pill__body">
-<div class="pattern-pill__name">
-Familiarity Bias văn hoá trong nước ("quá quen, không novel")<span class="pill-badge">tín hiệu</span>
-</div>
-<div class="pattern-pill__meta">
-1/14 participants
-</div>
-</div>
-</div>
-</div>
-</section>
-</div>
-<div class="quote-explorer" aria-label="Quote explorer">
-<article class="quote-card" data-pid="P01">
-<button class="quote-card__summary" type="button" aria-expanded="false">
-<span class="quote-card__quote-text">“Tour Hà Tây mất hồn cốt”</span><span class="quote-card__toggle" aria-hidden="true">↓</span><span class="quote-card__meta"><strong>P01</strong><span>customer</span><span class="confidence-badge">trung_binh</span></span>
+<section id="p4-dotplot" class="p4-dotplot-block">
+<style>
+#p4-dotplot {display:grid;grid-template-columns:3fr 2fr;gap:1.5rem;align-items:start;margin:1.5rem 0;}.p4-plot-side{padding:0.25rem 0;}.p4-group-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.9rem;}.p4-group-label{min-width:11rem;font-size:0.875rem;color:var(--ink,#2c2c2c);line-height:1.3;}.p4-dots{display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;}.p4-dot{background:none;border:none;padding:0.2rem 0.15rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:0.18rem;outline:none;}.p4-dot-shape{width:20px;height:20px;background:var(--dot-main);display:block;transition:filter 0.15s;}.p4-dot--circle .p4-dot-shape{border-radius:50%;}.p4-dot--square .p4-dot-shape{border-radius:2px;}.p4-dot--diamond .p4-dot-shape{clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}.p4-dot:hover .p4-dot-shape,.p4-dot.is-active .p4-dot-shape{filter:drop-shadow(0 0 5px var(--dot-dark)) brightness(1.12);}.p4-dot-label{font-size:0.72rem;color:var(--muted,#888);line-height:1;}.p4-dot.is-active .p4-dot-label{color:var(--ink,#2c2c2c);font-weight:600;}.p4-legend{display:flex;gap:1rem;margin-top:0.6rem;padding-top:0.5rem;border-top:1px solid var(--line,#d0ccc8);}.p4-legend-item{display:flex;align-items:center;gap:0.35rem;font-size:0.78rem;color:var(--muted,#888);}.p4-leg{width:11px;height:11px;background:var(--muted,#888);display:inline-block;}.p4-leg--circle{border-radius:50%;}.p4-leg--square{border-radius:2px;}.p4-leg--diamond{clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}.p4-quote-side{min-height:7rem;}.p4-hint{font-size:0.875rem;color:var(--muted,#888);font-style:italic;margin:0.5rem 0 0;}.p4-quote-panel{background:var(--bg-soft,#f7f7f5);border-radius:0.7rem;padding:1rem 1.1rem;}.p4-qpid{font-size:0.78rem;font-weight:600;color:var(--muted,#888);margin:0 0 0.4rem;text-transform:uppercase;letter-spacing:0.03em;}.p4-qshort{font-size:0.9rem;font-weight:500;color:var(--ink,#2c2c2c);margin:0;font-style:italic;}.p4-qfull{font-size:0.82rem;color:var(--muted,#888);margin:0.5rem 0 0.3rem;border-top:1px solid var(--line,#d0ccc8);padding-top:0.5rem;}.p4-qref{font-size:0.73rem;color:var(--muted,#888);margin:0.2rem 0 0;font-family:monospace;opacity:0.75;}
+</style>
+<div class="p4-plot-side">
+<div class="p4-group-row">
+<span class="p4-group-label">Phản đối rõ</span>
+<div class="p4-dots">
+<button class="p4-dot p4-dot--circle" data-pid="P01" style="--dot-main:#D85A30;--dot-dark:#b54a27" aria-label="P01" type="button">
+<span class="p4-dot-shape"></span><span class="p4-dot-label">P01</span>
 </button>
-<div class="quote-card__full" hidden="">
-<p class="quote-card__full-text">
-Cái tour về trải nghiệm văn hoá thực diễn (Hà Tây): Tái hiện hoạt ảnh văn hoá, xây dựng lại bối cảnh - Mất hồn cốt - Không còn thú vị bằng yếu tố con người
-</p>
-<p class="quote-card__ref">
-T_P01_2026Q1_p7
-</p>
-</div>
-</article>
-<article class="quote-card" data-pid="P06">
-<button class="quote-card__summary" type="button" aria-expanded="false">
-<span class="quote-card__quote-text">“Trải nghiệm 'bị diễn' ở TQ”</span><span class="quote-card__toggle" aria-hidden="true">↓</span><span class="quote-card__meta"><strong>P06</strong><span>customer</span><span class="confidence-badge">trung_binh</span></span>
+<button class="p4-dot p4-dot--circle" data-pid="P06" style="--dot-main:#D85A30;--dot-dark:#b54a27" aria-label="P06" type="button">
+<span class="p4-dot-shape"></span><span class="p4-dot-label">P06</span>
 </button>
-<div class="quote-card__full" hidden="">
-<p class="quote-card__full-text">
-Trung quốc - đi tour - dân kém tiếng anh - làng du lịch - Cảm giác bị diễn
-</p>
-<p class="quote-card__ref">
-T_P06_2026Q1_p18
-</p>
-</div>
-</article>
-<article class="quote-card" data-pid="P07">
-<button class="quote-card__summary" type="button" aria-expanded="false">
-<span class="quote-card__quote-text">“Suggest cho thuê trang phục hầu đồng để chụp ảnh (staging tích cực)”</span><span class="quote-card__toggle" aria-hidden="true">↓</span><span class="quote-card__meta"><strong>P07</strong><span>industry</span><span class="confidence-badge">som</span></span>
+<button class="p4-dot p4-dot--diamond" data-pid="P14" style="--dot-main:#D85A30;--dot-dark:#b54a27" aria-label="P14" type="button">
+<span class="p4-dot-shape"></span><span class="p4-dot-label">P14</span>
 </button>
-<div class="quote-card__full" hidden="">
-<p class="quote-card__full-text">
-Cho thuê trang phục hầu đồng của Việt Nam để chụp ảnh. Chương trình mở rộng ra: Rất thích chụp ảnh, thấy thú vị hơn
-</p>
-<p class="quote-card__ref">
-T_P07_2026Q1_p21
-</p>
 </div>
-</article>
-<article class="quote-card" data-pid="P08">
-<button class="quote-card__summary" type="button" aria-expanded="false">
-<span class="quote-card__quote-text">“Dàn dựng là quảng bá; vẫn hoan nghênh (nuanced)”</span><span class="quote-card__toggle" aria-hidden="true">↓</span><span class="quote-card__meta"><strong>P08</strong><span>customer</span><span class="confidence-badge">trung_binh</span></span>
+</div>
+<div class="p4-group-row">
+<span class="p4-group-label">Chấp nhận có điều kiện</span>
+<div class="p4-dots">
+<button class="p4-dot p4-dot--circle" data-pid="P08" style="--dot-main:#EF9F27;--dot-dark:#c77e0f" aria-label="P08" type="button">
+<span class="p4-dot-shape"></span><span class="p4-dot-label">P08</span>
 </button>
-<div class="quote-card__full" hidden="">
-<p class="quote-card__full-text">
-'người làm du lịch tại địa phương chắc chắn đang biểu diễn cho mình xem' - nhưng biểu diễn cũng là hình thức quảng bá cho nhiều người biết nên cô vẫn hoan nghênh
-</p>
-<p class="quote-card__ref">
-T_P08_2026Q1_p23
-</p>
-</div>
-</article>
-<article class="quote-card" data-pid="P09">
-<button class="quote-card__summary" type="button" aria-expanded="false">
-<span class="quote-card__quote-text">“Sapa/Hạ Long = trình diễn; authenticity = chân thành dịch vụ”</span><span class="quote-card__toggle" aria-hidden="true">↓</span><span class="quote-card__meta"><strong>P09</strong><span>customer</span><span class="confidence-badge">som</span></span>
+<button class="p4-dot p4-dot--square" data-pid="P11" style="--dot-main:#EF9F27;--dot-dark:#c77e0f" aria-label="P11" type="button">
+<span class="p4-dot-shape"></span><span class="p4-dot-label">P11</span>
 </button>
-<div class="quote-card__full" hidden="">
-<p class="quote-card__full-text">
-Nhắc tới Sapa, Hạ Long khi nhắc tới 'trình diễn văn hoá'. Sự chân thực = sự thật thà, chân thành trong dịch vụ khách hàng
-</p>
-<p class="quote-card__ref">
-T_P09_2026Q1_p25
-</p>
 </div>
-</article>
-<article class="quote-card" data-pid="P11">
-<button class="quote-card__summary" type="button" aria-expanded="false">
-<span class="quote-card__quote-text">“Biến tấu = không tốt; tổ chức chuyên nghiệp = tích cực”</span><span class="quote-card__toggle" aria-hidden="true">↓</span><span class="quote-card__meta"><strong>P11</strong><span>industry</span><span class="confidence-badge">trung_binh</span></span>
+</div>
+<div class="p4-group-row">
+<span class="p4-group-label">Định nghĩa lại</span>
+<div class="p4-dots">
+<button class="p4-dot p4-dot--square" data-pid="P07" style="--dot-main:#1D9E75;--dot-dark:#157a59" aria-label="P07" type="button">
+<span class="p4-dot-shape"></span><span class="p4-dot-label">P07</span>
 </button>
-<div class="quote-card__full" hidden="">
-<p class="quote-card__full-text">
-'sự dàn dựng' khi có sự biến tấu -&gt; ko tốt; còn nếu dàn dựng theo hướng 'có tổ chức' 'chuyên nghiệp trong tổ chức du lịch -&gt; tích cực
-</p>
-<p class="quote-card__ref">
-T_P11_2026Q1_p8
-</p>
-</div>
-</article>
-<article class="quote-card" data-pid="P14">
-<button class="quote-card__summary" type="button" aria-expanded="false">
-<span class="quote-card__quote-text">“Măng đen: người Kinh thuê hết → mất tự nhiên”</span><span class="quote-card__toggle" aria-hidden="true">↓</span><span class="quote-card__meta"><strong>P14</strong><span>lead_user</span><span class="confidence-badge">trung_binh</span></span>
+<button class="p4-dot p4-dot--circle" data-pid="P09" style="--dot-main:#1D9E75;--dot-dark:#157a59" aria-label="P09" type="button">
+<span class="p4-dot-shape"></span><span class="p4-dot-label">P09</span>
 </button>
-<div class="quote-card__full" hidden="">
-<p class="quote-card__full-text">
-Có, măng đen, chính quyền đầu tư, tái định cư cho phụ nữ. Phiên chợ mô hình nhà sàn. Lần này chị đi - người kinh thuê hết - sản phẩm không còn tự nhiên nữa
+</div>
+</div>
+<div class="p4-legend">
+<span class="p4-legend-item"><span class="p4-leg p4-leg--circle"></span>customer</span><span class="p4-legend-item"><span class="p4-leg p4-leg--square"></span>industry</span><span class="p4-legend-item"><span class="p4-leg p4-leg--diamond"></span>lead user</span>
+</div>
+</div>
+<div class="p4-quote-side">
+<div id="p4-dotplot-quote" class="p4-quote-panel" style="display:none">
+<p class="p4-qpid">
 </p>
-<p class="quote-card__ref">
-T_P14_2026Q1_p14
+<p class="p4-qshort">
+</p>
+<p class="p4-qfull">
+</p>
+<p class="p4-qref">
 </p>
 </div>
-</article>
+<p class="p4-hint">
+Chọn một participant để xem trích dẫn
+</p>
 </div>
 <script>
-(function() {
-    const root = document.getElementById("pattern-interactive-P4");
-    if (!root) return;
-    const quoteCards = Array.from(root.querySelectorAll(".quote-card"));
-    const pidRefs = Array.from(root.querySelectorAll(".pid-ref"));
-    quoteCards.forEach((card) => {
-        const button = card.querySelector(".quote-card__summary");
-        const full = card.querySelector(".quote-card__full");
-        if (!button || !full) return;
-        button.addEventListener('click', () => {
-            const expanded = button.getAttribute("aria-expanded") === "true";
-            button.setAttribute("aria-expanded", String(!expanded));
-            full.hidden = expanded;
-            const toggle = button.querySelector(".quote-card__toggle");
-            if (toggle) toggle.textContent = expanded ? "↓" : "↑";
-        });
-    });
-    function clearHighlight() {
-        quoteCards.forEach((card) => {
-            card.classList.remove("is-highlighted", "is-muted");
-            if (card.dataset.autoExpanded === "true") {
-                const btn = card.querySelector(".quote-card__summary");
-                const full = card.querySelector(".quote-card__full");
-                const toggle = btn && btn.querySelector(".quote-card__toggle");
-                if (btn) btn.setAttribute("aria-expanded", "false");
-                if (full) full.hidden = true;
-                if (toggle) toggle.textContent = "↓";
-                delete card.dataset.autoExpanded;
-            }
-        });
-        pidRefs.forEach((ref) => ref.classList.remove("is-active"));
-    }
-    pidRefs.forEach((ref) => {
-        ref.addEventListener('click', () => {
-            const pids = (ref.dataset.pids || "")
-                .split(",")
-                .map((pid) => pid.trim())
-                .filter(Boolean);
-            const isActive = ref.classList.contains("is-active");
-            clearHighlight();
-            if (isActive || pids.length === 0) return;
-            ref.classList.add("is-active");
-            quoteCards.forEach((card) => {
-                if (pids.includes(card.dataset.pid)) {
-                    card.classList.add("is-highlighted");
-                    const btn = card.querySelector(".quote-card__summary");
-                    const full = card.querySelector(".quote-card__full");
-                    const toggle = btn && btn.querySelector(".quote-card__toggle");
-                    if (btn && btn.getAttribute("aria-expanded") !== "true") {
-                        btn.setAttribute("aria-expanded", "true");
-                        if (full) full.hidden = false;
-                        if (toggle) toggle.textContent = "↑";
-                        card.dataset.autoExpanded = "true";
-                    }
-                } else {
-                    card.classList.add("is-muted");
-                }
-            });
-        });
-    });
-})();
+(function(){var QUOTES=[{"pid": "P01", "lens": "customer", "confidence": "trung_binh", "short": "Tour Hà Tây mất hồn cốt", "full": "Cái tour về trải nghiệm văn hoá thực diễn (Hà Tây): Tái hiện hoạt ảnh văn hoá, xây dựng lại bối cảnh - Mất hồn cốt - Không còn thú vị bằng yếu tố con người", "ref": "T_P01_2026Q1_p7"}, {"pid": "P06", "lens": "customer", "confidence": "trung_binh", "short": "Trải nghiệm 'bị diễn' ở TQ", "full": "Trung quốc - đi tour - dân kém tiếng anh - làng du lịch - Cảm giác bị diễn", "ref": "T_P06_2026Q1_p18"}, {"pid": "P07", "lens": "industry", "confidence": "som", "short": "Suggest cho thuê trang phục hầu đồng để chụp ảnh (staging tích cực)", "full": "Cho thuê trang phục hầu đồng của Việt Nam để chụp ảnh. Chương trình mở rộng ra: Rất thích chụp ảnh, thấy thú vị hơn", "ref": "T_P07_2026Q1_p21"}, {"pid": "P08", "lens": "customer", "confidence": "trung_binh", "short": "Dàn dựng là quảng bá; vẫn hoan nghênh (nuanced)", "full": "'người làm du lịch tại địa phương chắc chắn đang biểu diễn cho mình xem' - nhưng biểu diễn cũng là hình thức quảng bá cho nhiều người biết nên cô vẫn hoan nghênh", "ref": "T_P08_2026Q1_p23"}, {"pid": "P09", "lens": "customer", "confidence": "som", "short": "Sapa/Hạ Long = trình diễn; authenticity = chân thành dịch vụ", "full": "Nhắc tới Sapa, Hạ Long khi nhắc tới 'trình diễn văn hoá'. Sự chân thực = sự thật thà, chân thành trong dịch vụ khách hàng", "ref": "T_P09_2026Q1_p25"}, {"pid": "P11", "lens": "industry", "confidence": "trung_binh", "short": "Biến tấu = không tốt; tổ chức chuyên nghiệp = tích cực", "full": "'sự dàn dựng' khi có sự biến tấu -> ko tốt; còn nếu dàn dựng theo hướng 'có tổ chức' 'chuyên nghiệp trong tổ chức du lịch -> tích cực", "ref": "T_P11_2026Q1_p8"}, {"pid": "P14", "lens": "lead_user", "confidence": "trung_binh", "short": "Măng đen: người Kinh thuê hết → mất tự nhiên", "full": "Có, măng đen, chính quyền đầu tư, tái định cư cho phụ nữ. Phiên chợ mô hình nhà sàn. Lần này chị đi - người kinh thuê hết - sản phẩm không còn tự nhiên nữa", "ref": "T_P14_2026Q1_p14"}];var P4PIDS=new Set(["P01", "P06", "P14", "P08", "P11", "P07", "P09"]);var block=document.getElementById('p4-dotplot');if(!block)return;var quoteDiv=document.getElementById('p4-dotplot-quote');var hint=block.querySelector('.p4-hint');var activeBtn=null;var QMAP={};QUOTES.forEach(function(q){QMAP[q.pid]=q;});function showQuote(btn){if(activeBtn)activeBtn.classList.remove('is-active');activeBtn=btn;btn.classList.add('is-active');var pid=btn.dataset.pid;var q=QMAP[pid];if(!q)return;quoteDiv.querySelector('.p4-qpid').textContent=pid+' · '+q.lens;quoteDiv.querySelector('.p4-qshort').textContent='“'+q.short+'”';var fullEl=quoteDiv.querySelector('.p4-qfull');if(q.full&&q.full!==q.short){fullEl.textContent=q.full;fullEl.style.display='block';}else{fullEl.style.display='none';}quoteDiv.querySelector('.p4-qref').textContent=q.ref||'';quoteDiv.style.display='block';if(hint)hint.style.display='none';}block.querySelectorAll('.p4-dot').forEach(function(btn){btn.addEventListener('click',function(){if(activeBtn===btn)return;showQuote(btn);});});document.querySelectorAll('.pid-ref').forEach(function(span){var pids=(span.dataset.pids||'').split(',').map(function(s){return s.trim();});var relevant=pids.filter(function(p){return P4PIDS.has(p);});if(!relevant.length)return;span.addEventListener('click',function(){var first=relevant[0];var dot=block.querySelector('.p4-dot[data-pid="'+first+'"]');if(dot)showQuote(dot);});});})();
 </script>
 </section>
 </section>
