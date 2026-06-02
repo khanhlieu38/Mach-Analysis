@@ -232,42 +232,45 @@ def render_pattern_interactive(pid_pattern, interpretation_prose, quotes_df, par
     block_id = f"pattern-interactive-{html.escape(pid_pattern, quote=True)}"
     active_meta = PATTERN_META[pid_pattern]
 
+    _DISPLAY_ZONES = [
+        ("Tin cậy cao",   ("Cao",)),
+        ("Trung bình",    ("Trung bình",)),
+        ("Cần thêm data", ("Tín hiệu sớm", "Hypothesis")),
+    ]
     tier_cards = []
-    for tier in CONFIDENCE_TIERS:
+    for zone_label, zone_tiers in _DISPLAY_ZONES:
         pattern_rows = []
-        tier_patterns = [
+        zone_patterns = [
             (pid, meta) for pid, meta in PATTERN_META.items()
-            if meta["confidence"] == tier
+            if meta["confidence"] in zone_tiers
         ]
-        tier_patterns.sort(
+        zone_patterns.sort(
             key=lambda item: (
                 -pattern_occurrence(item[0], quotes_df, participants_df)["count"],
                 item[0],
             )
         )
-        for pid, meta in tier_patterns:
+        for pid, meta in zone_patterns:
             occ = pattern_occurrence(pid, quotes_df, participants_df)
             active_class = " is-active" if pid == pid_pattern else ""
+            badge = ""
+            if len(zone_tiers) > 1:
+                badge_text = "tín hiệu" if meta["confidence"] == "Tín hiệu sớm" else "hypothesis"
+                badge = f'<span class="pill-badge">{html.escape(badge_text)}</span>'
             pattern_rows.append(
-                f"""
-                <div class="pattern-pill{active_class}" data-pattern-id="{html.escape(pid, quote=True)}">
-                    <div class="pattern-pill__id">{html.escape(pid)}</div>
-                    <div class="pattern-pill__body">
-                        <div class="pattern-pill__name">{html.escape(meta["name"])}</div>
-                        <div class="pattern-pill__meta">{html.escape(occ["label"])} participants</div>
-                    </div>
-                </div>
-                """
+                f'<div class="pattern-pill{active_class}" data-pattern-id="{html.escape(pid, quote=True)}">'
+                f'<div class="pattern-pill__id">{html.escape(pid)}</div>'
+                f'<div class="pattern-pill__body">'
+                f'<div class="pattern-pill__name">{html.escape(meta["name"])}{badge}</div>'
+                f'<div class="pattern-pill__meta">{html.escape(occ["label"])} participants</div>'
+                f'</div>'
+                f'</div>'
             )
         tier_cards.append(
-            f"""
-            <section class="tier-card">
-                <h4>{html.escape(tier)}</h4>
-                <div class="tier-card__patterns">
-                    {''.join(pattern_rows)}
-                </div>
-            </section>
-            """
+            f'<section class="tier-card">'
+            f'<h4>{html.escape(zone_label)}</h4>'
+            f'<div class="tier-card__patterns">{"".join(pattern_rows)}</div>'
+            f'</section>'
         )
 
     quote_rows = quotes_df[quotes_df["pattern_id"] == pid_pattern].copy()
@@ -296,22 +299,21 @@ def render_pattern_interactive(pid_pattern, interpretation_prose, quotes_df, par
         )
         ref_id = "" if pd.isna(row.get("ref_id")) else str(row["ref_id"])
         quote_cards.append(
-            f"""
-            <article class="quote-card" data-pid="{html.escape(pid, quote=True)}">
-                <button class="quote-card__summary" type="button" aria-expanded="false">
-                    <span class="quote-card__quote">"{html.escape(quote_short or quote_full)}"</span>
-                    <span class="quote-card__meta">
-                        <strong>{html.escape(pid)}</strong>
-                        <span>{html.escape(lens)}</span>
-                        <span class="confidence-badge">{html.escape(confidence)}</span>
-                    </span>
-                </button>
-                <div class="quote-card__full" hidden>
-                    <p>{html.escape(quote_full)}</p>
-                    <p class="quote-card__ref">{html.escape(ref_id)}</p>
-                </div>
-            </article>
-            """
+            f'<article class="quote-card" data-pid="{html.escape(pid, quote=True)}">'
+            f'<button class="quote-card__summary" type="button" aria-expanded="false">'
+            f'<span class="quote-card__quote-text">"{html.escape(quote_short or quote_full)}"</span>'
+            f'<span class="quote-card__toggle" aria-hidden="true">\u2193</span>'
+            f'<span class="quote-card__meta">'
+            f'<strong>{html.escape(pid)}</strong>'
+            f'<span>{html.escape(lens)}</span>'
+            f'<span class="confidence-badge">{html.escape(confidence)}</span>'
+            f'</span>'
+            f'</button>'
+            f'<div class="quote-card__full" hidden>'
+            f'<p class="quote-card__full-text">{html.escape(quote_full)}</p>'
+            f'<p class="quote-card__ref">{html.escape(ref_id)}</p>'
+            f'</div>'
+            f'</article>'
         )
 
     if not quote_cards:
@@ -319,241 +321,270 @@ def render_pattern_interactive(pid_pattern, interpretation_prose, quotes_df, par
             '<p class="quote-empty">No quotes tagged for this pattern yet.</p>'
         )
 
-    return f"""
-<section id="{block_id}" class="pattern-interactive" data-active-pattern="{html.escape(pid_pattern, quote=True)}">
-    <style>
-        #{block_id} {{
-            display: grid;
-            gap: 1rem;
-            margin: 1.5rem 0;
-            color: var(--color-text-primary);
-        }}
-
-        #{block_id} .pattern-interactive__intro,
-        #{block_id} .tier-card,
-        #{block_id} .quote-card {{
-            background: var(--color-background-primary);
-            border: 1px solid var(--color-border-primary);
-            border-radius: 0.9rem;
-            box-shadow: var(--shadow-sm);
-        }}
-
-        #{block_id} .pattern-interactive__intro {{
-            padding: 1rem 1.15rem;
-        }}
-
-        #{block_id} .pattern-interactive__intro p:last-child {{
-            margin-bottom: 0;
-        }}
-
-        #{block_id} .pattern-interactive__header {{
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            align-items: baseline;
-            justify-content: space-between;
-        }}
-
-        #{block_id} .pattern-interactive__header h3,
-        #{block_id} .tier-card h4 {{
-            margin: 0;
-        }}
-
-        #{block_id} .pattern-interactive__meta {{
-            color: var(--color-text-secondary);
-            font-size: 0.92rem;
-        }}
-
-        #{block_id} .pid-ref {{
-            cursor: pointer;
-            font-weight: 700;
-            text-decoration: underline;
-            text-decoration-style: dotted;
-            text-underline-offset: 0.18em;
-        }}
-
-        #{block_id} .pid-ref.is-active {{
-            background: var(--color-background-secondary);
-            border-radius: 0.25rem;
-        }}
-
-        #{block_id} .tier-grid {{
-            display: grid;
-            gap: 0.75rem;
-            grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-        }}
-
-        #{block_id} .tier-card {{
-            padding: 0.9rem;
-        }}
-
-        #{block_id} .tier-card__patterns {{
-            display: grid;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
-        }}
-
-        #{block_id} .pattern-pill {{
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 0.65rem;
-            padding: 0.6rem;
-            border: 1px solid var(--color-border-primary);
-            border-radius: 0.7rem;
-            background: var(--color-background-secondary);
-        }}
-
-        #{block_id} .pattern-pill.is-active {{
-            outline: 2px solid var(--color-text-primary);
-            outline-offset: 2px;
-        }}
-
-        #{block_id} .pattern-pill__id {{
-            font-weight: 800;
-        }}
-
-        #{block_id} .pattern-pill__name {{
-            font-weight: 650;
-        }}
-
-        #{block_id} .pattern-pill__meta {{
-            color: var(--color-text-secondary);
-            font-size: 0.85rem;
-        }}
-
-        #{block_id} .quote-explorer {{
-            display: grid;
-            gap: 0.75rem;
-        }}
-
-        #{block_id} .quote-card {{
-            overflow: hidden;
-            transition: opacity 0.15s ease, outline 0.15s ease;
-        }}
-
-        #{block_id} .quote-card.is-muted {{
-            opacity: 0.45;
-        }}
-
-        #{block_id} .quote-card.is-highlighted {{
-            outline: 2px solid var(--color-text-primary);
-            outline-offset: 2px;
-        }}
-
-        #{block_id} .quote-card__summary {{
-            width: 100%;
-            display: grid;
-            gap: 0.55rem;
-            padding: 0.9rem 1rem;
-            border: 0;
-            background: transparent;
-            color: inherit;
-            text-align: left;
-            cursor: pointer;
-            font: inherit;
-        }}
-
-        #{block_id} .quote-card__quote {{
-            font-weight: 650;
-        }}
-
-        #{block_id} .quote-card__meta {{
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.45rem;
-            align-items: center;
-            color: var(--color-text-secondary);
-            font-size: 0.86rem;
-        }}
-
-        #{block_id} .confidence-badge {{
-            border: 1px solid var(--color-border-primary);
-            border-radius: 999px;
-            padding: 0.1rem 0.45rem;
-            background: var(--color-background-secondary);
-            color: var(--color-text-primary);
-        }}
-
-        #{block_id} .quote-card__full {{
-            padding: 0 1rem 1rem;
-            color: var(--color-text-primary);
-        }}
-
-        #{block_id} .quote-card__ref,
-        #{block_id} .quote-empty {{
-            color: var(--color-text-secondary);
-            font-size: 0.86rem;
-        }}
-    </style>
-
-    <div class="pattern-interactive__header">
-        <h3>{html.escape(pid_pattern)} / {html.escape(active_meta["name"])}</h3>
-        <div class="pattern-interactive__meta">
-            {html.escape(pattern_occurrence(pid_pattern, quotes_df, participants_df)["label"])} participants / confidence {html.escape(active_meta["confidence"])}
-        </div>
-    </div>
-
-    <div class="pattern-interactive__intro">
-        {interpretation_prose}
-    </div>
-
-    <div class="tier-grid" aria-label="Confidence tier overview">
-        {''.join(tier_cards)}
-    </div>
-
-    <div class="quote-explorer" aria-label="Quote explorer">
-        {''.join(quote_cards)}
-    </div>
-
-    <script>
-        (function() {{
-            const root = document.getElementById("{block_id}");
-            if (!root) return;
-
-            const quoteCards = Array.from(root.querySelectorAll(".quote-card"));
-            const pidRefs = Array.from(root.querySelectorAll(".pid-ref"));
-
-            quoteCards.forEach((card) => {{
-                const button = card.querySelector(".quote-card__summary");
-                const full = card.querySelector(".quote-card__full");
-                if (!button || !full) return;
-                button.addEventListener("click", () => {{
-                    const expanded = button.getAttribute("aria-expanded") === "true";
-                    button.setAttribute("aria-expanded", String(!expanded));
-                    full.hidden = expanded;
-                }});
-            }});
-
-            function clearHighlight() {{
-                quoteCards.forEach((card) => {{
-                    card.classList.remove("is-highlighted", "is-muted");
-                }});
-                pidRefs.forEach((ref) => ref.classList.remove("is-active"));
-            }}
-
-            pidRefs.forEach((ref) => {{
-                ref.addEventListener("click", () => {{
-                    const pids = (ref.dataset.pids || "")
-                        .split(",")
-                        .map((pid) => pid.trim())
-                        .filter(Boolean);
-                    const isActive = ref.classList.contains("is-active");
-                    clearHighlight();
-                    if (isActive || pids.length === 0) return;
-                    ref.classList.add("is-active");
-                    quoteCards.forEach((card) => {{
-                        if (pids.includes(card.dataset.pid)) {{
-                            card.classList.add("is-highlighted");
-                        }} else {{
-                            card.classList.add("is-muted");
-                        }}
-                    }});
-                }});
-            }});
-        }})();
-    </script>
-</section>
-"""
+    _occ_label = html.escape(
+        pattern_occurrence(pid_pattern, quotes_df, participants_df)["label"]
+    )
+    _confidence = html.escape(active_meta["confidence"])
+    return (
+        f'<section id="{block_id}" class="pattern-interactive"'
+        f' data-active-pattern="{html.escape(pid_pattern, quote=True)}">\n'
+        f"<style>\n"
+        f"    #{block_id} {{\n"
+        f"        display: grid;\n"
+        f"        gap: 1rem;\n"
+        f"        margin: 1.5rem 0;\n"
+        f"        color: var(--color-text-primary);\n"
+        f"    }}\n"
+        f"    #{block_id} .pattern-interactive__intro,\n"
+        f"    #{block_id} .tier-card,\n"
+        f"    #{block_id} .quote-card {{\n"
+        f"        background: var(--color-background-primary);\n"
+        f"        border: 1px solid var(--color-border-primary);\n"
+        f"        border-radius: 0.9rem;\n"
+        f"        box-shadow: var(--shadow-sm);\n"
+        f"    }}\n"
+        f"    #{block_id} .pattern-interactive__intro {{\n"
+        f"        padding: 1rem 1.15rem;\n"
+        f"    }}\n"
+        f"    #{block_id} .pattern-interactive__intro p:last-child {{\n"
+        f"        margin-bottom: 0;\n"
+        f"    }}\n"
+        f"    #{block_id} .pattern-interactive__header {{\n"
+        f"        display: flex;\n"
+        f"        flex-wrap: wrap;\n"
+        f"        gap: 0.5rem;\n"
+        f"        align-items: baseline;\n"
+        f"        justify-content: space-between;\n"
+        f"    }}\n"
+        f"    #{block_id} .pattern-interactive__header h3,\n"
+        f"    #{block_id} .tier-card h4 {{\n"
+        f"        margin: 0;\n"
+        f"    }}\n"
+        f"    #{block_id} .pattern-interactive__meta {{\n"
+        f"        color: var(--color-text-secondary);\n"
+        f"        font-size: 0.92rem;\n"
+        f"    }}\n"
+        f"    #{block_id} .pid-ref {{\n"
+        f"        cursor: pointer;\n"
+        f"        font-weight: 700;\n"
+        f"        text-decoration: underline;\n"
+        f"        text-decoration-style: dotted;\n"
+        f"        text-underline-offset: 0.18em;\n"
+        f"    }}\n"
+        f"    #{block_id} .pid-ref.is-active {{\n"
+        f"        background: var(--color-background-secondary);\n"
+        f"        border-radius: 0.25rem;\n"
+        f"    }}\n"
+        f"    #{block_id} .tier-grid {{\n"
+        f"        display: grid;\n"
+        f"        gap: 0.75rem;\n"
+        f"        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));\n"
+        f"    }}\n"
+        f"    #{block_id} .tier-card {{\n"
+        f"        padding: 0.9rem;\n"
+        f"    }}\n"
+        f"    #{block_id} .tier-card__patterns {{\n"
+        f"        display: grid;\n"
+        f"        gap: 0.5rem;\n"
+        f"        margin-top: 0.75rem;\n"
+        f"    }}\n"
+        f"    #{block_id} .pattern-pill {{\n"
+        f"        display: grid;\n"
+        f"        grid-template-columns: auto 1fr;\n"
+        f"        gap: 0.65rem;\n"
+        f"        padding: 0.6rem;\n"
+        f"        border: 0.5px solid var(--color-border-primary);\n"
+        f"        border-radius: 0.7rem;\n"
+        f"        background: var(--color-background-secondary);\n"
+        f"    }}\n"
+        f"    #{block_id} .pattern-pill.is-active {{\n"
+        f"        border: 1.5px solid var(--color-border-primary);\n"
+        f"        background: var(--color-background-secondary);\n"
+        f"        font-weight: 500;\n"
+        f"    }}\n"
+        f"    #{block_id} .pattern-pill__id {{\n"
+        f"        font-weight: 800;\n"
+        f"    }}\n"
+        f"    #{block_id} .pattern-pill__name {{\n"
+        f"        color: var(--color-text-secondary);\n"
+        f"    }}\n"
+        f"    #{block_id} .pattern-pill.is-active .pattern-pill__name {{\n"
+        f"        color: var(--color-text-primary);\n"
+        f"    }}\n"
+        f"    #{block_id} .pattern-pill__meta {{\n"
+        f"        color: var(--color-text-secondary);\n"
+        f"        font-size: 0.85rem;\n"
+        f"    }}\n"
+        f"    #{block_id} .pill-badge {{\n"
+        f"        display: inline-block;\n"
+        f"        font-size: 0.72rem;\n"
+        f"        padding: 0.05rem 0.3rem;\n"
+        f"        border-radius: 999px;\n"
+        f"        border: 1px solid var(--color-border-primary);\n"
+        f"        margin-left: 0.35rem;\n"
+        f"        vertical-align: middle;\n"
+        f"        font-weight: 400;\n"
+        f"    }}\n"
+        f"    #{block_id} .quote-explorer {{\n"
+        f"        display: grid;\n"
+        f"        gap: 0.75rem;\n"
+        f"    }}\n"
+        f"    #{block_id} .quote-card {{\n"
+        f"        overflow: hidden;\n"
+        f"        background: var(--color-background-primary);\n"
+        f"        border: 0.5px solid var(--color-border-primary);\n"
+        f"        border-radius: 0.9rem;\n"
+        f"        transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;\n"
+        f"    }}\n"
+        f"    #{block_id} .quote-card:has(button[aria-expanded='true']) {{\n"
+        f"        background: var(--color-background-secondary);\n"
+        f"    }}\n"
+        f"    #{block_id} .quote-card.is-muted {{\n"
+        f"        opacity: 0.5;\n"
+        f"    }}\n"
+        f"    #{block_id} .quote-card.is-highlighted {{\n"
+        f"        border: 1.5px solid var(--warn);\n"
+        f"        opacity: 1;\n"
+        f"    }}\n"
+        f"    #{block_id} .quote-card__summary {{\n"
+        f"        width: 100%;\n"
+        f"        display: grid;\n"
+        f"        grid-template-columns: 1fr auto;\n"
+        f"        grid-template-rows: auto auto;\n"
+        f"        gap: 0.35rem 0.75rem;\n"
+        f"        padding: 0.85rem 1rem;\n"
+        f"        border: 0;\n"
+        f"        background: transparent;\n"
+        f"        color: inherit;\n"
+        f"        text-align: left;\n"
+        f"        cursor: pointer;\n"
+        f"        font: inherit;\n"
+        f"    }}\n"
+        f"    #{block_id} .quote-card__quote-text {{\n"
+        f"        grid-column: 1; grid-row: 1;\n"
+        f"        font-weight: 500;\n"
+        f"        font-size: 14px;\n"
+        f"    }}\n"
+        f"    #{block_id} .quote-card__toggle {{\n"
+        f"        grid-column: 2; grid-row: 1 / 3;\n"
+        f"        align-self: center;\n"
+        f"        color: var(--color-text-secondary);\n"
+        f"        font-size: 0.85rem;\n"
+        f"        user-select: none;\n"
+        f"    }}\n"
+        f"    #{block_id} .quote-card__meta {{\n"
+        f"        grid-column: 1; grid-row: 2;\n"
+        f"        display: flex;\n"
+        f"        flex-wrap: wrap;\n"
+        f"        gap: 0.45rem;\n"
+        f"        align-items: center;\n"
+        f"        color: var(--color-text-secondary);\n"
+        f"        font-size: 12px;\n"
+        f"    }}\n"
+        f"    #{block_id} .confidence-badge {{\n"
+        f"        border: 1px solid var(--color-border-primary);\n"
+        f"        border-radius: 999px;\n"
+        f"        padding: 0.1rem 0.45rem;\n"
+        f"        background: var(--color-background-secondary);\n"
+        f"        color: var(--color-text-primary);\n"
+        f"    }}\n"
+        f"    #{block_id} .quote-card__full {{\n"
+        f"        padding: 0 1rem 1rem;\n"
+        f"    }}\n"
+        f"    #{block_id} .quote-card__full-text {{\n"
+        f"        font-style: italic;\n"
+        f"        font-size: 13px;\n"
+        f"        color: var(--color-text-secondary);\n"
+        f"        border-top: 0.5px solid var(--color-border-primary);\n"
+        f"        padding-top: 0.75rem;\n"
+        f"        margin-top: 0;\n"
+        f"    }}\n"
+        f"    #{block_id} .quote-card__ref,\n"
+        f"    #{block_id} .quote-empty {{\n"
+        f"        color: var(--color-text-secondary);\n"
+        f"        font-size: 0.86rem;\n"
+        f"    }}\n"
+        f"</style>\n"
+        f'<div class="pattern-interactive__header">'
+        f'<h3>{html.escape(pid_pattern)} / {html.escape(active_meta["name"])}</h3>'
+        f'<div class="pattern-interactive__meta">'
+        f'{_occ_label} participants / confidence {_confidence}'
+        f'</div>'
+        f'</div>\n'
+        f'<div class="pattern-interactive__intro">'
+        f'{interpretation_prose}'
+        f'</div>\n'
+        f'<div class="tier-grid" aria-label="Confidence tier overview">'
+        f'{"".join(tier_cards)}'
+        f'</div>\n'
+        f'<div class="quote-explorer" aria-label="Quote explorer">'
+        f'{"".join(quote_cards)}'
+        f'</div>\n'
+        f"<script>\n"
+        f"(function() {{\n"
+        f'    const root = document.getElementById("{block_id}");\n'
+        f"    if (!root) return;\n"
+        f'    const quoteCards = Array.from(root.querySelectorAll(".quote-card"));\n'
+        f'    const pidRefs = Array.from(root.querySelectorAll(".pid-ref"));\n'
+        f"    quoteCards.forEach((card) => {{\n"
+        f'        const button = card.querySelector(".quote-card__summary");\n'
+        f'        const full = card.querySelector(".quote-card__full");\n'
+        f"        if (!button || !full) return;\n"
+        f"        button.addEventListener('click', () => {{\n"
+        f'            const expanded = button.getAttribute("aria-expanded") === "true";\n'
+        f'            button.setAttribute("aria-expanded", String(!expanded));\n'
+        f"            full.hidden = expanded;\n"
+        f'            const toggle = button.querySelector(".quote-card__toggle");\n'
+        f'            if (toggle) toggle.textContent = expanded ? "\u2193" : "\u2191";\n'
+        f"        }});\n"
+        f"    }});\n"
+        f"    function clearHighlight() {{\n"
+        f"        quoteCards.forEach((card) => {{\n"
+        f'            card.classList.remove("is-highlighted", "is-muted");\n'
+        f'            if (card.dataset.autoExpanded === "true") {{\n'
+        f'                const btn = card.querySelector(".quote-card__summary");\n'
+        f'                const full = card.querySelector(".quote-card__full");\n'
+        f'                const toggle = btn && btn.querySelector(".quote-card__toggle");\n'
+        f'                if (btn) btn.setAttribute("aria-expanded", "false");\n'
+        f"                if (full) full.hidden = true;\n"
+        f'                if (toggle) toggle.textContent = "\u2193";\n'
+        f"                delete card.dataset.autoExpanded;\n"
+        f"            }}\n"
+        f"        }});\n"
+        f'        pidRefs.forEach((ref) => ref.classList.remove("is-active"));\n'
+        f"    }}\n"
+        f"    pidRefs.forEach((ref) => {{\n"
+        f"        ref.addEventListener('click', () => {{\n"
+        f'            const pids = (ref.dataset.pids || "")\n'
+        f'                .split(",")\n'
+        f'                .map((pid) => pid.trim())\n'
+        f"                .filter(Boolean);\n"
+        f'            const isActive = ref.classList.contains("is-active");\n'
+        f"            clearHighlight();\n"
+        f"            if (isActive || pids.length === 0) return;\n"
+        f'            ref.classList.add("is-active");\n'
+        f"            quoteCards.forEach((card) => {{\n"
+        f"                if (pids.includes(card.dataset.pid)) {{\n"
+        f'                    card.classList.add("is-highlighted");\n'
+        f'                    const btn = card.querySelector(".quote-card__summary");\n'
+        f'                    const full = card.querySelector(".quote-card__full");\n'
+        f'                    const toggle = btn && btn.querySelector(".quote-card__toggle");\n'
+        f'                    if (btn && btn.getAttribute("aria-expanded") !== "true") {{\n'
+        f'                        btn.setAttribute("aria-expanded", "true");\n'
+        f"                        if (full) full.hidden = false;\n"
+        f'                        if (toggle) toggle.textContent = "\u2191";\n'
+        f'                        card.dataset.autoExpanded = "true";\n'
+        f"                    }}\n"
+        f"                }} else {{\n"
+        f'                    card.classList.add("is-muted");\n'
+        f"                }}\n"
+        f"            }});\n"
+        f"        }});\n"
+        f"    }});\n"
+        f"}})();\n"
+        f"</script>\n"
+        f"</section>\n"
+    )
 
 
 def segment_breakdown(dimension, participants_df):
