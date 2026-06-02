@@ -149,22 +149,6 @@ PATTERN_INTERPRETATION = {
         "— một người được mời kéo thêm 1-2 người quen. Cần quan sát xem pilot tháng 7/2026 "
         "có xác nhận điều này không. Chi tiết về cách tiếp cận → trang Leadership."
     ),
-    "P4": (
-        "Khi nói về tour văn hoá, nhiều khách chia sẻ một lo ngại chung: sợ bị xem diễn. "
-        "Nhưng \"dàn dựng\" không có nghĩa giống nhau với tất cả mọi người.\n\n"
-        "P01, P06, P14 phản ứng mạnh nhất. Cả ba đã từng có khoảnh khắc nhận ra mình đang xem "
-        "diễn thay vì trải nghiệm thật: tour Hà Tây tái hiện hoạt ảnh, làng du lịch Trung Quốc "
-        "với người dân đóng vai, chợ Măng Đen bị thuê lại đến mức mất đi sự tự nhiên. Điều họ "
-        "phản ứng là khoảnh khắc nhận ra người địa phương đang đóng vai.\n\n"
-        "P08 và P11 không phủ nhận dàn dựng mà đặt điều kiện: có tổ chức, chuyên nghiệp thì "
-        "tích cực. Vấn đề chỉ xảy ra khi biến tấu làm mất bản chất gốc.\n\n"
-        "P07 và P09 dùng tiêu chí khác hẳn. P09 nói authenticity nằm ở thái độ phục vụ, "
-        "không phải hình thức. P07 thấy cho thuê trang phục hầu đồng chụp ảnh là điều tốt. "
-        "Hai người không mâu thuẫn nhau, chỉ đang đánh giá bằng hai tiêu chí khác nhau.\n\n"
-        "Câu hỏi pilot tháng 7 phải trả lời: với hầu đồng tại Phủ Dầy, ranh giới giữa nghi lễ "
-        "thật có khách chứng kiến và nghi lễ được sắp xếp cho khách xem trông như thế nào, "
-        "và MẠCH sẽ giải thích điều đó với khách ra sao?"
-    ),
     "P5": (
         "Bảy trong 14 người nhắc đến điểm đến Nam Định như một yếu tố ảnh hưởng quyết định — "
         "nhưng đây không phải một vấn đề duy nhất mà là **ba vấn đề khác bản chất**, "
@@ -198,7 +182,7 @@ PATTERN_INTERPRETATION = {
 
 Cohort 1 — 14 phỏng vấn semi-structured pre-tour cho pilot Nam Định 7/2026. Phát hiện chia 3 lớp: **patterns** (rào cản lặp lại), **hypothesis** (giả thuyết chưa có data trực tiếp), **signals** (cơ hội cần explore). Số occurrence trong trang compute từ `data/quotes.csv` qua `shared/viz_helpers.py` — KHÔNG hardcode (Rule #1).
 
-> _[em viết: executive framing — 2-3 câu khung đọc cả trang]_
+14 người này không đại diện cho tổng thể thị trường — đây là cohort định tính để **bản đồ rào cản**, không phải đo tỷ lệ. Đọc trang theo hướng: pattern nào lặp lại nhiều nhất cần giải trước khi bán tour (P1, P2); pattern nào cần quan sát thêm ở pilot tháng 7 (P3, P4); signal nào có thể khai thác ngay (S2). Confidence label trên mỗi pattern là tín hiệu thiết kế — Cao nghĩa là quyết định được, Trung bình nghĩa là cần thêm data từ cohort 2.
 
 ```{python}
 #| echo: false
@@ -208,7 +192,7 @@ if not _data_ready:
     print("> ⚠️ **TODO: chưa extract data từ raw PDFs vào CSV.** Các section dưới đây sẽ hiển thị placeholder cho đến khi `data/participants.csv` + `data/quotes.csv` được fill.\n")
 ```
 
-## Bảng tổng — 9 finding theo độ tin cậy
+## Bảng tổng — 9 findings theo độ tin cậy
 
 ```{python}
 #| echo: false
@@ -221,28 +205,69 @@ else:
 
 ```{python}
 #| echo: false
+import matplotlib.pyplot as plt
+import numpy as np
+
+if _data_ready:
+    _labels = list(PATTERN_ORDER)
+    _customer = []
+    _industry = []
+    _lead_user = []
+    for _pid in PATTERN_ORDER:
+        b = pattern_lens_breakdown(_pid, quotes_df, participants_df)
+        _customer.append(b["customer"])
+        _industry.append(b["industry"])
+        _lead_user.append(b["lead_user"])
+    _y = np.arange(len(_labels))
+    _left2 = [c + i for c, i in zip(_customer, _industry)]
+    fig, ax = plt.subplots(figsize=(7, 3.5))
+    ax.barh(_y, _customer, label="customer", color="#4e79a7", height=0.6)
+    ax.barh(_y, _industry, left=_customer, label="industry", color="#f28e2b", height=0.6)
+    ax.barh(_y, _lead_user, left=_left2, label="lead_user", color="#59a14f", height=0.6)
+    ax.set_yticks(_y)
+    ax.set_yticklabels(_labels)
+    ax.invert_yaxis()
+    ax.set_xlabel("Participants")
+    ax.set_title("Lens breakdown theo pattern")
+    ax.legend(loc="lower right", framealpha=0.8)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    plt.tight_layout()
+    plt.show()
+```
+
+```{python}
+#| echo: false
 #| output: asis
 if _data_ready:
     for _pid in PATTERN_ORDER:
         meta = PATTERN_META[_pid]
         print(f"## {_pid} — {meta['name']}")
         print()
+        # CHART: to be added per pattern
         if _pid == "P4":
             P4_PROSE = """
-<p>Khi nói về tour văn hoá, nhiều khách chia sẻ một lo ngại chung: sợ bị 
-xem diễn. Nhưng "dàn dựng" không có nghĩa giống nhau với tất cả mọi người.</p>
-<p><span class="pid-ref" data-pids="P01,P06,P14">P01, P06, P14</span> phản 
-ứng mạnh nhất. Cả ba đã từng có khoảnh khắc nhận ra mình đang xem diễn thay 
-vì trải nghiệm thật: tour Hà Tây tái hiện hoạt ảnh, làng du lịch Trung Quốc 
-với người dân đóng vai, chợ Măng Đen bị thuê lại đến mức mất đi sự tự nhiên.</p>
-<p><span class="pid-ref" data-pids="P08,P11">P08 và P11</span> không phủ nhận 
-dàn dựng mà đặt điều kiện: có tổ chức, chuyên nghiệp thì tích cực. Vấn đề 
-chỉ xảy ra khi biến tấu làm mất bản chất gốc.</p>
-<p><span class="pid-ref" data-pids="P07,P09">P07 và P09</span> dùng tiêu chí 
-khác hẳn. P09 nói authenticity nằm ở thái độ phục vụ, không phải hình thức. 
-P07 thấy cho thuê trang phục hầu đồng chụp ảnh là điều tốt.</p>
-<p>Câu hỏi pilot tháng 7 phải trả lời: với hầu đồng tại Phủ Dầy, ranh giới 
-giữa nghi lễ thật có khách chứng kiến và nghi lễ được sắp xếp cho khách xem 
+<p>Khi nói về tour văn hoá, nhiều khách chia sẻ một lo ngại chung: sợ bị
+xem diễn. Nhưng "dàn dựng" không có nghĩa giống nhau với tất cả mọi người —
+phản ứng trải từ cảnh giác mạnh đến chấp nhận có điều kiện đến tiêu chí hoàn
+toàn khác. Đây là lý do confidence Trung bình: không phải vì ít nguồn (7/14),
+mà vì thiếu đồng thuận về <em>nghĩa</em> của "dàn dựng".</p>
+<p><span class="pid-ref" data-pids="P01,P06">P01 và P06</span> phản ứng mạnh
+nhất với khoảnh khắc nhận ra mình đang xem diễn: tour Hà Tây tái hiện hoạt
+ảnh mất hồn cốt, làng du lịch Trung Quốc với cảm giác bị diễn. <span
+class="pid-ref" data-pids="P14">P14</span> phản ứng theo cơ chế khác — không
+phải locals đóng vai, mà là người Kinh thuê lại toàn bộ không gian chợ Măng
+Đen đến mức sản phẩm mất đi sự tự nhiên.</p>
+<p><span class="pid-ref" data-pids="P08">P08</span> không phủ nhận dàn dựng
+vì xem đó là hình thức quảng bá cho nhiều người biết. <span class="pid-ref"
+data-pids="P11">P11</span> chấp nhận khi dàn dựng "có tổ chức, chuyên
+nghiệp", nhưng phản đối khi biến tấu làm mất bản chất gốc.</p>
+<p><span class="pid-ref" data-pids="P07,P09">P07 và P09</span> dùng tiêu chí
+khác hẳn. P09 nói authenticity nằm ở thái độ phục vụ, không phải hình thức.
+P07 thấy cho thuê trang phục hầu đồng chụp ảnh là điều tốt. Hai người không
+mâu thuẫn nhau, chỉ đang đánh giá bằng hai tiêu chí khác nhau.</p>
+<p>Câu hỏi pilot tháng 7 phải trả lời: với hầu đồng tại Phủ Dầy, ranh giới
+giữa nghi lễ thật có khách chứng kiến và nghi lễ được sắp xếp cho khách xem
 trông như thế nào, và MẠCH sẽ giải thích điều đó với khách ra sao?</p>
 """
             print(render_pattern_interactive("P4", P4_PROSE, quotes_df, participants_df))
