@@ -11,14 +11,14 @@
     "href": "studies/pretour-research-2026/overview.html",
     "title": "Overview",
     "section": "",
-    "text": "Note\n\n\n\nTL;DR — TODO: 1 paragraph executive summary với key finding chính. Mọi con số phải compute từ CSV (mục 2 CLAUDE.md), KHÔNG hardcode."
+    "text": "Note\n\n\n\nTL;DR — TODO: 1 paragraph executive summary với key finding chính. Mọi con số phải compute từ CSV (STUDY_RULES.md mục 2), KHÔNG hardcode."
   },
   {
     "objectID": "studies/pretour-research-2026/overview.html#sample",
     "href": "studies/pretour-research-2026/overview.html#sample",
     "title": "Overview",
     "section": "Sample",
-    "text": "Sample\nTODO: 1 paragraph prose giới thiệu 14 participants (8 chua_tung + 6 da_tung); compute counts từ participants.csv để verify mẫu số. Note tag lens (customer / industry / lead_user) chỉ là annotation, KHÔNG filter % (mục 3)."
+    "text": "Sample\nTODO: 1 paragraph prose giới thiệu 14 participants (8 chua_tung + 6 da_tung); compute counts từ participants.csv để verify mẫu số. Note tag lens (customer / industry / lead_user) chỉ là annotation, KHÔNG filter % (STUDY_RULES.md mục 3)."
   },
   {
     "objectID": "studies/pretour-research-2026/overview.html#patterns-rào-cản",
@@ -81,7 +81,7 @@
     "href": "studies/pretour-research-2026/findings.html#p4-cảnh-giác-văn-hoá-dàn-dựng-giả",
     "title": "Phát hiện",
     "section": "P4 — Cảnh giác văn hoá “dàn dựng giả”",
-    "text": "P4 — Cảnh giác văn hoá “dàn dựng giả”\n7/14 khách nhắc · lens: 4 KH / 2 ngành / 1 lead · độ tin cậy: Trung bình\n\n“Tour Hà Tây mất hồn cốt”\n— P01 · T_P01_2026Q1_p7\n\n\n“Suggest cho thuê trang phục hầu đồng để chụp ảnh (staging tích cực)”\n— P07 · T_P07_2026Q1_p21\n\n\n“Măng đen: người Kinh thuê hết → mất tự nhiên”\n— P14 · T_P14_2026Q1_p14\n\nBảy trong 14 người nhắc đến lo ngại về văn hoá dàn dựng — nhưng quan điểm không đồng nhất, và sự khác biệt đó chính là insight quan trọng nhất của pattern này.\nNhóm phản đối rõ (P01, P06, P14): cảm giác “bị diễn” xuất hiện khi người địa phương đóng vai thay vì sống thật — tour Hà Tây tái hiện hoạt ảnh, làng du lịch Trung Quốc, chợ Măng Đen bị người Kinh thuê lại. Cơ chế chung: khách nhận ra ranh giới giữa “đang sống” và “đang diễn cho mình xem.”\nNhóm chấp nhận có điều kiện (P08, P11): dàn dựng có tổ chức, chuyên nghiệp thì tích cực — là hình thức quảng bá văn hoá. Vấn đề chỉ xảy ra khi có biến tấu làm mất đi bản chất gốc.\nNhóm định nghĩa lại (P07, P09): hai trường hợp này không phủ nhận dàn dựng mà đặt tiêu chí khác — P09 nói thẳng authenticity là sự chân thành trong thái độ phục vụ, không phải hình thức; P07 thấy cho thuê trang phục hầu đồng để chụp ảnh là tích cực. Đây là tổng hợp từ hai góc nhìn riêng biệt, không phải định nghĩa chung của cả nhóm.\nCâu hỏi thiết kế chưa có câu trả lời (suy luận từ data, không phải lời khách trực tiếp): pattern này đặt ra một câu hỏi mà pilot tháng 7/2026 phải trả lời — với hầu đồng tại Phủ Dầy, ranh giới giữa “nghi lễ thật có khách chứng kiến” và “nghi lễ được sắp xếp cho khách xem” trông như thế nào trong thực tế, và MẠCH sẽ giải thích ranh giới đó với khách như thế nào khi được hỏi? Chi tiết → trang Tour-design."
+    "text": "P4 — Cảnh giác văn hoá “dàn dựng giả”\n7/14 khách nhắc · lens: 4 KH / 2 ngành / 1 lead · độ tin cậy: Trung bình\n\n“Tour Hà Tây mất hồn cốt”\n— P01 · T_P01_2026Q1_p7\n\n\n“Suggest cho thuê trang phục hầu đồng để chụp ảnh (staging tích cực)”\n— P07 · T_P07_2026Q1_p21\n\n\n“Măng đen: người Kinh thuê hết → mất tự nhiên”\n— P14 · T_P14_2026Q1_p14\n\nKhi nói về tour văn hoá, nhiều khách chia sẻ một lo ngại chung: sợ bị xem diễn. Nhưng “dàn dựng” không có nghĩa giống nhau với tất cả mọi người.\nP01, P06, P14 phản ứng mạnh nhất. Cả ba đã từng có khoảnh khắc nhận ra mình đang xem diễn thay vì trải nghiệm thật: tour Hà Tây tái hiện hoạt ảnh, làng du lịch Trung Quốc với người dân đóng vai, chợ Măng Đen bị thuê lại đến mức mất đi sự tự nhiên. Điều họ phản ứng là khoảnh khắc nhận ra người địa phương đang đóng vai.\nP08 và P11 không phủ nhận dàn dựng mà đặt điều kiện: có tổ chức, chuyên nghiệp thì tích cực. Vấn đề chỉ xảy ra khi biến tấu làm mất bản chất gốc.\nP07 và P09 dùng tiêu chí khác hẳn. P09 nói authenticity nằm ở thái độ phục vụ, không phải hình thức. P07 thấy cho thuê trang phục hầu đồng chụp ảnh là điều tốt. Hai người không mâu thuẫn nhau, chỉ đang đánh giá bằng hai tiêu chí khác nhau.\nCâu hỏi pilot tháng 7 phải trả lời: với hầu đồng tại Phủ Dầy, ranh giới giữa nghi lễ thật có khách chứng kiến và nghi lễ được sắp xếp cho khách xem trông như thế nào, và MẠCH sẽ giải thích điều đó với khách ra sao?"
   },
   {
     "objectID": "studies/pretour-research-2026/findings.html#p5-destination-credibility-nam-định",
@@ -123,14 +123,14 @@
     "href": "studies/pretour-research-2026/audiences/leadership.html",
     "title": "Cho Leadership",
     "section": "",
-    "text": "TODO:\n\nSegment ưu tiên cho pilot 7/2026 — dựa distribution của convert_type trong participants.csv (true_target / conditional). Compute, KHÔNG hardcode.\nPilot 7/2026 = trust-building event, KHÔNG phải tour thương mại đầu tiên. Định khung kỳ vọng (revenue secondary, signal/learning primary).\nLock taxonomy (đã có CLAUDE.md mục 5) và confidence threshold cho từng quyết định: “Cao” → ra quyết định ngay; “Trung bình” → cần cohort 2; “Tín hiệu sớm” / “Hypothesis” → chỉ để hypothesis cho cohort 2."
+    "text": "TODO:\n\nSegment ưu tiên cho pilot 7/2026 — dựa distribution của convert_type trong participants.csv (true_target / conditional). Compute, KHÔNG hardcode.\nPilot 7/2026 = trust-building event, KHÔNG phải tour thương mại đầu tiên. Định khung kỳ vọng (revenue secondary, signal/learning primary).\nLock taxonomy (STUDY_RULES.md mục 5 + viz_helpers.PATTERN_META) và confidence threshold cho từng quyết định: “Cao” → ra quyết định ngay; “Trung bình” → cần cohort 2; “Tín hiệu sớm” / “Hypothesis” → chỉ để hypothesis cho cohort 2."
   },
   {
     "objectID": "studies/pretour-research-2026/audiences/leadership.html#quyết-định-cần-lock",
     "href": "studies/pretour-research-2026/audiences/leadership.html#quyết-định-cần-lock",
     "title": "Cho Leadership",
     "section": "",
-    "text": "TODO:\n\nSegment ưu tiên cho pilot 7/2026 — dựa distribution của convert_type trong participants.csv (true_target / conditional). Compute, KHÔNG hardcode.\nPilot 7/2026 = trust-building event, KHÔNG phải tour thương mại đầu tiên. Định khung kỳ vọng (revenue secondary, signal/learning primary).\nLock taxonomy (đã có CLAUDE.md mục 5) và confidence threshold cho từng quyết định: “Cao” → ra quyết định ngay; “Trung bình” → cần cohort 2; “Tín hiệu sớm” / “Hypothesis” → chỉ để hypothesis cho cohort 2."
+    "text": "TODO:\n\nSegment ưu tiên cho pilot 7/2026 — dựa distribution của convert_type trong participants.csv (true_target / conditional). Compute, KHÔNG hardcode.\nPilot 7/2026 = trust-building event, KHÔNG phải tour thương mại đầu tiên. Định khung kỳ vọng (revenue secondary, signal/learning primary).\nLock taxonomy (STUDY_RULES.md mục 5 + viz_helpers.PATTERN_META) và confidence threshold cho từng quyết định: “Cao” → ra quyết định ngay; “Trung bình” → cần cohort 2; “Tín hiệu sớm” / “Hypothesis” → chỉ để hypothesis cho cohort 2."
   },
   {
     "objectID": "studies/pretour-research-2026/audiences/leadership.html#trade-offs",
@@ -144,28 +144,28 @@
     "href": "studies/pretour-research-2026/audiences/leadership.html#open-questions-cho-founder",
     "title": "Cho Leadership",
     "section": "Open questions cho founder",
-    "text": "Open questions cho founder\nTODO:\n\nPilot 7/2026 đo success bằng metric gì? (NPS? word-of-mouth? cohort 2 conversion?)\nKhi nào lock B2B Insight-as-a-Service vs tour-as-product? Hiện report internal-only (mục 9) — nếu chuyển B2B phải anonymize + tuân thủ Luật 91/2025/QH15.\nCohort 2 ai sample? (H1 gender/age scoping; S1 foreign visitors; S2 ẩm thực)."
+    "text": "Open questions cho founder\nTODO:\n\nPilot 7/2026 đo success bằng metric gì? (NPS? word-of-mouth? cohort 2 conversion?)\nKhi nào lock B2B Insight-as-a-Service vs tour-as-product? Hiện report internal-only (STUDY_RULES.md mục 8) — nếu chuyển B2B phải anonymize + tuân thủ Luật 91/2025/QH15.\nCohort 2 ai sample? (H1 gender/age scoping; S1 foreign visitors; S2 ẩm thực)."
   },
   {
     "objectID": "studies/pretour-research-2026/audiences/data.html",
     "href": "studies/pretour-research-2026/audiences/data.html",
     "title": "Cho Data Team",
     "section": "",
-    "text": "TODO: semi-structured design, saturation notes, mẫu số 14 LOCKED (mục 3)."
+    "text": "TODO: semi-structured design, saturation notes, mẫu số 14 LOCKED (STUDY_RULES.md mục 3)."
   },
   {
     "objectID": "studies/pretour-research-2026/audiences/data.html#methodology-reflection",
     "href": "studies/pretour-research-2026/audiences/data.html#methodology-reflection",
     "title": "Cho Data Team",
     "section": "",
-    "text": "TODO: semi-structured design, saturation notes, mẫu số 14 LOCKED (mục 3)."
+    "text": "TODO: semi-structured design, saturation notes, mẫu số 14 LOCKED (STUDY_RULES.md mục 3)."
   },
   {
     "objectID": "studies/pretour-research-2026/audiences/data.html#codebook",
     "href": "studies/pretour-research-2026/audiences/data.html#codebook",
     "title": "Cho Data Team",
     "section": "Codebook",
-    "text": "Codebook\nTODO: themes, subthemes mapping. Dùng taxonomy IDs P1–P6 / H1 / S1–S2 (mục 5) + 4 confidence levels: cao / trung_binh / som / hypothesis (mục 6)."
+    "text": "Codebook\nTODO: themes, subthemes mapping. Dùng taxonomy IDs P1–P6 / H1 / S1–S2 (STUDY_RULES.md mục 5) + 4 confidence levels: cao / trung_binh / som / hypothesis (CONVENTIONS.md mục 2)."
   },
   {
     "objectID": "studies/pretour-research-2026/audiences/data.html#standing-pii-check",
@@ -207,14 +207,14 @@
     "href": "studies/pretour-research-2026/audiences/content.html",
     "title": "Cho Content & Media Team",
     "section": "",
-    "text": "TODO: cột trái (card đang dùng) vs cột phải (vocabulary participants tự dùng).\nNote: dùng đúng terminology mục 7 CLAUDE.md — vd “khách quan tâm tín ngưỡng” (KHÔNG “phụ nữ tâm linh”); tách “mức chi du lịch” ≠ “giá tour chấp nhận được”."
+    "text": "TODO: cột trái (card đang dùng) vs cột phải (vocabulary participants tự dùng).\nNote: dùng đúng terminology STUDY_RULES.md mục 6 — vd “khách quan tâm tín ngưỡng” (KHÔNG “phụ nữ tâm linh”); tách “mức chi du lịch” ≠ “giá tour chấp nhận được”."
   },
   {
     "objectID": "studies/pretour-research-2026/audiences/content.html#language-bank",
     "href": "studies/pretour-research-2026/audiences/content.html#language-bank",
     "title": "Cho Content & Media Team",
     "section": "",
-    "text": "TODO: cột trái (card đang dùng) vs cột phải (vocabulary participants tự dùng).\nNote: dùng đúng terminology mục 7 CLAUDE.md — vd “khách quan tâm tín ngưỡng” (KHÔNG “phụ nữ tâm linh”); tách “mức chi du lịch” ≠ “giá tour chấp nhận được”."
+    "text": "TODO: cột trái (card đang dùng) vs cột phải (vocabulary participants tự dùng).\nNote: dùng đúng terminology STUDY_RULES.md mục 6 — vd “khách quan tâm tín ngưỡng” (KHÔNG “phụ nữ tâm linh”); tách “mức chi du lịch” ≠ “giá tour chấp nhận được”."
   },
   {
     "objectID": "studies/pretour-research-2026/audiences/content.html#verbatim-quotes-có-thể-dùng-làm-copy",
@@ -235,14 +235,14 @@
     "href": "studies/pretour-research-2026/audiences/finance.html",
     "title": "Cho Finance Team",
     "section": "",
-    "text": "TODO: pull P-codes (KHÔNG dùng tên thật — mục 9). Tách rõ 2 khái niệm khác nhau (mục 7):\n\n\nTODO: distribution của cột travel_spend_range trong participants.csv — đây là mức người ta đang chi cho du lịch nói chung.\n\n\n\nTODO: distribution của cột acceptable_tour_price — giá CHẤP NHẬN ĐƯỢC cho 1 tour MẠCH cụ thể, KHÁC spend."
+    "text": "TODO: pull P-codes (KHÔNG dùng tên thật — STUDY_RULES.md mục 8). Tách rõ 2 khái niệm khác nhau (STUDY_RULES.md mục 6):\n\n\nTODO: distribution của cột travel_spend_range trong participants.csv — đây là mức người ta đang chi cho du lịch nói chung.\n\n\n\nTODO: distribution của cột acceptable_tour_price — giá CHẤP NHẬN ĐƯỢC cho 1 tour MẠCH cụ thể, KHÁC spend."
   },
   {
     "objectID": "studies/pretour-research-2026/audiences/finance.html#price-bands-theo-profile",
     "href": "studies/pretour-research-2026/audiences/finance.html#price-bands-theo-profile",
     "title": "Cho Finance Team",
     "section": "",
-    "text": "TODO: pull P-codes (KHÔNG dùng tên thật — mục 9). Tách rõ 2 khái niệm khác nhau (mục 7):\n\n\nTODO: distribution của cột travel_spend_range trong participants.csv — đây là mức người ta đang chi cho du lịch nói chung.\n\n\n\nTODO: distribution của cột acceptable_tour_price — giá CHẤP NHẬN ĐƯỢC cho 1 tour MẠCH cụ thể, KHÁC spend."
+    "text": "TODO: pull P-codes (KHÔNG dùng tên thật — STUDY_RULES.md mục 8). Tách rõ 2 khái niệm khác nhau (STUDY_RULES.md mục 6):\n\n\nTODO: distribution của cột travel_spend_range trong participants.csv — đây là mức người ta đang chi cho du lịch nói chung.\n\n\n\nTODO: distribution của cột acceptable_tour_price — giá CHẤP NHẬN ĐƯỢC cho 1 tour MẠCH cụ thể, KHÁC spend."
   },
   {
     "objectID": "studies/pretour-research-2026/audiences/finance.html#spend-vs-wtp-gap-table",
@@ -312,21 +312,21 @@
     "href": "studies/pretour-research-2026/methodology.html#sample-14-participants",
     "title": "Phương pháp",
     "section": "Sample (14 participants)",
-    "text": "Sample (14 participants)\nTODO: table demographic từ participants.csv — compute distribution của experience (chua_tung=8 / da_tung=6), lens, age_group. KHÔNG hardcode con số (mục 2)."
+    "text": "Sample (14 participants)\nTODO: table demographic từ participants.csv — compute distribution của experience (chua_tung=8 / da_tung=6), lens, age_group. KHÔNG hardcode con số (STUDY_RULES.md mục 2)."
   },
   {
     "objectID": "studies/pretour-research-2026/methodology.html#limitations",
     "href": "studies/pretour-research-2026/methodology.html#limitations",
     "title": "Phương pháp",
     "section": "Limitations",
-    "text": "Limitations\nTODO:\n\nWYSIATI check — ai vắng mặt trong sample (segment, vùng địa lý, lứa tuổi). Mô tả gap theo category, KHÔNG gán quê quán/region cho P-code cụ thể (mục 7).\nSampling skew: chua_tung × miền — toàn bộ nhóm chua_tung (8/8) là mien_bac; mien_nam chỉ xuất hiện trong nhóm da_tung (2/2). Hệ quả: cohort 1 không có data về non-participant miền Nam. Insight về rào cản tham gia từ phía Nam (logistics, văn hoá địa phương, willingness-to-pay) đang được suy từ 2 người da_tung miền Nam (P12 nghỉ hưu, P14 founder) — KHÔNG đại diện cho khách hàng tiềm năng miền Nam thuần. Cohort 2 phải recruit có chủ đích chua_tung × mien_nam (và lý tưởng cả mien_trung) để đóng gap này. Compute con số từ participants.csv cross-tab experience × residence, KHÔNG hardcode.\nSampling notes — fill P-codes cho partial-data participants sau khi extract; ghi chú lens=industry vs lens=customer để diễn giải đúng (mục 3)."
+    "text": "Limitations\nTODO:\n\nWYSIATI check — ai vắng mặt trong sample (segment, vùng địa lý, lứa tuổi). Mô tả gap theo category, KHÔNG gán quê quán/region cho P-code cụ thể (STUDY_RULES.md mục 6).\nSampling skew: chua_tung × miền — toàn bộ nhóm chua_tung (8/8) là mien_bac; mien_nam chỉ xuất hiện trong nhóm da_tung (2/2). Hệ quả: cohort 1 không có data về non-participant miền Nam. Insight về rào cản tham gia từ phía Nam (logistics, văn hoá địa phương, willingness-to-pay) đang được suy từ 2 người da_tung miền Nam (P12 nghỉ hưu, P14 founder) — KHÔNG đại diện cho khách hàng tiềm năng miền Nam thuần. Cohort 2 phải recruit có chủ đích chua_tung × mien_nam (và lý tưởng cả mien_trung) để đóng gap này. Compute con số từ participants.csv cross-tab experience × residence, KHÔNG hardcode.\nSampling notes — fill P-codes cho partial-data participants sau khi extract; ghi chú lens=industry vs lens=customer để diễn giải đúng (STUDY_RULES.md mục 3)."
   },
   {
     "objectID": "studies/pretour-research-2026/methodology.html#confidence-levels",
     "href": "studies/pretour-research-2026/methodology.html#confidence-levels",
     "title": "Phương pháp",
     "section": "Confidence levels",
-    "text": "Confidence levels\n4 levels theo mục 6 CLAUDE.md:\n\nCao — ≥5 nguồn độc lập (tính cả 14), không ai phản bác trực tiếp → ra quyết định được.\nTrung bình — có dấu hiệu, cần cohort 2 xác nhận.\nTín hiệu sớm — 1–2 nguồn.\nHypothesis — chưa có data trực tiếp, chỉ suy từ pattern khác."
+    "text": "Confidence levels\n4 levels theo CONVENTIONS.md mục 2 và STUDY_RULES.md mục 5:\n\nCao — ≥5 nguồn độc lập (tính cả 14), không ai phản bác trực tiếp → ra quyết định được.\nTrung bình — có dấu hiệu, cần cohort 2 xác nhận.\nTín hiệu sớm — 1–2 nguồn.\nHypothesis — chưa có data trực tiếp, chỉ suy từ pattern khác."
   },
   {
     "objectID": "studies/pretour-research-2026/participants.html",
