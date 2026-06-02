@@ -11,6 +11,7 @@ Rule #1: số trong báo cáo compute từ CSV, KHÔNG hardcode.
 Báo cáo là prose + markdown table. Không có chart.
 """
 
+import html
 import pandas as pd
 from pathlib import Path
 
@@ -215,6 +216,344 @@ def patterns_summary_table(quotes_df, participants_df):
     return _md_table(
         ["Pattern", "Occurrence", "Lens", "Confidence", "Note"], body
     )
+
+
+def render_pattern_interactive(pid_pattern, interpretation_prose, quotes_df, participants_df):
+    """
+    Render một pattern section dưới dạng HTML interactive:
+    - Prose block (truyền vào qua interpretation_prose)
+    - Confidence tier overview (9 patterns, active = pid_pattern hiện tại)
+    - Quote explorer: click vào quote để expand full text
+    Trả về HTML string. Compute mọi thứ từ quotes_df + participants_df.
+    """
+    if pid_pattern not in PATTERN_META:
+        raise ValueError(f"Unknown pattern id: {pid_pattern!r}")
+
+    block_id = f"pattern-interactive-{html.escape(pid_pattern, quote=True)}"
+    active_meta = PATTERN_META[pid_pattern]
+
+    tier_cards = []
+    for tier in CONFIDENCE_TIERS:
+        pattern_rows = []
+        tier_patterns = [
+            (pid, meta) for pid, meta in PATTERN_META.items()
+            if meta["confidence"] == tier
+        ]
+        tier_patterns.sort(
+            key=lambda item: (
+                -pattern_occurrence(item[0], quotes_df, participants_df)["count"],
+                item[0],
+            )
+        )
+        for pid, meta in tier_patterns:
+            occ = pattern_occurrence(pid, quotes_df, participants_df)
+            active_class = " is-active" if pid == pid_pattern else ""
+            pattern_rows.append(
+                f"""
+                <div class="pattern-pill{active_class}" data-pattern-id="{html.escape(pid, quote=True)}">
+                    <div class="pattern-pill__id">{html.escape(pid)}</div>
+                    <div class="pattern-pill__body">
+                        <div class="pattern-pill__name">{html.escape(meta["name"])}</div>
+                        <div class="pattern-pill__meta">{html.escape(occ["label"])} participants</div>
+                    </div>
+                </div>
+                """
+            )
+        tier_cards.append(
+            f"""
+            <section class="tier-card">
+                <h4>{html.escape(tier)}</h4>
+                <div class="tier-card__patterns">
+                    {''.join(pattern_rows)}
+                </div>
+            </section>
+            """
+        )
+
+    quote_rows = quotes_df[quotes_df["pattern_id"] == pid_pattern].copy()
+    quote_rows = quote_rows.merge(
+        participants_df[["pid", "lens"]],
+        on="pid",
+        how="left",
+    )
+    quote_rows = quote_rows.sort_values(["pid", "quote_id"])
+
+    quote_cards = []
+    for _, row in quote_rows.iterrows():
+        pid = "" if pd.isna(row.get("pid")) else str(row["pid"])
+        lens = "" if pd.isna(row.get("lens")) else str(row["lens"])
+        confidence = (
+            "" if pd.isna(row.get("confidence_level"))
+            else str(row["confidence_level"])
+        )
+        quote_short = (
+            "" if pd.isna(row.get("quote_short"))
+            else str(row["quote_short"])
+        )
+        quote_full = (
+            "" if pd.isna(row.get("quote_full"))
+            else str(row["quote_full"])
+        )
+        ref_id = "" if pd.isna(row.get("ref_id")) else str(row["ref_id"])
+        quote_cards.append(
+            f"""
+            <article class="quote-card" data-pid="{html.escape(pid, quote=True)}">
+                <button class="quote-card__summary" type="button" aria-expanded="false">
+                    <span class="quote-card__quote">"{html.escape(quote_short or quote_full)}"</span>
+                    <span class="quote-card__meta">
+                        <strong>{html.escape(pid)}</strong>
+                        <span>{html.escape(lens)}</span>
+                        <span class="confidence-badge">{html.escape(confidence)}</span>
+                    </span>
+                </button>
+                <div class="quote-card__full" hidden>
+                    <p>{html.escape(quote_full)}</p>
+                    <p class="quote-card__ref">{html.escape(ref_id)}</p>
+                </div>
+            </article>
+            """
+        )
+
+    if not quote_cards:
+        quote_cards.append(
+            '<p class="quote-empty">No quotes tagged for this pattern yet.</p>'
+        )
+
+    return f"""
+<section id="{block_id}" class="pattern-interactive" data-active-pattern="{html.escape(pid_pattern, quote=True)}">
+    <style>
+        #{block_id} {{
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            color: var(--color-text-primary);
+        }}
+
+        #{block_id} .pattern-interactive__intro,
+        #{block_id} .tier-card,
+        #{block_id} .quote-card {{
+            background: var(--color-background-primary);
+            border: 1px solid var(--color-border-primary);
+            border-radius: 0.9rem;
+            box-shadow: var(--shadow-sm);
+        }}
+
+        #{block_id} .pattern-interactive__intro {{
+            padding: 1rem 1.15rem;
+        }}
+
+        #{block_id} .pattern-interactive__intro p:last-child {{
+            margin-bottom: 0;
+        }}
+
+        #{block_id} .pattern-interactive__header {{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: baseline;
+            justify-content: space-between;
+        }}
+
+        #{block_id} .pattern-interactive__header h3,
+        #{block_id} .tier-card h4 {{
+            margin: 0;
+        }}
+
+        #{block_id} .pattern-interactive__meta {{
+            color: var(--color-text-secondary);
+            font-size: 0.92rem;
+        }}
+
+        #{block_id} .pid-ref {{
+            cursor: pointer;
+            font-weight: 700;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-underline-offset: 0.18em;
+        }}
+
+        #{block_id} .pid-ref.is-active {{
+            background: var(--color-background-secondary);
+            border-radius: 0.25rem;
+        }}
+
+        #{block_id} .tier-grid {{
+            display: grid;
+            gap: 0.75rem;
+            grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+        }}
+
+        #{block_id} .tier-card {{
+            padding: 0.9rem;
+        }}
+
+        #{block_id} .tier-card__patterns {{
+            display: grid;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }}
+
+        #{block_id} .pattern-pill {{
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.65rem;
+            padding: 0.6rem;
+            border: 1px solid var(--color-border-primary);
+            border-radius: 0.7rem;
+            background: var(--color-background-secondary);
+        }}
+
+        #{block_id} .pattern-pill.is-active {{
+            outline: 2px solid var(--color-text-primary);
+            outline-offset: 2px;
+        }}
+
+        #{block_id} .pattern-pill__id {{
+            font-weight: 800;
+        }}
+
+        #{block_id} .pattern-pill__name {{
+            font-weight: 650;
+        }}
+
+        #{block_id} .pattern-pill__meta {{
+            color: var(--color-text-secondary);
+            font-size: 0.85rem;
+        }}
+
+        #{block_id} .quote-explorer {{
+            display: grid;
+            gap: 0.75rem;
+        }}
+
+        #{block_id} .quote-card {{
+            overflow: hidden;
+            transition: opacity 0.15s ease, outline 0.15s ease;
+        }}
+
+        #{block_id} .quote-card.is-muted {{
+            opacity: 0.45;
+        }}
+
+        #{block_id} .quote-card.is-highlighted {{
+            outline: 2px solid var(--color-text-primary);
+            outline-offset: 2px;
+        }}
+
+        #{block_id} .quote-card__summary {{
+            width: 100%;
+            display: grid;
+            gap: 0.55rem;
+            padding: 0.9rem 1rem;
+            border: 0;
+            background: transparent;
+            color: inherit;
+            text-align: left;
+            cursor: pointer;
+            font: inherit;
+        }}
+
+        #{block_id} .quote-card__quote {{
+            font-weight: 650;
+        }}
+
+        #{block_id} .quote-card__meta {{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            align-items: center;
+            color: var(--color-text-secondary);
+            font-size: 0.86rem;
+        }}
+
+        #{block_id} .confidence-badge {{
+            border: 1px solid var(--color-border-primary);
+            border-radius: 999px;
+            padding: 0.1rem 0.45rem;
+            background: var(--color-background-secondary);
+            color: var(--color-text-primary);
+        }}
+
+        #{block_id} .quote-card__full {{
+            padding: 0 1rem 1rem;
+            color: var(--color-text-primary);
+        }}
+
+        #{block_id} .quote-card__ref,
+        #{block_id} .quote-empty {{
+            color: var(--color-text-secondary);
+            font-size: 0.86rem;
+        }}
+    </style>
+
+    <div class="pattern-interactive__header">
+        <h3>{html.escape(pid_pattern)} / {html.escape(active_meta["name"])}</h3>
+        <div class="pattern-interactive__meta">
+            {html.escape(pattern_occurrence(pid_pattern, quotes_df, participants_df)["label"])} participants / confidence {html.escape(active_meta["confidence"])}
+        </div>
+    </div>
+
+    <div class="pattern-interactive__intro">
+        {interpretation_prose}
+    </div>
+
+    <div class="tier-grid" aria-label="Confidence tier overview">
+        {''.join(tier_cards)}
+    </div>
+
+    <div class="quote-explorer" aria-label="Quote explorer">
+        {''.join(quote_cards)}
+    </div>
+
+    <script>
+        (function() {{
+            const root = document.getElementById("{block_id}");
+            if (!root) return;
+
+            const quoteCards = Array.from(root.querySelectorAll(".quote-card"));
+            const pidRefs = Array.from(root.querySelectorAll(".pid-ref"));
+
+            quoteCards.forEach((card) => {{
+                const button = card.querySelector(".quote-card__summary");
+                const full = card.querySelector(".quote-card__full");
+                if (!button || !full) return;
+                button.addEventListener("click", () => {{
+                    const expanded = button.getAttribute("aria-expanded") === "true";
+                    button.setAttribute("aria-expanded", String(!expanded));
+                    full.hidden = expanded;
+                }});
+            }});
+
+            function clearHighlight() {{
+                quoteCards.forEach((card) => {{
+                    card.classList.remove("is-highlighted", "is-muted");
+                }});
+                pidRefs.forEach((ref) => ref.classList.remove("is-active"));
+            }}
+
+            pidRefs.forEach((ref) => {{
+                ref.addEventListener("click", () => {{
+                    const pids = (ref.dataset.pids || "")
+                        .split(",")
+                        .map((pid) => pid.trim())
+                        .filter(Boolean);
+                    const isActive = ref.classList.contains("is-active");
+                    clearHighlight();
+                    if (isActive || pids.length === 0) return;
+                    ref.classList.add("is-active");
+                    quoteCards.forEach((card) => {{
+                        if (pids.includes(card.dataset.pid)) {{
+                            card.classList.add("is-highlighted");
+                        }} else {{
+                            card.classList.add("is-muted");
+                        }}
+                    }});
+                }});
+            }});
+        }})();
+    </script>
+</section>
+"""
 
 
 def segment_breakdown(dimension, participants_df):

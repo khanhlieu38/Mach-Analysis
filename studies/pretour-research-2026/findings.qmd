@@ -27,6 +27,7 @@ from viz_helpers import (
     pattern_lens_breakdown,
     patterns_summary_table,
     quotes_for,
+    render_pattern_interactive,
 )
 
 participants_df, quotes_df = load_study_data(_root / "studies" / "pretour-research-2026")
@@ -226,6 +227,26 @@ if _data_ready:
         meta = PATTERN_META[_pid]
         print(f"## {_pid} — {meta['name']}")
         print()
-        print(render_pattern_section(_pid))
+        if _pid == "P4":
+            P4_PROSE = """
+<p>Khi nói về tour văn hoá, nhiều khách chia sẻ một lo ngại chung: sợ bị 
+xem diễn. Nhưng "dàn dựng" không có nghĩa giống nhau với tất cả mọi người.</p>
+<p><span class="pid-ref" data-pids="P01,P06,P14">P01, P06, P14</span> phản 
+ứng mạnh nhất. Cả ba đã từng có khoảnh khắc nhận ra mình đang xem diễn thay 
+vì trải nghiệm thật: tour Hà Tây tái hiện hoạt ảnh, làng du lịch Trung Quốc 
+với người dân đóng vai, chợ Măng Đen bị thuê lại đến mức mất đi sự tự nhiên.</p>
+<p><span class="pid-ref" data-pids="P08,P11">P08 và P11</span> không phủ nhận 
+dàn dựng mà đặt điều kiện: có tổ chức, chuyên nghiệp thì tích cực. Vấn đề 
+chỉ xảy ra khi biến tấu làm mất bản chất gốc.</p>
+<p><span class="pid-ref" data-pids="P07,P09">P07 và P09</span> dùng tiêu chí 
+khác hẳn. P09 nói authenticity nằm ở thái độ phục vụ, không phải hình thức. 
+P07 thấy cho thuê trang phục hầu đồng chụp ảnh là điều tốt.</p>
+<p>Câu hỏi pilot tháng 7 phải trả lời: với hầu đồng tại Phủ Dầy, ranh giới 
+giữa nghi lễ thật có khách chứng kiến và nghi lễ được sắp xếp cho khách xem 
+trông như thế nào, và MẠCH sẽ giải thích điều đó với khách ra sao?</p>
+"""
+            print(render_pattern_interactive("P4", P4_PROSE, quotes_df, participants_df))
+        else:
+            print(render_pattern_section(_pid))
         print()
 ```
