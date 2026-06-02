@@ -2,7 +2,7 @@
 title: "14 Participants — Deep Dives"
 ---
 
-<!-- ordered by convert_type per CLAUDE.md mục 8; reorder + add convert_type tag (vd "True Target") sau khi participants.csv extract xong -->
+<!-- ordered by convert_type per STUDY_RULES.md mục 7; reorder + add convert_type tag (vd "True Target") sau khi participants.csv extract xong -->
 <!-- P-code ↔ real-name lookup ở studies/pretour-research-2026/data/raw/crosswalk.csv (gitignored, never commit) -->
 
 ## P01

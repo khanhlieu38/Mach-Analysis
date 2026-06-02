@@ -4,11 +4,11 @@ title: "Cho Data Team"
 
 ## Methodology reflection
 
-TODO: semi-structured design, saturation notes, mẫu số 14 LOCKED (mục 3).
+TODO: semi-structured design, saturation notes, mẫu số 14 LOCKED (STUDY_RULES.md mục 3).
 
 ## Codebook
 
-TODO: themes, subthemes mapping. Dùng taxonomy IDs **P1–P6 / H1 / S1–S2** (mục 5) + **4 confidence levels**: `cao` / `trung_binh` / `som` / `hypothesis` (mục 6).
+TODO: themes, subthemes mapping. Dùng taxonomy IDs **P1–P6 / H1 / S1–S2** (STUDY_RULES.md mục 5) + **4 confidence levels**: `cao` / `trung_binh` / `som` / `hypothesis` (CONVENTIONS.md mục 2).
 
 ## Standing PII check
 

@@ -3,7 +3,7 @@ viz_helpers.py — Compute helpers for MẠCH pretour-research-2026.
 
 Rule #1: số trong báo cáo compute từ CSV, KHÔNG hardcode.
 - Total participants = len(participants_df) = 14 (assert ở load).
-- Confidence pattern lấy từ PATTERN_META (sync mục 5 CLAUDE.md đã reconcile),
+- Confidence pattern lấy từ PATTERN_META (sync STUDY_RULES.md mục 5; caveats báo cáo trong STUDY_RULES),
   KHÔNG lấy từ field `confidence_level` của quote (field đó là per-quote, mơ hồ
   để derive pattern-level).
 - P-code only. `OCCUPATION_GENERALIZED` đã bỏ tên công ty/tổ chức.

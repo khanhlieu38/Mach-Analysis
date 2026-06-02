@@ -3,12 +3,12 @@ title: "Overview"
 ---
 
 ::: {.callout-note}
-**TL;DR** — TODO: 1 paragraph executive summary với key finding chính. Mọi con số phải **compute từ CSV** (mục 2 CLAUDE.md), KHÔNG hardcode.
+**TL;DR** — TODO: 1 paragraph executive summary với key finding chính. Mọi con số phải **compute từ CSV** (STUDY_RULES.md mục 2), KHÔNG hardcode.
 :::
 
 ## Sample
 
-TODO: 1 paragraph prose giới thiệu **14 participants** (8 `chua_tung` + 6 `da_tung`); compute counts từ `participants.csv` để verify mẫu số. Note tag `lens` (customer / industry / lead_user) chỉ là annotation, KHÔNG filter % (mục 3).
+TODO: 1 paragraph prose giới thiệu **14 participants** (8 `chua_tung` + 6 `da_tung`); compute counts từ `participants.csv` để verify mẫu số. Note tag `lens` (customer / industry / lead_user) chỉ là annotation, KHÔNG filter % (STUDY_RULES.md mục 3).
 
 ## Patterns (rào cản)
 

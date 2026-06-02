@@ -6,7 +6,7 @@ title: "Cho Content & Media Team"
 
 TODO: cột trái (card đang dùng) vs cột phải (vocabulary participants tự dùng).
 
-Note: dùng đúng terminology mục 7 CLAUDE.md — vd "**khách quan tâm tín ngưỡng**" (KHÔNG "phụ nữ tâm linh"); tách "**mức chi du lịch**" ≠ "**giá tour chấp nhận được**".
+Note: dùng đúng terminology STUDY_RULES.md mục 6 — vd "**khách quan tâm tín ngưỡng**" (KHÔNG "phụ nữ tâm linh"); tách "**mức chi du lịch**" ≠ "**giá tour chấp nhận được**".
 
 ## Verbatim quotes có thể dùng làm copy
 
