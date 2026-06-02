@@ -4,7 +4,7 @@ title: "Cho Finance Team"
 
 ## Price bands theo profile
 
-TODO: pull P-codes (KHÔNG dùng tên thật — mục 9). Tách rõ 2 khái niệm khác nhau (mục 7):
+TODO: pull P-codes (KHÔNG dùng tên thật — STUDY_RULES.md mục 8). Tách rõ 2 khái niệm khác nhau (STUDY_RULES.md mục 6):
 
 ### Mức chi du lịch THẬT (spend)
 

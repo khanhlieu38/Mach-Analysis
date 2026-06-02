@@ -8,19 +8,19 @@ TODO: semi-structured interviews, recruitment, ethics, consent. Note rằng đâ
 
 ## Sample (14 participants)
 
-TODO: table demographic từ `participants.csv` — compute distribution của `experience` (chua_tung=8 / da_tung=6), `lens`, `age_group`. KHÔNG hardcode con số (mục 2).
+TODO: table demographic từ `participants.csv` — compute distribution của `experience` (chua_tung=8 / da_tung=6), `lens`, `age_group`. KHÔNG hardcode con số (STUDY_RULES.md mục 2).
 
 ## Limitations
 
 TODO:
 
-- **WYSIATI check** — ai vắng mặt trong sample (segment, vùng địa lý, lứa tuổi). Mô tả gap theo *category*, KHÔNG gán quê quán/region cho P-code cụ thể (mục 7).
+- **WYSIATI check** — ai vắng mặt trong sample (segment, vùng địa lý, lứa tuổi). Mô tả gap theo *category*, KHÔNG gán quê quán/region cho P-code cụ thể (STUDY_RULES.md mục 6).
 - **Sampling skew: chua_tung × miền** — toàn bộ nhóm `chua_tung` (8/8) là `mien_bac`; `mien_nam` chỉ xuất hiện trong nhóm `da_tung` (2/2). Hệ quả: **cohort 1 không có data về non-participant miền Nam.** Insight về rào cản tham gia từ phía Nam (logistics, văn hoá địa phương, willingness-to-pay) đang được suy từ 2 người `da_tung` miền Nam (P12 nghỉ hưu, P14 founder) — KHÔNG đại diện cho khách hàng tiềm năng miền Nam thuần. Cohort 2 phải recruit có chủ đích `chua_tung × mien_nam` (và lý tưởng cả `mien_trung`) để đóng gap này. Compute con số từ `participants.csv` cross-tab `experience × residence`, KHÔNG hardcode.
-- **Sampling notes** — fill P-codes cho partial-data participants sau khi extract; ghi chú lens=industry vs lens=customer để diễn giải đúng (mục 3).
+- **Sampling notes** — fill P-codes cho partial-data participants sau khi extract; ghi chú lens=industry vs lens=customer để diễn giải đúng (STUDY_RULES.md mục 3).
 
 ## Confidence levels
 
-4 levels theo mục 6 CLAUDE.md:
+4 levels theo CONVENTIONS.md mục 2 và STUDY_RULES.md mục 5:
 
 - **Cao** — ≥5 nguồn độc lập (tính cả 14), không ai phản bác trực tiếp → ra quyết định được.
 - **Trung bình** — có dấu hiệu, cần cohort 2 xác nhận.
