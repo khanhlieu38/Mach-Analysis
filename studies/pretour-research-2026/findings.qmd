@@ -27,7 +27,7 @@ from viz_helpers import (
     pattern_lens_breakdown,
     patterns_summary_table,
     quotes_for,
-    render_pattern_interactive,
+    render_p4_dotplot_interactive,
 )
 
 participants_df, quotes_df = load_study_data(_root / "studies" / "pretour-research-2026")
@@ -258,65 +258,6 @@ if _data_ready:
 
 ```{python}
 #| echo: false
-#| fig-alt: "Dot plot 7 participants P4 theo 3 nhóm quan điểm về dàn dựng"
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-
-if _data_ready:
-    GROUP_MAP = {
-        "P01": "Phản đối rõ", "P06": "Phản đối rõ", "P14": "Phản đối rõ",
-        "P08": "Chấp nhận có điều kiện", "P11": "Chấp nhận có điều kiện",
-        "P07": "Định nghĩa lại", "P09": "Định nghĩa lại",
-    }
-    GROUP_COLORS = {
-        "Phản đối rõ": "#D85A30",
-        "Chấp nhận có điều kiện": "#EF9F27",
-        "Định nghĩa lại": "#1D9E75",
-    }
-    LENS_MARKERS = {"customer": "o", "industry": "s", "lead_user": "D"}
-    GROUP_ORDER = ["Phản đối rõ", "Chấp nhận có điều kiện", "Định nghĩa lại"]
-
-    _p4_pids = quotes_df[quotes_df["pattern_id"] == "P4"]["pid"].unique().tolist()
-    _p4_df = participants_df[participants_df["pid"].isin(_p4_pids)][["pid", "lens"]].copy()
-    _p4_df["group"] = _p4_df["pid"].map(GROUP_MAP)
-    _p4_df = _p4_df.dropna(subset=["group"])
-
-    _group_members = {g: [] for g in GROUP_ORDER}
-    for _, _row in _p4_df.sort_values(["group", "pid"]).iterrows():
-        _group_members[_row["group"]].append(_row)
-
-    fig, ax = plt.subplots(figsize=(7, 3), dpi=120)
-    for _y, _g in enumerate(GROUP_ORDER):
-        _members = _group_members[_g]
-        _n = len(_members)
-        _offsets = [(i - (_n - 1) / 2) for i in range(_n)]
-        for _x, _row in zip(_offsets, _members):
-            _color = GROUP_COLORS[_g]
-            _marker = LENS_MARKERS.get(str(_row["lens"]), "o")
-            ax.scatter(_x, _y, color=_color, marker=_marker, s=160, zorder=3, linewidths=0)
-            ax.text(_x, _y + 0.27, str(_row["pid"]), ha="center", va="bottom",
-                    fontsize=9.5, color="#444")
-    ax.set_yticks(range(len(GROUP_ORDER)))
-    ax.set_yticklabels(GROUP_ORDER, fontsize=11)
-    ax.set_xticks([])
-    ax.set_xlim(-1.7, 1.7)
-    ax.set_ylim(-0.65, len(GROUP_ORDER) + 0.3)
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
-    ax.spines["bottom"].set_visible(False)
-    ax.yaxis.grid(True, color="#e8e8e8", linewidth=0.8, zorder=0)
-    ax.xaxis.grid(False)
-    ax.set_axisbelow(True)
-    ax.set_facecolor("white")
-    fig.patch.set_facecolor("white")
-    plt.tight_layout()
-    plt.show()
-```
-
-<p style="font-size:0.88rem; color:#666; margin-top:0.2rem">○ customer · ▪ industry · ◆ lead user</p>
-
-```{python}
-#| echo: false
 #| output: asis
 if _data_ready:
     P4_PROSE = """
@@ -343,7 +284,8 @@ mâu thuẫn nhau, chỉ đang đánh giá bằng hai tiêu chí khác nhau.</p>
 giữa nghi lễ thật có khách chứng kiến và nghi lễ được sắp xếp cho khách xem
 trông như thế nào, và MẠCH sẽ giải thích điều đó với khách ra sao?</p>
 """
-    print(render_pattern_interactive("P4", P4_PROSE, quotes_df, participants_df))
+    print(P4_PROSE)
+    print(render_p4_dotplot_interactive(quotes_df, participants_df))
     print()
     for _pid in PATTERN_ORDER[PATTERN_ORDER.index("P4") + 1:]:
         meta = PATTERN_META[_pid]

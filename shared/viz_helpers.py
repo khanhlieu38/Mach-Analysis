@@ -12,6 +12,7 @@ Báo cáo là prose + markdown table. Không có chart.
 """
 
 import html
+import json
 import pandas as pd
 from pathlib import Path
 
@@ -584,6 +585,182 @@ def render_pattern_interactive(pid_pattern, interpretation_prose, quotes_df, par
         f"}})();\n"
         f"</script>\n"
         f"</section>\n"
+    )
+
+
+def render_p4_dotplot_interactive(quotes_df, participants_df):
+    """P4 Layer 2: interactive dot plot (60%) + quote panel (40%). Self-contained HTML."""
+    GROUP_MAP = {
+        "P01": "Phản đối rõ", "P06": "Phản đối rõ", "P14": "Phản đối rõ",
+        "P08": "Chấp nhận có điều kiện", "P11": "Chấp nhận có điều kiện",
+        "P07": "Định nghĩa lại", "P09": "Định nghĩa lại",
+    }
+    GROUP_COLORS = {
+        "Phản đối rõ":            {"main": "#D85A30", "dark": "#b54a27"},
+        "Chấp nhận có điều kiện": {"main": "#EF9F27", "dark": "#c77e0f"},
+        "Định nghĩa lại":         {"main": "#1D9E75", "dark": "#157a59"},
+    }
+    GROUP_ORDER = ["Phản đối rõ", "Chấp nhận có điều kiện", "Định nghĩa lại"]
+    LENS_SHAPE = {"customer": "circle", "industry": "square", "lead_user": "diamond"}
+    block_id = "p4-dotplot"
+
+    p4_q = (
+        quotes_df[quotes_df["pattern_id"] == "P4"]
+        .merge(participants_df[["pid", "lens"]], on="pid", how="left")
+        .sort_values("pid")
+    )
+
+    rows_js = []
+    for _, r in p4_q.iterrows():
+        rows_js.append({
+            "pid": str(r["pid"]),
+            "lens": str(r["lens"]) if pd.notna(r.get("lens")) else "",
+            "confidence": str(r["confidence_level"]) if pd.notna(r.get("confidence_level")) else "",
+            "short": str(r["quote_short"]) if pd.notna(r.get("quote_short")) else "",
+            "full": str(r["quote_full"]) if pd.notna(r.get("quote_full")) else "",
+            "ref": str(r["ref_id"]) if pd.notna(r.get("ref_id")) else "",
+        })
+    quotes_json = json.dumps(rows_js, ensure_ascii=False).replace("</", "<\\/")
+    p4_pids_json = json.dumps(list(GROUP_MAP.keys()))
+
+    group_pids = {g: [] for g in GROUP_ORDER}
+    for _, r in p4_q.iterrows():
+        pid = str(r["pid"])
+        lens = str(r["lens"]) if pd.notna(r.get("lens")) else "customer"
+        if pid in GROUP_MAP:
+            group_pids[GROUP_MAP[pid]].append((pid, lens))
+
+    dot_rows_html = ""
+    for g in GROUP_ORDER:
+        colors = GROUP_COLORS[g]
+        dots_html = ""
+        for pid, lens in group_pids[g]:
+            shape = LENS_SHAPE.get(lens, "circle")
+            dots_html += (
+                f'<button class="p4-dot p4-dot--{shape}" data-pid="{pid}"'
+                f' style="--dot-main:{colors["main"]};--dot-dark:{colors["dark"]}"'
+                f' aria-label="{pid}" type="button">'
+                f'<span class="p4-dot-shape"></span>'
+                f'<span class="p4-dot-label">{pid}</span>'
+                f'</button>'
+            )
+        dot_rows_html += (
+            f'<div class="p4-group-row">'
+            f'<span class="p4-group-label">{html.escape(g)}</span>'
+            f'<div class="p4-dots">{dots_html}</div>'
+            f'</div>'
+        )
+
+    legend_html = (
+        '<div class="p4-legend">'
+        '<span class="p4-legend-item">'
+        '<span class="p4-leg p4-leg--circle"></span>customer</span>'
+        '<span class="p4-legend-item">'
+        '<span class="p4-leg p4-leg--square"></span>industry</span>'
+        '<span class="p4-legend-item">'
+        '<span class="p4-leg p4-leg--diamond"></span>lead user</span>'
+        '</div>'
+    )
+
+    css = (
+        f"#{block_id} "
+        "{display:grid;grid-template-columns:3fr 2fr;gap:1.5rem;align-items:start;margin:1.5rem 0;}"
+        ".p4-plot-side{padding:0.25rem 0;}"
+        ".p4-group-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.9rem;}"
+        ".p4-group-label{min-width:11rem;font-size:0.875rem;color:var(--ink,#2c2c2c);line-height:1.3;}"
+        ".p4-dots{display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;}"
+        ".p4-dot{background:none;border:none;padding:0.2rem 0.15rem;cursor:pointer;"
+        "display:flex;flex-direction:column;align-items:center;gap:0.18rem;outline:none;}"
+        ".p4-dot-shape{width:20px;height:20px;background:var(--dot-main);"
+        "display:block;transition:filter 0.15s;}"
+        ".p4-dot--circle .p4-dot-shape{border-radius:50%;}"
+        ".p4-dot--square .p4-dot-shape{border-radius:2px;}"
+        ".p4-dot--diamond .p4-dot-shape{clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}"
+        ".p4-dot:hover .p4-dot-shape,.p4-dot.is-active .p4-dot-shape{"
+        "filter:drop-shadow(0 0 5px var(--dot-dark)) brightness(1.12);}"
+        ".p4-dot-label{font-size:0.72rem;color:var(--muted,#888);line-height:1;}"
+        ".p4-dot.is-active .p4-dot-label{color:var(--ink,#2c2c2c);font-weight:600;}"
+        ".p4-legend{display:flex;gap:1rem;margin-top:0.6rem;padding-top:0.5rem;"
+        "border-top:1px solid var(--line,#d0ccc8);}"
+        ".p4-legend-item{display:flex;align-items:center;gap:0.35rem;"
+        "font-size:0.78rem;color:var(--muted,#888);}"
+        ".p4-leg{width:11px;height:11px;background:var(--muted,#888);display:inline-block;}"
+        ".p4-leg--circle{border-radius:50%;}"
+        ".p4-leg--square{border-radius:2px;}"
+        ".p4-leg--diamond{clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}"
+        ".p4-quote-side{min-height:7rem;}"
+        ".p4-hint{font-size:0.875rem;color:var(--muted,#888);font-style:italic;margin:0.5rem 0 0;}"
+        ".p4-quote-panel{background:var(--bg-soft,#f7f7f5);border-radius:0.7rem;padding:1rem 1.1rem;}"
+        ".p4-qpid{font-size:0.78rem;font-weight:600;color:var(--muted,#888);"
+        "margin:0 0 0.4rem;text-transform:uppercase;letter-spacing:0.03em;}"
+        ".p4-qshort{font-size:0.9rem;font-weight:500;color:var(--ink,#2c2c2c);margin:0;font-style:italic;}"
+        ".p4-qfull{font-size:0.82rem;color:var(--muted,#888);margin:0.5rem 0 0.3rem;"
+        "border-top:1px solid var(--line,#d0ccc8);padding-top:0.5rem;}"
+        ".p4-qref{font-size:0.73rem;color:var(--muted,#888);margin:0.2rem 0 0;"
+        "font-family:monospace;opacity:0.75;}"
+    )
+
+    js = (
+        "(function(){"
+        f"var QUOTES={quotes_json};"
+        f"var P4PIDS=new Set({p4_pids_json});"
+        f"var block=document.getElementById('{block_id}');"
+        "if(!block)return;"
+        f"var quoteDiv=document.getElementById('{block_id}-quote');"
+        "var hint=block.querySelector('.p4-hint');"
+        "var activeBtn=null;"
+        "var QMAP={};"
+        "QUOTES.forEach(function(q){QMAP[q.pid]=q;});"
+        "function showQuote(btn){"
+        "if(activeBtn)activeBtn.classList.remove('is-active');"
+        "activeBtn=btn;"
+        "btn.classList.add('is-active');"
+        "var pid=btn.dataset.pid;"
+        "var q=QMAP[pid];"
+        "if(!q)return;"
+        "quoteDiv.querySelector('.p4-qpid').textContent=pid+' \u00b7 '+q.lens;"
+        "quoteDiv.querySelector('.p4-qshort').textContent='\u201c'+q.short+'\u201d';"
+        "var fullEl=quoteDiv.querySelector('.p4-qfull');"
+        "if(q.full&&q.full!==q.short){fullEl.textContent=q.full;fullEl.style.display='block';}"
+        "else{fullEl.style.display='none';}"
+        "quoteDiv.querySelector('.p4-qref').textContent=q.ref||'';"
+        "quoteDiv.style.display='block';"
+        "if(hint)hint.style.display='none';"
+        "}"
+        "block.querySelectorAll('.p4-dot').forEach(function(btn){"
+        "btn.addEventListener('click',function(){"
+        "if(activeBtn===btn)return;"
+        "showQuote(btn);"
+        "});"
+        "});"
+        "document.querySelectorAll('.pid-ref').forEach(function(span){"
+        "var pids=(span.dataset.pids||'').split(',').map(function(s){return s.trim();});"
+        "var relevant=pids.filter(function(p){return P4PIDS.has(p);});"
+        "if(!relevant.length)return;"
+        "span.addEventListener('click',function(){"
+        "var first=relevant[0];"
+        "var dot=block.querySelector('.p4-dot[data-pid=\"'+first+'\"]');"
+        "if(dot)showQuote(dot);"
+        "});"
+        "});"
+        "})();"
+    )
+
+    return (
+        f'<section id="{block_id}" class="p4-dotplot-block">\n'
+        f'<style>\n{css}\n</style>\n'
+        f'<div class="p4-plot-side">\n{dot_rows_html}\n{legend_html}\n</div>\n'
+        f'<div class="p4-quote-side">\n'
+        f'<div id="{block_id}-quote" class="p4-quote-panel" style="display:none">'
+        f'<p class="p4-qpid"></p>'
+        f'<p class="p4-qshort"></p>'
+        f'<p class="p4-qfull"></p>'
+        f'<p class="p4-qref"></p>'
+        f'</div>\n'
+        f'<p class="p4-hint">Ch\u1ecdn m\u1ed9t participant \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
+        f'</div>\n'
+        f'<script>\n{js}\n</script>\n'
+        f'</section>\n'
     )
 
 
