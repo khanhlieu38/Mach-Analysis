@@ -32,6 +32,7 @@ from viz_helpers import (
     render_p3_dotplot_interactive,
     render_p4_dotplot_interactive,
     render_p5_dotplot_interactive,
+    render_s1_dotplot_interactive,
     render_s2_dotplot_interactive,
 )
 
@@ -556,8 +557,100 @@ chạm vào cùng nhu cầu với S1</p>
 #| echo: false
 #| output: asis
 if _data_ready:
+    print(f"## S1 — {PATTERN_META['S1']['name']}")
+    print()
+    S1_INTRO = """
+<p>5/14 người đề cập đến khách nước ngoài như đối tượng tiềm năng
+của tour. Đây là giả thuyết chưa kiểm chứng: không có khách nước
+ngoài nào trong cohort này để xác nhận hay bác bỏ.</p>
+<p class="pattern-note">Lưu ý: đây là phán đoán của người Việt về
+nhóm vắng mặt. Chưa kiểm được với khách nước ngoài thật. Thiên góc
+nhìn ngành (3/5 người).</p>
+"""
+    S1_CARDS = """
+<div class="s2-cards">
+  <div class="s2-card" style="border-top:2px solid #6B7E9A;">
+    <div class="sc-header" style="background:rgba(107,126,154,0.08);">
+      <span class="sc-name">Quan sát ngành</span>
+      <div class="sc-pids">
+        <span class="sc-pid"
+          style="background:rgba(107,126,154,0.15);color:#6B7E9A;">P03</span>
+        <span class="sc-pid"
+          style="background:rgba(107,126,154,0.15);color:#6B7E9A;">P07</span>
+      </div>
+    </div>
+    <div class="sc-rows">
+      <div class="sc-row"><span class="sc-label">Kiểu phán đoán</span>
+      <span class="sc-val">Quan sát chuyên môn từ kinh nghiệm ngành
+      du lịch</span></div>
+      <div class="sc-row"><span class="sc-label">Truyền thông</span>
+      <span class="sc-val">Thử định vị tour với ngôn ngữ khám phá
+      văn hóa cho kênh tiếp cận quốc tế</span></div>
+    </div>
+  </div>
+  <div class="s2-card" style="border-top:2px solid #7A8E6B;">
+    <div class="sc-header" style="background:rgba(122,142,107,0.08);">
+      <span class="sc-name">Phỏng đoán cá nhân</span>
+      <div class="sc-pids">
+        <span class="sc-pid"
+          style="background:rgba(122,142,107,0.15);color:#7A8E6B;">P09</span>
+        <span class="sc-pid"
+          style="background:rgba(122,142,107,0.15);color:#7A8E6B;">P12</span>
+      </div>
+    </div>
+    <div class="sc-rows">
+      <div class="sc-row"><span class="sc-label">Kiểu phán đoán</span>
+      <span class="sc-val">Ước lượng target mix theo cảm nhận, chưa
+      có cơ sở thực chứng</span></div>
+      <div class="sc-row"><span class="sc-label">Truyền thông</span>
+      <span class="sc-val">Cần kiểm chứng trước khi dùng làm cơ sở
+      định vị truyền thông</span></div>
+    </div>
+  </div>
+  <div class="s2-card" style="border-top:2px solid #B8873A;">
+    <div class="sc-header" style="background:rgba(184,135,58,0.08);">
+      <span class="sc-name">Kinh nghiệm thực tế</span>
+      <div class="sc-pids">
+        <span class="sc-pid"
+          style="background:rgba(184,135,58,0.15);color:#B8873A;">P11</span>
+      </div>
+    </div>
+    <div class="sc-rows">
+      <div class="sc-row"><span class="sc-label">Kiểu phán đoán</span>
+      <span class="sc-val">Ý định thực tế dựa trên mạng lưới cá nhân
+      với người nước ngoài</span></div>
+      <div class="sc-row"><span class="sc-label">Truyền thông</span>
+      <span class="sc-val">Tiếp cận qua người Việt có kết nối quốc
+      tế, không phải quảng bá trực tiếp</span></div>
+    </div>
+  </div>
+</div>
+"""
+    S1_SYNTHESIS = """
+<p>Ba kiểu phán đoán khác nhau về cùng một nhóm vắng mặt, nhưng tất
+cả đều nhất quán: có tín hiệu về tiềm năng với khách nước ngoài,
+song chưa có bằng chứng trực tiếp. P11 là nguồn gần thực tế nhất vì
+cô có mạng lưới người nước ngoài và ý định cụ thể.</p>
+<div class="pattern-open-question">Hành động phù hợp cho pilot tháng
+7: dành một vài suất cho khách nước ngoài để kiểm chứng trực tiếp,
+thay vì tiếp tục suy diễn từ phán đoán của người Việt.</div>
+<p class="pattern-xref">→ Leadership: quyết định có dành suất pilot
+cho khách nước ngoài không · → Tour-design: nếu có khách nước ngoài,
+cần điều chỉnh cách dẫn dắt</p>
+"""
+    print(S1_INTRO)
+    print(render_s1_dotplot_interactive(quotes_df, participants_df))
+    print(S1_CARDS)
+    print(S1_SYNTHESIS)
+    print()
+```
+
+```{python}
+#| echo: false
+#| output: asis
+if _data_ready:
     for _pid in PATTERN_ORDER[PATTERN_ORDER.index("P4") + 1:]:
-        if _pid in ("P5", "P6", "S2"):
+        if _pid in ("P5", "P6", "S2", "S1"):
             continue
         meta = PATTERN_META[_pid]
         print(f"## {_pid} — {meta['name']}")
