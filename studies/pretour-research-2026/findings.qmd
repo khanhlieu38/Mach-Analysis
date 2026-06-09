@@ -26,7 +26,6 @@ from viz_helpers import (
     pattern_occurrence,
     pattern_lens_breakdown,
     patterns_summary_table,
-    quotes_for,
     render_p1_dotplot_interactive,
     render_p2_dotplot_interactive,
     render_p3_dotplot_interactive,
@@ -34,6 +33,7 @@ from viz_helpers import (
     render_p5_dotplot_interactive,
     render_s1_dotplot_interactive,
     render_s2_dotplot_interactive,
+    render_h1_dotplot_interactive,
 )
 
 participants_df, quotes_df = load_study_data(_root / "studies" / "pretour-research-2026")
@@ -56,69 +56,6 @@ def _pattern_order():
     return [p[0] for p in pairs]
 
 PATTERN_ORDER = _pattern_order()
-
-# --- helpers chỉ dùng trong file này ---
-
-def _lens_str(b):
-    parts = []
-    if b["customer"]:  parts.append(f"{b['customer']} KH")
-    if b["industry"]:  parts.append(f"{b['industry']} ngành")
-    if b["lead_user"]: parts.append(f"{b['lead_user']} lead")
-    return " / ".join(parts) if parts else "—"
-
-def _pick_quotes_by_lens(pid_pattern, max_n=3):
-    """Chọn 2–3 quote, ưu tiên trải lens (1 customer + 1 industry nếu pattern có cả hai)."""
-    qs = quotes_for(pid_pattern, quotes_df, participants_df)
-    if len(qs) == 0:
-        return []
-    qs = qs.merge(participants_df[["pid", "lens"]], on="pid", how="left")
-    chosen, used_pids = [], set()
-    # round 1: lấy 1 đại diện mỗi lens (theo thứ tự customer → industry → lead_user)
-    for lens in ("customer", "industry", "lead_user"):
-        if len(chosen) >= max_n:
-            break
-        sub = qs[(qs["lens"] == lens) & (~qs["pid"].isin(used_pids))]
-        if len(sub):
-            row = sub.iloc[0]
-            chosen.append(row)
-            used_pids.add(row["pid"])
-    # round 2: lấp cho đủ max_n bằng pid chưa dùng
-    for _, row in qs.iterrows():
-        if len(chosen) >= max_n:
-            break
-        if row["pid"] in used_pids:
-            continue
-        chosen.append(row)
-        used_pids.add(row["pid"])
-    return chosen[:max_n]
-
-def render_pattern_section(pid_pattern):
-    """Trả về markdown blob: occurrence line + caveat + quotes + slot diễn giải."""
-    meta = PATTERN_META[pid_pattern]
-    occ = pattern_occurrence(pid_pattern, quotes_df, participants_df)
-    lens = pattern_lens_breakdown(pid_pattern, quotes_df, participants_df)
-    leaning_suffix = " · (thiên góc nhìn ngành)" if lens["industry_leaning"] else ""
-    head = (
-        f"**{occ['label']}** khách nhắc · lens: {_lens_str(lens)}"
-        f"{leaning_suffix} · độ tin cậy: **{meta['confidence']}**"
-    )
-    parts = [head, ""]
-    if meta["note"]:
-        parts.append(f"::: {{.callout-note}}")
-        parts.append(meta["note"])
-        parts.append(":::")
-        parts.append("")
-    quotes = _pick_quotes_by_lens(pid_pattern)
-    for row in quotes:
-        text = row["quote_short"] or row["quote_full"]
-        parts.append(f"> \"{text}\"")
-        parts.append(f">")
-        parts.append(f"> — **{row['pid']}** · `{row['ref_id']}`")
-        parts.append("")
-    if not quotes:
-        parts.append("> _(chưa có quote tagged pattern này — đợi extract bổ sung)_\n")
-    parts.append("> _[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]_")
-    return "\n".join(parts)
 ```
 
 Cohort 1 — 14 phỏng vấn semi-structured pre-tour cho pilot Nam Định 7/2026. Phát hiện chia 3 lớp: **patterns** (rào cản lặp lại), **hypothesis** (giả thuyết chưa có data trực tiếp), **signals** (cơ hội cần explore). Số occurrence trong trang compute từ `data/quotes.csv` qua `shared/viz_helpers.py` — KHÔNG hardcode (Rule #1).
@@ -139,6 +76,37 @@ if not _data_ready:
 #| echo: false
 #| output: asis
 if _data_ready:
+    BANG_TONG_LEGEND = """
+<div class="bt-legend">
+  <div class="bt-leg-item">
+    <span class="bt-leg-label">KH — Khách hàng</span>
+    <span class="bt-leg-desc">Người đi tour thuần, đánh giá từ góc
+    trải nghiệm cá nhân</span>
+  </div>
+  <div class="bt-leg-item">
+    <span class="bt-leg-label">Ngành</span>
+    <span class="bt-leg-desc">Người có chuyên môn trong ngành du lịch,
+    tổ chức cộng đồng, hoặc giảng viên. Đánh giá từ góc thiết kế và
+    vận hành</span>
+  </div>
+  <div class="bt-leg-item">
+    <span class="bt-leg-label">Lead</span>
+    <span class="bt-leg-desc">Người vừa là khách vừa tự thiết kế tour
+    tương tự. Góc nhìn lai giữa hai nhóm trên</span>
+  </div>
+</div>
+<style>
+.bt-legend{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1rem;
+padding:.75rem 1rem;background:var(--bs-secondary-bg,#f7f7f5);
+border-radius:.5rem;}
+.bt-leg-item{display:flex;flex-direction:column;gap:.2rem;}
+.bt-leg-label{font-size:.75rem;font-weight:600;
+color:var(--bs-body-color,#2c2c2c);}
+.bt-leg-desc{font-size:.75rem;color:var(--bs-secondary-color,#666);
+line-height:1.4;}
+</style>
+"""
+    print(BANG_TONG_LEGEND)
     print(patterns_summary_table(quotes_df, participants_df))
 else:
     print("_(chưa extract data)_")
@@ -649,12 +617,98 @@ cần điều chỉnh cách dẫn dắt</p>
 #| echo: false
 #| output: asis
 if _data_ready:
-    for _pid in PATTERN_ORDER[PATTERN_ORDER.index("P4") + 1:]:
-        if _pid in ("P5", "P6", "S2", "S1"):
-            continue
-        meta = PATTERN_META[_pid]
-        print(f"## {_pid} — {meta['name']}")
-        print()
-        print(render_pattern_section(_pid))
-        print()
+    print(f"## H1 — {PATTERN_META['H1']['name']}")
+    print()
+    H1_INTRO = """
+<p>4/14 người thể hiện hứng thú với tín ngưỡng như một chiều trải
+nghiệm quan trọng, nhưng phạm vi khác nhau: từ Đạo Mẫu cụ thể đến
+tâm linh rộng hơn. Đây là giả thuyết chưa kiểm chứng, mức độ chuyển
+đổi từ hứng thú sang đăng ký tour vẫn cần quan sát ở pilot.</p>
+<p class="pattern-note">Lưu ý: phạm vi tín ngưỡng rộng, từ Phật giáo
+đến Đạo Mẫu. Không phân biệt giới tính (có cả nam trong mẫu). Tuyệt
+đối không định vị là "phụ nữ tâm linh."</p>
+"""
+    H1_CARDS = """
+<div class="s2-cards">
+  <div class="s2-card" style="border-top:2px solid #3D8B7A;">
+    <div class="sc-header" style="background:rgba(61,139,122,0.08);">
+      <span class="sc-name">Quan tâm và có trải nghiệm</span>
+      <div class="sc-pids">
+        <span class="sc-pid"
+          style="background:rgba(61,139,122,0.15);color:#3D8B7A;">P05</span>
+        <span class="sc-pid"
+          style="background:rgba(61,139,122,0.15);color:#3D8B7A;">P11</span>
+      </div>
+    </div>
+    <div class="sc-rows">
+      <div class="sc-row"><span class="sc-label">Mức độ gắn bó</span>
+      <span class="sc-val">Thực hành thường xuyên, đã canh hầu hoặc
+      đến đền phủ</span></div>
+      <div class="sc-row"><span class="sc-label">Thiết kế tour</span>
+      <span class="sc-val">Cần đủ sâu để không có cảm giác "biết
+      rồi"</span></div>
+      <div class="sc-row"><span class="sc-label">Truyền thông</span>
+      <span class="sc-val">Nhấn vào chiều sâu văn hóa và cộng đồng
+      thực hành</span></div>
+    </div>
+  </div>
+  <div class="s2-card" style="border-top:2px solid #C4952A;">
+    <div class="sc-header" style="background:rgba(196,149,42,0.08);">
+      <span class="sc-name">Tò mò muốn khám phá</span>
+      <div class="sc-pids">
+        <span class="sc-pid"
+          style="background:rgba(196,149,42,0.15);color:#C4952A;">P14</span>
+      </div>
+    </div>
+    <div class="sc-rows">
+      <div class="sc-row"><span class="sc-label">Mức độ gắn bó</span>
+      <span class="sc-val">Hứng thú mạnh, chưa có kinh nghiệm, điểm
+      vào lý tưởng</span></div>
+      <div class="sc-row"><span class="sc-label">Thiết kế tour</span>
+      <span class="sc-val">Đủ ngữ cảnh ban đầu để không bị choáng,
+      không đơn giản hóa</span></div>
+      <div class="sc-row"><span class="sc-label">Truyền thông</span>
+      <span class="sc-val">Đặt câu hỏi mở về tín ngưỡng, không mô tả
+      nghi lễ chi tiết</span></div>
+    </div>
+  </div>
+  <div class="s2-card" style="border-top:2px solid #8B6B9E;">
+    <div class="sc-header" style="background:rgba(139,107,158,0.08);">
+      <span class="sc-name">Tâm linh theo hướng khác</span>
+      <div class="sc-pids">
+        <span class="sc-pid"
+          style="background:rgba(139,107,158,0.15);color:#8B6B9E;">P01</span>
+      </div>
+    </div>
+    <div class="sc-rows">
+      <div class="sc-row"><span class="sc-label">Mức độ gắn bó</span>
+      <span class="sc-val">Phật giáo (Bồ Đề Đạo Tràng), tâm linh
+      rộng hơn Đạo Mẫu</span></div>
+      <div class="sc-row"><span class="sc-label">Thiết kế tour</span>
+      <span class="sc-val">Thể hiện chiều sâu triết lý và tinh thần,
+      không chỉ tái hiện nghi lễ</span></div>
+      <div class="sc-row"><span class="sc-label">Truyền thông</span>
+      <span class="sc-val">Không định vị là "tour dành cho phụ nữ
+      tâm linh"</span></div>
+    </div>
+  </div>
+</div>
+"""
+    H1_SYNTHESIS = """
+<p>Ba mức độ gắn bó khác nhau, nhưng cùng một điều: tín ngưỡng là
+chiều trải nghiệm có sức kéo thật với một phần khách hàng tiềm năng
+của MẠCH, không phụ thuộc vào tuổi hay giới tính.</p>
+<div class="pattern-open-question">Câu hỏi cho pilot: khi có cả người
+đã thực hành (P05/P11) lẫn người mới tò mò (P14) trong cùng một tour,
+nội dung cần thiết kế ở mức độ nào để phục vụ cả hai mà không làm
+người này thấy quá nông, người kia thấy quá sâu?</div>
+<p class="pattern-xref">→ P4: nhóm đã có trải nghiệm sẽ nhạy cảm
+nhất với ranh giới "chứng kiến" và "xem diễn" · → Tour-design: cần
+điều chỉnh mức độ giải thích nghi lễ cho từng nhóm</p>
+"""
+    print(H1_INTRO)
+    print(render_h1_dotplot_interactive(quotes_df, participants_df))
+    print(H1_CARDS)
+    print(H1_SYNTHESIS)
+    print()
 ```
