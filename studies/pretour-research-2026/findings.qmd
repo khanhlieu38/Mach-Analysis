@@ -403,8 +403,45 @@ Măng Đen là cảnh báo về tính chân thực, khác với rào cản đị
 #| echo: false
 #| output: asis
 if _data_ready:
+    print(f"## P6 — {PATTERN_META['P6']['name']}")
+    print()
+    P6_INTRO = """
+<p>1/14 người đề cập đến rào cản quen thuộc: lớn lên với văn hóa
+trong nước nên không có nhu cầu tìm hiểu điều mình đã biết. Tín hiệu
+sớm, chưa đủ để kết luận. Cần quan sát thêm ở đợt phỏng vấn tiếp
+theo.</p>
+<p class="pattern-note">Ghi chú: 1 nguồn duy nhất (P05). Chỉ dùng
+làm tín hiệu theo dõi, không phải kết luận thiết kế.</p>
+"""
+    P6_QUOTE = """
+<blockquote class="pattern-quote-single">
+<p class="pq-text">"Mình ở đấy nên không có nhu cầu, văn hóa Việt
+Nam quen quá"</p>
+<p class="pq-cite">P05 · customer · 18–29</p>
+</blockquote>
+"""
+    P6_SYNTHESIS = """
+<p>P05 vẫn hứng thú cá nhân với hầu đồng, cho thấy rào cản không
+phải không quan tâm, mà là thiếu lý do để nhìn lại thứ quen thuộc
+bằng góc nhìn khác. Với nhóm người Việt trẻ chưa có lý do đó, tour
+cần cung cấp chính nó: không phải "đến xem điều lạ" mà là "khám phá
+lại điều quen theo cách chưa ai chỉ cho bạn." Đây là bài toán truyền
+thông, không phải bài toán nội dung.</p>
+<p class="pattern-xref">→ Content & Media: cách đặt vấn đề tour với
+người Việt trẻ đã quen với văn hóa trong nước</p>
+"""
+    print(P6_INTRO)
+    print(P6_QUOTE)
+    print(P6_SYNTHESIS)
+    print()
+```
+
+```{python}
+#| echo: false
+#| output: asis
+if _data_ready:
     for _pid in PATTERN_ORDER[PATTERN_ORDER.index("P4") + 1:]:
-        if _pid == "P5":
+        if _pid in ("P5", "P6"):
             continue
         meta = PATTERN_META[_pid]
         print(f"## {_pid} — {meta['name']}")
