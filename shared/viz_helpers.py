@@ -26,71 +26,75 @@ _CONVERT_ORDER = {c: i for i, c in enumerate(CONVERT_TYPE_ORDER)}
 
 PATTERN_META = {
     "P1": {
-        "name": "Tour Design quá thụ động",
-        "confidence": "Cao",
-        "note": "Đa số nguồn là khách thật, không phải artifact ngành.",
-    },
-    "P2": {
-        "name": "Social Dependency (người đồng hành/gia đình là yếu tố quyết định)",
+        "name": "Thiết kế tour quá thụ động",
         "confidence": "Cao",
         "note": (
-            "Đúng sàn (~5 nguồn) + 2 ngoại lệ thoải mái đi một mình (P03, P07) — "
-            "phải ghi kèm 2 ngoại lệ khi báo cáo để minh bạch."
+            "Hình thức quá thụ động, không phải nội dung quá sâu. "
+            "Giảm liều, tăng hoạt động tự tay làm."
+        ),
+    },
+    "P2": {
+        "name": "Phụ thuộc người đồng hành",
+        "confidence": "Cao",
+        "note": (
+            "Rào cản là thiếu đúng người đi cùng, không phải từ chối tour. "
+            "Cần mời theo nhóm thay vì để từng người tự đăng ký."
         ),
     },
     "P3": {
-        "name": "Identity Mismatch (\"tour cho người khác, không hẳn tôi\")",
+        "name": "Nhận diện phân khúc: 'tour cho người khác, không hẳn tôi'",
         "confidence": "Trung bình",
         "note": (
-            "Nhiều nguồn (~10) nhưng TRÁI CHIỀU — một số tự loại, một số tự nhận hợp. "
-            "TB vì thiếu đồng thuận, KHÔNG phải vì ít nguồn. "
-            "Mâu thuẫn = bản đồ phân khúc (ai self-include vs self-exclude)."
+            "Phân hóa rõ giữa người tự nhận phù hợp và tự loại. Phân khúc "
+            "là tư duy, không phải tuổi. Truyền thông nhắm vào thái độ."
         ),
     },
     "P4": {
         "name": "Cảnh giác văn hoá \"dàn dựng giả\"",
         "confidence": "Trung bình",
-        "note": "",
+        "note": (
+            "3 nhóm phản ứng khác nhau. Cần nói rõ 'nghi lễ thật có khách "
+            "chứng kiến' trước khi vào lễ."
+        ),
     },
     "P5": {
-        "name": "Destination Credibility (Nam Định)",
+        "name": "Uy tín điểm đến (Nam Định)",
         "confidence": "Trung bình",
-        "note": "Là PATTERN (rào cản về uy tín điểm đến), KHÔNG phải signal.",
+        "note": (
+            "Ba bản chất khác nhau: thương hiệu, địa lý, góc ngành. "
+            "Mỗi bản chất cần cách giải riêng."
+        ),
     },
     "P6": {
-        "name": "Familiarity Bias văn hoá trong nước (\"quá quen, không novel\")",
+        "name": "Quá quen, không còn nhu cầu khám phá",
         "confidence": "Tín hiệu sớm",
         "note": (
-            "Chỉ 1 nguồn (P05) — ngưỡng tối thiểu; watch-item cohort 2. "
-            "KHÔNG gán \"gốc Nam Định\"."
+            "Tín hiệu đơn lẻ. Cần theo dõi ở đợt phỏng vấn tiếp theo "
+            "trước khi kết luận."
         ),
     },
     "H1": {
         "name": "Khách quan tâm tín ngưỡng",
         "confidence": "Hypothesis",
         "note": (
-            "Phạm vi tín ngưỡng BROAD (Phật giáo + Đạo Mẫu + …), KHÔNG chỉ Đạo Mẫu. "
-            "Nguồn gồm cả nam (P01) lẫn nữ → gender-neutral; báo cáo ghi trung thực "
-            "\"lệch nữ trong mẫu\", TUYỆT ĐỐI KHÔNG \"phụ nữ tâm linh\". "
-            "Caveat: quan tâm tâm linh broad ≠ quan tâm tour Đạo Mẫu cụ thể."
+            "Hứng thú thật nhưng phạm vi rộng, từ Phật giáo đến Đạo Mẫu. "
+            "Không định vị là 'tour phụ nữ tâm linh.'"
         ),
     },
     "S1": {
-        "name": "Vietnamese Studies / Khách nước ngoài",
+        "name": "Tiềm năng khách nước ngoài",
         "confidence": "Hypothesis",
         "note": (
-            "Nhiều nguồn (~5) NHƯNG là phỏng đoán của mẫu về nhóm VẮNG MẶT "
-            "(khách nước ngoài KHÔNG có trong mẫu) → claim \"Tây muốn tour này\" "
-            "CHƯA kiểm được từ data này — cần kiểm với khách nước ngoài thật. "
-            "Thiên góc nhìn ngành."
+            "Phỏng đoán của người Việt về nhóm vắng mặt. Cần dành suất "
+            "pilot cho khách nước ngoài để kiểm chứng trực tiếp."
         ),
     },
     "S2": {
-        "name": "Ẩm thực là đòn bẩy soft",
+        "name": "Ẩm thực là đòn bẩy mềm",
         "confidence": "Trung bình",
         "note": (
-            "Nâng từ \"tín hiệu sớm\" — ~6 nguồn, nhu cầu thật trong mẫu. "
-            "Thiên góc nhìn ngành. SIGNAL có action pilot, KHÔNG phải data gap."
+            "Tín hiệu có thể khai thác ngay. Ẩm thực có thể là điểm vào "
+            "mềm cho người chưa sẵn sàng với nội dung văn hóa nặng hơn."
         ),
     },
 }
@@ -215,7 +219,7 @@ def patterns_summary_table(quotes_df, participants_df):
     rows.sort(key=lambda r: (r[0], r[1]))
     body = [r[2:] for r in rows]
     return _md_table(
-        ["Pattern", "Occurrence", "Lens", "Confidence", "Note"], body
+        ["Pattern", "Số người", "Lens", "Độ tin cậy", "Điểm chính"], body
     )
 
 
@@ -1157,6 +1161,196 @@ def render_p3_dotplot_interactive(quotes_df, participants_df):
         f'<p class="p3-qref"></p>'
         f'</div>\n'
         f'<p class="p3-hint">Ch\u1ecdn m\u1ed9t participant \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
+        f'</div>\n'
+        f'<script>\n{js}\n</script>\n'
+        f'</section>\n'
+    )
+
+
+def render_h1_dotplot_interactive(quotes_df, participants_df):
+    """H1 Layer 2: interactive dot plot (60%) + quote panel (40%). Self-contained HTML."""
+    GROUP_MAP = {
+        "P05": "Quan tâm và có trải nghiệm",
+        "P11": "Quan tâm và có trải nghiệm",
+        "P14": "Tò mò muốn khám phá",
+        "P01": "Tâm linh theo hướng khác",
+    }
+    GROUP_COLORS = {
+        "Quan tâm và có trải nghiệm": {"main": "#3D8B7A", "dark": "#2A6B5E"},
+        "Tò mò muốn khám phá":        {"main": "#C4952A", "dark": "#8B6B1E"},
+        "Tâm linh theo hướng khác":   {"main": "#8B6B9E", "dark": "#6B4B7E"},
+    }
+    GROUP_ORDER = [
+        "Quan tâm và có trải nghiệm",
+        "Tò mò muốn khám phá",
+        "Tâm linh theo hướng khác",
+    ]
+    LENS_SHAPE = {"customer": "circle", "industry": "square", "lead_user": "diamond"}
+    block_id = "h1-dotplot"
+
+    h1_q = (
+        quotes_df[quotes_df["pattern_id"] == "H1"]
+        .merge(participants_df[["pid", "lens"]], on="pid", how="left")
+        .sort_values("pid")
+    )
+
+    rows_js = []
+    seen_pid = set()
+    for _, r in h1_q.iterrows():
+        pid = str(r["pid"])
+        if pid in seen_pid:
+            continue
+        seen_pid.add(pid)
+        rows_js.append({
+            "pid": pid,
+            "lens": str(r["lens"]) if pd.notna(r.get("lens")) else "",
+            "confidence": str(r["confidence_level"]) if pd.notna(r.get("confidence_level")) else "",
+            "short": str(r["quote_short"]) if pd.notna(r.get("quote_short")) else "",
+            "full": str(r["quote_full"]) if pd.notna(r.get("quote_full")) else "",
+            "ref": str(r["ref_id"]) if pd.notna(r.get("ref_id")) else "",
+        })
+    quotes_json = json.dumps(rows_js, ensure_ascii=False).replace("</", "<\\/")
+    h1_pids_json = json.dumps(list(GROUP_MAP.keys()))
+
+    group_pids = {g: [] for g in GROUP_ORDER}
+    placed_pids = set()
+    for _, r in h1_q.iterrows():
+        pid = str(r["pid"])
+        if pid in placed_pids:
+            continue
+        lens = str(r["lens"]) if pd.notna(r.get("lens")) else "customer"
+        if pid in GROUP_MAP:
+            group_pids[GROUP_MAP[pid]].append((pid, lens))
+            placed_pids.add(pid)
+
+    dot_rows_html = ""
+    for g in GROUP_ORDER:
+        colors = GROUP_COLORS[g]
+        dots_html = ""
+        for pid, lens in group_pids[g]:
+            shape = LENS_SHAPE.get(lens, "circle")
+            dots_html += (
+                f'<button class="h1-dot h1-dot--{shape}" data-pid="{pid}"'
+                f' style="--dot-main:{colors["main"]};--dot-dark:{colors["dark"]}"'
+                f' aria-label="{pid}" type="button">'
+                f'<span class="h1-dot-shape"></span>'
+                f'<span class="h1-dot-label">{pid}</span>'
+                f'</button>'
+            )
+        dot_rows_html += (
+            f'<div class="h1-group-row">'
+            f'<span class="h1-group-label">{html.escape(g)}</span>'
+            f'<div class="h1-dots">{dots_html}</div>'
+            f'</div>'
+        )
+
+    legend_html = (
+        '<div class="h1-legend">'
+        '<span class="h1-legend-item">'
+        '<span class="h1-leg h1-leg--circle"></span>customer</span>'
+        '<span class="h1-legend-item">'
+        '<span class="h1-leg h1-leg--square"></span>industry</span>'
+        '<span class="h1-legend-item">'
+        '<span class="h1-leg h1-leg--diamond"></span>lead user</span>'
+        '</div>'
+    )
+
+    css = (
+        f"#{block_id} "
+        "{display:grid;grid-template-columns:3fr 2fr;gap:1.5rem;align-items:start;margin:1.5rem 0;}"
+        ".h1-plot-side{padding:0.25rem 0;}"
+        ".h1-group-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.9rem;}"
+        ".h1-group-label{min-width:11rem;font-size:0.875rem;color:var(--ink,#2c2c2c);line-height:1.3;}"
+        ".h1-dots{display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;}"
+        ".h1-dot{background:none;border:none;padding:0.2rem 0.15rem;cursor:pointer;"
+        "display:flex;flex-direction:column;align-items:center;gap:0.18rem;outline:none;}"
+        ".h1-dot-shape{width:20px;height:20px;background:var(--dot-main);"
+        "display:block;transition:filter 0.15s;}"
+        ".h1-dot--circle .h1-dot-shape{border-radius:50%;}"
+        ".h1-dot--square .h1-dot-shape{border-radius:2px;}"
+        ".h1-dot--diamond .h1-dot-shape{clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}"
+        ".h1-dot:hover .h1-dot-shape,.h1-dot.is-active .h1-dot-shape{"
+        "filter:drop-shadow(0 0 5px var(--dot-dark)) brightness(1.12);}"
+        ".h1-dot-label{font-size:0.72rem;color:var(--muted,#888);line-height:1;}"
+        ".h1-dot.is-active .h1-dot-label{color:var(--ink,#2c2c2c);font-weight:600;}"
+        ".h1-legend{display:flex;gap:1rem;margin-top:0.6rem;padding-top:0.5rem;"
+        "border-top:1px solid var(--line,#d0ccc8);}"
+        ".h1-legend-item{display:flex;align-items:center;gap:0.35rem;"
+        "font-size:0.78rem;color:var(--muted,#888);}"
+        ".h1-leg{width:11px;height:11px;background:var(--muted,#888);display:inline-block;}"
+        ".h1-leg--circle{border-radius:50%;}"
+        ".h1-leg--square{border-radius:2px;}"
+        ".h1-leg--diamond{clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}"
+        ".h1-quote-side{min-height:7rem;}"
+        ".h1-hint{font-size:0.875rem;color:var(--muted,#888);font-style:italic;margin:0.5rem 0 0;}"
+        ".h1-quote-panel{background:var(--bg-soft,#f7f7f5);border-radius:0.7rem;padding:1rem 1.1rem;}"
+        ".h1-qpid{font-size:0.78rem;font-weight:600;color:var(--muted,#888);"
+        "margin:0 0 0.4rem;text-transform:uppercase;letter-spacing:0.03em;}"
+        ".h1-qshort{font-size:0.9rem;font-weight:500;color:var(--ink,#2c2c2c);margin:0;font-style:italic;}"
+        ".h1-qfull{font-size:0.82rem;color:var(--muted,#888);margin:0.5rem 0 0.3rem;"
+        "border-top:1px solid var(--line,#d0ccc8);padding-top:0.5rem;}"
+        ".h1-qref{font-size:0.73rem;color:var(--muted,#888);margin:0.2rem 0 0;"
+        "font-family:monospace;opacity:0.75;}"
+    )
+
+    js = (
+        "(function(){"
+        f"var QUOTES={quotes_json};"
+        f"var H1PIDS=new Set({h1_pids_json});"
+        f"var block=document.getElementById('{block_id}');"
+        "if(!block)return;"
+        f"var quoteDiv=document.getElementById('{block_id}-quote');"
+        "var hint=block.querySelector('.h1-hint');"
+        "var activeBtn=null;"
+        "var QMAP={};"
+        "QUOTES.forEach(function(q){QMAP[q.pid]=q;});"
+        "function showQuote(btn){"
+        "if(activeBtn)activeBtn.classList.remove('is-active');"
+        "activeBtn=btn;"
+        "btn.classList.add('is-active');"
+        "var pid=btn.dataset.pid;"
+        "var q=QMAP[pid];"
+        "if(!q)return;"
+        "quoteDiv.querySelector('.h1-qpid').textContent=pid+' \u00b7 '+q.lens;"
+        "quoteDiv.querySelector('.h1-qshort').textContent='\u201c'+q.short+'\u201d';"
+        "var fullEl=quoteDiv.querySelector('.h1-qfull');"
+        "if(q.full&&q.full!==q.short){fullEl.textContent=q.full;fullEl.style.display='block';}"
+        "else{fullEl.style.display='none';}"
+        "quoteDiv.querySelector('.h1-qref').textContent=q.ref||'';"
+        "quoteDiv.style.display='block';"
+        "if(hint)hint.style.display='none';"
+        "}"
+        "block.querySelectorAll('.h1-dot').forEach(function(btn){"
+        "btn.addEventListener('click',function(){"
+        "if(activeBtn===btn)return;"
+        "showQuote(btn);"
+        "});"
+        "});"
+        "document.querySelectorAll('.pid-ref').forEach(function(span){"
+        "var pids=(span.dataset.pids||'').split(',').map(function(s){return s.trim();});"
+        "var relevant=pids.filter(function(p){return H1PIDS.has(p);});"
+        "if(!relevant.length)return;"
+        "span.addEventListener('click',function(){"
+        "var first=relevant[0];"
+        "var dot=block.querySelector('.h1-dot[data-pid=\"'+first+'\"]');"
+        "if(dot)showQuote(dot);"
+        "});"
+        "});"
+        "})();"
+    )
+
+    return (
+        f'<section id="{block_id}" class="h1-dotplot-block">\n'
+        f'<style>\n{css}\n</style>\n'
+        f'<div class="h1-plot-side">\n{dot_rows_html}\n{legend_html}\n</div>\n'
+        f'<div class="h1-quote-side">\n'
+        f'<div id="{block_id}-quote" class="h1-quote-panel" style="display:none">'
+        f'<p class="h1-qpid"></p>'
+        f'<p class="h1-qshort"></p>'
+        f'<p class="h1-qfull"></p>'
+        f'<p class="h1-qref"></p>'
+        f'</div>\n'
+        f'<p class="h1-hint">Ch\u1ecdn m\u1ed9t participant \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
         f'</div>\n'
         f'<script>\n{js}\n</script>\n'
         f'</section>\n'
