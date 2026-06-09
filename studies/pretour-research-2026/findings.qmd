@@ -27,7 +27,11 @@ from viz_helpers import (
     pattern_lens_breakdown,
     patterns_summary_table,
     quotes_for,
+    render_p1_dotplot_interactive,
+    render_p2_dotplot_interactive,
+    render_p3_dotplot_interactive,
     render_p4_dotplot_interactive,
+    render_p5_dotplot_interactive,
 )
 
 participants_df, quotes_df = load_study_data(_root / "studies" / "pretour-research-2026")
@@ -111,73 +115,8 @@ def render_pattern_section(pid_pattern):
         parts.append("")
     if not quotes:
         parts.append("> _(chưa có quote tagged pattern này — đợi extract bổ sung)_\n")
-    interp = PATTERN_INTERPRETATION.get(pid_pattern)
-    if interp:
-        parts.append(interp)
-    else:
-        parts.append("> _[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]_")
+    parts.append("> _[em diễn giải: pattern này NGHĨA là gì + so-what — ai ra quyết định gì khác]_")
     return "\n".join(parts)
-
-# Diễn giải do người viết — chèn verbatim, KHÔNG reword. Slot trống = giữ placeholder.
-PATTERN_INTERPRETATION = {
-    "P1": (
-        "\"Quá nhiều\" ở đây là vấn đề **liều và cách truyền**, không phải khẩu vị: "
-        "khách phản ứng với lịch trình dày + việc ngồi nghe thụ động, không phải với "
-        "chiều sâu văn hoá — tín hiệu \"muốn nông hơn\" rất mỏng (chủ yếu P02 và vài "
-        "giọng thiên giải trí), còn \"quá nhiều\" hầu hết nói về số điểm/lịch trình.\n\n"
-        "**Hệ quả thiết kế:** **giữ chiều sâu** (đó là USP của MẠCH), nhưng **giảm liều** (bớt điểm "
-        "mỗi ngày) và **chuyển phần thụ động thành khách tự tay làm**. Ca khó nhất là "
-        "Đạo Mẫu — dễ trượt thành \"xem diễn\": hoạt động phải để khách dự-vào được, "
-        "không dàn dựng nghi lễ thành trò diễn (P4), và do đồng thầy/đền duyệt (FPIC). "
-        "Chi tiết thiết kế lịch trình → trang Tour-design."
-    ),
-    "P2": (
-        "Rào cản không phải \"không muốn đi\" mà là **không có đúng người đi cùng**. "
-        "Bốn trong 9 khách thuần (P04, P05, P06, P10) và thêm P11 từ góc nhìn ngành "
-        "đều cho thấy quyết định đi không hoàn toàn cá nhân, mà bị chi phối bởi người "
-        "thân thiết đi cùng hoặc người có quyền kéo họ vào chuyến đi.\n\n"
-        "**Các sắc thái:** P05 ở mức *mạnh* — người đồng hành là rào cản lớn nhất, không đi "
-        "nếu thiếu. P06 và P10 là hai biến thể khác: P06 không bị kéo bởi bạn bè nhưng "
-        "có thể đi nếu bố mẹ rủ trong khung tín ngưỡng; P10 đã có mức độ quan tâm cao, "
-        "nhưng quyết định du lịch vẫn xoay quanh con cái và người thân chung mục đích. "
-        "P04 là trường hợp hỗn hợp: ảnh hưởng bởi bạn bè rủ, nhưng rào cản chính là "
-        "giai đoạn sống (con nhỏ, ưu tiên nghỉ dưỡng an toàn).\n\n"
-        "**Cần phân biệt:** **phụ thuộc người đồng hành ≠ cần bằng chứng xã hội**. "
-        "P07 cần thấy người đã đi trước review — đó là bài toán niềm tin, không phải đồng hành.\n\n"
-        "**Giả thuyết cần kiểm chứng ở pilot:** Nếu MẠCH mời đúng người trong một "
-        "nhóm bạn bè thay vì để từng người tự đăng ký, có thể tạo ra cơ chế kéo tự nhiên "
-        "— một người được mời kéo thêm 1-2 người quen. Cần quan sát xem pilot tháng 7/2026 "
-        "có xác nhận điều này không. Chi tiết về cách tiếp cận → trang Leadership."
-    ),
-    "P5": (
-        "Bảy trong 14 người nhắc đến điểm đến Nam Định như một yếu tố ảnh hưởng quyết định — "
-        "nhưng đây không phải một vấn đề duy nhất mà là **ba vấn đề khác bản chất**, "
-        "cần giải pháp riêng.\n\n"
-        "**Vấn đề A — Brand awareness (P08, P09, P07):** Nam Định chưa có vị trí rõ trong đầu "
-        "người ta như một điểm đến du lịch đáng đi. P09 nói thẳng đây là thứ \"cản lại chị\" — "
-        "khi muốn đi, cô tìm thông tin điểm đến trước, và Nam Định không có đủ hình ảnh để "
-        "tạo hứng thú. P08 xác nhận: \"đi Nam Định hiếm khi đi theo cả một hành trình.\" "
-        "P07 — góc nhìn ngành — nhận xét Đền Trần chỉ có sức hút dịp đầu năm, không thu hút "
-        "người trưởng thành quanh năm, và Nam Định cần xây thương hiệu trước. "
-        "*(Suy luận từ data: đây là rào cản upstream cần giải quyết trước khi bán tour, "
-        "không phải trong lịch trình. Chi tiết → trang Leadership.)*\n\n"
-        "**Vấn đề B — Logistics (P14):** Khoảng cách HCM → Nam Định là rào cản thật, "
-        "không phải perception. P14 có intent mạnh — hứng thú với Đạo Mẫu, convert_type "
-        "true_target — nhưng logistics địa lý là điều kiện chưa giải được ở giai đoạn pilot. "
-        "*(Suy luận từ data: khác bản chất với Vấn đề A — giảm giá hay cải thiện nội dung "
-        "không giải quyết được.)*\n\n"
-        "**Vấn đề C — Góc nhìn ngành (P13, partial data):** P13 — giảng viên có background "
-        "3 agency du lịch — nhận xét rằng sau sáp nhập hành chính, các địa phương cần tái "
-        "định vị sản phẩm du lịch; và thứ thu hút không phải điểm đến mà là con người ở đó. "
-        "Đây là observation vĩ mô từ góc nhìn ngành, không phải rào cản cá nhân. "
-        "Transcript P13 ngắn nhất trong cohort (29 dòng) — weight thấp hơn, "
-        "dùng làm tín hiệu bổ sung.\n\n"
-        "**Hai trường hợp nhẹ hơn (P04, P12):** P04 có perception \"Nam Định ít khu du lịch\" "
-        "(tín hiệu sớm); P12 cần người tag-along / người dẫn địa bàn — đây là destination "
-        "credibility qua lăng kính chưa quen địa bàn, không phải thiếu intent "
-        "(P12 rate tour 4/5, convert_type true_target)."
-    ),
-}
 ```
 
 Cohort 1 — 14 phỏng vấn semi-structured pre-tour cho pilot Nam Định 7/2026. Phát hiện chia 3 lớp: **patterns** (rào cản lặp lại), **hypothesis** (giả thuyết chưa có data trực tiếp), **signals** (cơ hội cần explore). Số occurrence trong trang compute từ `data/quotes.csv` qua `shared/viz_helpers.py` — KHÔNG hardcode (Rule #1).
@@ -240,12 +179,122 @@ if _data_ready:
 #| echo: false
 #| output: asis
 if _data_ready:
-    for _pid in PATTERN_ORDER[:PATTERN_ORDER.index("P4")]:
-        meta = PATTERN_META[_pid]
-        print(f"## {_pid} — {meta['name']}")
-        print()
-        print(render_pattern_section(_pid))
-        print()
+    print(f"## P1 — {PATTERN_META['P1']['name']}")
+    print()
+    P1_INTRO = """
+<p>11/14 người phản ánh tour hiện tại quá thụ động, nhưng đây không
+phải phê phán về độ sâu văn hóa. Họ phản ứng với lịch trình dày, với
+việc ngồi nghe một chiều, với việc không có cơ hội tự tham gia. Tín
+hiệu "muốn nông hơn" rất mỏng: phần lớn chỉ muốn hình thức khác,
+không phải nội dung ít hơn.</p>
+<p class="pattern-note">Ghi chú: đa số nguồn là khách thật, không
+phải phản ánh từ góc nhìn ngành.</p>
+"""
+    P1_SYNTHESIS = """
+<p>11 người, ba cách phản ứng, nhưng cùng một điểm chung: hình thức
+hiện tại chưa để khách thật sự tham gia. Nhóm thấy lịch trình quá
+nặng muốn làm thay vì nghe. Nhóm quan tâm chất lượng truyền tải đặt
+người dẫn lên trên lịch trình. Nhóm muốn chủ động hơn tìm kiếm quyền
+tự quyết trong chuyến đi.</p>
+<p>Ba nhu cầu này dẫn đến cùng một câu hỏi: làm thế nào để khách trở
+thành người tham gia, không phải người quan sát? Câu hỏi đó cụ thể
+nhất ở hầu đồng tại Phủ Dầy, nơi ranh giới giữa chứng kiến và xem
+diễn rất dễ vỡ. Nhóm nào nhạy cảm nhất với ranh giới đó, và cần được
+chuẩn bị ra sao, là câu chuyện của P4.</p>
+<p class="pattern-xref">→ Tour-design: ba điều chỉnh cụ thể cho lịch
+trình · → P4: ai nhạy cảm với ranh giới "chứng kiến / xem diễn"</p>
+"""
+    print(P1_INTRO)
+    print(render_p1_dotplot_interactive(quotes_df, participants_df))
+    print(P1_SYNTHESIS)
+    print()
+```
+
+```{python}
+#| echo: false
+#| output: asis
+if _data_ready:
+    print(f"## P2 — {PATTERN_META['P2']['name']}")
+    print()
+    P2_INTRO = """
+<p>5/14 người cho thấy quyết định đi tour không hoàn toàn từ bản thân,
+mà phụ thuộc vào việc có đúng người đi cùng. Không phải thiếu hứng thú
+với tour, mà là chưa có người phù hợp để chia sẻ chuyến đi.</p>
+<p class="pattern-note">Ghi chú: 2 ngoại lệ thoải mái đi một mình
+(P03, P07). Cần ghi kèm khi báo cáo để minh bạch.</p>
+"""
+    P2_SYNTHESIS = """
+<p>Năm người, năm cơ chế khác nhau, nhưng cùng một điểm chung: không ai
+tự khởi xướng chuyến đi.</p>
+<p>Nhóm cần người đồng hành cụ thể (P05, P11) là rõ nhất: không phải
+thiếu hứng thú, mà là thiếu người phù hợp để đi cùng. P05 nói thẳng
+đây là rào cản lớn nhất. P11 cụ thể hơn: bạn người Việt xung quanh cô
+không hứng thú tour văn hóa, nên người đồng hành phù hợp với cô là bạn
+nước ngoài. Với nhóm này, MẠCH không thể chờ họ tự tìm người đi cùng,
+mà cần mời theo nhóm bạn bè có sẵn hoặc tạo cơ hội để người quen biết
+nhau cùng đăng ký.</p>
+<p>Nhóm bị động (P04, P10) không từ chối, chỉ không tự chủ động. Với
+họ, ai là người MẠCH tiếp cận trước quan trọng hơn thông điệp: đúng một
+người trong nhóm bạn có thể kéo theo cả nhóm.</p>
+<p>P06 là trường hợp riêng: bố mẹ rủ trong bối cảnh tín ngưỡng thì có
+thể đi, bạn rủ thì không. Chưa đủ bằng chứng để kết luận rộng, nhưng
+gợi ý rằng với một số khách, đặt vấn đề tour theo chiều gia đình và tín
+ngưỡng mở ra cánh cửa mà cách tiếp cận qua bạn bè không làm được.</p>
+<p>Cần phân biệt P2 với một rào cản hay bị nhầm: P07 cần thấy người đã
+đi trước chia sẻ trải nghiệm thật, đó là bài toán niềm tin vào tour,
+không phải bài toán đồng hành. Hai rào cản trông giống nhau nhưng cần
+giải khác nhau.</p>
+<div class="pattern-open-question">Câu hỏi còn mở cho team thiết kế:
+trong một tour có cả người chủ động lẫn người được bạn kéo theo, trải
+nghiệm cần tạo ra điều gì để nhóm thứ hai cũng thật sự chạm được vào
+nội dung văn hóa? Data hiện tại chưa trả lời được. Pilot tháng 7 là cơ
+hội đầu tiên quan sát trực tiếp.</div>
+<p class="pattern-xref">→ Leadership: mời theo nhóm thay vì để từng
+người tự đăng ký · → P5: P07 là bài toán niềm tin, không phải đồng hành
+</p>
+"""
+    print(P2_INTRO)
+    print(render_p2_dotplot_interactive(quotes_df, participants_df))
+    print(P2_SYNTHESIS)
+    print()
+```
+
+```{python}
+#| echo: false
+#| output: asis
+if _data_ready:
+    print(f"## P3 — {PATTERN_META['P3']['name']}")
+    print()
+    P3_INTRO = """
+<p>10/14 người phản ánh về "kén khách", nhưng phản ứng chia thành
+hai hướng rõ: một số tự nhận phù hợp, một số tự loại. Độ tin cậy
+Trung bình không phản ánh thiếu bằng chứng, mà phản ánh chính sự
+phân hóa này.</p>
+<p class="pattern-note">Ghi chú: nhiều nguồn (khoảng 10) nhưng trái
+chiều. Độ tin cậy Trung bình vì thiếu đồng thuận, không phải vì ít
+nguồn. Sự mâu thuẫn chính là bản đồ phân khúc.</p>
+"""
+    P3_SYNTHESIS = """
+<p>Mười người, ba kiểu phản ứng, và cùng một câu hỏi chưa được trả
+lời: tour này dành cho ai?</p>
+<p>Nhóm tự nhận phù hợp (P05, P08, P10, P14) có tuổi rất khác nhau
+(24, 41, GenX, GenZ) nhưng cùng thái độ tò mò với văn hóa. Nhóm tự
+loại (P02, P04, P06) không từ chối vì tuổi hay nghề, mà vì trạng thái
+sống lúc được hỏi. Nhóm phê phán định vị (P01, P03, P07) nhìn từ bên
+ngoài và nhận xét concept chưa nói rõ mình dành cho ai.</p>
+<p>Điều này gợi ý phân khúc của tour là tư duy, không phải tuổi. Nếu
+một tour có P05 (24 tuổi) và P10 (GenX) ngồi cùng nhau, cần có khoảnh
+khắc để họ nhận ra điểm chung qua thái độ, không phải qua lý lịch.
+Với truyền thông: "kén người" là đặc điểm sản phẩm, không phải điểm
+yếu. MẠCH cần giúp đúng người nhận ra mình trong thông điệp đó.</p>
+<p class="pattern-xref">→ Content & Media: thông điệp nhắm vào thái
+độ, không phải độ tuổi · → Tour-design: khoảnh khắc mở đầu tạo kết
+nối qua tư duy</p>
+"""
+    print(P3_INTRO)
+    print(render_p3_dotplot_interactive(quotes_df, participants_df))
+    print(P3_SYNTHESIS)
+    print()
 ```
 
 ```{python}
@@ -260,34 +309,103 @@ if _data_ready:
 #| echo: false
 #| output: asis
 if _data_ready:
-    P4_PROSE = """
-<p>Khi nói về tour văn hoá, nhiều khách chia sẻ một lo ngại chung: sợ bị
-xem diễn. Nhưng "dàn dựng" không có nghĩa giống nhau với tất cả mọi người —
-phản ứng trải từ cảnh giác mạnh đến chấp nhận có điều kiện đến tiêu chí hoàn
-toàn khác. Đây là lý do confidence Trung bình: không phải vì ít nguồn (7/14),
-mà vì thiếu đồng thuận về <em>nghĩa</em> của "dàn dựng".</p>
-<p><span class="pid-ref" data-pids="P01,P06">P01 và P06</span> phản ứng mạnh
-nhất với khoảnh khắc nhận ra mình đang xem diễn: tour Hà Tây tái hiện hoạt
-ảnh mất hồn cốt, làng du lịch Trung Quốc với cảm giác bị diễn. <span
-class="pid-ref" data-pids="P14">P14</span> phản ứng theo cơ chế khác — không
-phải locals đóng vai, mà là người Kinh thuê lại toàn bộ không gian chợ Măng
-Đen đến mức sản phẩm mất đi sự tự nhiên.</p>
-<p><span class="pid-ref" data-pids="P08">P08</span> không phủ nhận dàn dựng
-vì xem đó là hình thức quảng bá cho nhiều người biết. <span class="pid-ref"
-data-pids="P11">P11</span> chấp nhận khi dàn dựng "có tổ chức, chuyên
-nghiệp", nhưng phản đối khi biến tấu làm mất bản chất gốc.</p>
-<p><span class="pid-ref" data-pids="P07,P09">P07 và P09</span> dùng tiêu chí
-khác hẳn. P09 nói authenticity nằm ở thái độ phục vụ, không phải hình thức.
-P07 thấy cho thuê trang phục hầu đồng chụp ảnh là điều tốt. Hai người không
-mâu thuẫn nhau, chỉ đang đánh giá bằng hai tiêu chí khác nhau.</p>
-<p>Câu hỏi pilot tháng 7 phải trả lời: với hầu đồng tại Phủ Dầy, ranh giới
-giữa nghi lễ thật có khách chứng kiến và nghi lễ được sắp xếp cho khách xem
-trông như thế nào, và MẠCH sẽ giải thích điều đó với khách ra sao?</p>
+    P4_INTRO = """
+<p>7/14 người nhắc đến lo ngại về dàn dựng văn hóa, nhưng phân hóa
+thành 3 nhóm khác biệt: phản đối rõ (3 người), chấp nhận có điều kiện
+(2 người), định nghĩa lại tiêu chí hoàn toàn (2 người). Confidence
+Trung bình không phản ánh thiếu bằng chứng, mà phản ánh thiếu đồng
+thuận về định nghĩa "dàn dựng" là gì.</p>
 """
-    print(P4_PROSE)
+    P4_SYNTHESIS = """
+<p>Ba nhóm phản ứng khác nhau, nhưng cùng một lo ngại gốc: không ai
+muốn bị dắt đi xem diễn mà không hiểu mình đang xem cái gì.</p>
+<p>Nhóm phản đối rõ (P01, P06, P14) đều từng có trải nghiệm tiêu cực
+cụ thể làm thước đo. Với họ, điều cần thiết là nói rõ trước khi vào lễ:
+khách đang chứng kiến nghi lễ thật, không phải xem biểu diễn cho du
+lịch. Riêng P14 lo ở tầng sâu hơn: khi người ngoài thuê lại không gian
+của cộng đồng địa phương, sản phẩm mất đi sự tự nhiên. Đây là điều
+MẠCH cần tự đặt câu hỏi ở mỗi tour.</p>
+<p>Nhóm chấp nhận có điều kiện (P08, P11) không yêu cầu xóa bỏ dàn
+dựng. Họ cần thấy mục đích rõ ràng và tổ chức chuyên nghiệp là đủ.</p>
+<p>Nhóm định nghĩa lại (P07, P09) gợi ý hai hướng cụ thể: P07 muốn có
+hoạt động sau lễ để tham gia chủ động (mặc trang phục, chụp ảnh), còn
+P09 đánh giá tính chân thực qua thái độ người phục vụ, không phải qua
+hình thức. Với nhóm khách có cả ba nhóm trên, cấu trúc hai phần sẽ đáp
+ứng được tất cả: (1) chứng kiến nghi lễ thật có giải thích rõ từ đầu,
+(2) hoạt động tương tác sau lễ cho người muốn tham gia thêm.</p>
+<p class="pattern-xref">→ P1: nhóm định nghĩa lại cần tham gia chủ
+động, không phải ngồi xem · → P5: lo ngại của P14 về Măng Đen là cảnh
+báo cụ thể cho Nam Định</p>
+"""
+    print(P4_INTRO)
     print(render_p4_dotplot_interactive(quotes_df, participants_df))
+    print(P4_SYNTHESIS)
     print()
+```
+
+```{python}
+#| echo: false
+#| output: asis
+if _data_ready:
+    print(f"## P5 — {PATTERN_META['P5']['name']}")
+    print()
+    P5_INTRO = """
+<p>7/14 người nhắc đến Nam Định như yếu tố ảnh hưởng quyết định,
+nhưng không phải một vấn đề thống nhất. Ba bản chất khác nhau xuất
+hiện trong dữ liệu: thiếu thương hiệu điểm đến, rào cản địa lý, và
+quan sát từ góc ngành. Mỗi bản chất cần cách giải quyết riêng.</p>
+<p class="pattern-note">Ghi chú: đây là rào cản về uy tín điểm đến,
+không phải tín hiệu hứng thú.</p>
+"""
+    P5_SYNTHESIS = """
+<p>Ba nhóm, ba bản chất khác nhau, không thể giải bằng một giải pháp
+chung.</p>
+<p>Nhóm chưa đủ thương hiệu (P07, P08, P09) không thiếu hứng thú với
+văn hóa. Họ thiếu lý do đủ thuyết phục để chọn Nam Định thay vì nơi
+khác. P09 nói thẳng đây là thứ 'cản lại chị' khi tìm thông tin điểm
+đến. P08 xác nhận Nam Định chưa có thương hiệu du lịch đủ để nhận
+diện. P07, từ kinh nghiệm ngành, nhận xét Đền Trần chỉ có sức hút
+theo mùa, không đủ kéo người trưởng thành quanh năm. Với nhóm này,
+vấn đề cần giải trước khi bán tour: MẠCH cần xây đủ nội dung để trả
+lời câu hỏi 'tại sao Nam Định?' trước khi khách đến trang đặt chỗ.</p>
+<p>Nhóm rào cản địa lý (P14) khác bản chất hoàn toàn: P14 hứng thú
+thật sự với Đạo Mẫu và có ý định rõ ràng, nhưng khoảng cách từ miền
+Nam là điều kiện thực tế chưa giải được ở giai đoạn pilot. Giảm giá
+hay cải thiện nội dung không giải quyết được vấn đề này. Nhóm này
+chưa phải đối tượng ưu tiên cho pilot tháng 7.</p>
+<p>Nhóm tín hiệu sớm (P04, P12, P13) nhẹ hơn và cần đọc có chú ý:
+P04 có ấn tượng 'Nam Định ít khu du lịch', tín hiệu sớm với độ tin
+cậy thấp, cần thêm bằng chứng để kết luận; P12 cần người dẫn địa bàn
+nhưng hứng thú rõ (đánh giá 4/5), gợi ý rằng cách tiếp cận hiệu quả
+với nhóm này là qua người đã từng đến Nam Định, không phải qua nội
+dung quảng bá trực tiếp; P13 đưa ra nhận xét vĩ mô từ góc học thuật
+với lượng dữ liệu hạn chế nhất trong nhóm.</p>
+<div class="pattern-data-note">Q060 (trích dẫn của P13) đang chờ xác
+minh transcript thô. Kết luận liên quan đến P13 cần đọc kèm chú thích
+này cho đến khi hoàn tất xác minh.</div>
+<div class="pattern-open-question">Câu hỏi cho team thiết kế: với
+những khách đã vượt qua rào cản thương hiệu và đặt tour, những khoảnh
+khắc tiếp xúc đầu tiên với điểm đến là lúc ấn tượng ban đầu được tạo
+ra. Tour cần mở như thế nào để xác nhận họ đã đúng khi chọn Nam
+Định?</div>
+<p class="pattern-xref">→ Leadership: xây thương hiệu Nam Định phải
+đến trước khi bán tour, không phải trong tour · → P4: concern P14 về
+Măng Đen là cảnh báo về tính chân thực, khác với rào cản địa lý ở P5
+</p>
+"""
+    print(P5_INTRO)
+    print(render_p5_dotplot_interactive(quotes_df, participants_df))
+    print(P5_SYNTHESIS)
+    print()
+```
+
+```{python}
+#| echo: false
+#| output: asis
+if _data_ready:
     for _pid in PATTERN_ORDER[PATTERN_ORDER.index("P4") + 1:]:
+        if _pid == "P5":
+            continue
         meta = PATTERN_META[_pid]
         print(f"## {_pid} — {meta['name']}")
         print()
