@@ -1163,6 +1163,198 @@ def render_p3_dotplot_interactive(quotes_df, participants_df):
     )
 
 
+def render_s2_dotplot_interactive(quotes_df, participants_df):
+    """S2 Layer 2: interactive dot plot (60%) + quote panel (40%). Self-contained HTML."""
+    GROUP_MAP = {
+        "P03": "Nhận ra thiếu",
+        "P10": "Nhận ra thiếu",
+        "P07": "Muốn tích hợp đúng cách",
+        "P11": "Muốn tích hợp đúng cách",
+        "P12": "Ẩm thực gắn với cộng đồng",
+        "P14": "Ẩm thực gắn với cộng đồng",
+    }
+    GROUP_COLORS = {
+        "Nhận ra thiếu":             {"main": "#C4A027", "dark": "#8B7219"},
+        "Muốn tích hợp đúng cách":   {"main": "#CF7A3A", "dark": "#9B5B28"},
+        "Ẩm thực gắn với cộng đồng": {"main": "#8B6040", "dark": "#6B4A30"},
+    }
+    GROUP_ORDER = [
+        "Nhận ra thiếu",
+        "Muốn tích hợp đúng cách",
+        "Ẩm thực gắn với cộng đồng",
+    ]
+    LENS_SHAPE = {"customer": "circle", "industry": "square", "lead_user": "diamond"}
+    block_id = "s2-dotplot"
+
+    s2_q = (
+        quotes_df[quotes_df["pattern_id"] == "S2"]
+        .merge(participants_df[["pid", "lens"]], on="pid", how="left")
+        .sort_values("pid")
+    )
+
+    rows_js = []
+    seen_pid = set()
+    for _, r in s2_q.iterrows():
+        pid = str(r["pid"])
+        if pid in seen_pid:
+            continue
+        seen_pid.add(pid)
+        rows_js.append({
+            "pid": pid,
+            "lens": str(r["lens"]) if pd.notna(r.get("lens")) else "",
+            "confidence": str(r["confidence_level"]) if pd.notna(r.get("confidence_level")) else "",
+            "short": str(r["quote_short"]) if pd.notna(r.get("quote_short")) else "",
+            "full": str(r["quote_full"]) if pd.notna(r.get("quote_full")) else "",
+            "ref": str(r["ref_id"]) if pd.notna(r.get("ref_id")) else "",
+        })
+    quotes_json = json.dumps(rows_js, ensure_ascii=False).replace("</", "<\\/")
+    s2_pids_json = json.dumps(list(GROUP_MAP.keys()))
+
+    group_pids = {g: [] for g in GROUP_ORDER}
+    placed_pids = set()
+    for _, r in s2_q.iterrows():
+        pid = str(r["pid"])
+        if pid in placed_pids:
+            continue
+        lens = str(r["lens"]) if pd.notna(r.get("lens")) else "customer"
+        if pid in GROUP_MAP:
+            group_pids[GROUP_MAP[pid]].append((pid, lens))
+            placed_pids.add(pid)
+
+    dot_rows_html = ""
+    for g in GROUP_ORDER:
+        colors = GROUP_COLORS[g]
+        dots_html = ""
+        for pid, lens in group_pids[g]:
+            shape = LENS_SHAPE.get(lens, "circle")
+            dots_html += (
+                f'<button class="s2-dot s2-dot--{shape}" data-pid="{pid}"'
+                f' style="--dot-main:{colors["main"]};--dot-dark:{colors["dark"]}"'
+                f' aria-label="{pid}" type="button">'
+                f'<span class="s2-dot-shape"></span>'
+                f'<span class="s2-dot-label">{pid}</span>'
+                f'</button>'
+            )
+        dot_rows_html += (
+            f'<div class="s2-group-row">'
+            f'<span class="s2-group-label">{html.escape(g)}</span>'
+            f'<div class="s2-dots">{dots_html}</div>'
+            f'</div>'
+        )
+
+    legend_html = (
+        '<div class="s2-legend">'
+        '<span class="s2-legend-item">'
+        '<span class="s2-leg s2-leg--circle"></span>customer</span>'
+        '<span class="s2-legend-item">'
+        '<span class="s2-leg s2-leg--square"></span>industry</span>'
+        '<span class="s2-legend-item">'
+        '<span class="s2-leg s2-leg--diamond"></span>lead user</span>'
+        '</div>'
+    )
+
+    css = (
+        f"#{block_id} "
+        "{display:grid;grid-template-columns:3fr 2fr;gap:1.5rem;align-items:start;margin:1.5rem 0;}"
+        ".s2-plot-side{padding:0.25rem 0;}"
+        ".s2-group-row{display:flex;align-items:center;gap:0.75rem;margin-bottom:0.9rem;}"
+        ".s2-group-label{min-width:11rem;font-size:0.875rem;color:var(--ink,#2c2c2c);line-height:1.3;}"
+        ".s2-dots{display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;}"
+        ".s2-dot{background:none;border:none;padding:0.2rem 0.15rem;cursor:pointer;"
+        "display:flex;flex-direction:column;align-items:center;gap:0.18rem;outline:none;}"
+        ".s2-dot-shape{width:20px;height:20px;background:var(--dot-main);"
+        "display:block;transition:filter 0.15s;}"
+        ".s2-dot--circle .s2-dot-shape{border-radius:50%;}"
+        ".s2-dot--square .s2-dot-shape{border-radius:2px;}"
+        ".s2-dot--diamond .s2-dot-shape{clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}"
+        ".s2-dot:hover .s2-dot-shape,.s2-dot.is-active .s2-dot-shape{"
+        "filter:drop-shadow(0 0 5px var(--dot-dark)) brightness(1.12);}"
+        ".s2-dot-label{font-size:0.72rem;color:var(--muted,#888);line-height:1;}"
+        ".s2-dot.is-active .s2-dot-label{color:var(--ink,#2c2c2c);font-weight:600;}"
+        ".s2-legend{display:flex;gap:1rem;margin-top:0.6rem;padding-top:0.5rem;"
+        "border-top:1px solid var(--line,#d0ccc8);}"
+        ".s2-legend-item{display:flex;align-items:center;gap:0.35rem;"
+        "font-size:0.78rem;color:var(--muted,#888);}"
+        ".s2-leg{width:11px;height:11px;background:var(--muted,#888);display:inline-block;}"
+        ".s2-leg--circle{border-radius:50%;}"
+        ".s2-leg--square{border-radius:2px;}"
+        ".s2-leg--diamond{clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}"
+        ".s2-quote-side{min-height:7rem;}"
+        ".s2-hint{font-size:0.875rem;color:var(--muted,#888);font-style:italic;margin:0.5rem 0 0;}"
+        ".s2-quote-panel{background:var(--bg-soft,#f7f7f5);border-radius:0.7rem;padding:1rem 1.1rem;}"
+        ".s2-qpid{font-size:0.78rem;font-weight:600;color:var(--muted,#888);"
+        "margin:0 0 0.4rem;text-transform:uppercase;letter-spacing:0.03em;}"
+        ".s2-qshort{font-size:0.9rem;font-weight:500;color:var(--ink,#2c2c2c);margin:0;font-style:italic;}"
+        ".s2-qfull{font-size:0.82rem;color:var(--muted,#888);margin:0.5rem 0 0.3rem;"
+        "border-top:1px solid var(--line,#d0ccc8);padding-top:0.5rem;}"
+        ".s2-qref{font-size:0.73rem;color:var(--muted,#888);margin:0.2rem 0 0;"
+        "font-family:monospace;opacity:0.75;}"
+    )
+
+    js = (
+        "(function(){"
+        f"var QUOTES={quotes_json};"
+        f"var S2PIDS=new Set({s2_pids_json});"
+        f"var block=document.getElementById('{block_id}');"
+        "if(!block)return;"
+        f"var quoteDiv=document.getElementById('{block_id}-quote');"
+        "var hint=block.querySelector('.s2-hint');"
+        "var activeBtn=null;"
+        "var QMAP={};"
+        "QUOTES.forEach(function(q){QMAP[q.pid]=q;});"
+        "function showQuote(btn){"
+        "if(activeBtn)activeBtn.classList.remove('is-active');"
+        "activeBtn=btn;"
+        "btn.classList.add('is-active');"
+        "var pid=btn.dataset.pid;"
+        "var q=QMAP[pid];"
+        "if(!q)return;"
+        "quoteDiv.querySelector('.s2-qpid').textContent=pid+' \u00b7 '+q.lens;"
+        "quoteDiv.querySelector('.s2-qshort').textContent='\u201c'+q.short+'\u201d';"
+        "var fullEl=quoteDiv.querySelector('.s2-qfull');"
+        "if(q.full&&q.full!==q.short){fullEl.textContent=q.full;fullEl.style.display='block';}"
+        "else{fullEl.style.display='none';}"
+        "quoteDiv.querySelector('.s2-qref').textContent=q.ref||'';"
+        "quoteDiv.style.display='block';"
+        "if(hint)hint.style.display='none';"
+        "}"
+        "block.querySelectorAll('.s2-dot').forEach(function(btn){"
+        "btn.addEventListener('click',function(){"
+        "if(activeBtn===btn)return;"
+        "showQuote(btn);"
+        "});"
+        "});"
+        "document.querySelectorAll('.pid-ref').forEach(function(span){"
+        "var pids=(span.dataset.pids||'').split(',').map(function(s){return s.trim();});"
+        "var relevant=pids.filter(function(p){return S2PIDS.has(p);});"
+        "if(!relevant.length)return;"
+        "span.addEventListener('click',function(){"
+        "var first=relevant[0];"
+        "var dot=block.querySelector('.s2-dot[data-pid=\"'+first+'\"]');"
+        "if(dot)showQuote(dot);"
+        "});"
+        "});"
+        "})();"
+    )
+
+    return (
+        f'<section id="{block_id}" class="s2-dotplot-block">\n'
+        f'<style>\n{css}\n</style>\n'
+        f'<div class="s2-plot-side">\n{dot_rows_html}\n{legend_html}\n</div>\n'
+        f'<div class="s2-quote-side">\n'
+        f'<div id="{block_id}-quote" class="s2-quote-panel" style="display:none">'
+        f'<p class="s2-qpid"></p>'
+        f'<p class="s2-qshort"></p>'
+        f'<p class="s2-qfull"></p>'
+        f'<p class="s2-qref"></p>'
+        f'</div>\n'
+        f'<p class="s2-hint">Ch\u1ecdn m\u1ed9t participant \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
+        f'</div>\n'
+        f'<script>\n{js}\n</script>\n'
+        f'</section>\n'
+    )
+
+
 def render_p5_dotplot_interactive(quotes_df, participants_df):
     """P5 Layer 2: interactive dot plot (60%) + quote panel (40%). Self-contained HTML."""
     GROUP_MAP = {
