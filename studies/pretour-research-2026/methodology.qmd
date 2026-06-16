@@ -2,18 +2,6 @@
 title: "Phương pháp"
 ---
 
-## II. Thiết kế nghiên cứu
+# II. Phương pháp nghiên cứu
 
-Placeholder cho phần phương pháp.
-
-## Mẫu và annotation
-
-Placeholder.
-
-## Hạn chế
-
-Placeholder.
-
-## Mức độ tin cậy
-
-Placeholder.
+Dữ liệu trong báo cáo được thu thập thông qua các cuộc phỏng vấn với người quen, người thân và một số người có chuyên môn hoặc kinh nghiệm liên quan đến du lịch, văn hoá và phát triển cộng đồng.

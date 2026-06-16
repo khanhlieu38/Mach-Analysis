@@ -2,24 +2,10 @@
 title: "Thông tin dữ liệu"
 ---
 
-## III. Thông tin dữ liệu
+# III. Thông tin dữ liệu
 
-Placeholder cho trang Data Information.
+Báo cáo sử dụng dữ liệu phỏng vấn từ 15 người tham gia, bao gồm khách hàng tiềm năng, người quen/người thân và một số người có chuyên môn hoặc kinh nghiệm liên quan.
 
-Nội dung chi tiết sẽ cập nhật sau.
+Dữ liệu được chia thành hai phần chính: thông tin người tham gia phỏng vấn và các phản hồi tiêu biểu được chọn lọc theo từng chủ đề.
 
-### Góc nhìn (`lens`)
-
-Placeholder.
-
-### Phân bố mẫu
-
-Placeholder.
-
-### Bảng participant
-
-Placeholder.
-
-### Ngân sách du lịch vs giá tour chấp nhận được
-
-Placeholder.
+Phần dữ liệu này hỗ trợ team nội bộ MẠCH trong việc nhận diện hành vi du lịch, nhu cầu, rào cản và phản ứng của khách hàng đối với concept tour.

@@ -2,6 +2,19 @@
 title: "Mục tiêu nghiên cứu"
 ---
 
-Placeholder cho phần I. Purpose and Objectives.
+# I. Mục tiêu và định hướng báo cáo
 
-- Nội dung sẽ cập nhật sau.
+Báo cáo này tổng hợp dữ liệu phỏng vấn khách hàng nhằm đánh giá mức độ phù hợp của concept tour MẠCH trước khi triển khai thử nghiệm. Trọng tâm của báo cáo là hiểu khách hàng tiềm năng đang đi du lịch như thế nào, họ quan tâm điều gì, họ phản ứng ra sao với concept tour, và đâu là những điểm cần điều chỉnh trước khi đưa tour vào pilot.
+
+## Mục tiêu nghiên cứu
+
+Báo cáo hướng tới bốn mục tiêu chính:
+
+1. Xác định nhóm khách hàng có phản ứng tích cực nhất với concept tour MẠCH.
+2. Hiểu hành vi du lịch, động lực ra quyết định và các rào cản khi lựa chọn tour trải nghiệm văn hoá.
+3. Đánh giá mức sẵn sàng chi trả cho một tour trải nghiệm văn hoá tại Nam Định.
+4. Xác định các điểm cần cải thiện về sản phẩm, định vị và truyền thông trước giai đoạn pilot.
+
+## Cách sử dụng báo cáo
+
+Các phát hiện trong báo cáo này được dùng để hỗ trợ team MẠCH trong ba hướng chính: điều chỉnh thiết kế tour, xác định nhóm khách hàng ưu tiên, và chuẩn bị thông điệp truyền thông phù hợp cho giai đoạn thử nghiệm.

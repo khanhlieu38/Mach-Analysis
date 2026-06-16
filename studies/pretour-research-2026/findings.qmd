@@ -2,29 +2,117 @@
 title: "Phát hiện chính"
 ---
 
-## A. Hành vi du lịch và động lực quyết định
+# IV. Phát hiện chính
 
-Placeholder.
+## A. Hành vi du lịch và yếu tố ra quyết định
+
+Nhìn chung, người tham gia không chọn chuyến đi chỉ vì điểm đến. Quyết định du lịch thường phụ thuộc vào ba yếu tố chính: mức độ tự do trong lịch trình, người đi cùng, và cảm giác chuyến đi có đáng tiền hay không.
+
+**Về hình thức du lịch, nhiều người vẫn ưu tiên đi tự túc** vì có thể chủ động thời gian, điểm đến, ăn uống và nhịp độ di chuyển. Tour chỉ hấp dẫn hơn khi mang lại giá trị mà họ khó tự có được, như hiểu sâu hơn về văn hoá, con người và câu chuyện địa phương. Những điểm bất tiện thường gặp của tour là lịch trình gò bó, nghe quá nhiều, ít hoạt động trực tiếp và chất lượng dịch vụ không đồng đều.
+
+**Về động lực du lịch, nhu cầu giữa các nhóm khá khác nhau.** Một số người tìm kiếm nghỉ dưỡng, an toàn và tiện nghi, đặc biệt khi đi cùng gia đình. Nhóm khác quan tâm hơn đến trải nghiệm mới, đời sống địa phương và các hoạt động có tính khám phá. Người đi cùng cũng ảnh hưởng mạnh đến quyết định, vì nhiều người chỉ cân nhắc tour văn hoá nếu có bạn bè, người thân hoặc người cùng gu đi cùng.
+
+**Về kênh thông tin, dữ liệu hiện tại mới là tín hiệu ban đầu.** Một số phản hồi cho thấy mạng xã hội, video ngắn, hình ảnh trực quan và đánh giá từ người đi trước có thể ảnh hưởng đến hứng thú ban đầu. Vì vậy, phần này nên được kiểm chứng thêm trong giai đoạn thử nghiệm.
+
+**Về mức sẵn sàng chi trả, vùng giá được nhắc đến nhiều nằm khoảng 4,5–8 triệu đồng cho tour 3 ngày.** Một số người có thể cân nhắc mức 10 triệu nếu dịch vụ và trải nghiệm đủ tốt, nhưng từ khoảng 15 triệu trở lên bắt đầu trở thành ngưỡng từ chối. Ở chiều ngược lại, mức quá thấp như 1–3 triệu có thể khiến người tham gia nghi ngờ chất lượng. Điều này cho thấy vấn đề không chỉ là giá rẻ, mà là tour phải chứng minh được chất lượng lưu trú, ăn uống, dịch vụ và trải nghiệm tương xứng với số tiền bỏ ra.
 
 ## B. Phản ứng với concept tour MẠCH
 
-### Rào cản cần xử lý
+### Những rào cản cần xử lý
 
-Placeholder.
+#### 1. Trải nghiệm còn thụ động
 
-### Cơ hội có thể khai thác
+**Vấn đề hiện tại:** Concept MẠCH có chất liệu tốt: có văn hoá, có câu chuyện, có chiều sâu. Nhưng khi đọc lịch trình, một số người vẫn hình dung đây là chuyến đi phải nghe nhiều, đọc nhiều và tiếp nhận nhiều kiến thức. Với khách đi du lịch để thư giãn hoặc khám phá nhẹ nhàng, cảm giác này có thể khiến tour trở nên hơi nặng và khó vào.
 
-Placeholder.
+**Bằng chứng:** Nguyễn Minh Hằng nói thẳng rằng chị muốn “được chạm vào hoạt động nhiều hơn thay vì chỉ ngồi nghe”. Ở nhóm có nhiều kinh nghiệm hơn với du lịch văn hoá/cộng đồng, Chị Vũ Dương cũng nhấn mạnh: điều quan trọng không phải chỉ là nghe về di sản, mà là được “chạm vào di sản”. Nói cách khác, nhu cầu này không chỉ đến từ khách phổ thông, mà cả những người đã quan tâm đến văn hoá cũng cần trải nghiệm trực tiếp.
 
-## C. Nhận thức về du lịch bền vững
+**Hướng xử lý:** Tour nên đưa các phần “được làm thật” lên rõ hơn trong thiết kế: ăn cùng người địa phương, đạp xe, tham gia làng nghề, hoạt động cộng đồng hoặc bước vào sinh hoạt thường ngày. Trong quá trình hoàn thiện lịch trình, team nên tiếp tục nghe lời khuyên từ anh chị bên ECOHOST và hướng dẫn viên địa phương do ECOHOST giới thiệu để chọn hoạt động nào thật sự phù hợp với bối cảnh địa phương. Về truyền thông, những hoạt động này cũng cần xuất hiện sớm trong hình ảnh và video giới thiệu, để người xem thấy ngay đây không phải một chuyến đi chỉ ngồi nghe kể chuyện.
 
-### 1. Phổ nhận thức
+#### 2. Phụ thuộc vào người đi cùng
 
-Placeholder.
+**Vấn đề hiện tại:** Một số người không hẳn từ chối concept MẠCH, nhưng họ khó tự book nếu phải đi một mình hoặc đi cùng nhóm người lạ. Với tour văn hoá, người đi cùng không chỉ là bạn đồng hành, mà còn là người để cùng chia sẻ, trao đổi và làm cho chuyến đi bớt “ngại”.
 
-### 2. Hàm ý truyền thông và đối tác
+**Bằng chứng:** Nguyễn Minh Thu nói rằng nếu bạn bè rủ thì chị có thể đi, nhưng khó tự chủ động book một tour như vậy. Thuỳ Dương cũng nói gần như phải có bạn bè thân thiết đi cùng thì mới muốn đi, vì với tour văn hoá, chị cần người đồng hành để cùng trao đổi và chia sẻ trải nghiệm. Ở nhóm có kinh nghiệm du lịch cộng đồng, Chị Vũ Dương còn nói người bạn đi cùng mới là yếu tố quyết định, không phải điểm đến.
 
-Placeholder.
+**Hướng xử lý:** Tour nên được thiết kế và truyền thông như một trải nghiệm để đi cùng người thân, bạn bè hoặc nhóm nhỏ có cùng mối quan tâm, thay vì tạo cảm giác như một tour ghép với người lạ. MẠCH có thể thử các gói cho nhóm 2–4 người, gia đình nhỏ hoặc nhóm bạn, đồng thời làm rõ không khí chuyến đi: thân mật, an toàn và dễ trò chuyện. Khi thiết kế hoạt động nhóm, team cũng nên tránh tạo cảm giác người tham gia bị buộc phải tương tác quá nhiều với người lạ.
+
+#### 3. Lệch định vị khách hàng
+
+**Vấn đề hiện tại:** Concept MẠCH không thiếu giá trị, nhưng cách trình bày hiện tại dễ khiến người đọc chưa thấy rõ “tour này dành cho mình”. Với một số người, tour đang gợi cảm giác giống một hoạt động học tập hoặc ngoại khoá hơn là một chuyến du lịch có trải nghiệm, cảm xúc và thời gian để tận hưởng.
+
+**Bằng chứng:** Nguyễn Minh Hằng nói rằng concept hiện tại “có thiên hướng học tập và nghiên cứu”, nên với người chỉ muốn đi chơi và tìm hiểu sơ qua, cách tiếp cận này có thể hơi đáng sợ. Bùi Thị Bích Huệ cũng nhận xét concept vẫn hơi giống “học sinh đi ngoại khoá” hơn là một chuyến du lịch thật sự hấp dẫn. Đáng chú ý hơn, phản ứng này không chỉ đến từ nhóm khách phổ thông: Chị Vũ Dương, người có kinh nghiệm với du lịch cộng đồng, cũng nói cảm giác đầu tiên khi đọc concept là “như vừa trở về thời đại học”.
+
+**Hướng xử lý:** MẠCH cần định vị lại tour theo hướng dễ hình dung hơn: không phải “đi học văn hoá”, mà là một chuyến đi để chạm vào đời sống Nam Định qua con người, ẩm thực, làng nghề, tín ngưỡng và những câu chuyện địa phương. Thông điệp truyền thông nên bắt đầu từ trải nghiệm và cảm xúc trước, sau đó mới dẫn vào chiều sâu văn hoá.
+
+#### 4. Lo ngại về tính chân thực
+
+**Vấn đề hiện tại:** Với tour văn hoá, người tham gia khá nhạy với cảm giác “diễn cho khách xem”. Họ không nhất thiết phản đối việc trải nghiệm được tổ chức lại cho dễ tiếp cận, nhưng nếu mọi thứ quá sắp đặt, quá sạch sẽ hoặc quá giống một màn trình diễn, tour có thể mất đi cảm giác thật.
+
+**Bằng chứng:** Nguyễn Thành Chung cho rằng những trải nghiệm văn hoá được tái hiện lại cho khách xem dễ mất “hồn cốt”, vì không thú vị bằng việc thật sự gặp con người đang sống trong văn hoá đó. Nguyễn Minh Hiếu cũng từng có cảm giác một số làng du lịch giống như đang “diễn cho khách xem”. Ở chiều ngược lại, Chị Vũ Dương nhìn nhận tinh tế hơn: dàn dựng không phải lúc nào cũng xấu, miễn là không làm sai lệch văn hoá và giúp trải nghiệm dễ tiếp cận hơn.
+
+**Hướng xử lý:** MẠCH cần làm rõ đâu là trải nghiệm đời sống thật, đâu là phần được tổ chức để khách dễ tham gia. Một cách kiểm tra đơn giản là: nếu người địa phương cũng tự nhiên có mặt hoặc tham gia vào hoạt động đó, chứ không chỉ có khách du lịch, thì đó là tín hiệu tốt về tính chân thực. Khi làm việc với ECOHOST và hướng dẫn viên địa phương, team nên ưu tiên những hoạt động không làm sai lệch văn hoá, không biến đời sống địa phương thành một màn biểu diễn, nhưng vẫn đủ rõ ràng và dễ tiếp cận cho khách.
+
+Về truyền thông, MẠCH nên tránh hứa quá mức rằng trải nghiệm là “hoàn toàn nguyên bản” hoặc “không dàn dựng”. Thay vào đó, nên nói rõ đây là trải nghiệm được tổ chức có chủ đích để khách tiếp cận văn hoá dễ hơn, nhưng vẫn giữ được bối cảnh thật, con người thật và câu chuyện thật.
+
+#### 5. Độ thuyết phục của Nam Định như một điểm đến
+
+**Vấn đề hiện tại:** Nam Định chưa có vị trí rõ trong tâm trí nhiều người như một điểm đến du lịch đáng đi. Rào cản này rõ hơn ở nhóm khách chưa quen với du lịch văn hoá, những người cần điểm đến có độ nhận diện trước khi quan tâm đến nội dung tour. Vì vậy, dù concept MẠCH có câu chuyện và ý nghĩa, người tham gia vẫn cần được thuyết phục rằng: vì sao phải là Nam Định, và nơi này có gì đủ hấp dẫn cho một chuyến đi 3 ngày.
+
+**Bằng chứng:** Nhung Huyền nói rằng Nam Định hiện “chưa có độ nhận diện rõ như một điểm đến du lịch”, nên tour cần làm rõ hơn vì sao nơi này đáng đi. Phan Ngọc Ánh cũng cho biết điểm khiến chị lưỡng lự là Nam Định; nếu đó là một điểm đến nổi tiếng hơn, có nhiều điều thu hút hơn, chị sẽ dễ hứng thú hơn. Bùi Thị Bích Huệ bổ sung một góc nhìn thực tế: với cùng số tiền, khách sẽ so sánh trải nghiệm trong nước với các lựa chọn đi nước ngoài.
+
+**Hướng xử lý:** MẠCH cần bán Nam Định như một điểm đến có câu chuyện riêng, không chỉ là nơi diễn ra tour. Truyền thông nên làm rõ các điểm neo dễ hình dung: con người, ẩm thực, làng nghề, tín ngưỡng, nhịp sống địa phương và những góc đẹp cụ thể. Trong thiết kế tour, lịch trình cũng cần có ít nhất một khoảnh khắc đủ mạnh để khách tự cảm thấy “đây là lý do Nam Định đáng đến”. Nói cách khác, người xem cần thấy được “vì sao Nam Định đáng đi” trước khi được thuyết phục rằng tour MẠCH đáng mua.
+
+#### 6. Thiên kiến “văn hoá Việt thì mình đã biết rồi” - tín hiệu ban đầu
+
+**Vấn đề hiện tại:** Một rào cản nhỏ nhưng đáng chú ý là một số người Việt không thấy nhu cầu mạnh với tour văn hoá trong nước, vì họ có cảm giác văn hoá Việt là thứ mình đã quen. Khi so với đi nước ngoài, tour văn hoá nội địa dễ bị xem là ít mới lạ hơn nếu không chỉ ra được phần trải nghiệm mà khách thật sự chưa biết hoặc khó tự tiếp cận.
+
+**Bằng chứng:** Thuỳ Dương nói rằng với du lịch văn hoá ở Việt Nam, chị không có nhu cầu mạnh bằng khi đi nước ngoài, vì cảm giác mình đã ở đây rồi và đã quen với văn hoá này. Đức Minh đưa ra một góc gần nhưng hơi khác: với một điểm đến ở Việt Nam, anh không nhất thiết cần đi tour vì có thể tự đi và chưa thấy tour mang lại giá trị khác biệt rõ so với đi tự túc.
+
+**Hướng xử lý:** MẠCH không nên truyền thông tour như một chuyến “khám phá văn hoá Việt” quá chung chung. Thay vào đó, cần làm rõ phần khách chưa chắc đã biết: hậu trường tín ngưỡng, câu chuyện làng nghề, bữa ăn tại nhà dân, nhịp sống địa phương và những cuộc gặp với người thật. Nói cách khác, tour cần cho khách thấy rằng điều quen thuộc vẫn có những lớp sâu hơn để khám phá. Tín hiệu này còn mỏng và cần được kiểm chứng trong pilot tour, đặc biệt khi thiết kế những khoảnh khắc đủ bất ngờ để người đã nghĩ mình biết văn hoá Việt phải nhìn nhận lại.
+
+### Những cơ hội có thể tận dụng
+
+#### 7. Sức hút với khách nước ngoài / người tò mò văn hoá
+
+**Cơ hội hiện tại:** Một số người tham gia cho rằng concept MẠCH có thể hấp dẫn hơn với khách nước ngoài, người nghiên cứu văn hoá Việt, hoặc nhóm người Việt thật sự tò mò về văn hoá. Đây là một cơ hội định vị rõ ràng, nhưng cũng là lời nhắc rằng nếu nhắm đến khách Việt đại chúng, cách kể chuyện cần dễ tiếp cận hơn.
+
+**Bằng chứng:** Phan Ngọc Ánh cho rằng tour có thể phù hợp “70% với người nước ngoài và 30% với Gen Z Việt Nam” - nhóm tò mò với các chủ đề văn hoá. Trương Liêu cũng nhận định loại hình này có thể hợp với khách nước ngoài hoặc những người không chỉ đi du lịch để check-in. Chị Vũ Dương nói chị có thể đi tour này cùng bạn bè nước ngoài, còn bạn bè người Việt xung quanh có lẽ sẽ không hứng thú bằng.
+
+**Cách tận dụng:** MẠCH không nên dùng một thông điệp chung cho tất cả nhóm khách. Có thể thử hai hướng truyền thông riêng: một hướng nhấn vào chiều sâu văn hoá cho khách nước ngoài hoặc người tò mò văn hoá; một hướng mềm hơn cho khách Việt, bắt đầu từ trải nghiệm dễ hình dung như ẩm thực, con người, làng nghề và nhịp sống địa phương. Điều quan trọng là làm rõ ai sẽ thấy tour này đáng đi nhất, thay vì cố làm tour có vẻ phù hợp với tất cả mọi người.
+
+#### 8. Ẩm thực như điểm vào văn hoá
+
+**Cơ hội hiện tại:** Ẩm thực là một điểm vào dễ tiếp cận hơn so với các nội dung văn hoá nặng về kiến thức. Với nhiều người, ăn uống không chỉ là phần phụ của lịch trình, mà là cách nhanh nhất để cảm nhận đời sống địa phương, con người và không khí của điểm đến.
+
+**Bằng chứng:** Bùi Thị Bích Huệ cho rằng nếu kết hợp ẩm thực, tâm linh và biểu diễn thì tour sẽ hấp dẫn hơn. Trương Liêu cũng nói một tour hay cần giúp người tham gia hiểu con người, ẩm thực, điểm mạnh và đời sống sinh hoạt của địa phương. Với nhóm quan tâm sâu hơn đến du lịch cộng đồng, Chị Bội Hàm nói những phần như ăn cơm và đạp xe cùng địa phương đều hấp dẫn với chị.
+
+**Cách tận dụng:** MẠCH nên dùng ẩm thực như một “cửa vào” để kéo người tham gia đến gần văn hoá Nam Định hơn, thay vì chỉ xem đây là phần ăn uống trong lịch trình. Bữa ăn tại nhà dân, món địa phương, câu chuyện sau món ăn và người nấu nên được đưa thành một điểm nhấn rõ trong tour. Về truyền thông, hình ảnh món ăn và bối cảnh ăn cùng người địa phương có thể giúp tour mềm hơn, đời thường hơn và dễ hình dung hơn.
+
+#### 9. Sự quan tâm đến yếu tố tín ngưỡng - tín hiệu ban đầu
+
+**Cơ hội hiện tại:** Yếu tố tín ngưỡng, đặc biệt là Đạo Mẫu và thờ Mẫu, có thể là một điểm hấp dẫn riêng của tour MẠCH. Tuy nhiên, mức quan tâm này không trải đều ở tất cả nhóm khách. Dữ liệu hiện tại cũng chưa xác nhận rằng sự quan tâm tín ngưỡng tập trung rõ ở một nhóm giới tính hoặc độ tuổi cụ thể: Chị Bội Hàm và Nguyễn Thị Thu Huyền đều thể hiện sự quan tâm, nhưng đến từ hai nhóm tuổi và bối cảnh khác nhau. Vì vậy, tín ngưỡng nên được xem là một lớp trải nghiệm sâu cho nhóm phù hợp, thay vì thông điệp chính cho toàn bộ thị trường.
+
+**Bằng chứng:** Nguyễn Thành Chung nói rằng với chủ đề tâm linh, người tham gia dễ có cảm giác sợ hoặc phòng bị, nên tour cần tạo được một vùng an toàn để họ tiếp nhận và đặt câu hỏi. Nguyễn Thị Thu Huyền thấy chương trình có ý nghĩa và bản thân có thể tham gia, nhưng cũng cho rằng tour này phù hợp với một lứa tuổi nhất định; Gen X có thể thấy ổn, còn giới trẻ chưa chắc phù hợp. Ở nhóm trẻ hơn nhưng có nền tảng du lịch cộng đồng, Chị Bội Hàm lại nói chị muốn đi vì tò mò về Đạo Mẫu, dù concept hiện tại vẫn hơi hàn lâm.
+
+**Cách tận dụng:** MẠCH nên đưa yếu tố tín ngưỡng vào như một phần tạo chiều sâu, nhưng cần kể bằng ngôn ngữ dễ hiểu và có người dẫn đủ tin cậy. Trải nghiệm này nên có chuyên gia, hướng dẫn viên địa phương hoặc người thực hành văn hoá dẫn dắt, đồng thời tạo không gian an toàn để người tham gia được hỏi, được quan sát và tiếp nhận theo nhịp của mình. Trong truyền thông, không nên làm tín ngưỡng trở nên quá bí ẩn hoặc nặng tính học thuật; nên đặt nó trong câu chuyện về con người, đời sống địa phương và cách Nam Định giữ gìn các thực hành văn hoá của mình. Tín hiệu này cần được kiểm chứng thêm trong pilot tour, đặc biệt là nhóm khách nào thật sự thấy yếu tố tín ngưỡng đủ hấp dẫn để ảnh hưởng đến quyết định tham gia.
+
+## C. Mức độ quen thuộc với du lịch bền vững
+
+Mức độ hiểu về "du lịch bền vững" trong nhóm phỏng vấn không đồng đều. Có người chưa từng nghe đến khái niệm này, có người đã nghe nhưng chưa hiểu rõ, và một nhóm có nền tảng liên quan có thể liên hệ nó với giáo dục, du lịch cộng đồng, phát triển cộng đồng hoặc trách nhiệm xã hội. Tỉ lệ người hiểu tương đối rõ trong mẫu này có thể cao hơn thông thường vì sample của MẠCH được chọn có chủ đích, không phải mẫu đại diện dân số.
+
+| Mức độ quen thuộc | Biểu hiện chính | Hàm ý cho MẠCH |
+|---|---|---|
+| Chưa quen | Chưa từng nghe hoặc chỉ đoán liên quan đến môi trường | Không nên dùng thuật ngữ quá sớm |
+| Đã nghe nhưng chưa rõ | Biết qua báo chí/internet nhưng thấy khái niệm còn lý thuyết | Cần giải thích bằng ví dụ cụ thể |
+| Hiểu rõ hơn | Liên hệ với cộng đồng, bảo tồn văn hoá, môi trường và phân bổ lợi ích | Có thể dùng như lớp ý nghĩa sâu hơn của tour |
+
+Vì vậy, MẠCH không nên đặt "du lịch bền vững" làm thông điệp bán hàng chính ngay từ đầu với khách B2C. Cách truyền thông dễ hiểu hơn là chuyển khái niệm này thành các lợi ích cụ thể: gặp người địa phương, ăn cùng nhà dân, hiểu câu chuyện làng nghề, tôn trọng đời sống thật và để một phần giá trị quay lại cộng đồng.
+
+Với đối tác B2B trong lĩnh vực phát triển cộng đồng hoặc trách nhiệm xã hội, thuật ngữ này có thể dùng trực tiếp hơn vì đây là ngôn ngữ họ quen thuộc.
+
+Nếu tour được thiết kế tốt, khái niệm du lịch bền vững có thể được làm rõ tự nhiên qua trải nghiệm trong chuyến đi — không phải qua định nghĩa trước. Người tham gia hiểu được qua thực tế có xu hướng kể lại cho người xung quanh bằng ngôn ngữ dễ hiểu hơn, từ đó mở rộng nhận thức về du lịch bền vững một cách hữu cơ trong mạng lưới của họ. Đây là giả thuyết chưa được kiểm chứng từ dữ liệu phỏng vấn hiện tại và cần được đo trong pilot tour.
+
+Nói ngắn gọn, "bền vững" nên là nguyên tắc thiết kế tour và lớp ý nghĩa phía sau trải nghiệm, không phải thuật ngữ đầu tiên dùng để thuyết phục khách mua tour.
 
 ## D. Nhóm khách hàng mục tiêu (archetypes)
 
