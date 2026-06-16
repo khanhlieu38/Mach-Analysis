@@ -1,0 +1,462 @@
+---
+title: "Pre-tour Research 2026"
+subtitle: "Single-page consumer research report for MẠCH"
+jupyter: python3
+---
+
+```{python}
+#| echo: false
+#| warning: false
+#| message: false
+import sys
+from pathlib import Path
+
+def _find_root(start):
+    for p in [start] + list(start.parents):
+        if (p / "_quarto.yml").exists():
+            return p
+    return start
+
+_root = _find_root(Path.cwd())
+sys.path.insert(0, str(_root / "shared"))
+
+from viz_helpers import (
+    PATTERN_META,
+    load_records_data,
+    load_study_data,
+    pattern_occurrence,
+    patterns_summary_table,
+    quote_evidence_table,
+    sample_overview_table,
+    segment_breakdown,
+    spend_vs_wtp_table,
+    study_integrity_summary,
+)
+
+study_dir = _root / "studies" / "pretour-research-2026"
+participants_df, quotes_df = load_study_data(study_dir)
+records_df = load_records_data(study_dir)
+
+# Expected values come from the corrected compiled participant record.
+# The rendered CSV checks below intentionally surface reconciliation drift.
+EXPECTED_PARTICIPANTS = 15
+EXPECTED_RECORDS = 143
+
+def pattern_line(pattern_id):
+    occ = pattern_occurrence(pattern_id, quotes_df, participants_df)
+    meta = PATTERN_META[pattern_id]
+    if occ["total"] != EXPECTED_PARTICIPANTS:
+        return (
+            f"**Computed coded occurrence:** {occ['count']} coded participants in committed CSV; "
+            f"final denominator pending CSV reconciliation to N={EXPECTED_PARTICIPANTS}. "
+            f"Confidence: {meta['confidence']}."
+        )
+    return f"**Computed coded occurrence:** {occ['label']} participants; confidence: {meta['confidence']}."
+
+def evidence(pattern_id=None, theme=None, subtheme=None, limit=3):
+    table = quote_evidence_table(
+        quotes_df,
+        participants_df,
+        pattern_id=pattern_id,
+        theme=theme,
+        subtheme=subtheme,
+        limit=limit,
+    )
+    print(f"\n{table}\n")
+```
+
+## 0. Executive Summary
+
+<!-- Intentionally placeholder only. Do not finalize before the CSV reconciliation and July pilot decisions are complete. -->
+
+- [PLACEHOLDER: key learning 1 + decision needed]
+- [PLACEHOLDER: key learning 2 + decision needed]
+- [PLACEHOLDER: key learning 3 + decision needed]
+- [PLACEHOLDER: key learning 4 + decision needed]
+- [PLACEHOLDER: key learning 5 + decision needed]
+
+## I. Purpose & Research Questions
+
+This report consolidates the pre-tour consumer research for MẠCH before the July 2026 Nam Định pilot. The business question is practical: who is most likely to respond to the cultural immersive tour concept, what makes the product desirable or difficult to buy, and what should the team test before treating the concept as a repeatable offer.
+
+The research objectives are:
+
+1. Identify which customer segments respond most positively to the MẠCH tour concept.
+2. Understand travel behaviours, motivations, and challenges of Gen Z and Millennials.
+3. Measure willingness to pay for a cultural immersive tour.
+4. Pinpoint unmet demands in current cultural/experiential tours.
+
+The report is written for marketing, product, partnership, and pilot planning. It should not be read as a representative market sizing study.
+
+## II. Methodology
+
+The study uses exploratory, semi-structured interviews with purposive sampling. Participants include potential consumers and people with relevant tourism, cultural, community-development, or travel experience. The design is appropriate for discovering patterns, objections, and pilot hypotheses, but it is not designed to estimate population-level demand.
+
+The participant file resolves to **N=15** and the compiled record table resolves to **143 quote/record entries**. `quotes.csv` remains a curated evidence bank for report claims rather than the complete record table.
+
+```{python}
+#| output: asis
+print(study_integrity_summary(
+    participants_df,
+    quotes_df,
+    records_df=records_df,
+    expected_participants=EXPECTED_PARTICIPANTS,
+    expected_quotes=None,
+    expected_records=EXPECTED_RECORDS,
+))
+```
+
+```{python}
+#| output: asis
+print(f"Curated quote bank rows: {len(quotes_df)}. Full compiled record rows: {len(records_df)}.")
+```
+
+Confidence labels follow the project convention: **Cao**, **Trung bình**, **Tín hiệu sớm**, and **Hypothesis**. A high-confidence qualitative pattern means the team can act on it for pilot design; it does not mean the sample is statistically representative. Medium-confidence patterns should shape pilot tests but still need confirmation. Early signals and hypotheses should be treated as next-round questions.
+
+Privacy and auditability are governed by `STUDY_RULES.md` and repo conventions: public report content uses P-codes, not names; raw PII in `data/raw/` is not rendered; and claims tied to quotes retain `ref_id` for audit trail. Some quotes are polished participant-record extracts rather than audio-verified verbatim transcript. Treat displayed participant language as **participant quote, edited for clarity** unless the source has been separately verified.
+
+## III. Data & Sample
+
+The sample size is computed from `participants.csv`, which contains 15 P-coded participants. The full compiled record is stored separately in `records.csv`; report evidence tables below continue to use the curated `quotes.csv` bank.
+
+The sample is organized into two broad participant groups:
+
+- Participants with little or no cultural tour experience.
+- Participants with cultural tourism, community-based tourism, or otherwise relevant travel experience.
+
+```{python}
+#| output: asis
+print(sample_overview_table(participants_df))
+```
+
+The participant file deliberately keeps analysis at P-code level. Occupations are generalized in helper output, residence is region-level, and raw crosswalk/PII files are not part of the rendered report.
+
+```{python}
+#| output: asis
+print(segment_breakdown("experience", participants_df))
+```
+
+## IV. Key Relevant Findings
+
+### A. Travel Behaviours And Trends
+
+#### A.1 Budget / Willingness To Pay
+
+Willingness to pay should be read separately from general travel spend. Several participants spend meaningfully on travel, but still evaluate the MẠCH concept against concrete proof of lodging quality, food, facilitation, transport effort, and how differentiated the experience feels from self-guided travel.
+
+```{python}
+#| output: asis
+print(spend_vs_wtp_table(participants_df))
+```
+
+#### A.2 Tour Vs Self-guided Travel Preference
+
+The current data suggests that self-guided travel is attractive because it preserves freedom, pacing, and control over who joins. A tour becomes attractive only when it gives access, interpretation, local relationships, or cultural depth participants do not believe they can create alone.
+
+```{python}
+#| output: asis
+evidence(pattern_id="P1", limit=3)
+```
+
+#### A.3 Travel Motivations
+
+Motivations are mixed. Some participants prioritize rest, comfort, safety, and family fit; others want novelty, local life, cultural explanation, or community-based experience. This matters because the same itinerary can read as either meaningful immersion or tiring coursework depending on the segment.
+
+#### A.4 Preferred Travel Format / Experiential Preference
+
+The strongest product-design signal is that the tour needs more active participation. Participants respond better when the concept promises doing, tasting, meeting, moving through local life, or handling something tangible, not only listening to cultural interpretation.
+
+```{python}
+#| output: asis
+print(pattern_line("P1"))
+evidence(pattern_id="P1", limit=4)
+```
+
+#### A.5 Travel Information Channels
+
+Travel information channels are an **Early Signal**, not a full-strength finding. The CSV only gives limited support for social media/video-review logic, including a TikTok-review reference from a participant with tourism-industry experience. The next pilot should test whether short visual hooks, social proof, and prior-traveller review content change intent.
+
+```{python}
+#| output: asis
+evidence(theme="tour_design", subtheme="industry_critique", limit=1)
+```
+
+#### A.6 Pain Points From Prior Cultural Or Experiential Travel
+
+The most relevant pain points are passive tour design, forced group pacing, cultural staging that feels fake, uneven service quality, and destinations that do not yet carry enough travel credibility. These pain points reappear in concept reactions and should be treated as design constraints.
+
+### B. Concept Tour Reaction
+
+#### B.1 Tour Feels Too Passive / Too Text-heavy
+
+**Problem/current issue:** The concept has cultural depth, but the itinerary can read as listening, observing, and absorbing too much information.
+
+**What is working:** Participants recognize the cultural material and storytelling potential.
+
+**What is not working:** The experience risks feeling like class, fieldwork, or a passive lecture unless hands-on moments are visible.
+
+**Product/design implication:** Move tactile, local-life, food, craft, and opt-in exploration moments earlier in the itinerary and marketing.
+
+```{python}
+#| output: asis
+print(pattern_line("P1"))
+evidence(pattern_id="P1", limit=4)
+```
+
+#### B.2 Social Dependency
+
+**Problem/current issue:** Some participants do not reject the concept but need the right companion to make it feel comfortable and worth doing.
+
+**What is working:** The tour can be attractive as a shared small-group experience.
+
+**What is not working:** A generic open tour with strangers may not solve the emotional barrier.
+
+**Product/design implication:** Test friend-pair, small-group, family, and affinity-group packaging before pushing solo booking.
+
+```{python}
+#| output: asis
+print(pattern_line("P2"))
+evidence(pattern_id="P2", limit=4)
+```
+
+#### B.3 Identity Mismatch
+
+**Problem/current issue:** The current positioning can feel academic, field-trip-like, or "for someone else."
+
+**What is working:** The concept attracts people who already value culture, community, history, or reflective travel.
+
+**What is not working:** The product promise is not yet emotionally obvious to mainstream travellers who want enjoyment before education.
+
+**Product/design implication:** Lead with felt experience: people, food, place, story, and access. Let the cultural depth arrive after the desire is created.
+
+```{python}
+#| output: asis
+print(pattern_line("P3"))
+evidence(pattern_id="P3", limit=4)
+```
+
+#### B.4 Staged Authenticity Concern
+
+**Problem/current issue:** Participants are sensitive to cultural experiences that feel performed for tourists.
+
+**What is working:** Some participants accept organized experiences when they are transparent, respectful, and useful for access.
+
+**What is not working:** Re-enactment, over-clean staging, or altered local life can damage trust.
+
+**Product/design implication:** Be explicit about what is naturally occurring, what is facilitated, and how the tour avoids distorting local practice.
+
+```{python}
+#| output: asis
+print(pattern_line("P4"))
+evidence(pattern_id="P4", limit=4)
+```
+
+#### B.5 Destination Credibility
+
+**Problem/current issue:** Nam Định is not yet clearly perceived as a must-go travel destination by many participants.
+
+**What is working:** Participants can see potential if the destination is framed through people, food, faith practice, local strengths, and a clear reason to go now.
+
+**What is not working:** "Nam Định cultural tour" alone may not overcome low destination awareness.
+
+**Product/design implication:** Build destination credibility into the offer. The pitch must answer why Nam Định deserves three days, not only why MẠCH has a thoughtful concept.
+
+```{python}
+#| output: asis
+print(pattern_line("P5"))
+evidence(pattern_id="P5", limit=4)
+```
+
+#### B.6 Familiarity Bias
+
+**Problem/current issue:** Vietnamese participants may feel domestic cultural discovery is less urgent because Vietnamese culture feels familiar.
+
+**What is working:** This can be softened when the tour reveals layers people cannot access alone.
+
+**What is not working:** A broad "discover Vietnamese culture" promise is too generic.
+
+**Product/design implication:** Sell hidden access and depth: behind-the-scenes stories, local hosts, ritual context, home meals, and craft or village life.
+
+```{python}
+#| output: asis
+print(pattern_line("P6"))
+evidence(pattern_id="P6", limit=2)
+```
+
+#### B.7 Foreigners / Cultural Researchers / Culturally Curious Outsiders
+
+**Problem/current issue:** The foreign/cross-cultural learner segment is mostly a hypothesis from Vietnamese participants, not a directly interviewed segment.
+
+**What is working:** Several participants believe the concept has clearer value for foreigners, Vietnamese Studies learners, or people explicitly seeking cultural depth.
+
+**What is not working:** This is not yet direct demand evidence from foreign travellers.
+
+**Product/design implication:** Reserve pilot learning slots or follow-up interviews for foreign/cross-cultural learners before treating this as a target segment.
+
+```{python}
+#| output: asis
+print(pattern_line("S1"))
+evidence(pattern_id="S1", limit=4)
+```
+
+#### B.8 Food / Local Cuisine As A Softening Driver
+
+**Problem/current issue:** Cultural content can feel heavy without softer sensory anchors.
+
+**What is working:** Food is an accessible entry point into local life and can make the tour easier to imagine.
+
+**What is not working:** If food remains a logistics detail, MẠCH loses a low-friction decision driver.
+
+**Product/design implication:** Make meals, local cuisine, hosts, and the story behind food part of the product promise, not just itinerary support.
+
+```{python}
+#| output: asis
+print(pattern_line("S2"))
+evidence(pattern_id="S2", limit=4)
+```
+
+#### B.9 Spirituality / Đạo Mẫu Interest
+
+**Problem/current issue:** Interest in spirituality and Đạo Mẫu exists, but the data does not support positioning the whole tour as a gendered or narrowly spiritual product.
+
+**What is working:** Tín ngưỡng can create depth for participants already open to reflective cultural travel.
+
+**What is not working:** If framed too mysteriously or academically, the topic can feel intimidating or too niche.
+
+**Product/design implication:** Treat spirituality as one interpretive layer supported by trusted guides and local context, not as the only hook for the whole market.
+
+```{python}
+#| output: asis
+print(pattern_line("H1"))
+evidence(pattern_id="H1", limit=4)
+```
+
+### C. Familiarity With "Sustainable Tourism"
+
+Current coding is insufficient to compute a clean three-way distribution for sustainable-tourism awareness. Treat this as **Trung bình / qualitative** synthesis from existing analysis, not a quantified finding.
+
+The useful distinction for pilot communication is:
+
+- **Never heard of it:** Do not lead with the term; show concrete local/community benefits instead.
+- **Heard but cannot define confidently:** Explain through examples such as local hosts, respectful cultural access, and benefit to community.
+- **Can define with community/environment/local-benefit logic:** This group can understand the deeper MẠCH thesis, especially in B2B or partnership contexts.
+
+For B2C marketing, "sustainable tourism" should be a design principle and proof layer, not the first sales phrase.
+
+### D. Target Customer Segments / Personas
+
+These personas are practical pilot segments, not generic marketing profiles. Confidence is based on the coded CSV evidence bank and the full compiled record.
+
+#### D.1 Culturally Curious / Community-based Traveller
+
+**Who they are:** People already open to culture, community, local hosts, and reflective travel.
+
+**Travel behaviour:** More self-directed, interested in meaning and human connection, often values access and interpretation.
+
+**What they value:** Local people, food, craft, faith practice, story, and context.
+
+**Reaction to MẠCH:** Positive when the tour feels immersive rather than academic.
+
+**Blockers:** Too much lecture, too little direct participation, unclear authenticity.
+
+**Pricing/WTP signal:** Use the computed WTP table; do not average sparse qualitative price mentions.
+
+**Product/marketing implication:** Lead with people and access, then deepen into cultural explanation.
+
+**Confidence level:** Trung bình.
+
+#### D.2 Social Friend-group Explorer
+
+**Who they are:** Travellers who may be interested but need the right companion or small group.
+
+**Travel behaviour:** Decisions are socially mediated; the companion can matter more than the destination.
+
+**What they value:** Shared experience, comfort, conversation, and low awkwardness.
+
+**Reaction to MẠCH:** Conditional; stronger when packaged for pairs or friend groups.
+
+**Blockers:** Going alone, joining strangers, or feeling trapped in an overly serious tour.
+
+**Pricing/WTP signal:** Price sensitivity varies; companion fit may be the gating factor before price.
+
+**Product/marketing implication:** Test "bring a close friend" and small-group conversion mechanics.
+
+**Confidence level:** Cao for social dependency as a barrier; Trung bình for segment sizing.
+
+#### D.3 Premium Family Comfort Traveller
+
+**Who they are:** Family-oriented travellers who need comfort, pacing, and safety.
+
+**Travel behaviour:** Often plans around children, older relatives, health, lodging, weather, and rest.
+
+**What they value:** Clean accommodation, good food, lighter schedule, and trustworthy facilitation.
+
+**Reaction to MẠCH:** Interested only if cultural depth is balanced with comfort and visible quality.
+
+**Blockers:** Heavy itinerary, academic tone, unclear lodging/service quality, lack of family fit.
+
+**Pricing/WTP signal:** Travel spend can be high, but tour WTP still depends on proof of quality.
+
+**Product/marketing implication:** Create a comfort-forward variant or a clearly paced family version.
+
+**Confidence level:** Trung bình.
+
+#### D.4 Academic / Cultural Specialist Or Older Reflective Traveller
+
+**Who they are:** Participants with academic, tourism, community-development, or reflective cultural interests.
+
+**Travel behaviour:** More tolerant of depth, but still expects strong facilitation and service design.
+
+**What they value:** Credible guides, cultural accuracy, human stories, and respectful framing.
+
+**Reaction to MẠCH:** Can see the thesis and strategic potential, sometimes more clearly than mainstream consumers.
+
+**Blockers:** Weak guide credibility, superficial staging, unclear target segment, service inconsistency.
+
+**Pricing/WTP signal:** Often evaluates value through quality and integrity rather than lowest price.
+
+**Product/marketing implication:** Use this segment for feedback and partnerships, but do not confuse expert approval with mass demand.
+
+**Confidence level:** Trung bình.
+
+#### D.5 Foreign / Cross-cultural Learner Signal
+
+**Who they are:** Foreign visitors, Vietnamese Studies learners, or culturally curious outsiders.
+
+**Travel behaviour:** Not directly sampled enough in committed CSV; mostly inferred through participant hypotheses and industry-lens comments.
+
+**What they value:** Context, translation, cultural access, and a credible bridge into local life.
+
+**Reaction to MẠCH:** Hypothesized to be stronger than broad Vietnamese mainstream demand.
+
+**Blockers:** Unverified direct demand, language needs, and different service expectations.
+
+**Pricing/WTP signal:** Not available from direct interviews in the committed CSV.
+
+**Product/marketing implication:** Treat as a pilot hypothesis and recruit direct foreign/cross-cultural participants.
+
+**Confidence level:** Hypothesis.
+
+## V. Conclusion
+
+The MẠCH concept has a real strategic opening: it can turn Nam Định culture into a guided, human, sensory, and reflective experience. The strongest caution is that depth alone does not sell the tour. The current product has to prove that it is not too passive, too academic, too staged, or too dependent on a destination brand people do not yet understand.
+
+For marketing, the immediate work is to make the offer easier to want: show food, people, local life, small-group companionship, and specific reasons Nam Định is worth the trip. For product, the work is to add visible participation and protect authenticity. For partnerships, the work is to use local guides, hosts, and cultural practitioners in a way that strengthens credibility without turning culture into performance.
+
+### What To Test In Pilot
+
+The July 2026 Nam Định pilot should be treated as the next Bayesian update, not a final market answer. Test:
+
+- Whether hands-on activities reduce the "too passive / too academic" reaction.
+- Whether friend-pair or small-group packaging improves intent.
+- Whether food/local-host moments become decision drivers.
+- Whether Nam Định credibility improves after concrete visual storytelling.
+- Whether foreign/cross-cultural learners show direct demand when actually recruited.
+
+### Unresolved Questions For July 2026
+
+- Which segment converts after experiencing the pilot, not just after reading the concept?
+- What price feels fair after participants see actual lodging, food, guide quality, and access?
+- Does the Đạo Mẫu/spirituality layer deepen the tour or narrow the market too much?
+- Can MẠCH make authenticity legible without over-explaining or over-claiming?
+- What evidence is needed before turning the internal research thesis into external B2B or partnership material?

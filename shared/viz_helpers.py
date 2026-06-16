@@ -2,7 +2,7 @@
 viz_helpers.py — Compute helpers for MẠCH pretour-research-2026.
 
 Rule #1: số trong báo cáo compute từ CSV, KHÔNG hardcode.
-- Total participants = len(participants_df) = 14 (assert ở load).
+- Total participants = len(participants_df).
 - Confidence pattern lấy từ PATTERN_META (sync STUDY_RULES.md mục 5; caveats báo cáo trong STUDY_RULES),
   KHÔNG lấy từ field `confidence_level` của quote (field đó là per-quote, mơ hồ
   để derive pattern-level).
@@ -114,6 +114,7 @@ OCCUPATION_GENERALIZED = {
     "P12": "Nghỉ hưu",
     "P13": "Giảng viên đại học (cựu agency du lịch)",
     "P14": "Founder startup du lịch (chuyển từ CSR)",
+    "P15": "Du học sinh",
 }
 
 
@@ -125,6 +126,12 @@ def load_study_data(study_dir):
     participants = pd.read_csv(study_dir / "data" / "participants.csv")
     quotes = pd.read_csv(study_dir / "data" / "quotes.csv")
     return participants, quotes
+
+
+def load_records_data(study_dir):
+    """Load full compiled records.csv."""
+    study_dir = Path(study_dir)
+    return pd.read_csv(study_dir / "data" / "records.csv")
 
 
 # ----------------------------------------------------------------- core compute
@@ -200,7 +207,7 @@ def _format_lens_cell(b):
 
 
 def patterns_summary_table(quotes_df, participants_df):
-    """All patterns + signals + hypothesis: Pattern | X/14 | Lens | Confidence | Note.
+    """All patterns + signals + hypothesis: Pattern | X/N | Lens | Confidence | Note.
     Sort: tier confidence (Cao→TB→Sớm→Hypothesis), rồi occurrence desc.
     """
     rows = []
@@ -2118,7 +2125,7 @@ def render_p4_dotplot_interactive(quotes_df, participants_df):
 
 
 def segment_breakdown(dimension, participants_df):
-    """Count 14 người theo dimension ∈ {convert_type, lens, experience, residence, age_group}."""
+    """Count participants by dimension."""
     allowed = {"convert_type", "lens", "experience", "residence", "age_group"}
     if dimension not in allowed:
         raise ValueError(f"dimension phải thuộc {allowed}, không phải {dimension!r}")
@@ -2134,7 +2141,7 @@ def segment_breakdown(dimension, participants_df):
 
 
 def participants_table(participants_df, sort_by="convert_type"):
-    """14 người: pid | experience | lens | convert_type | nghề (generalize) | spend | WTP."""
+    """Participants: pid | experience | lens | convert_type | nghề (generalize) | spend | WTP."""
     df = participants_df.copy()
     if sort_by == "convert_type":
         df["_ord"] = df["convert_type"].map(_CONVERT_ORDER).fillna(99)
@@ -2191,3 +2198,56 @@ def spend_vs_wtp_table(participants_df):
     return _md_table(
         ["pid", "Nghề", "Spend (thật)", "WTP (raw)", "Band WTP"], rows
     )
+
+
+def study_integrity_summary(participants_df, quotes_df, records_df=None, expected_participants=None, expected_quotes=None, expected_records=None):
+    """Render current CSV shape and optional expected compiled-record checks."""
+    current_participants = len(participants_df)
+    current_quotes = len(quotes_df)
+    rows = [
+        ("participants.csv", current_participants, expected_participants or "", "OK" if not expected_participants or current_participants == expected_participants else "Needs reconciliation"),
+        ("quotes.csv", current_quotes, expected_quotes or "", "OK" if not expected_quotes or current_quotes == expected_quotes else "Needs reconciliation"),
+    ]
+    if records_df is not None:
+        current_records = len(records_df)
+        rows.append((
+            "records.csv",
+            current_records,
+            expected_records or "",
+            "OK" if not expected_records or current_records == expected_records else "Needs reconciliation",
+        ))
+    return _md_table(["Source", "Current rows", "Expected rows", "Status"], rows)
+
+
+def sample_overview_table(participants_df):
+    """Compact sample overview across core anonymized fields."""
+    rows = []
+    for dimension in ("experience", "lens", "residence", "convert_type"):
+        counts = participants_df[dimension].fillna("(rỗng)").astype(str).value_counts()
+        for value, n in counts.items():
+            rows.append((dimension, value, int(n), f"{int(n)}/{len(participants_df)}"))
+    return _md_table(["Dimension", "Value", "n", "Share"], rows)
+
+
+def quote_evidence_table(quotes_df, participants_df, pattern_id=None, theme=None, subtheme=None, limit=3):
+    """Render quote evidence with P-code and ref_id only."""
+    df = quotes_df.copy()
+    if pattern_id is not None:
+        df = df[df["pattern_id"] == pattern_id]
+    if theme is not None:
+        df = df[df["theme"] == theme]
+    if subtheme is not None:
+        df = df[df["subtheme"] == subtheme]
+    df = df.sort_values(["pid", "quote_id"]).head(limit)
+    rows = []
+    valid_pids = set(participants_df["pid"].astype(str))
+    for _, r in df.iterrows():
+        pid = str(r["pid"])
+        rows.append((
+            pid if pid in valid_pids else f"{pid} (pid missing)",
+            r["quote_short"] if pd.notna(r["quote_short"]) else r["quote_full"],
+            r["ref_id"] if pd.notna(r["ref_id"]) else "",
+        ))
+    if not rows:
+        rows = [("—", "No coded evidence in quotes.csv", "—")]
+    return _md_table(["pid", "Evidence", "ref_id"], rows)

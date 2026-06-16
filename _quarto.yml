@@ -2,8 +2,10 @@ project:
   type: website
   output-dir: docs
   render:
-    - "**/*.qmd"
+    - "index.qmd"
+    - "studies/pretour-research-2026/index.qmd"
     - "!_archive/**"
+    - "!studies/**/_archive/**"
 
 execute:
   freeze: auto
@@ -15,21 +17,7 @@ website:
   navbar:
     left:
       - text: "Pre-tour Research 2026"
-        menu:
-          - text: "Overview"
-            file: studies/pretour-research-2026/overview.qmd
-          - text: "Mục tiêu nghiên cứu"
-            file: studies/pretour-research-2026/purpose.qmd
-          - text: "Phương pháp"
-            file: studies/pretour-research-2026/methodology.qmd
-          - text: "Thông tin dữ liệu"
-            file: studies/pretour-research-2026/participants.qmd
-          - text: "Phát hiện chính"
-            file: studies/pretour-research-2026/findings.qmd
-          - text: "Kết luận"
-            file: studies/pretour-research-2026/conclusion.qmd
-          - text: "Quote Bank"
-            file: studies/pretour-research-2026/quote-bank.qmd
+        file: studies/pretour-research-2026/index.qmd
 
 format:
   html:

@@ -8,6 +8,6 @@ Placeholder landing page.
 
 ### Pre-tour Research 2026
 
-Nội dung sẽ cập nhật sau.
+Single-page consumer research report cho pilot Nam Định 07/2026.
 
-→ [Vào Overview](studies/pretour-research-2026/overview.qmd)
+→ [Vào báo cáo single-page](studies/pretour-research-2026/index.qmd)

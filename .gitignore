@@ -22,6 +22,7 @@ _output/
 
 # Local Claude Code config
 .claude/
+.claude/settings.local.json
 
 # Quarto freeze cache and execution artifacts
 _freeze/
