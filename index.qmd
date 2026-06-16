@@ -2,14 +2,12 @@
 title: "MẠCH · Nghiên cứu định tính"
 ---
 
-TODO: 2-3 paragraph intro về MẠCH research program và mục tiêu.
+Placeholder landing page.
 
-## Studies hiện có
+## Study hiện có
 
 ### Pre-tour Research 2026
 
-12 phỏng vấn sâu với người tham gia tiềm năng — phân tích pre-tour cho pilot Nam Định 07/2026.
+Nội dung sẽ cập nhật sau.
 
 → [Vào Overview](studies/pretour-research-2026/overview.qmd)
-
-*More studies will appear here as they're added.*

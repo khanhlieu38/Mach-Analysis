@@ -2,30 +2,12 @@
 title: "Overview"
 ---
 
-::: {.callout-note}
-**TL;DR** — TODO: 1 paragraph executive summary với key finding chính. Mọi con số phải **compute từ CSV** (STUDY_RULES.md mục 2), KHÔNG hardcode.
-:::
+Nội dung overview đang để placeholder.
 
-## Sample
+## Cấu trúc báo cáo
 
-TODO: 1 paragraph prose giới thiệu **14 participants** (8 `chua_tung` + 6 `da_tung`); compute counts từ `participants.csv` để verify mẫu số. Note tag `lens` (customer / industry / lead_user) chỉ là annotation, KHÔNG filter % (STUDY_RULES.md mục 3).
-
-## Patterns (rào cản)
-
-TODO: 1 dòng cho mỗi pattern, link đến section deep dive trong `findings.qmd`.
-
-- **P1** — Tour Design quá thụ động *(Cao)*
-- **P2** — Social Dependency *(Cao)*
-- **P3** — Identity Mismatch *(Trung bình)*
-- **P4** — Cảnh giác văn hoá "dàn dựng giả" *(Trung bình)*
-- **P5** — Destination Credibility (Nam Định) *(Trung bình)*
-- **P6** — Familiarity Bias văn hoá trong nước *(Tín hiệu sớm)*
-
-## Hypothesis
-
-- **H1** — Khách quan tâm tín ngưỡng *(Hypothesis)* — gender-neutral; cohort 2 sẽ kiểm hook có bó theo tuổi/giới không.
-
-## Signals
-
-- **S1** — Vietnamese Studies / Khách nước ngoài *(Tín hiệu sớm)*
-- **S2** — Ẩm thực là đòn bẩy soft *(Tín hiệu sớm)* — có action pilot, KHÔNG phải data gap.
+1. [Mục tiêu nghiên cứu](purpose.qmd)
+2. [Phương pháp](methodology.qmd)
+3. [Thông tin dữ liệu](participants.qmd)
+4. [Phát hiện chính](findings.qmd)
+5. [Kết luận](conclusion.qmd)

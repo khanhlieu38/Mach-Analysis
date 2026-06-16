@@ -1,62 +1,25 @@
 ---
-title: "14 Participants — Deep Dives"
+title: "Thông tin dữ liệu"
 ---
 
-<!-- ordered by convert_type per STUDY_RULES.md mục 7; reorder + add convert_type tag (vd "True Target") sau khi participants.csv extract xong -->
-<!-- P-code ↔ real-name lookup ở studies/pretour-research-2026/data/raw/crosswalk.csv (gitignored, never commit) -->
+## III. Thông tin dữ liệu
 
-## P01
+Placeholder cho trang Data Information.
 
-TODO: Profile → 3-4 rào cản → Kết luận. Compute profile row từ `participants.csv` filter `pid == 'P01'`.
+Nội dung chi tiết sẽ cập nhật sau.
 
-## P02
+### Góc nhìn (`lens`)
 
-TODO
+Placeholder.
 
-## P03
+### Phân bố mẫu
 
-TODO
+Placeholder.
 
-## P04
+### Bảng participant
 
-TODO
+Placeholder.
 
-## P05
+### Ngân sách du lịch vs giá tour chấp nhận được
 
-TODO
-
-## P06
-
-TODO
-
-## P07
-
-TODO
-
-## P08
-
-TODO
-
-## P09
-
-TODO
-
-## P10
-
-TODO
-
-## P11
-
-TODO
-
-## P12
-
-TODO
-
-## P13
-
-TODO
-
-## P14
-
-TODO
+Placeholder.

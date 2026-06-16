@@ -18,25 +18,18 @@ website:
         menu:
           - text: "Overview"
             file: studies/pretour-research-2026/overview.qmd
+          - text: "Mục tiêu nghiên cứu"
+            file: studies/pretour-research-2026/purpose.qmd
           - text: "Phương pháp"
             file: studies/pretour-research-2026/methodology.qmd
-          - text: "Phát hiện"
-            file: studies/pretour-research-2026/findings.qmd
-          - text: "14 Participants"
+          - text: "Thông tin dữ liệu"
             file: studies/pretour-research-2026/participants.qmd
+          - text: "Phát hiện chính"
+            file: studies/pretour-research-2026/findings.qmd
+          - text: "Kết luận"
+            file: studies/pretour-research-2026/conclusion.qmd
           - text: "Quote Bank"
             file: studies/pretour-research-2026/quote-bank.qmd
-          - text: "---"
-          - text: "Tour Design Team"
-            file: studies/pretour-research-2026/audiences/tour-design.qmd
-          - text: "Content & Media Team"
-            file: studies/pretour-research-2026/audiences/content.qmd
-          - text: "Data Team"
-            file: studies/pretour-research-2026/audiences/data.qmd
-          - text: "Finance Team"
-            file: studies/pretour-research-2026/audiences/finance.qmd
-          - text: "Leadership Team"
-            file: studies/pretour-research-2026/audiences/leadership.qmd
 
 format:
   html:

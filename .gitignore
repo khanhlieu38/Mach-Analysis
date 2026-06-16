@@ -12,6 +12,7 @@ Thumbs.db
 # Quarto
 .quarto/
 **/*.quarto_ipynb
+*.quarto_ipynb_*
 
 # Old rendered output (deployed version lives in docs/)
 _output/
