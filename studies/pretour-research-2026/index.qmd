@@ -1,6 +1,6 @@
 ---
-title: "Pre-tour Research 2026"
-subtitle: "Single-page consumer research report for MẠCH"
+title: "MẠCH / Nghiên cứu khách hàng trước chuyến thử nghiệm"
+subtitle: "Báo cáo nghiên cứu khách hàng"
 jupyter: python3
 ---
 
@@ -10,6 +10,8 @@ jupyter: python3
 #| message: false
 import sys
 from pathlib import Path
+
+import pandas as pd
 
 def _find_root(start):
     for p in [start] + list(start.parents):
@@ -25,146 +27,318 @@ from viz_helpers import (
     load_records_data,
     load_study_data,
     pattern_occurrence,
-    patterns_summary_table,
-    quote_evidence_table,
-    sample_overview_table,
-    segment_breakdown,
-    spend_vs_wtp_table,
-    study_integrity_summary,
 )
 
 study_dir = _root / "studies" / "pretour-research-2026"
 participants_df, quotes_df = load_study_data(study_dir)
 records_df = load_records_data(study_dir)
 
-# Expected values come from the corrected compiled participant record.
-# The rendered CSV checks below intentionally surface reconciliation drift.
 EXPECTED_PARTICIPANTS = 15
 EXPECTED_RECORDS = 143
+
+def _md_table(headers, rows):
+    def esc(value):
+        text = "" if value is None else str(value)
+        return text.replace("|", "\\|").replace("\n", " ")
+
+    out = ["| " + " | ".join(esc(h) for h in headers) + " |"]
+    out.append("| " + " | ".join(["---"] * len(headers)) + " |")
+    for row in rows:
+        out.append("| " + " | ".join(esc(cell) for cell in row) + " |")
+    return "\n".join(out)
+
+def clean_text_for_report(value):
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return ""
+    text = str(value)
+    replacements = {
+        chr(8212): " / ",
+        "→": " / ",
+        "FLAG transcript ambiguity": "cần kiểm tra chỗ mâu thuẫn trong bản ghi",
+        "FLAG": "cần kiểm tra",
+        "ambiguity": "mơ hồ",
+        "premium resort": "khu nghỉ dưỡng cao cấp",
+        "stated": "tự nêu",
+        "band": "khoảng",
+        "transcript": "bản ghi",
+        "reading likely": "cách đọc có thể là",
+        "Food tour": "chuyến đi ẩm thực",
+        "Food chuyến đi": "chuyến đi ẩm thực",
+        "OK": "phù hợp",
+        "guide": "người dẫn",
+        "activity": "hoạt động",
+        "hook": "điểm kéo",
+        "Target =": "Nhóm khách mục tiêu =",
+        "target/segment": "nhóm khách mục tiêu",
+        "target": "nhóm khách",
+        "segment": "phân khúc",
+        "Tour": "Chuyến đi",
+        "tour": "chuyến đi",
+        "Concept": "Ý tưởng",
+        "concept": "ý tưởng",
+        "single biggest barrier": "rào cản lớn nhất",
+        "barrier": "rào cản",
+        "staging": "dàn dựng",
+        "nuanced": "có điều kiện",
+        "perception": "cảm nhận",
+        "Positioning Vietnamese Studies": "Định vị cho người học Việt Nam học",
+        "Vietnamese Studies": "Việt Nam học",
+        "GenZ": "nhóm trẻ",
+        "Suggest": "Gợi ý",
+        "suggest": "gợi ý",
+        "soft part": "phần nhẹ",
+        "strong signal": "tín hiệu rõ",
+        "Strong convert intent": "ý định tham gia rõ",
+        "convert intent": "ý định tham gia",
+        "deal tốt": "mức tốt",
+        "rate": "đánh giá",
+        "enjoy": "tận hưởng",
+        "check-in": "chụp ảnh lưu niệm",
+        "VN": "Việt Nam",
+        "TQ": "Trung Quốc",
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    text = text.replace("FLAG", "cần kiểm tra")
+    text = text.replace("ambiguity", "mơ hồ")
+    return " ".join(text.split())
+
+def integrity_summary_vi():
+    rows = [
+        (
+            "Tệp người tham gia",
+            len(participants_df),
+            EXPECTED_PARTICIPANTS,
+            "Đúng" if len(participants_df) == EXPECTED_PARTICIPANTS else "Cần kiểm tra",
+        ),
+        (
+            "Tệp bằng chứng chọn lọc",
+            len(quotes_df),
+            "",
+            "Đúng",
+        ),
+        (
+            "Tệp bản ghi tổng hợp",
+            len(records_df),
+            EXPECTED_RECORDS,
+            "Đúng" if len(records_df) == EXPECTED_RECORDS else "Cần kiểm tra",
+        ),
+    ]
+    return _md_table(["Nguồn dữ liệu", "Số dòng hiện tại", "Số dòng kỳ vọng", "Tình trạng"], rows)
+
+def sample_overview_vi():
+    label_maps = {
+        "experience": {
+            "chua_tung": "chưa hoặc ít kinh nghiệm du lịch văn hoá",
+            "da_tung": "đã có kinh nghiệm hoặc định hướng du lịch văn hoá",
+        },
+        "lens": {
+            "customer": "góc nhìn khách tiềm năng",
+            "industry": "góc nhìn ngành hoặc chuyên môn",
+            "lead_user": "góc nhìn người dùng dẫn dắt",
+        },
+        "residence": {
+            "mien_bac": "miền Bắc",
+            "mien_trung": "miền Trung",
+            "mien_nam": "miền Nam",
+            "": "chưa mã hoá",
+        },
+        "convert_type": {
+            "true_target": "phù hợp rõ",
+            "conditional": "phù hợp có điều kiện",
+            "passive": "bị động",
+            "harder": "khó chuyển đổi hơn",
+            "future": "cần thêm dữ liệu",
+            "non_target": "không phải nhóm ưu tiên",
+        },
+    }
+    dimension_labels = {
+        "experience": "kinh nghiệm",
+        "lens": "góc nhìn",
+        "residence": "vùng sinh sống",
+        "convert_type": "mức phù hợp",
+    }
+    rows = []
+    total = len(participants_df)
+    for dimension in ("experience", "lens", "residence", "convert_type"):
+        values = participants_df[dimension].fillna("").astype(str)
+        counts = values.value_counts()
+        for value, count in counts.items():
+            rows.append((
+                dimension_labels[dimension],
+                label_maps[dimension].get(value, value or "chưa mã hoá"),
+                int(count),
+                f"{int(count)}/{total}",
+            ))
+    return _md_table(["Nhóm thông tin", "Giá trị", "Số người", "Tỉ lệ trong mẫu"], rows)
+
+def spend_table_vi():
+    rows = []
+    for _, row in participants_df.sort_values("pid").iterrows():
+        spend = clean_text_for_report(row["travel_spend_range"])
+        price = clean_text_for_report(row["acceptable_tour_price"])
+        rows.append((
+            row["pid"],
+            spend or "chưa hỏi",
+            price or "chưa hỏi",
+        ))
+    return _md_table(["Mã người tham gia", "Mức chi du lịch đã nêu", "Giá chuyến đi có thể chấp nhận"], rows)
 
 def pattern_line(pattern_id):
     occ = pattern_occurrence(pattern_id, quotes_df, participants_df)
     meta = PATTERN_META[pattern_id]
-    if occ["total"] != EXPECTED_PARTICIPANTS:
-        return (
-            f"**Computed coded occurrence:** {occ['count']} coded participants in committed CSV; "
-            f"final denominator pending CSV reconciliation to N={EXPECTED_PARTICIPANTS}. "
-            f"Confidence: {meta['confidence']}."
-        )
-    return f"**Computed coded occurrence:** {occ['label']} participants; confidence: {meta['confidence']}."
+    confidence = {
+        "Cao": "Cao",
+        "Trung bình": "Trung bình",
+        "Tín hiệu sớm": "Tín hiệu sớm",
+        "Hypothesis": "Giả thuyết",
+    }.get(meta["confidence"], meta["confidence"])
+    return f"**Tần suất được mã hoá từ dữ liệu:** {occ['count']}/{occ['total']} người; mức tin cậy: {confidence}."
 
 def evidence(pattern_id=None, theme=None, subtheme=None, limit=3):
-    table = quote_evidence_table(
-        quotes_df,
-        participants_df,
-        pattern_id=pattern_id,
-        theme=theme,
-        subtheme=subtheme,
-        limit=limit,
-    )
-    print(f"\n{table}\n")
+    df = quotes_df.copy()
+    if pattern_id is not None:
+        df = df[df["pattern_id"] == pattern_id]
+    if theme is not None:
+        df = df[df["theme"] == theme]
+    if subtheme is not None:
+        df = df[df["subtheme"] == subtheme]
+    df = df.sort_values(["pid", "quote_id"]).head(limit)
+    rows = []
+    for _, row in df.iterrows():
+        quote = row["quote_short"] if pd.notna(row["quote_short"]) else row["quote_full"]
+        ref_id = row["ref_id"] if pd.notna(row["ref_id"]) else ""
+        rows.append((row["pid"], clean_text_for_report(quote), ref_id))
+    if not rows:
+        rows = [(" ", "Chưa có bằng chứng được mã hoá trong quotes.csv", " ")]
+    print("\n" + _md_table(["Mã người tham gia", "Bằng chứng", "Mã nguồn"], rows) + "\n")
 ```
 
-## 0. Executive Summary
+Phản ứng với ý tưởng chuyến đi văn hoá Nam Định và hành vi du lịch của khách hàng tiềm năng.
 
-<!-- Intentionally placeholder only. Do not finalize before the CSV reconciliation and July pilot decisions are complete. -->
+Phương pháp: phỏng vấn khám phá, chọn mẫu có chủ đích.
 
-- [PLACEHOLDER: key learning 1 + decision needed]
-- [PLACEHOLDER: key learning 2 + decision needed]
-- [PLACEHOLDER: key learning 3 + decision needed]
-- [PLACEHOLDER: key learning 4 + decision needed]
-- [PLACEHOLDER: key learning 5 + decision needed]
+Mục đích: dùng nội bộ, phục vụ thiết kế chuyến đi, truyền thông, hợp tác và định hướng chiến lược.
 
-## I. Purpose & Research Questions
+Trạng thái: bản làm việc, một số phần chưa hoàn thiện.
 
-This report consolidates the pre-tour consumer research for MẠCH before the July 2026 Nam Định pilot. The business question is practical: who is most likely to respond to the cultural immersive tour concept, what makes the product desirable or difficult to buy, and what should the team test before treating the concept as a repeatable offer.
+Ngày tổng hợp: Tháng 6 / 2026.
 
-The research objectives are:
+Lưu ý về bản này: Đây là bản tổng hợp tiến độ. Các phần đã hoàn thiện được viết đầy đủ. Các phần chưa viết được đánh dấu rõ và ghi chú nội dung cần điền. Phần chưa hoàn thiện gồm: II (Phương pháp nghiên cứu), III (Thông tin dữ liệu), IV.D (Nhóm khách hàng mục tiêu) và V (Kết luận).
 
-1. Identify which customer segments respond most positively to the MẠCH tour concept.
-2. Understand travel behaviours, motivations, and challenges of Gen Z and Millennials.
-3. Measure willingness to pay for a cultural immersive tour.
-4. Pinpoint unmet demands in current cultural/experiential tours.
+## Tình trạng hoàn thiện
 
-The report is written for marketing, product, partnership, and pilot planning. It should not be read as a representative market sizing study.
+| Phần | Tên | Trạng thái | Ghi chú |
+|---|---|---|---|
+| I | Mục đích và mục tiêu | Hoàn thiện | 4 mục tiêu đã xác định |
+| II | Phương pháp nghiên cứu | Chưa viết | Cần mô tả phỏng vấn khám phá và chọn mẫu có chủ đích |
+| III | Thông tin dữ liệu | Chưa viết | Cần ảnh chụp nhanh về người tham gia và phân nhóm A/B |
+| IV.A | Hành vi du lịch và yếu tố ra quyết định | Hoàn thiện | 5 đoạn, có phần giá có thể chấp nhận |
+| IV.B | Phản ứng với ý tưởng chuyến đi MẠCH / 9 nhóm phát hiện | Hoàn thiện | Mục B.9 cần 1-2 chỉnh nhỏ về cách gọi người dẫn địa phương |
+| IV.C | Mức độ quen thuộc với du lịch bền vững | Hoàn thiện | Có bảng mức độ, hàm ý cho khách mua lẻ, đối tác tổ chức và giả thuyết cần đo trong chuyến thử nghiệm |
+| IV.D | Nhóm khách hàng mục tiêu | Chưa viết | Đã có khung 4 nhóm khách, góc nhìn chuyên môn và các trường hợp chồng lấp |
+| V | Kết luận | Chưa viết | Thành công chính, giới hạn và điều cần kiểm chứng trong chuyến thử nghiệm |
 
-## II. Methodology
+## I. Mục đích và mục tiêu
 
-The study uses exploratory, semi-structured interviews with purposive sampling. Participants include potential consumers and people with relevant tourism, cultural, community-development, or travel experience. The design is appropriate for discovering patterns, objections, and pilot hypotheses, but it is not designed to estimate population-level demand.
+Báo cáo này tổng hợp dữ liệu phỏng vấn khách hàng để đánh giá mức độ phù hợp của ý tưởng chuyến đi MẠCH với các nhóm khách hàng tiềm năng. Trọng tâm là hiểu hành vi du lịch, động lực, rào cản, mức sẵn sàng chi trả và phản ứng của người tham gia đối với chuyến đi trải nghiệm văn hoá tại Nam Định.
 
-The participant file resolves to **N=15** and the compiled record table resolves to **143 quote/record entries**. `quotes.csv` remains a curated evidence bank for report claims rather than the complete record table.
+Cụ thể, báo cáo hướng tới bốn mục tiêu:
+
+- Xác định các nhóm khách hàng có mức độ phù hợp cao với ý tưởng chuyến đi MẠCH.
+- Hiểu hành vi du lịch, động lực ra quyết định và các yếu tố ảnh hưởng đến lựa chọn chuyến đi.
+- Đánh giá mức sẵn sàng chi trả cho một chuyến đi trải nghiệm văn hoá.
+- Xác định các điểm cần cải thiện về sản phẩm, truyền thông và định vị trước khi chạy chuyến thử nghiệm.
+
+## II. Phương pháp nghiên cứu
+
+PHẦN CHƯA HOÀN THIỆN / Cần viết:
+
+Phương pháp:
+
+- Phỏng vấn khám phá, theo hướng bán cấu trúc, không phải khảo sát chọn đáp án.
+
+Cách chọn mẫu:
+
+- Chọn người có chủ đích dựa trên hồ sơ phù hợp, không chọn ngẫu nhiên.
+
+Thời gian và hình thức:
+
+- [Điền thời gian phỏng vấn, hình thức qua mạng hay trực tiếp, thời lượng mỗi buổi]
+
+Người phỏng vấn:
+
+- [Điền thông tin]
+
+Giới hạn phương pháp:
+
+- Kết quả phản ánh thái độ và nhận thức của nhóm được chọn, không đại diện thống kê cho toàn bộ thị trường.
 
 ```{python}
 #| output: asis
-print(study_integrity_summary(
-    participants_df,
-    quotes_df,
-    records_df=records_df,
-    expected_participants=EXPECTED_PARTICIPANTS,
-    expected_quotes=None,
-    expected_records=EXPECTED_RECORDS,
-))
+print(integrity_summary_vi())
 ```
+
+## III. Thông tin dữ liệu
+
+PHẦN CHƯA HOÀN THIỆN / Cần viết:
+
+Tổng số người tham gia:
 
 ```{python}
 #| output: asis
-print(f"Curated quote bank rows: {len(quotes_df)}. Full compiled record rows: {len(records_df)}.")
+print(f"- {len(participants_df)} người")
 ```
 
-Confidence labels follow the project convention: **Cao**, **Trung bình**, **Tín hiệu sớm**, and **Hypothesis**. A high-confidence qualitative pattern means the team can act on it for pilot design; it does not mean the sample is statistically representative. Medium-confidence patterns should shape pilot tests but still need confirmation. Early signals and hypotheses should be treated as next-round questions.
+Nhóm A, chưa hoặc ít kinh nghiệm du lịch văn hoá:
 
-Privacy and auditability are governed by `STUDY_RULES.md` and repo conventions: public report content uses P-codes, not names; raw PII in `data/raw/` is not rendered; and claims tied to quotes retain `ref_id` for audit trail. Some quotes are polished participant-record extracts rather than audio-verified verbatim transcript. Treat displayed participant language as **participant quote, edited for clarity** unless the source has been separately verified.
+- P01, P02, P04, P05, P06, P07, P08, P09
 
-## III. Data & Sample
+Nhóm B, có kinh nghiệm hoặc định hướng du lịch văn hoá:
 
-The sample size is computed from `participants.csv`, which contains 15 P-coded participants. The full compiled record is stored separately in `records.csv`; report evidence tables below continue to use the curated `quotes.csv` bank.
+- P03, P10, P11, P12, P13, P14, P15
 
-The sample is organized into two broad participant groups:
+Cần thêm:
 
-- Participants with little or no cultural tour experience.
-- Participants with cultural tourism, community-based tourism, or otherwise relevant travel experience.
+- Bảng tóm tắt người tham gia: nghề nghiệp, bối cảnh, mức liên quan đến văn hoá hoặc du lịch.
+
+Lưu ý về mẫu:
+
+- Mẫu được chọn có chủ đích, không đại diện dân số. Tỉ lệ người có kinh nghiệm du lịch văn hoá có thể cao hơn thông thường.
 
 ```{python}
 #| output: asis
-print(sample_overview_table(participants_df))
+print(sample_overview_vi())
 ```
 
-The participant file deliberately keeps analysis at P-code level. Occupations are generalized in helper output, residence is region-level, and raw crosswalk/PII files are not part of the rendered report.
+## IV. Phát hiện chính
+
+### A. Hành vi du lịch và yếu tố ra quyết định
+
+Nhìn chung, người tham gia không chọn chuyến đi chỉ vì điểm đến. Quyết định du lịch thường phụ thuộc vào ba yếu tố: mức độ tự do trong lịch trình, người đi cùng và cảm giác chuyến đi có đáng tiền hay không.
+
+Về hình thức du lịch, một số người tham gia vẫn ưu tiên đi tự túc. Lý do là họ có thể chủ động thời gian, điểm đến, ăn uống và nhịp di chuyển. Chuyến đi có người tổ chức chỉ hấp dẫn hơn khi mang lại giá trị họ khó tự có được, như hiểu sâu hơn về văn hoá, con người và câu chuyện địa phương. Những điểm bất tiện thường được nhắc đến là lịch trình gò bó, phải nghe quá nhiều, ít hoạt động trực tiếp và chất lượng dịch vụ không đồng đều.
+
+Về động lực du lịch, nhu cầu giữa các nhóm không giống nhau. Một số người tìm kiếm nghỉ dưỡng, an toàn và tiện nghi, nhất là khi đi cùng gia đình. Một số khác quan tâm hơn đến trải nghiệm mới, đời sống địa phương và các hoạt động có tính khám phá. Người đi cùng cũng ảnh hưởng mạnh đến quyết định, vì có người chỉ cân nhắc chuyến đi văn hoá nếu có bạn bè, người thân hoặc người cùng gu đi cùng.
+
+Về kênh thông tin, dữ liệu hiện tại mới là tín hiệu ban đầu. Một vài phản hồi cho thấy mạng xã hội, video ngắn, hình ảnh trực quan và đánh giá từ người đi trước có thể ảnh hưởng đến hứng thú ban đầu. Phần này cần được kiểm chứng thêm trong chuyến thử nghiệm.
+
+Về mức sẵn sàng chi trả, vùng giá được nhắc đến nhiều nằm khoảng 4,5-8 triệu đồng cho chuyến đi 3 ngày. Một số người có thể cân nhắc mức 10 triệu nếu dịch vụ và trải nghiệm đủ tốt. Từ khoảng 15 triệu trở lên bắt đầu trở thành ngưỡng từ chối. Ở chiều ngược lại, mức quá thấp như 1-3 triệu có thể khiến người tham gia nghi ngờ chất lượng. Điều này gợi ý rằng vấn đề không chỉ là giá rẻ. Chuyến đi cần chứng minh được chất lượng lưu trú, ăn uống, dịch vụ và trải nghiệm tương xứng với số tiền bỏ ra.
 
 ```{python}
 #| output: asis
-print(segment_breakdown("experience", participants_df))
+print(spend_table_vi())
 ```
 
-## IV. Key Relevant Findings
+### B. Phản ứng với ý tưởng chuyến đi MẠCH
 
-### A. Travel Behaviours And Trends
+### Rào cản cần xử lý
 
-#### A.1 Budget / Willingness To Pay
+### 1. Trải nghiệm còn thụ động
 
-Willingness to pay should be read separately from general travel spend. Several participants spend meaningfully on travel, but still evaluate the MẠCH concept against concrete proof of lodging quality, food, facilitation, transport effort, and how differentiated the experience feels from self-guided travel.
+**Vấn đề hiện tại:** Điểm ổn của ý tưởng là có chiều sâu văn hoá và nhiều chất liệu để kể chuyện. Tuy nhiên, cách thể hiện hiện tại vẫn tạo cảm giác thiên về nghe, đọc và quan sát hơn là trực tiếp tham gia. Một số người có thể thấy lịch trình nhiều kiến thức, dễ mệt hoặc giống hoạt động học tập hơn là một chuyến đi văn hoá dễ tiếp cận.
 
-```{python}
-#| output: asis
-print(spend_vs_wtp_table(participants_df))
-```
-
-#### A.2 Tour Vs Self-guided Travel Preference
-
-The current data suggests that self-guided travel is attractive because it preserves freedom, pacing, and control over who joins. A tour becomes attractive only when it gives access, interpretation, local relationships, or cultural depth participants do not believe they can create alone.
-
-```{python}
-#| output: asis
-evidence(pattern_id="P1", limit=3)
-```
-
-#### A.3 Travel Motivations
-
-Motivations are mixed. Some participants prioritize rest, comfort, safety, and family fit; others want novelty, local life, cultural explanation, or community-based experience. This matters because the same itinerary can read as either meaningful immersion or tiring coursework depending on the segment.
-
-#### A.4 Preferred Travel Format / Experiential Preference
-
-The strongest product-design signal is that the tour needs more active participation. Participants respond better when the concept promises doing, tasting, meeting, moving through local life, or handling something tangible, not only listening to cultural interpretation.
+**Bằng chứng:** Một người tham gia nói rằng họ muốn "được chạm vào hoạt động nhiều hơn thay vì chỉ ngồi nghe". Phản ứng này không chỉ đến từ nhóm khách phổ thông. P03, người có kinh nghiệm với du lịch văn hoá, cũng nói điều quan trọng là không chỉ nghe về di sản, mà phải được chạm vào di sản. Một số phản hồi khác từ cả hai nhóm cho rằng chuyến đi cần thêm hoạt động thực hành, hoạt động làm nghề hoặc những phần giúp người tham gia bước vào đời sống địa phương.
 
 ```{python}
 #| output: asis
@@ -172,46 +346,13 @@ print(pattern_line("P1"))
 evidence(pattern_id="P1", limit=4)
 ```
 
-#### A.5 Travel Information Channels
+**Hướng xử lý:** MẠCH nên tăng các hoạt động có tính chạm, làm và tham gia trực tiếp. Những phần như ăn cùng người địa phương, đạp xe, tham gia làng nghề, hoạt động cộng đồng hoặc trải nghiệm sinh hoạt thường ngày nên được đặt rõ hơn trong lịch trình. Trong truyền thông, các hoạt động có tính chạm và tham gia trực tiếp cần xuất hiện sớm trong hình ảnh và video giới thiệu, để người xem hình dung được trải nghiệm thật trước khi đọc mô tả.
 
-Travel information channels are an **Early Signal**, not a full-strength finding. The CSV only gives limited support for social media/video-review logic, including a TikTok-review reference from a participant with tourism-industry experience. The next pilot should test whether short visual hooks, social proof, and prior-traveller review content change intent.
+### 2. Phụ thuộc vào người đi cùng
 
-```{python}
-#| output: asis
-evidence(theme="tour_design", subtheme="industry_critique", limit=1)
-```
+**Vấn đề hiện tại:** Một số người không hẳn từ chối ý tưởng MẠCH, nhưng họ khó tự đặt chỗ nếu phải đi một mình hoặc đi cùng nhóm người lạ. Với chuyến đi văn hoá, người đi cùng không chỉ là bạn đồng hành. Đó còn là người để cùng chia sẻ, trao đổi và làm cho chuyến đi bớt ngại.
 
-#### A.6 Pain Points From Prior Cultural Or Experiential Travel
-
-The most relevant pain points are passive tour design, forced group pacing, cultural staging that feels fake, uneven service quality, and destinations that do not yet carry enough travel credibility. These pain points reappear in concept reactions and should be treated as design constraints.
-
-### B. Concept Tour Reaction
-
-#### B.1 Tour Feels Too Passive / Too Text-heavy
-
-**Problem/current issue:** The concept has cultural depth, but the itinerary can read as listening, observing, and absorbing too much information.
-
-**What is working:** Participants recognize the cultural material and storytelling potential.
-
-**What is not working:** The experience risks feeling like class, fieldwork, or a passive lecture unless hands-on moments are visible.
-
-**Product/design implication:** Move tactile, local-life, food, craft, and opt-in exploration moments earlier in the itinerary and marketing.
-
-```{python}
-#| output: asis
-print(pattern_line("P1"))
-evidence(pattern_id="P1", limit=4)
-```
-
-#### B.2 Social Dependency
-
-**Problem/current issue:** Some participants do not reject the concept but need the right companion to make it feel comfortable and worth doing.
-
-**What is working:** The tour can be attractive as a shared small-group experience.
-
-**What is not working:** A generic open tour with strangers may not solve the emotional barrier.
-
-**Product/design implication:** Test friend-pair, small-group, family, and affinity-group packaging before pushing solo booking.
+**Bằng chứng:** P04 nói rằng nếu bạn bè rủ thì có thể đi, nhưng khó tự chủ động đặt một chuyến như vậy. P05 cũng nói gần như phải có bạn bè thân thiết đi cùng thì mới muốn đi. Ở nhóm có kinh nghiệm du lịch cộng đồng, P11 nói người bạn đi cùng mới là yếu tố quyết định, không phải điểm đến.
 
 ```{python}
 #| output: asis
@@ -219,15 +360,13 @@ print(pattern_line("P2"))
 evidence(pattern_id="P2", limit=4)
 ```
 
-#### B.3 Identity Mismatch
+**Hướng xử lý:** Chuyến đi nên được thiết kế và truyền thông như một trải nghiệm để đi cùng người thân, bạn bè hoặc nhóm nhỏ có cùng mối quan tâm. MẠCH có thể thử gói cho nhóm 2-4 người, gia đình nhỏ hoặc nhóm bạn. Cần làm rõ không khí chuyến đi: thân mật, an toàn và dễ trò chuyện. Khi thiết kế hoạt động nhóm, team cũng nên tránh tạo cảm giác người tham gia bị buộc phải tương tác quá nhiều với người lạ.
 
-**Problem/current issue:** The current positioning can feel academic, field-trip-like, or "for someone else."
+### 3. Lệch định vị khách hàng
 
-**What is working:** The concept attracts people who already value culture, community, history, or reflective travel.
+**Vấn đề hiện tại:** Ý tưởng MẠCH không thiếu giá trị, nhưng cách trình bày hiện tại dễ khiến người đọc chưa thấy rõ "chuyến đi này dành cho mình". Với một số người, chuyến đi đang gợi cảm giác giống một hoạt động học tập hoặc ngoại khoá hơn là một chuyến du lịch có trải nghiệm, cảm xúc và thời gian để tận hưởng.
 
-**What is not working:** The product promise is not yet emotionally obvious to mainstream travellers who want enjoyment before education.
-
-**Product/design implication:** Lead with felt experience: people, food, place, story, and access. Let the cultural depth arrive after the desire is created.
+**Bằng chứng:** P02 nói rằng ý tưởng hiện tại "có thiên hướng học tập và nghiên cứu", nên với người chỉ muốn đi chơi và tìm hiểu sơ qua, cách tiếp cận này có thể hơi đáng sợ. P07 cũng nhận xét ý tưởng vẫn hơi giống "học sinh đi ngoại khoá" hơn là một chuyến du lịch thật sự hấp dẫn. P11, người có kinh nghiệm với du lịch cộng đồng, cũng nói cảm giác đầu tiên khi đọc ý tưởng là "như vừa trở về thời đại học".
 
 ```{python}
 #| output: asis
@@ -235,15 +374,13 @@ print(pattern_line("P3"))
 evidence(pattern_id="P3", limit=4)
 ```
 
-#### B.4 Staged Authenticity Concern
+**Hướng xử lý:** MẠCH cần định vị lại chuyến đi theo hướng dễ hình dung hơn. Không phải "đi học văn hoá", mà là một chuyến đi để chạm vào đời sống Nam Định qua con người, ẩm thực, làng nghề, tín ngưỡng và những câu chuyện địa phương. Thông điệp truyền thông nên bắt đầu từ trải nghiệm và cảm xúc trước, sau đó mới dẫn vào chiều sâu văn hoá.
 
-**Problem/current issue:** Participants are sensitive to cultural experiences that feel performed for tourists.
+### 4. Lo ngại về tính chân thực
 
-**What is working:** Some participants accept organized experiences when they are transparent, respectful, and useful for access.
+**Vấn đề hiện tại:** Với chuyến đi văn hoá, người tham gia khá nhạy với cảm giác "diễn cho khách xem". Họ không nhất thiết phản đối việc trải nghiệm được tổ chức lại cho dễ tiếp cận. Nhưng nếu mọi thứ quá sắp đặt, quá sạch sẽ hoặc quá giống một màn trình diễn, chuyến đi có thể mất đi cảm giác thật.
 
-**What is not working:** Re-enactment, over-clean staging, or altered local life can damage trust.
-
-**Product/design implication:** Be explicit about what is naturally occurring, what is facilitated, and how the tour avoids distorting local practice.
+**Bằng chứng:** P01 cho rằng những trải nghiệm văn hoá được tái hiện lại cho khách xem dễ mất "hồn cốt". P06 cũng từng có cảm giác một số làng du lịch giống như đang "diễn cho khách xem". Ở chiều ngược lại, P11 nhìn nhận tinh tế hơn: dàn dựng không phải lúc nào cũng xấu, miễn là không làm sai lệch văn hoá và giúp trải nghiệm dễ tiếp cận hơn.
 
 ```{python}
 #| output: asis
@@ -251,15 +388,13 @@ print(pattern_line("P4"))
 evidence(pattern_id="P4", limit=4)
 ```
 
-#### B.5 Destination Credibility
+**Hướng xử lý:** MẠCH cần làm rõ đâu là trải nghiệm đời sống thật, đâu là phần được tổ chức để khách dễ tham gia. Một cách kiểm tra đơn giản: nếu người địa phương cũng tự nhiên có mặt hoặc tham gia vào hoạt động đó, chứ không chỉ có khách du lịch, thì đó là tín hiệu tốt về tính chân thực. Khi làm việc với ECOHOST và hướng dẫn viên địa phương, team nên ưu tiên những hoạt động không làm sai lệch văn hoá nhưng vẫn đủ rõ ràng và dễ tiếp cận cho khách. Trong truyền thông, MẠCH nên tránh hứa quá mức rằng trải nghiệm là "hoàn toàn nguyên bản". Nên nói rõ đây là trải nghiệm được tổ chức có chủ đích, nhưng vẫn giữ được bối cảnh thật, con người thật và câu chuyện thật.
 
-**Problem/current issue:** Nam Định is not yet clearly perceived as a must-go travel destination by many participants.
+### 5. Độ thuyết phục của Nam Định như một điểm đến
 
-**What is working:** Participants can see potential if the destination is framed through people, food, faith practice, local strengths, and a clear reason to go now.
+**Vấn đề hiện tại:** Nam Định chưa có vị trí rõ trong tâm trí một số người tham gia như một điểm đến du lịch đáng đi. Rào cản này rõ hơn ở nhóm khách chưa quen với du lịch văn hoá, những người cần điểm đến có độ nhận diện trước khi quan tâm đến nội dung chuyến đi. Vì vậy, dù ý tưởng MẠCH có câu chuyện và ý nghĩa, người tham gia vẫn cần được thuyết phục: vì sao phải là Nam Định, và nơi này có gì đủ hấp dẫn cho một chuyến đi 3 ngày.
 
-**What is not working:** "Nam Định cultural tour" alone may not overcome low destination awareness.
-
-**Product/design implication:** Build destination credibility into the offer. The pitch must answer why Nam Định deserves three days, not only why MẠCH has a thoughtful concept.
+**Bằng chứng:** P08 nói rằng Nam Định hiện "chưa có độ nhận diện rõ như một điểm đến du lịch". P09 cho biết điểm khiến chị lưỡng lự là Nam Định; nếu đó là một điểm đến nổi tiếng hơn, chị sẽ dễ hứng thú hơn. P07 bổ sung rằng với cùng số tiền, khách sẽ so sánh trải nghiệm trong nước với các lựa chọn đi nước ngoài.
 
 ```{python}
 #| output: asis
@@ -267,15 +402,13 @@ print(pattern_line("P5"))
 evidence(pattern_id="P5", limit=4)
 ```
 
-#### B.6 Familiarity Bias
+**Hướng xử lý:** MẠCH cần bán Nam Định như một điểm đến có câu chuyện riêng, không chỉ là nơi diễn ra chuyến đi. Truyền thông nên làm rõ các điểm neo dễ hình dung: con người, ẩm thực, làng nghề, tín ngưỡng, nhịp sống địa phương và những góc đẹp cụ thể. Trong thiết kế chuyến đi, lịch trình cũng cần có ít nhất một khoảnh khắc đủ mạnh để khách tự cảm thấy đây là lý do Nam Định đáng đến. Người xem cần thấy được vì sao Nam Định đáng đi trước khi được thuyết phục rằng chuyến đi MẠCH đáng mua.
 
-**Problem/current issue:** Vietnamese participants may feel domestic cultural discovery is less urgent because Vietnamese culture feels familiar.
+### 6. Thiên kiến "văn hoá Việt thì mình đã biết rồi" / Tín hiệu ban đầu
 
-**What is working:** This can be softened when the tour reveals layers people cannot access alone.
+**Vấn đề hiện tại:** Một rào cản nhỏ nhưng đáng chú ý là một số người Việt không thấy nhu cầu mạnh với chuyến đi văn hoá trong nước, vì họ có cảm giác văn hoá Việt là thứ mình đã quen. Khi so với đi nước ngoài, chuyến đi văn hoá nội địa dễ bị xem là ít mới lạ hơn nếu không chỉ ra được phần trải nghiệm mà khách thật sự chưa biết hoặc khó tự tiếp cận.
 
-**What is not working:** A broad "discover Vietnamese culture" promise is too generic.
-
-**Product/design implication:** Sell hidden access and depth: behind-the-scenes stories, local hosts, ritual context, home meals, and craft or village life.
+**Bằng chứng:** P05 nói rằng với du lịch văn hoá ở Việt Nam, chị không có nhu cầu mạnh bằng khi đi nước ngoài, vì cảm giác mình đã ở đây rồi và đã quen với văn hoá này. P15 đưa ra một góc gần nhưng hơi khác: với một điểm đến ở Việt Nam, anh không nhất thiết cần đi theo chuyến có tổ chức vì có thể tự đi và chưa thấy giá trị khác biệt rõ so với đi tự túc.
 
 ```{python}
 #| output: asis
@@ -283,15 +416,15 @@ print(pattern_line("P6"))
 evidence(pattern_id="P6", limit=2)
 ```
 
-#### B.7 Foreigners / Cultural Researchers / Culturally Curious Outsiders
+**Hướng xử lý:** MẠCH không nên truyền thông chuyến đi như một hành trình "khám phá văn hoá Việt" quá chung chung. Thay vào đó, cần làm rõ phần khách chưa chắc đã biết: hậu trường tín ngưỡng, câu chuyện làng nghề, bữa ăn tại nhà dân, nhịp sống địa phương và những cuộc gặp với người thật. Tín hiệu này cần được kiểm chứng thêm trong chuyến thử nghiệm.
 
-**Problem/current issue:** The foreign/cross-cultural learner segment is mostly a hypothesis from Vietnamese participants, not a directly interviewed segment.
+### Cơ hội có thể tận dụng
 
-**What is working:** Several participants believe the concept has clearer value for foreigners, Vietnamese Studies learners, or people explicitly seeking cultural depth.
+### 7. Sức hút với khách nước ngoài hoặc người tò mò văn hoá
 
-**What is not working:** This is not yet direct demand evidence from foreign travellers.
+**Cơ hội hiện tại:** Một số người tham gia cho rằng ý tưởng MẠCH có thể hấp dẫn hơn với khách nước ngoài, người nghiên cứu văn hoá Việt, hoặc nhóm người Việt thật sự tò mò về văn hoá. Đây là một cơ hội định vị rõ hơn. Nhưng nếu nhắm đến khách Việt đại chúng, cách kể chuyện vẫn cần dễ tiếp cận hơn.
 
-**Product/design implication:** Reserve pilot learning slots or follow-up interviews for foreign/cross-cultural learners before treating this as a target segment.
+**Bằng chứng:** P09 cho rằng chuyến đi có thể phù hợp hơn với khách nước ngoài và một phần nhóm trẻ Việt Nam tò mò về văn hoá. P12 cũng nhận định loại hình này có thể hợp với khách nước ngoài hoặc những người không chỉ đi du lịch để chụp ảnh check-in. P11 nói chị có thể đi chuyến này cùng bạn bè nước ngoài, còn bạn bè người Việt xung quanh có lẽ sẽ không hứng thú bằng. Lưu ý: ba người đưa ra nhận định này đều là người Việt đang suy đoán về khách nước ngoài. Đây chưa phải phản hồi trực tiếp từ khách nước ngoài.
 
 ```{python}
 #| output: asis
@@ -299,15 +432,13 @@ print(pattern_line("S1"))
 evidence(pattern_id="S1", limit=4)
 ```
 
-#### B.8 Food / Local Cuisine As A Softening Driver
+**Cách tận dụng:** MẠCH không nên dùng một thông điệp chung cho tất cả nhóm khách. Có thể thử hai hướng truyền thông riêng: một hướng nhấn vào chiều sâu văn hoá cho khách nước ngoài hoặc người tò mò văn hoá; một hướng mềm hơn cho khách Việt, bắt đầu từ trải nghiệm dễ hình dung như ẩm thực, con người, làng nghề và nhịp sống địa phương. Điều quan trọng là làm rõ ai sẽ thấy chuyến đi này đáng đi nhất, thay vì cố làm nó có vẻ phù hợp với tất cả mọi người.
 
-**Problem/current issue:** Cultural content can feel heavy without softer sensory anchors.
+### 8. Ẩm thực như điểm vào văn hoá
 
-**What is working:** Food is an accessible entry point into local life and can make the tour easier to imagine.
+**Cơ hội hiện tại:** Ẩm thực là một điểm vào dễ tiếp cận hơn so với các nội dung văn hoá nặng về kiến thức. Với một số người, ăn uống không chỉ là phần phụ của lịch trình. Đó là cách nhanh nhất để cảm nhận đời sống địa phương, con người và không khí của điểm đến.
 
-**What is not working:** If food remains a logistics detail, MẠCH loses a low-friction decision driver.
-
-**Product/design implication:** Make meals, local cuisine, hosts, and the story behind food part of the product promise, not just itinerary support.
+**Bằng chứng:** P07 cho rằng nếu kết hợp ẩm thực, tâm linh và biểu diễn thì chuyến đi sẽ hấp dẫn hơn. P12 cũng nói một chuyến đi hay cần giúp người tham gia hiểu con người, ẩm thực, điểm mạnh và đời sống sinh hoạt của địa phương. P14 nói những phần như ăn cơm và đạp xe cùng địa phương đều hấp dẫn với chị.
 
 ```{python}
 #| output: asis
@@ -315,15 +446,13 @@ print(pattern_line("S2"))
 evidence(pattern_id="S2", limit=4)
 ```
 
-#### B.9 Spirituality / Đạo Mẫu Interest
+**Cách tận dụng:** MẠCH nên dùng ẩm thực như một "cửa vào" để kéo người tham gia đến gần văn hoá Nam Định hơn, thay vì chỉ xem đây là phần ăn uống trong lịch trình. Bữa ăn tại nhà dân, món địa phương, câu chuyện sau món ăn và người nấu nên được đưa thành một điểm nhấn rõ trong chuyến đi. Trong truyền thông, hình ảnh món ăn và bối cảnh ăn cùng người địa phương có thể giúp chuyến đi mềm hơn, đời thường hơn và dễ hình dung hơn.
 
-**Problem/current issue:** Interest in spirituality and Đạo Mẫu exists, but the data does not support positioning the whole tour as a gendered or narrowly spiritual product.
+### 9. Sự quan tâm đến yếu tố tín ngưỡng / Tín hiệu ban đầu
 
-**What is working:** Tín ngưỡng can create depth for participants already open to reflective cultural travel.
+**Cơ hội hiện tại:** Yếu tố tín ngưỡng, đặc biệt là Đạo Mẫu và thờ Mẫu, có thể là một điểm hấp dẫn riêng của chuyến đi MẠCH. Tuy nhiên, mức quan tâm này không trải đều ở tất cả nhóm khách. Dữ liệu hiện tại cũng không xác nhận rằng quan tâm tín ngưỡng tập trung rõ ở một nhóm giới tính hoặc độ tuổi cụ thể. Vì vậy, tín ngưỡng nên được xem là một lớp trải nghiệm sâu cho nhóm phù hợp, thay vì thông điệp chính cho toàn bộ thị trường.
 
-**What is not working:** If framed too mysteriously or academically, the topic can feel intimidating or too niche.
-
-**Product/design implication:** Treat spirituality as one interpretive layer supported by trusted guides and local context, not as the only hook for the whole market.
+**Bằng chứng:** P01 nói rằng với chủ đề tâm linh, người tham gia dễ có cảm giác sợ hoặc phòng bị, nên chuyến đi cần tạo được một vùng an toàn. P10 thấy chương trình có ý nghĩa và bản thân có thể tham gia, nhưng lưu ý chuyến đi phù hợp với một lứa tuổi nhất định. Ở nhóm trẻ hơn nhưng có nền tảng du lịch cộng đồng, P14 lại nói chị muốn đi vì tò mò về Đạo Mẫu.
 
 ```{python}
 #| output: asis
@@ -331,132 +460,93 @@ print(pattern_line("H1"))
 evidence(pattern_id="H1", limit=4)
 ```
 
-### C. Familiarity With "Sustainable Tourism"
+**Cách tận dụng:** MẠCH nên đưa yếu tố tín ngưỡng vào như một phần tạo chiều sâu, nhưng cần kể bằng ngôn ngữ dễ hiểu và có người dẫn đủ tin cậy. Trải nghiệm này nên có chuyên gia, hướng dẫn viên địa phương hoặc người thực hành văn hoá dẫn dắt. Đồng thời, cần tạo không gian an toàn để người tham gia được hỏi và tiếp nhận theo nhịp của mình. Trong truyền thông, không nên làm tín ngưỡng trở nên quá bí ẩn hoặc nặng tính học thuật. Nên đặt nó trong câu chuyện về con người, đời sống địa phương và cách Nam Định giữ gìn các thực hành văn hoá của mình. Tín hiệu này cần được kiểm chứng thêm trong chuyến thử nghiệm.
 
-Current coding is insufficient to compute a clean three-way distribution for sustainable-tourism awareness. Treat this as **Trung bình / qualitative** synthesis from existing analysis, not a quantified finding.
+### C. Mức độ quen thuộc với du lịch bền vững
 
-The useful distinction for pilot communication is:
+Mức độ hiểu về "du lịch bền vững" trong nhóm phỏng vấn không đồng đều. Có người chưa từng nghe đến khái niệm này. Có người đã nghe nhưng chưa hiểu rõ. Một nhóm có nền tảng liên quan có thể liên hệ khái niệm này với giáo dục, du lịch cộng đồng, phát triển cộng đồng hoặc trách nhiệm xã hội. Tỉ lệ người hiểu tương đối rõ trong mẫu này có thể cao hơn thông thường vì mẫu của MẠCH được chọn có chủ đích, không phải mẫu đại diện dân số.
 
-- **Never heard of it:** Do not lead with the term; show concrete local/community benefits instead.
-- **Heard but cannot define confidently:** Explain through examples such as local hosts, respectful cultural access, and benefit to community.
-- **Can define with community/environment/local-benefit logic:** This group can understand the deeper MẠCH thesis, especially in B2B or partnership contexts.
+| Mức độ quen thuộc | Biểu hiện chính | Hàm ý cho MẠCH |
+|---|---|---|
+| Chưa quen | Chưa từng nghe hoặc chỉ đoán là liên quan đến môi trường | Không nên dùng thuật ngữ quá sớm |
+| Đã nghe nhưng chưa rõ | Biết qua báo chí hoặc internet nhưng thấy khái niệm còn lý thuyết | Cần giải thích bằng ví dụ cụ thể |
+| Hiểu rõ hơn | Liên hệ với cộng đồng, bảo tồn văn hoá, môi trường và phân bổ lợi ích | Có thể dùng như lớp ý nghĩa sâu hơn của chuyến đi |
 
-For B2C marketing, "sustainable tourism" should be a design principle and proof layer, not the first sales phrase.
+Vì vậy, MẠCH không nên đặt "du lịch bền vững" làm thông điệp bán hàng chính ngay từ đầu với khách mua lẻ. Cách truyền thông dễ hiểu hơn là chuyển khái niệm này thành các lợi ích cụ thể: gặp người địa phương, ăn cùng nhà dân, hiểu câu chuyện làng nghề, tôn trọng đời sống thật và để một phần giá trị quay lại cộng đồng.
 
-### D. Target Customer Segments / Personas
+Với đối tác tổ chức trong lĩnh vực phát triển cộng đồng hoặc trách nhiệm xã hội, thuật ngữ này có thể dùng trực tiếp hơn vì đây là ngôn ngữ họ quen thuộc.
 
-These personas are practical pilot segments, not generic marketing profiles. Confidence is based on the coded CSV evidence bank and the full compiled record.
+Nếu chuyến đi được thiết kế tốt, khái niệm du lịch bền vững có thể được làm rõ tự nhiên qua trải nghiệm trong chuyến đi, chứ không phải qua định nghĩa trước. Người tham gia hiểu được qua thực tế có xu hướng kể lại cho người xung quanh bằng ngôn ngữ dễ hiểu hơn. Từ đó, nhận thức về du lịch bền vững có thể lan ra tự nhiên hơn trong mạng lưới của họ. Đây là giả thuyết chưa được kiểm chứng từ dữ liệu phỏng vấn hiện tại và cần được đo trong chuyến thử nghiệm.
 
-#### D.1 Culturally Curious / Community-based Traveller
+"Bền vững" nên là nguyên tắc thiết kế chuyến đi và lớp ý nghĩa phía sau trải nghiệm, không phải thuật ngữ đầu tiên dùng để thuyết phục khách mua.
 
-**Who they are:** People already open to culture, community, local hosts, and reflective travel.
+### D. Nhóm khách hàng mục tiêu
 
-**Travel behaviour:** More self-directed, interested in meaning and human connection, often values access and interpretation.
+PHẦN CHƯA HOÀN THIỆN / Khung đã xác định, cần viết nội dung:
 
-**What they value:** Local people, food, craft, faith practice, story, and context.
+4 nhóm khách chính, đã xác định từ dữ liệu:
 
-**Reaction to MẠCH:** Positive when the tour feels immersive rather than academic.
+1. Nhóm ưu tiên gia đình và dịch vụ tốt:
 
-**Blockers:** Too much lecture, too little direct participation, unclear authenticity.
+   Ưu tiên dịch vụ, an toàn, tiện nghi. Cần lịch trình nhẹ và nơi lưu trú tốt. Đại diện: P01, P04, P10, P08.
 
-**Pricing/WTP signal:** Use the computed WTP table; do not average sparse qualitative price mentions.
+2. Nhóm tò mò văn hoá nhưng phụ thuộc người đi cùng:
 
-**Product/marketing implication:** Lead with people and access, then deepen into cultural explanation.
+   Chỉ đặt chỗ khi có bạn bè thân thiết đi cùng. Cần điểm chạm cảm xúc và gói đi theo nhóm. Đại diện: P05, P09, P04.
 
-**Confidence level:** Trung bình.
+3. Nhóm tự khám phá và tìm trải nghiệm thật:
 
-#### D.2 Social Friend-group Explorer
+   Tìm đời sống địa phương thật, nhạy với cảm giác "văn hoá giả". Đây là nhóm hứng thú rõ hơn với ý tưởng hiện tại. Đại diện: P06, P12, P15, P14, P03.
 
-**Who they are:** Travellers who may be interested but need the right companion or small group.
+4. Nhóm quan tâm cộng đồng và chiều sâu văn hoá:
 
-**Travel behaviour:** Decisions are socially mediated; the companion can matter more than the destination.
+   Có nền tảng tổ chức xã hội, trách nhiệm xã hội hoặc du lịch cộng đồng. Quan tâm đến lợi ích cho cộng đồng địa phương. Đại diện: P11, P14, P03.
 
-**What they value:** Shared experience, comfort, conversation, and low awkwardness.
+Lưu ý khi viết:
 
-**Reaction to MẠCH:** Conditional; stronger when packaged for pairs or friend groups.
+5. Góc nhìn chuyên môn hoặc ngành: P07 và P13 cho nhận định ở tầng thiết kế, không phải nhóm khách hàng điển hình.
 
-**Blockers:** Going alone, joining strangers, or feeling trapped in an overly serious tour.
+6. Trường hợp chồng lấp và trường hợp biên: Một số người nằm giữa nhóm 2 và 3 (P09), hoặc giữa nhóm 3 và 4 (P14, P03). Không ép 15/15 người vào 4 ô.
 
-**Pricing/WTP signal:** Price sensitivity varies; companion fit may be the gating factor before price.
+Mỗi nhóm cần có: tên nhóm, đặc điểm, điều họ thích, rào cản và cách MẠCH nên tiếp cận.
 
-**Product/marketing implication:** Test "bring a close friend" and small-group conversion mechanics.
+Phần D là nơi A, B và C hội tụ theo từng nhóm. Không lặp lại phát hiện, chỉ tổng hợp theo góc nhìn: bán cho ai và bán thế nào.
 
-**Confidence level:** Cao for social dependency as a barrier; Trung bình for segment sizing.
+## V. Kết luận
 
-#### D.3 Premium Family Comfort Traveller
+### 1. Những điểm đang có tín hiệu tốt
 
-**Who they are:** Family-oriented travellers who need comfort, pacing, and safety.
+PHẦN CHƯA HOÀN THIỆN / Gợi ý nội dung:
 
-**Travel behaviour:** Often plans around children, older relatives, health, lodging, weather, and rest.
+- Ý tưởng MẠCH có giá trị thật: chiều sâu văn hoá và câu chuyện được đánh giá cao.
+- Một số rào cản được nhắc lại ở nhiều nhóm: P1, P2, P3, P4.
+- Cơ hội rõ hơn nằm ở ẩm thực, sức hút với khách nước ngoài và lớp trải nghiệm tín ngưỡng.
+- Vùng giá 4,5-8 triệu là vùng có thể chấp nhận trong dữ liệu hiện tại. Trên 15 triệu bắt đầu là ngưỡng từ chối.
 
-**What they value:** Clean accommodation, good food, lighter schedule, and trustworthy facilitation.
+### 2. Giới hạn
 
-**Reaction to MẠCH:** Interested only if cultural depth is balanced with comfort and visible quality.
+PHẦN CHƯA HOÀN THIỆN / Gợi ý nội dung, giọng chuyên nghiệp, không xin lỗi:
 
-**Blockers:** Heavy itinerary, academic tone, unclear lodging/service quality, lack of family fit.
+- N = 15, mẫu chọn có chủ đích. Phát hiện phản ánh trải nghiệm của nhóm được chọn, không đại diện cho toàn bộ thị trường.
+- Chưa có dữ liệu trực tiếp từ khách nước ngoài. Mục B.7 dựa trên suy đoán của người tham gia Việt Nam.
+- Trích dẫn đã được biên tập từ ghi chú phỏng vấn, không phải bản ghi nguyên văn. Cần đối chiếu âm thanh nếu dùng làm trích dẫn trực tiếp trong tài liệu bên ngoài.
+- P6 và B.9 là tín hiệu ban đầu, số nguồn còn nhỏ, cần kiểm chứng.
+- Phần D là phân loại quan sát, cần kiểm chứng qua chuyến thử nghiệm.
+- Hành vi tìm thông tin là tín hiệu ban đầu, chưa đủ để kết luận.
 
-**Pricing/WTP signal:** Travel spend can be high, but tour WTP still depends on proof of quality.
+### 3. Những điều cần kiểm chứng trong chuyến thử nghiệm
 
-**Product/marketing implication:** Create a comfort-forward variant or a clearly paced family version.
+Chuyến thử nghiệm nên được xem là bước kiểm chứng tiếp theo, không chỉ là lần chạy thử vận hành. Mục tiêu là xem những giả thuyết từ phỏng vấn có còn đúng khi khách thật sự trải nghiệm chuyến đi hay không. Vì một số giả thuyết liên quan đến các nhóm khách khác nhau, chuyến thử nghiệm nên chủ động tuyển đại diện từ vài nhóm khách chính, thay vì chỉ tuyển ngẫu nhiên một nhóm dễ tiếp cận.
 
-**Confidence level:** Trung bình.
+| Cần kiểm chứng | Câu hỏi chính trong chuyến thử nghiệm | Dấu hiệu cần quan sát | Thời điểm đo |
+|---|---|---|---|
+| Trải nghiệm trực tiếp | Các hoạt động như ăn cùng người địa phương, làng nghề, đạp xe hoặc trò chuyện với người dân có làm chuyến đi bớt học thuật không? | Khách chủ động tham gia, nhớ hoạt động cụ thể, nói rằng họ được chạm vào đời sống địa phương | Trong chuyến đi và ngay sau chuyến đi |
+| Cách kể chuyện và người dẫn | Câu chuyện văn hoá có dễ hiểu, có cảm xúc và không quá nặng kiến thức không? | Khách theo được mạch kể, đặt câu hỏi, nhắc lại được câu chuyện sau chuyến đi | Trong chuyến đi và ngay sau chuyến đi |
+| Sức hút của Nam Định | Sau chuyến đi, khách có thấy Nam Định đủ đáng đi cho một chuyến 3 ngày không? | Khách chỉ ra được khoảnh khắc hoặc địa điểm khiến họ thấy Nam Định đáng nhớ | Ngay sau chuyến đi |
+| Đi theo nhóm hoặc người đồng hành | Gói nhóm 2-4 người có làm khách dễ đăng ký hơn so với đi một mình không? | Tỉ lệ đăng ký theo nhóm, lý do chọn đi cùng ai, mức hài lòng của nhóm đi chung so với khách đi đơn lẻ | Trước chuyến đi và ngay sau chuyến đi |
+| Nhóm khách phù hợp nhất | Nhóm nào thật sự hứng thú, sẵn sàng trả tiền và muốn giới thiệu lại chuyến đi? | Có khác biệt rõ giữa khách Việt, khách nước ngoài, nhóm bạn, gia đình hoặc người quan tâm văn hoá | Trước chuyến đi, ngay sau chuyến đi và sau 2-4 tuần |
+| Thông điệp truyền thông | Cách nói nào làm khách hiểu chuyến đi nhanh nhất: ẩm thực, đời sống địa phương, chiều sâu văn hoá hay bền vững và cộng đồng? | Khách mô tả lại chuyến đi bằng đúng hoặc gần đúng thông điệp MẠCH muốn truyền tải | Trước chuyến đi và ngay sau chuyến đi |
+| Giá và cảm nhận đáng tiền | Mức giá nào khách thấy hợp lý sau khi đã trải nghiệm chuyến đi? | Khách nói rõ phần nào tạo giá trị, phần nào chưa tương xứng với giá | Ngay sau chuyến đi |
+| Hiểu về du lịch bền vững qua trải nghiệm | Khách có hiểu rõ hơn về cộng đồng, văn hoá địa phương và tác động của chuyến đi sau khi trải nghiệm không? | Khách giải thích được "bền vững" bằng ví dụ từ chuyến đi, không chỉ bằng định nghĩa chung | Ngay sau chuyến đi và sau 2-4 tuần |
 
-#### D.4 Academic / Cultural Specialist Or Older Reflective Traveller
-
-**Who they are:** Participants with academic, tourism, community-development, or reflective cultural interests.
-
-**Travel behaviour:** More tolerant of depth, but still expects strong facilitation and service design.
-
-**What they value:** Credible guides, cultural accuracy, human stories, and respectful framing.
-
-**Reaction to MẠCH:** Can see the thesis and strategic potential, sometimes more clearly than mainstream consumers.
-
-**Blockers:** Weak guide credibility, superficial staging, unclear target segment, service inconsistency.
-
-**Pricing/WTP signal:** Often evaluates value through quality and integrity rather than lowest price.
-
-**Product/marketing implication:** Use this segment for feedback and partnerships, but do not confuse expert approval with mass demand.
-
-**Confidence level:** Trung bình.
-
-#### D.5 Foreign / Cross-cultural Learner Signal
-
-**Who they are:** Foreign visitors, Vietnamese Studies learners, or culturally curious outsiders.
-
-**Travel behaviour:** Not directly sampled enough in committed CSV; mostly inferred through participant hypotheses and industry-lens comments.
-
-**What they value:** Context, translation, cultural access, and a credible bridge into local life.
-
-**Reaction to MẠCH:** Hypothesized to be stronger than broad Vietnamese mainstream demand.
-
-**Blockers:** Unverified direct demand, language needs, and different service expectations.
-
-**Pricing/WTP signal:** Not available from direct interviews in the committed CSV.
-
-**Product/marketing implication:** Treat as a pilot hypothesis and recruit direct foreign/cross-cultural participants.
-
-**Confidence level:** Hypothesis.
-
-## V. Conclusion
-
-The MẠCH concept has a real strategic opening: it can turn Nam Định culture into a guided, human, sensory, and reflective experience. The strongest caution is that depth alone does not sell the tour. The current product has to prove that it is not too passive, too academic, too staged, or too dependent on a destination brand people do not yet understand.
-
-For marketing, the immediate work is to make the offer easier to want: show food, people, local life, small-group companionship, and specific reasons Nam Định is worth the trip. For product, the work is to add visible participation and protect authenticity. For partnerships, the work is to use local guides, hosts, and cultural practitioners in a way that strengthens credibility without turning culture into performance.
-
-### What To Test In Pilot
-
-The July 2026 Nam Định pilot should be treated as the next Bayesian update, not a final market answer. Test:
-
-- Whether hands-on activities reduce the "too passive / too academic" reaction.
-- Whether friend-pair or small-group packaging improves intent.
-- Whether food/local-host moments become decision drivers.
-- Whether Nam Định credibility improves after concrete visual storytelling.
-- Whether foreign/cross-cultural learners show direct demand when actually recruited.
-
-### Unresolved Questions For July 2026
-
-- Which segment converts after experiencing the pilot, not just after reading the concept?
-- What price feels fair after participants see actual lodging, food, guide quality, and access?
-- Does the Đạo Mẫu/spirituality layer deepen the tour or narrow the market too much?
-- Can MẠCH make authenticity legible without over-explaining or over-claiming?
-- What evidence is needed before turning the internal research thesis into external B2B or partnership material?
+Chuyến thử nghiệm nên đo ba lớp: khách có thích trải nghiệm không, họ có hiểu đúng giá trị của MẠCH không, và họ có thấy chuyến đi đủ đáng tiền để giới thiệu hoặc mua lại không.

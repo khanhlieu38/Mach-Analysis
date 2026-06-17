@@ -16,7 +16,7 @@ website:
   title: "MẠCH · Nghiên cứu định tính"
   navbar:
     left:
-      - text: "Pre-tour Research 2026"
+      - text: "Nghiên cứu trước chuyến thử nghiệm 2026"
         file: studies/pretour-research-2026/index.qmd
 
 format:

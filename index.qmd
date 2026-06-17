@@ -2,12 +2,12 @@
 title: "MẠCH · Nghiên cứu định tính"
 ---
 
-Placeholder landing page.
+Trang tổng quan tạm thời.
 
-## Study hiện có
+## Nghiên cứu hiện có
 
-### Pre-tour Research 2026
+### Nghiên cứu trước chuyến thử nghiệm 2026
 
-Single-page consumer research report cho pilot Nam Định 07/2026.
+Báo cáo nghiên cứu khách hàng dạng một trang cho chuyến thử nghiệm Nam Định 07/2026.
 
-→ [Vào báo cáo single-page](studies/pretour-research-2026/index.qmd)
+Xem báo cáo: [Nghiên cứu trước chuyến thử nghiệm 2026](studies/pretour-research-2026/index.qmd)
