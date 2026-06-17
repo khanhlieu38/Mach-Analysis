@@ -57,6 +57,19 @@ details.mach-toggle[open] summary {
   margin-bottom: 0.9rem;
 }
 
+details.mach-toggle summary::before {
+  content: "▶ ";
+  font-size: 0.7rem;
+}
+
+details.mach-toggle[open] summary::before {
+  content: "▼ ";
+}
+
+details.mach-toggle .toggle-content {
+  margin-top: 0.75rem;
+}
+
 .finding-badge {
   display: inline-flex;
   align-items: center;
