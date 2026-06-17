@@ -12,6 +12,8 @@ execute:
   echo: false
   warning: false
 
+jupyter: python3
+
 website:
   title: "MẠCH · Nghiên cứu định tính"
   navbar:
@@ -27,5 +29,6 @@ format:
     toc-depth: 3
     number-sections: false
     lang: vi
+    self-contained: false
     code-fold: true
     code-summary: "Xem code"

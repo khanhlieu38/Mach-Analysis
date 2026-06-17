@@ -1,4 +1,4 @@
-/* MẠCH Analysis — prose-forward */
+/* MẠCH Analysis / prose-forward */
 
 :root {
   --ink: #1a1a1a;
@@ -38,3 +38,122 @@ td { border-bottom: 1px solid var(--line); padding: 0.6rem 0.75rem; }
 .callout-note { border-left-color: #4a6fa5; }
 .callout-tip { border-left-color: var(--safe); }
 .callout-warning { border-left-color: var(--warn); }
+
+details.mach-toggle {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg-soft);
+  margin: 1.25rem 0 1.5rem;
+  padding: 0.85rem 1rem;
+}
+
+details.mach-toggle summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+details.mach-toggle[open] summary {
+  margin-bottom: 0.9rem;
+}
+
+.finding-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1;
+  margin-left: 0.4rem;
+  padding: 0.28rem 0.55rem;
+  vertical-align: middle;
+}
+
+.badge-cao { background: #e7f3e8; color: #315f33; }
+.badge-trung-binh { background: #fff3d8; color: #745216; }
+.badge-tin-hieu-som { background: #eaf0fb; color: #345a91; }
+.badge-gia-thuyet { background: #f1edf7; color: #5d4578; }
+
+.finding-implication {
+  border-left: 3px solid var(--accent);
+  background: #fffaf1;
+  margin: 1rem 0 1.75rem;
+  padding: 0.85rem 1rem;
+}
+
+.finding-implication p {
+  margin: 0.25rem 0;
+}
+
+.mach-viz {
+  margin: 1.5rem 0;
+}
+
+.mach-viz-placeholder {
+  border: 1px dashed #c8c8c8;
+  border-radius: 6px;
+  color: var(--muted);
+  background: #fbfbfb;
+  padding: 1rem;
+}
+
+.participant-grid {
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.participant-card {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.75rem;
+  background: #fff;
+}
+
+.participant-card strong,
+.pattern-matrix-card strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.participant-card small,
+.pattern-matrix-card small {
+  color: var(--muted);
+}
+
+.pattern-matrix {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.pattern-matrix-card {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.75rem;
+  background: #fff;
+}
+
+.pattern-dot-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.6rem;
+}
+
+.pattern-dot {
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 0.72rem;
+  height: 1.65rem;
+  justify-content: center;
+  min-width: 2.1rem;
+  padding: 0 0.35rem;
+}
+
+.pattern-dot-hit {
+  background: #e7f3e8;
+  border-color: #aac8ab;
+  color: #315f33;
+}

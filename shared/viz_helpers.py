@@ -2251,3 +2251,201 @@ def quote_evidence_table(quotes_df, participants_df, pattern_id=None, theme=None
     if not rows:
         rows = [("—", "No coded evidence in quotes.csv", "—")]
     return _md_table(["pid", "Evidence", "ref_id"], rows)
+
+
+# ----------------------------------------------------------------- public report visuals
+
+_VI_REPLACEMENTS = {
+    "—": " / ",
+    "â€”": " / ",
+    "tour": "chuyến đi",
+    "Tour": "Chuyến đi",
+    "WTP": "giá có thể chấp nhận",
+    "Spend": "mức chi",
+    "Hypothesis": "Giả thuyết",
+    "lead_user": "người dùng dẫn dắt",
+    "industry": "góc nhìn ngành",
+    "customer": "khách tiềm năng",
+    "da_tung": "đã có kinh nghiệm",
+    "chua_tung": "chưa hoặc ít kinh nghiệm",
+    "true_target": "phù hợp rõ",
+    "conditional": "phù hợp có điều kiện",
+    "passive": "bị động",
+    "harder": "khó chuyển đổi hơn",
+    "future": "cần thêm dữ liệu",
+    "non_target": "không phải nhóm ưu tiên",
+    "NGO": "tổ chức phi chính phủ",
+    "Founder startup": "nhà sáng lập doanh nghiệp",
+    "startup": "doanh nghiệp khởi nghiệp",
+    "Sales": "nhân viên kinh doanh",
+    "agency": "đơn vị dịch vụ",
+    "CSR": "trách nhiệm xã hội",
+    "outbound": "đưa khách ra nước ngoài",
+}
+
+
+def _plain_vi(value):
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return ""
+    text = str(value)
+    for old, new in _VI_REPLACEMENTS.items():
+        text = text.replace(old, new)
+    return " ".join(text.split())
+
+
+def _e(value):
+    return html.escape(_plain_vi(value), quote=True)
+
+
+def _has_values(df, columns):
+    if any(col not in df.columns for col in columns):
+        return False
+    sub = df[list(columns)].copy()
+    not_blank = sub.fillna("").astype(str).apply(lambda s: s.str.strip().ne("")).any().any()
+    return bool(not_blank)
+
+
+_NEEDED_LABELS = {
+    "wtp_min": "cận dưới giá có thể chấp nhận",
+    "wtp_max": "cận trên giá có thể chấp nhận",
+    "interest_score": "điểm quan tâm",
+    "prefers_selftour": "ưu tiên đi tự túc",
+    "companion_dependent": "phụ thuộc người đi cùng",
+    "price_sensitive": "nhạy cảm với giá",
+    "experience_over_resort": "ưu tiên trải nghiệm hơn nghỉ dưỡng",
+    "cares_about_authenticity": "quan tâm tính chân thực",
+    "sustainability_awareness": "mức quen thuộc với du lịch bền vững",
+    "price_sensitivity": "mức nhạy cảm với giá",
+    "cultural_depth_interest": "mức quan tâm chiều sâu văn hoá",
+}
+
+
+def render_data_placeholder(title, needed):
+    """Render placeholder for visual fields that still need manual coding."""
+    needed_text = ", ".join(_NEEDED_LABELS.get(col, col) for col in needed)
+    return (
+        '<div class="mach-viz mach-viz-placeholder">'
+        f'<strong>{_e(title)}</strong>'
+        '<p>Chưa có dữ liệu phân loại, cần Khanh điền trước khi đọc phần này.</p>'
+        f'<p><small>Trường cần điền: {html.escape(needed_text, quote=True)}</small></p>'
+        '</div>'
+    )
+
+
+def render_participant_grid(participants_df):
+    """Participant grid from anonymized committed data. P-code only."""
+    df = participants_df.sort_values("pid").copy()
+    cards = []
+    for _, row in df.iterrows():
+        pid = row["pid"]
+        cards.append(
+            '<div class="participant-card">'
+            f'<strong>{_e(pid)}</strong>'
+            f'<small>{_e(row.get("experience", ""))}</small>'
+            f'<p>{_e(OCCUPATION_GENERALIZED.get(pid, ""))}</p>'
+            f'<p><small>{_e(row.get("convert_type", ""))}</small></p>'
+            '</div>'
+        )
+    return (
+        '<div class="mach-viz">'
+        '<h4>Lưới người tham gia</h4>'
+        '<div class="participant-grid">'
+        + "".join(cards)
+        + '</div></div>'
+    )
+
+
+def render_pattern_matrix(participants_df, quotes_df):
+    """Pattern by participant matrix using coded quote occurrence. Counts only."""
+    all_pids = participants_df.sort_values("pid")["pid"].astype(str).tolist()
+    order = ["P1", "P2", "P3", "P4", "P5", "P6", "S1", "S2", "H1"]
+    cards = []
+    for pattern_id in order:
+        meta = PATTERN_META[pattern_id]
+        occ = pattern_occurrence(pattern_id, quotes_df, participants_df)
+        hit_pids = set(occ["pids"])
+        dots = []
+        for pid in all_pids:
+            cls = "pattern-dot pattern-dot-hit" if pid in hit_pids else "pattern-dot"
+            dots.append(f'<span class="{cls}">{_e(pid)}</span>')
+        confidence = _plain_vi(meta["confidence"])
+        if confidence == "Hypothesis":
+            confidence = "Giả thuyết"
+        cards.append(
+            '<div class="pattern-matrix-card">'
+            f'<strong>{_e(pattern_id)}. {_e(meta["name"])}</strong>'
+            f'<small>{occ["count"]}/{occ["total"]} người / {_e(confidence)}</small>'
+            '<div class="pattern-dot-row">'
+            + "".join(dots)
+            + '</div></div>'
+        )
+    return (
+        '<div class="mach-viz">'
+        '<h4>Ma trận tín hiệu theo người tham gia</h4>'
+        '<div class="pattern-matrix">'
+        + "".join(cards)
+        + '</div></div>'
+    )
+
+
+def render_wtp_plot(participants_df):
+    needed = ["wtp_min", "wtp_max"]
+    if not _has_values(participants_df, needed):
+        return render_data_placeholder("Vùng giá có thể chấp nhận", needed)
+    rows = []
+    df = participants_df.sort_values("pid")
+    for _, row in df.iterrows():
+        if pd.notna(row.get("wtp_min")) or pd.notna(row.get("wtp_max")):
+            rows.append((row["pid"], row.get("wtp_min", ""), row.get("wtp_max", "")))
+    return _md_table(["Mã người tham gia", "Cận dưới", "Cận trên"], rows)
+
+
+def render_behaviour_matrix(participants_df):
+    needed = [
+        "prefers_selftour",
+        "companion_dependent",
+        "price_sensitive",
+        "experience_over_resort",
+        "cares_about_authenticity",
+    ]
+    if not _has_values(participants_df, needed):
+        return render_data_placeholder("Ma trận hành vi du lịch", needed)
+    rows = []
+    for col in needed:
+        s = participants_df[col].fillna("").astype(str).str.strip().str.lower()
+        rows.append((col, int(s.isin(["true", "1", "yes", "co", "có"]).sum())))
+    return _md_table(["Tín hiệu", "Số người đã mã hoá"], rows)
+
+
+def render_interest_plot(participants_df):
+    needed = ["interest_score"]
+    if not _has_values(participants_df, needed):
+        return render_data_placeholder("Điểm quan tâm đến chuyến đi", needed)
+    rows = []
+    for _, row in participants_df.sort_values("pid").iterrows():
+        if pd.notna(row.get("interest_score")) and str(row.get("interest_score")).strip():
+            rows.append((row["pid"], row.get("interest_score")))
+    return _md_table(["Mã người tham gia", "Điểm quan tâm"], rows)
+
+
+def render_sustainability_buckets(participants_df):
+    needed = ["sustainability_awareness"]
+    if not _has_values(participants_df, needed):
+        return render_data_placeholder("Mức quen thuộc với du lịch bền vững", needed)
+    counts = participants_df["sustainability_awareness"].fillna("").astype(str).str.strip()
+    counts = counts[counts != ""].value_counts()
+    rows = [(label, int(count)) for label, count in counts.items()]
+    return _md_table(["Mức quen thuộc", "Số người đã mã hoá"], rows)
+
+
+def render_archetype_scatter(participants_df):
+    needed = ["price_sensitivity", "cultural_depth_interest"]
+    if not _has_values(participants_df, needed):
+        return render_data_placeholder("Bản đồ nhóm khách theo giá và chiều sâu văn hoá", needed)
+    rows = []
+    for _, row in participants_df.sort_values("pid").iterrows():
+        price = row.get("price_sensitivity", "")
+        depth = row.get("cultural_depth_interest", "")
+        if str(price).strip() or str(depth).strip():
+            rows.append((row["pid"], price, depth))
+    return _md_table(["Mã người tham gia", "Nhạy cảm với giá", "Quan tâm chiều sâu văn hoá"], rows)

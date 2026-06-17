@@ -46,6 +46,17 @@ Chi tiết confidence labels và mẫu số: [README.md](../../README.md).
 | `travel_spend_range` | text | **mức chi du lịch THẬT** (đổi tên từ `travel_budget_range`) |
 | `acceptable_tour_price` | text | **giá tour CHẤP NHẬN ĐƯỢC** — KHÁC spend, đừng gộp |
 | `note` | text | |
+| `wtp_min` | numeric hoặc rỗng | cận dưới giá chuyến đi có thể chấp nhận, chỉ điền khi đã mã hoá rõ từ dữ liệu |
+| `wtp_max` | numeric hoặc rỗng | cận trên giá chuyến đi có thể chấp nhận, chỉ điền khi đã mã hoá rõ từ dữ liệu |
+| `interest_score` | numeric hoặc rỗng | điểm quan tâm dùng cho visual, cần Khanh mã hoá trước khi dùng |
+| `prefers_selftour` | `true` / `false` / rỗng | cờ phân loại thủ công, để rỗng nếu chưa mã hoá |
+| `companion_dependent` | `true` / `false` / rỗng | cờ phân loại thủ công, để rỗng nếu chưa mã hoá |
+| `price_sensitive` | `true` / `false` / rỗng | cờ phân loại thủ công, để rỗng nếu chưa mã hoá |
+| `experience_over_resort` | `true` / `false` / rỗng | cờ phân loại thủ công, để rỗng nếu chưa mã hoá |
+| `cares_about_authenticity` | `true` / `false` / rỗng | cờ phân loại thủ công, để rỗng nếu chưa mã hoá |
+| `sustainability_awareness` | text hoặc rỗng | mức quen thuộc với du lịch bền vững, cần Khanh mã hoá trước khi dùng |
+| `price_sensitivity` | text hoặc rỗng | mức nhạy cảm với giá, cần Khanh mã hoá trước khi dùng |
+| `cultural_depth_interest` | text hoặc rỗng | mức quan tâm chiều sâu văn hoá, cần Khanh mã hoá trước khi dùng |
 
 ### quotes.csv
 Curated evidence bank for report quotes/observations. Use for findings, pattern occurrence, and report evidence.
