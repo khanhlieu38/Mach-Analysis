@@ -2651,9 +2651,13 @@ def _deck_balance_table(rows):
 
 def _deck_bottleneck_list(items):
     cards = []
-    for idx, title, subtitle, level in items:
+    for item in items:
+        idx, title, subtitle, level = item[:4]
+        pids = item[4] if len(item) > 4 else None
+        pids_attr = f' data-b-pids="{html.escape(",".join(pids), quote=True)}"' if pids else ""
+        cls = "deck-bottleneck" + (" b-interactive" if pids else "")
         cards.append(
-            '<article class="deck-bottleneck">'
+            f'<article class="{cls}"{pids_attr}>'
             f'<span class="deck-bottleneck-number">{_deck_h(idx)}</span>'
             '<div>'
             f'<h4>{_deck_h(title)}</h4>'
@@ -2667,9 +2671,11 @@ def _deck_bottleneck_list(items):
     return '<div class="deck-bottleneck-list">' + "".join(cards) + '</div>'
 
 
-def _deck_signal_card(icon, title, text, tone="plain"):
+def _deck_signal_card(icon, title, text, tone="plain", pids=None):
+    pids_attr = f' data-b-pids="{html.escape(",".join(pids), quote=True)}"' if pids else ""
+    cls = f"deck-signal-card deck-signal-{_deck_h(tone)}" + (" b-interactive" if pids else "")
     return (
-        f'<article class="deck-signal-card deck-signal-{_deck_h(tone)}">'
+        f'<article class="{cls}"{pids_attr}>'
         f'<span class="deck-mini-icon"><i class="bi bi-{_deck_h(icon)}"></i></span>'
         f'<h4>{_deck_h(title)}</h4>'
         f'<p>{_deck_h(text)}</p>'
@@ -2698,6 +2704,97 @@ def _deck_action_flow(items):
         if i < len(items) - 1:
             pieces.append('<span class="deck-flow-arrow"><i class="bi bi-chevron-right"></i></span>')
     return '<div class="deck-action-flow">' + "".join(pieces) + '</div>'
+
+
+def _deck_b_quote_panel(pattern_id, quotes_df, participants_df):
+    pat_quotes = quotes_df[quotes_df["pattern_id"].astype(str) == str(pattern_id)].copy()
+    if pat_quotes.empty:
+        return ""
+    merged = pat_quotes.merge(
+        participants_df[["pid", "lens"]], on="pid", how="left"
+    )
+    pids_seen = list(dict.fromkeys(merged["pid"].tolist()))
+    dots = "".join(
+        f'<span class="b-dot" data-pid="{_deck_h(pid)}" title="{_deck_h(pid)}">{_deck_h(pid)}</span>'
+        for pid in pids_seen
+    )
+    _conf_labels = {"cao": "Cao", "trung_binh": "Trung bình", "som": "Tín hiệu sớm", "hypothesis": "Giả thuyết"}
+    quote_items = []
+    for _, row in merged.iterrows():
+        text = str(row.get("quote_short") or row.get("quote_full") or "").strip()
+        if not text:
+            continue
+        pid = str(row.get("pid", "")).strip()
+        ctx = str(row.get("context") or "").strip()
+        conf = str(row.get("confidence_level") or "").strip()
+        conf_label = _conf_labels.get(conf, conf)
+        conf_html = f'<span class="bqp-conf bqp-conf-{_deck_h(conf)}">{_deck_h(conf_label)}</span>' if conf_label else ""
+        quote_items.append(
+            f'<div class="bqp-quote" data-pid="{_deck_h(pid)}">'
+            f'<span class="bqp-pid">{_deck_h(pid)}</span>'
+            f'<p class="bqp-quote-text">&#x201C;{_deck_h(text)}&#x201D;</p>'
+            + (f'<p class="bqp-quote-ctx">{_deck_h(ctx)}</p>' if ctx else "")
+            + conf_html
+            + "</div>"
+        )
+    panel_id = f"bqp-{str(pattern_id).lower()}"
+    return (
+        f'<div class="deck-b-quote-panel" id="{_deck_h(panel_id)}">'
+        '<p class="bqp-hint"><i class="bi bi-cursor-fill"></i> Bấm vào thẻ để xem bằng chứng liên quan</p>'
+        f'<div class="bqp-dots">{dots}</div>'
+        f'<div class="bqp-quotes">{"".join(quote_items)}</div>'
+        "</div>"
+    )
+
+
+def _deck_b_footer(actions, takeaway):
+    action_cards = "".join(_deck_action_card(icon, title, text) for icon, title, text in actions)
+    return (
+        '<div class="deck-b-footer">'
+        f'<div class="deck-action-grid">{action_cards}</div>'
+        '<div class="deck-b-takeaway">'
+        '<span class="deck-b-takeaway-icon"><i class="bi bi-lightbulb-fill"></i></span>'
+        f'<p><strong>Takeaway chính:</strong> {_deck_h(takeaway)}</p>'
+        "</div>"
+        "</div>"
+    )
+
+
+def render_b_interactive_js():
+    return (
+        "<script>(function(){"
+        "function resetPanel(panel){"
+        "panel.classList.remove('bqp-open');"
+        "panel.querySelectorAll('.b-dot,.bqp-quote').forEach(function(x){x.classList.remove('bqp-hidden');});"
+        "}"
+        "document.addEventListener('click',function(e){"
+        "var el=e.target.closest('[data-b-pids]');"
+        "if(!el){"
+        "document.querySelectorAll('[data-b-pids]').forEach(function(x){x.classList.remove('b-active');});"
+        "document.querySelectorAll('.deck-b-quote-panel').forEach(resetPanel);"
+        "return;"
+        "}"
+        "var pids=el.getAttribute('data-b-pids').split(',');"
+        "var slide=el.closest('.deck-b-slide');"
+        "if(!slide)return;"
+        "var panel=slide.querySelector('.deck-b-quote-panel');"
+        "if(!panel)return;"
+        "var wasActive=el.classList.contains('b-active');"
+        "slide.querySelectorAll('[data-b-pids]').forEach(function(x){x.classList.remove('b-active');});"
+        "if(wasActive){resetPanel(panel);}"
+        "else{"
+        "el.classList.add('b-active');"
+        "panel.classList.add('bqp-open');"
+        "panel.querySelectorAll('.b-dot').forEach(function(d){"
+        "d.classList.toggle('bqp-hidden',pids.indexOf(d.getAttribute('data-pid'))===-1);"
+        "});"
+        "panel.querySelectorAll('.bqp-quote').forEach(function(q){"
+        "q.classList.toggle('bqp-hidden',pids.indexOf(q.getAttribute('data-pid'))===-1);"
+        "});}"
+        "e.stopPropagation();"
+        "});"
+        "})();</script>"
+    )
 
 
 def _deck_section_band(title, body, number=None):
@@ -2745,7 +2842,6 @@ def _deck_b_slide(
     right_body,
     actions,
     takeaway,
-    note,
     quotes_df,
     participants_df,
 ):
@@ -2756,11 +2852,10 @@ def _deck_b_slide(
         + '<div class="deck-b-top">'
         + _deck_panel_html(left_icon, left_title, left_body)
         + _deck_panel_html(right_icon, right_title, right_body)
-        + '</div>'
-        + _deck_section_band("Hướng xử lý", _deck_action_flow(actions))
-        + _deck_takeaway(takeaway)
-        + _deck_note(note)
-        + '</section>'
+        + "</div>"
+        + _deck_b_footer(actions, takeaway)
+        + _deck_b_quote_panel(pattern_id, quotes_df, participants_df)
+        + "</section>"
     )
 
 
@@ -2926,10 +3021,10 @@ def render_b1_visual(quotes_df, participants_df):
         ("person-walking", "Nhịp đi vừa phải", "low", "high"),
     ])
     right = _deck_bottleneck_list([
-        ("1", "Thiên về nghe và quan sát", "Phần trải nghiệm chưa đủ rõ", "very_high"),
-        ("2", "Ít hoạt động trực tiếp", "Thiếu phần chạm, làm và tham gia", "high"),
-        ("3", "Nhiều kiến thức, dễ mệt", "Lịch trình có thể gây ngợp", "mid"),
-        ("4", "Dễ giống hoạt động học tập", "Khó tạo cảm giác của một chuyến đi", "mid"),
+        ("1", "Thiên về nghe và quan sát", "Phần trải nghiệm chưa đủ rõ", "very_high", ["P02", "P03", "P04", "P11"]),
+        ("2", "Ít hoạt động trực tiếp", "Thiếu phần chạm, làm và tham gia", "high", ["P04", "P05", "P13"]),
+        ("3", "Nhiều kiến thức, dễ mệt", "Lịch trình có thể gây ngợp", "mid", ["P02", "P03", "P11"]),
+        ("4", "Dễ giống hoạt động học tập", "Khó tạo cảm giác của một chuyến đi", "mid", ["P01", "P11"]),
     ])
     return _deck_b_slide(
         "P1",
@@ -2948,7 +3043,6 @@ def render_b1_visual(quotes_df, participants_df):
             ("chat-dots", "Giảm cảm giác hàn lâm", "Ít giảng giải dài, nhiều tương tác hơn"),
         ],
         "Tour cần chuyển từ nghe về văn hoá sang trực tiếp chạm vào văn hoá.",
-        "Các thanh là hướng thiết kế định tính từ coding, không phải tỷ lệ đại diện thị trường.",
         quotes_df,
         participants_df,
     )
@@ -2956,15 +3050,15 @@ def render_b1_visual(quotes_df, participants_df):
 
 def render_b2_visual(quotes_df, participants_df):
     left = _deck_quadrant_matrix([
-        _deck_signal_card("people-fill", "Người quen cùng gu", "Dễ book nhất: có bạn bè hoặc người thân cùng quan tâm.", "teal"),
+        _deck_signal_card("people-fill", "Người quen cùng gu", "Dễ book nhất: có bạn bè hoặc người thân cùng quan tâm.", "teal", pids=["P05", "P11"]),
         _deck_signal_card("person-lines-fill", "Người lạ cùng gu", "Có thể thử nếu nhóm nhỏ, an toàn, có nhịp làm quen.", "blue"),
-        _deck_signal_card("emoji-neutral", "Người quen không cùng gu", "Cần lý do rõ hơn để rủ đi và cùng cam kết.", "amber"),
+        _deck_signal_card("emoji-neutral", "Người quen không cùng gu", "Cần lý do rõ hơn để rủ đi và cùng cam kết.", "amber", pids=["P04", "P10"]),
         _deck_signal_card("exclamation-triangle", "Người lạ không cùng gu", "Dễ tạo cảm giác ngại, xa lạ hoặc gượng ép.", "red"),
     ])
     right = _deck_bottleneck_list([
-        ("1", "Thiếu đúng người rủ", "Hứng thú cá nhân chưa đủ để tự book", "high"),
+        ("1", "Thiếu đúng người rủ", "Hứng thú cá nhân chưa đủ để tự book", "high", ["P05", "P11"]),
         ("2", "Ngại nhóm lạ", "Tour văn hoá cần cảm giác an toàn và có người chia sẻ", "high"),
-        ("3", "Gia đình / bạn bè ảnh hưởng quyết định", "Một số chuyến đi được quyết theo nhóm nhỏ", "mid"),
+        ("3", "Gia đình / bạn bè ảnh hưởng quyết định", "Một số chuyến đi được quyết theo nhóm nhỏ", "mid", ["P04", "P10"]),
         ("4", "Có ngoại lệ", "P03/P07 thoải mái hơn với đi độc lập", "low"),
     ])
     return _deck_b_slide(
@@ -2984,7 +3078,6 @@ def render_b2_visual(quotes_df, participants_df):
             ("ticket-perforated", "Mở cơ chế rủ bạn", "Ưu đãi nhóm nhỏ hoặc form đăng ký đi cùng"),
         ],
         "Tour văn hoá không chỉ bán cho một cá nhân. Nó cần tạo lý do để một nhóm nhỏ cùng muốn đi.",
-        "P2 có ngoại lệ P03 và P07 thoải mái hơn với việc đi độc lập; không diễn giải như rào cản tuyệt đối.",
         quotes_df,
         participants_df,
     )
@@ -2992,10 +3085,10 @@ def render_b2_visual(quotes_df, participants_df):
 
 def render_b3_visual(quotes_df, participants_df):
     left = _deck_signal_grid([
-        _deck_signal_card("mortarboard", "Giống học tập / nghiên cứu", "Một số phản hồi thấy concept hơi hàn lâm.", "blue"),
-        _deck_signal_card("question-circle", "Chưa rõ dành cho ai", "Người đọc khó tự nhận mình là khách phù hợp.", "plain"),
-        _deck_signal_card("person-x", "Tự loại mình khỏi tour", "Có người thấy tour hợp với nhóm khác hơn.", "amber"),
-        _deck_signal_card("person-check", "Tự nhận phù hợp", "Một nhóm khác lại thấy mình có thể là target.", "teal"),
+        _deck_signal_card("mortarboard", "Giống học tập / nghiên cứu", "Một số phản hồi thấy concept hơi hàn lâm.", "blue", pids=["P01", "P02", "P07", "P14"]),
+        _deck_signal_card("question-circle", "Chưa rõ dành cho ai", "Người đọc khó tự nhận mình là khách phù hợp.", "plain", pids=["P03", "P05", "P08"]),
+        _deck_signal_card("person-x", "Tự loại mình khỏi tour", "Có người thấy tour hợp với nhóm khác hơn.", "amber", pids=["P02", "P04", "P06", "P07"]),
+        _deck_signal_card("person-check", "Tự nhận phù hợp", "Một nhóm khác lại thấy mình có thể là target.", "teal", pids=["P10"]),
     ])
     right = _deck_bottleneck_list([
         ("1", "Giá trị có nhưng chưa hiện hình", "Người đọc cần thấy trải nghiệm trước khi đọc lý thuyết", "high"),
@@ -3020,7 +3113,6 @@ def render_b3_visual(quotes_df, participants_df):
             ("chat-left-text", "Viết lại lời hứa", "Một chuyến đi có cảm xúc, không phải lớp học văn hoá"),
         ],
         "Concept cần giúp người đọc nhận ra tour này dành cho mình trong vài giây đầu.",
-        "P3 có phản ứng trái chiều: cùng một concept tạo cả self-include lẫn self-exclude.",
         quotes_df,
         participants_df,
     )
@@ -3030,9 +3122,9 @@ def render_b4_visual(quotes_df, participants_df):
     left = (
         _deck_scale("Quá dàn dựng", "Tổ chức có chủ đích", "Đời sống thật", "mid")
         + _deck_signal_grid([
-            _deck_signal_card("mask", "Sợ bị diễn cho khách xem", "Khách nhạy với cảm giác bị sắp đặt quá mức.", "blue"),
+            _deck_signal_card("mask", "Sợ bị diễn cho khách xem", "Khách nhạy với cảm giác bị sắp đặt quá mức.", "blue", pids=["P01", "P06", "P09", "P14"]),
             _deck_signal_card("person-heart", "Ưu tiên con người thật", "Đời sống và người địa phương là dấu hiệu quan trọng.", "teal"),
-            _deck_signal_card("check-circle", "Chấp nhận có tổ chức", "Tổ chức tốt không xấu nếu không làm sai lệch văn hoá.", "plain"),
+            _deck_signal_card("check-circle", "Chấp nhận có tổ chức", "Tổ chức tốt không xấu nếu không làm sai lệch văn hoá.", "plain", pids=["P07", "P08", "P11"]),
         ])
     )
     right = _deck_bottleneck_list([
@@ -3058,7 +3150,6 @@ def render_b4_visual(quotes_df, participants_df):
             ("camera-video", "Dùng visual hậu trường", "Cho thấy bối cảnh thật trước khi bán lời hứa"),
         ],
         "Khách không đòi trải nghiệm hoàn toàn nguyên bản. Họ cần cảm giác thật, không bị diễn quá mức.",
-        "Dàn dựng không mặc định là xấu; rủi ro nằm ở cảm giác giả hoặc làm sai lệch văn hoá.",
         quotes_df,
         participants_df,
     )
@@ -3066,9 +3157,9 @@ def render_b4_visual(quotes_df, participants_df):
 
 def render_b5_visual(quotes_df, participants_df):
     left = _deck_signal_grid([
-        _deck_signal_card("geo-alt", "Nam Định chưa là điểm đến rõ", "Một số người chưa thấy lý do đủ mạnh để đi.", "blue"),
-        _deck_signal_card("search", "Cần key selling point", "Người xem cần điểm neo cụ thể để nhớ và rủ đi.", "teal"),
-        _deck_signal_card("arrow-left-right", "Bị so sánh với lựa chọn khác", "Cùng ngân sách, khách cân nhắc nơi nổi tiếng hơn.", "amber"),
+        _deck_signal_card("geo-alt", "Nam Định chưa là điểm đến rõ", "Một số người chưa thấy lý do đủ mạnh để đi.", "blue", pids=["P04", "P08", "P09"]),
+        _deck_signal_card("search", "Cần key selling point", "Người xem cần điểm neo cụ thể để nhớ và rủ đi.", "teal", pids=["P07", "P08", "P13"]),
+        _deck_signal_card("arrow-left-right", "Bị so sánh với lựa chọn khác", "Cùng ngân sách, khách cân nhắc nơi nổi tiếng hơn.", "amber", pids=["P07", "P09"]),
         _deck_signal_card("camera", "Cần bằng chứng trực quan", "Ảnh, video, khoảnh khắc cụ thể giúp dễ hình dung.", "plain"),
     ])
     right = _deck_bottleneck_list([
@@ -3094,7 +3185,6 @@ def render_b5_visual(quotes_df, participants_df):
             ("signpost", "Đặt tuyến kể rõ", "Từ cảnh quan đến người dẫn, từ món ăn đến câu chuyện"),
         ],
         "Trước khi bán tour MẠCH, cần bán được lý do vì sao Nam Định đáng đi.",
-        "P5 là pattern về rào cản điểm đến, không phải chỉ là vấn đề wording trong lịch trình.",
         quotes_df,
         participants_df,
     )
@@ -3102,13 +3192,13 @@ def render_b5_visual(quotes_df, participants_df):
 
 def render_b6_visual(quotes_df, participants_df):
     left = _deck_signal_grid([
-        _deck_signal_card("house", "Văn hoá Việt bị xem là quen", "Một số người không thấy nhu cầu khám phá nội địa quá chung.", "amber"),
-        _deck_signal_card("person-walking", "Tự đi được", "Nếu khác biệt không rõ, tour bị so với phương án tự túc.", "blue"),
-        _deck_signal_card("binoculars", "Cần lớp khó tự tiếp cận", "Hậu trường tín ngưỡng, làng nghề, bữa ăn, người thật.", "teal"),
+        _deck_signal_card("house", "Văn hoá Việt bị xem là quen", "Một số người không thấy nhu cầu khám phá nội địa quá chung.", "amber", pids=["P05", "P15"]),
+        _deck_signal_card("person-walking", "Tự đi được", "Nếu khác biệt không rõ, tour bị so với phương án tự túc.", "blue", pids=["P05", "P15"]),
+        _deck_signal_card("binoculars", "Cần lớp khó tự tiếp cận", "Hậu trường tín ngưỡng, làng nghề, bữa ăn, người thật.", "teal", pids=["P05", "P15"]),
     ])
     right = _deck_bottleneck_list([
-        ("1", "Cảm giác đã biết rồi", "Văn hoá Việt nói chung không đủ mới", "mid"),
-        ("2", "Giá trị tour chưa khác tự túc", "Cần chứng minh phần MẠCH mở được mà khách tự đi khó có", "high"),
+        ("1", "Cảm giác đã biết rồi", "Văn hoá Việt nói chung không đủ mới", "mid", ["P05", "P15"]),
+        ("2", "Giá trị tour chưa khác tự túc", "Cần chứng minh phần MẠCH mở được mà khách tự đi khó có", "high", ["P05", "P15"]),
         ("3", "Dễ bị đọc là tour nội địa bình thường", "Thông điệp chung chung làm giảm lý do mua", "mid"),
         ("4", "Tín hiệu còn mỏng", "Chưa đủ để kết luận rộng, cần theo dõi cohort/pilot", "low"),
     ])
@@ -3129,7 +3219,6 @@ def render_b6_visual(quotes_df, participants_df):
             ("clipboard-check", "Đo lại trong pilot", "Theo dõi rào cản này xuất hiện ở nhóm nào"),
         ],
         "Điểm bán không phải văn hoá Việt nói chung, mà là phần khách khó tự chạm tới.",
-        "P6 là tín hiệu sớm; không gán quê quán hay mở rộng thành kết luận thị trường.",
         quotes_df,
         participants_df,
     )
@@ -3137,9 +3226,9 @@ def render_b6_visual(quotes_df, participants_df):
 
 def render_b7_visual(quotes_df, participants_df):
     left = _deck_signal_grid([
-        _deck_signal_card("globe2", "Khách nước ngoài là nhóm vắng mặt", "Hiện mới là suy đoán từ người Việt trong mẫu.", "amber"),
+        _deck_signal_card("globe2", "Khách nước ngoài là nhóm vắng mặt", "Hiện mới là suy đoán từ người Việt trong mẫu.", "amber", pids=["P03", "P07", "P09", "P12"]),
         _deck_signal_card("translate", "Người học văn hoá Việt", "Có thể hấp dẫn nếu muốn hiểu sâu, không chỉ check-in.", "blue"),
-        _deck_signal_card("compass", "Người Việt tò mò văn hoá", "Cần cách kể đời thường và dễ tiếp cận hơn.", "teal"),
+        _deck_signal_card("compass", "Người Việt tò mò văn hoá", "Cần cách kể đời thường và dễ tiếp cận hơn.", "teal", pids=["P09", "P11"]),
     ])
     right = _deck_bottleneck_list([
         ("1", "Demand chưa kiểm chứng", "Không có khách nước ngoài trong sample hiện tại", "very_high"),
@@ -3164,7 +3253,6 @@ def render_b7_visual(quotes_df, participants_df):
             ("clipboard-data", "Theo dõi sau trải nghiệm", "Đo hiểu, thích, sẵn sàng trả tiền và giới thiệu"),
         ],
         "Khách nước ngoài là cơ hội đáng test, chưa phải kết luận demand.",
-        "S1 thiên về góc nhìn ngành và nhóm vắng mặt; không nâng thành kết luận thị trường.",
         quotes_df,
         participants_df,
     )
@@ -3172,8 +3260,8 @@ def render_b7_visual(quotes_df, participants_df):
 
 def render_b8_visual(quotes_df, participants_df):
     left = _deck_signal_grid([
-        _deck_signal_card("egg-fried", "Ẩm thực là cửa vào mềm", "Dễ tiếp cận hơn nội dung văn hoá nặng kiến thức.", "teal"),
-        _deck_signal_card("house-heart", "Bữa ăn tại nhà dân", "Có thể kéo khách vào đời sống địa phương.", "blue"),
+        _deck_signal_card("egg-fried", "Ẩm thực là cửa vào mềm", "Dễ tiếp cận hơn nội dung văn hoá nặng kiến thức.", "teal", pids=["P03", "P07", "P10", "P11", "P14"]),
+        _deck_signal_card("house-heart", "Bữa ăn tại nhà dân", "Có thể kéo khách vào đời sống địa phương.", "blue", pids=["P12", "P14"]),
         _deck_signal_card("chat-dots", "Câu chuyện sau món ăn", "Món ăn cần đi cùng người nấu, bối cảnh và ký ức.", "plain"),
     ])
     right = _deck_bottleneck_list([
@@ -3199,7 +3287,6 @@ def render_b8_visual(quotes_df, participants_df):
             ("house-heart", "Nối với đời sống", "Từ món ăn mở sang nhà dân, làng nghề, ký ức địa phương"),
         ],
         "Ẩm thực có thể làm phần văn hoá sâu trở nên mềm hơn, đời thường hơn và dễ bước vào hơn.",
-        "S2 là tín hiệu có thể tận dụng ngay, nhưng vẫn cần đo trong pilot xem món ăn nào tạo giá trị nhớ lại.",
         quotes_df,
         participants_df,
     )
@@ -3207,9 +3294,9 @@ def render_b8_visual(quotes_df, participants_df):
 
 def render_b9_visual(quotes_df, participants_df):
     left = _deck_signal_grid([
-        _deck_signal_card("flower1", "Quan tâm tín ngưỡng là phạm vi rộng", "Từ Phật giáo, Đạo Mẫu đến các thực hành văn hoá khác.", "amber"),
+        _deck_signal_card("flower1", "Quan tâm tín ngưỡng là phạm vi rộng", "Từ Phật giáo, Đạo Mẫu đến các thực hành văn hoá khác.", "amber", pids=["P01", "P05", "P11", "P14"]),
         _deck_signal_card("shield-check", "Cần vùng an toàn", "Chủ đề tín ngưỡng dễ tạo phòng bị nếu kể quá bí ẩn.", "blue"),
-        _deck_signal_card("person-badge", "Cần người dẫn đủ tin cậy", "Người dẫn giúp khách hiểu, hỏi và tiếp nhận theo nhịp của mình.", "teal"),
+        _deck_signal_card("person-badge", "Cần người dẫn đủ tin cậy", "Người dẫn giúp khách hiểu, hỏi và tiếp nhận theo nhịp của mình.", "teal", pids=["P05", "P11", "P14"]),
     ])
     right = _deck_bottleneck_list([
         ("1", "Không phải thị hiếu đại trà", "Mức quan tâm không trải đều ở mọi nhóm khách", "mid"),
@@ -3234,7 +3321,6 @@ def render_b9_visual(quotes_df, participants_df):
             ("clipboard-data", "Đo phản ứng trong pilot", "Theo dõi ai thật sự hứng thú sau trải nghiệm"),
         ],
         "Tín ngưỡng nên là lớp trải nghiệm sâu cho nhóm phù hợp, không phải nhãn bán hàng đại trà.",
-        "Dùng thuật ngữ khách quan tâm tín ngưỡng; không dùng nhãn giới tính hoá.",
         quotes_df,
         participants_df,
     )

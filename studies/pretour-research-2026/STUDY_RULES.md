@@ -92,7 +92,7 @@ Nhãn confidence là đánh giá COHORT 1 đã reconcile với evidence compute 
 | **P2** | ~5 nguồn + **2 ngoại lệ** thoải mái đi một mình (P03, P07) — PHẢI ghi kèm khi báo cáo. |
 | **P3** | Nhiều nguồn (~10) nhưng **TRÁI CHIỀU** (self-include vs self-exclude). TB vì thiếu đồng thuận, KHÔNG vì ít nguồn. |
 | **P5** | PATTERN (rào cản điểm đến), KHÔNG phải signal. |
-| **P6** | Chỉ 1 nguồn (P05); watch-item cohort 2. KHÔNG gán "gốc Nam Định". |
+| **P6** | Có 2 nguồn trong `quotes.csv` (P05, P15) nhưng vẫn là tín hiệu sớm/watch-item cohort 2. P05 là familiarity bias; P15 là value-gap/self-guided. KHÔNG gán "gốc Nam Định". |
 | **H1** | Tín ngưỡng **BROAD** (Phật + Đạo Mẫu + …), KHÔNG chỉ Đạo Mẫu. Gender-neutral; TUYỆT ĐỐI KHÔNG "phụ nữ tâm linh". Quan tâm broad ≠ quan tâm tour Đạo Mẫu cụ thể (P01 skeptical concept). |
 | **S1** | Phỏng đoán về nhóm **VẮNG MẶT** (khách nước ngoài không trong mẫu) → claim "Tây muốn tour" CHƯA kiểm được. Thiên góc nhìn ngành. KHÔNG nâng "trung bình". |
 | **S2** | SIGNAL có action pilot; thiên góc nhìn ngành; KHÔNG phải data gap. |

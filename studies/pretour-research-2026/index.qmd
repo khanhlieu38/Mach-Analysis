@@ -38,6 +38,7 @@ from viz_helpers import (
     render_b7_visual,
     render_b8_visual,
     render_b9_visual,
+    render_b_interactive_js,
     render_concept_advantage_visual,
     render_cover_stats,
     render_decision_deck_visual,
@@ -172,6 +173,7 @@ print(render_decision_deck_visual(participants_df))
 
 ```{python}
 #| output: asis
+print(render_b_interactive_js())
 print(render_b1_visual(quotes_df, participants_df))
 ```
 
@@ -245,7 +247,7 @@ print(render_b5_visual(quotes_df, participants_df))
 
 <div class="deck-text">
 <p>Một rào cản nhỏ nhưng đáng chú ý là một số người Việt không thấy nhu cầu mạnh với tour văn hoá trong nước, vì họ có cảm giác văn hoá Việt là thứ mình đã quen. Khi so với đi nước ngoài, tour văn hoá nội địa dễ bị xem là ít mới lạ hơn nếu không chỉ ra được phần trải nghiệm mà khách thật sự chưa biết hoặc khó tự tiếp cận.</p>
-<p>P6 hiện chỉ có 1 nguồn trong mẫu, là tín hiệu sớm cần theo dõi ở cohort 2, không đủ để kết luận rộng. Tuy vậy, đây là rào cản đáng theo dõi vì nó chạm vào câu hỏi cốt lõi: tour MẠCH khác gì so với tự đi một điểm đến trong nước.</p>
+<p>P6 hiện có 2 nguồn trong mẫu (P05, P15), vẫn là tín hiệu sớm cần theo dõi ở cohort 2, không đủ để kết luận rộng. Tuy vậy, đây là rào cản đáng theo dõi vì nó chạm vào câu hỏi cốt lõi: tour MẠCH khác gì so với tự đi một điểm đến trong nước.</p>
 <p>MẠCH không nên truyền thông tour như một chuyến khám phá văn hoá Việt quá chung chung. Thay vào đó, cần làm rõ phần khách chưa chắc đã biết: hậu trường tín ngưỡng, câu chuyện làng nghề, bữa ăn tại nhà dân, nhịp sống địa phương và những cuộc gặp với người thật.</p>
 </div>
 </section>
