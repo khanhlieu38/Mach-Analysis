@@ -164,9 +164,9 @@ print(render_decision_deck_visual(participants_df))
 <h2>IV.B.1. Trải nghiệm còn thụ động</h2>
 
 <div class="deck-text">
-<p><strong>Vấn đề hiện tại.</strong> Concept tour hiện tại vẫn tạo cảm giác thiên về nghe, đọc và quan sát hơn là trực tiếp tham gia. Một số người thấy lịch trình có nhiều kiến thức, dễ gây mệt hoặc giống hoạt động học tập hơn là một chuyến du lịch văn hoá dễ tiếp cận.</p>
-<p><strong>Bằng chứng.</strong> Các phản hồi được mã hoá ở P1 cho thấy nhu cầu tăng phần chạm tay, hoạt động làm nghề, tương tác với đời sống địa phương và nhịp đi nhẹ hơn. Phản ứng này xuất hiện ở cả người chưa quen du lịch văn hoá và người có kinh nghiệm hơn.</p>
-<p><strong>Hướng xử lý.</strong> Tour nên tăng các hoạt động có tính chạm, làm và tham gia trực tiếp. Những phần như ăn cùng người địa phương, đạp xe, tham gia làng nghề, hoạt động cộng đồng hoặc trải nghiệm sinh hoạt thường ngày nên được đặt rõ hơn trong lịch trình.</p>
+<p>Concept tour hiện tại vẫn tạo cảm giác thiên về nghe, đọc và quan sát hơn là trực tiếp tham gia. Một số người thấy lịch trình có nhiều kiến thức, dễ gây mệt hoặc giống hoạt động học tập hơn là một chuyến du lịch văn hoá dễ tiếp cận.</p>
+<p>Các phản hồi được mã hoá ở P1 cho thấy nhu cầu tăng phần chạm tay, hoạt động làm nghề, tương tác với đời sống địa phương và nhịp đi nhẹ hơn. Phản ứng này xuất hiện ở cả người chưa quen du lịch văn hoá và người có kinh nghiệm hơn.</p>
+<p>Tour nên tăng các hoạt động có tính chạm, làm và tham gia trực tiếp. Những phần như ăn cùng người địa phương, đạp xe, tham gia làng nghề, hoạt động cộng đồng hoặc trải nghiệm sinh hoạt thường ngày nên được đặt rõ hơn trong lịch trình.</p>
 </div>
 </section>
 
@@ -180,9 +180,9 @@ print(render_b1_visual(quotes_df, participants_df))
 <h2>IV.B.2. Phụ thuộc vào người đi cùng</h2>
 
 <div class="deck-text">
-<p><strong>Vấn đề hiện tại.</strong> Một số người không hẳn từ chối concept MẠCH, nhưng họ khó tự book nếu phải đi một mình hoặc đi cùng nhóm người lạ. Với tour văn hoá, người đi cùng không chỉ là bạn đồng hành, mà còn là người để cùng chia sẻ, trao đổi và làm cho chuyến đi bớt ngại.</p>
-<p><strong>Bằng chứng.</strong> Dữ liệu P2 cho thấy người đi cùng là yếu tố quyết định ở nhiều tình huống. Tuy nhiên, đây không phải rào cản tuyệt đối: vẫn có ngoại lệ thoải mái hơn với việc tự đi hoặc nhìn vấn đề từ góc thiết kế tour.</p>
-<p><strong>Hướng xử lý.</strong> Tour nên được thiết kế và truyền thông như một trải nghiệm để đi cùng người thân, bạn bè hoặc nhóm nhỏ có cùng mối quan tâm, thay vì tạo cảm giác như một tour ghép với người lạ.</p>
+<p>Một số người không hẳn từ chối concept MẠCH, nhưng họ khó tự book nếu phải đi một mình hoặc đi cùng nhóm người lạ. Với tour văn hoá, người đi cùng không chỉ là bạn đồng hành, mà còn là người để cùng chia sẻ, trao đổi và làm cho chuyến đi bớt ngại.</p>
+<p>Dữ liệu P2 cho thấy người đi cùng là yếu tố quyết định ở nhiều tình huống. Tuy nhiên, đây không phải rào cản tuyệt đối: vẫn có ngoại lệ thoải mái đi một mình (P03, P07), hoặc nhìn vấn đề từ góc thiết kế tour.</p>
+<p>Tour nên được thiết kế và truyền thông như một trải nghiệm để đi cùng người thân, bạn bè hoặc nhóm nhỏ có cùng mối quan tâm, thay vì tạo cảm giác như một tour ghép với người lạ.</p>
 </div>
 </section>
 
@@ -196,9 +196,9 @@ print(render_b2_visual(quotes_df, participants_df))
 <h2>IV.B.3. Lệch định vị khách hàng</h2>
 
 <div class="deck-text">
-<p><strong>Vấn đề hiện tại.</strong> Concept MẠCH không thiếu giá trị, nhưng cách trình bày hiện tại dễ khiến người đọc chưa thấy rõ tour này dành cho mình. Với một số người, tour đang gợi cảm giác giống một hoạt động học tập hoặc ngoại khoá hơn là một chuyến du lịch có trải nghiệm, cảm xúc và thời gian để tận hưởng.</p>
-<p><strong>Bằng chứng.</strong> P3 là pattern có phản ứng trái chiều: có người tự nhận phù hợp, nhưng cũng có người tự loại mình khỏi concept hoặc cho rằng tour hợp với nhóm khác hơn. Điều này cho thấy vấn đề nằm ở định vị và cách kể, không chỉ ở bản thân nội dung văn hoá.</p>
-<p><strong>Hướng xử lý.</strong> MẠCH cần định vị lại tour theo hướng dễ hình dung hơn: không phải đi học văn hoá, mà là một chuyến đi để chạm vào đời sống, con người, món ăn, làng nghề và lớp tín ngưỡng của Nam Định.</p>
+<p>Concept MẠCH không thiếu giá trị, nhưng cách trình bày hiện tại dễ khiến người đọc chưa thấy rõ tour này dành cho mình. Với một số người, tour đang gợi cảm giác giống một hoạt động học tập hoặc ngoại khoá hơn là một chuyến du lịch có trải nghiệm, cảm xúc và thời gian để tận hưởng.</p>
+<p>P3 là pattern có phản ứng trái chiều: có người tự nhận phù hợp, nhưng cũng có người tự loại mình khỏi concept hoặc cho rằng tour hợp với nhóm khác hơn. Điều này cho thấy vấn đề nằm ở định vị và cách kể, không chỉ ở bản thân nội dung văn hoá.</p>
+<p>MẠCH cần định vị lại tour theo hướng dễ hình dung hơn: không phải đi học văn hoá, mà là một chuyến đi để chạm vào đời sống, con người, món ăn, làng nghề và lớp tín ngưỡng của Nam Định.</p>
 </div>
 </section>
 
@@ -212,9 +212,9 @@ print(render_b3_visual(quotes_df, participants_df))
 <h2>IV.B.4. Lo ngại về tính chân thực</h2>
 
 <div class="deck-text">
-<p><strong>Vấn đề hiện tại.</strong> Với tour văn hoá, người tham gia khá nhạy với cảm giác diễn cho khách xem. Họ không nhất thiết phản đối việc trải nghiệm được tổ chức lại cho dễ tiếp cận, nhưng nếu mọi thứ quá sắp đặt, quá sạch sẽ hoặc quá giống một màn trình diễn, tour có thể mất đi cảm giác thật.</p>
-<p><strong>Bằng chứng.</strong> Các bằng chứng P4 cho thấy một phổ phản ứng: có người cảnh giác mạnh với văn hoá bị trình diễn, có người ưu tiên gặp con người thật, và có người chấp nhận dàn dựng nếu tổ chức chuyên nghiệp, không làm sai lệch văn hoá.</p>
-<p><strong>Hướng xử lý.</strong> MẠCH cần làm rõ đâu là trải nghiệm đời sống thật, đâu là phần được tổ chức để khách dễ tham gia. Nếu người địa phương cũng tự nhiên có mặt hoặc tham gia, cảm giác thật sẽ mạnh hơn.</p>
+<p>Với tour văn hoá, người tham gia khá nhạy với cảm giác diễn cho khách xem. Họ không nhất thiết phản đối việc trải nghiệm được tổ chức lại cho dễ tiếp cận, nhưng nếu mọi thứ quá sắp đặt, quá sạch sẽ hoặc quá giống một màn trình diễn, tour có thể mất đi cảm giác thật.</p>
+<p>Các bằng chứng P4 cho thấy một phổ phản ứng: có người cảnh giác mạnh với văn hoá bị trình diễn, có người ưu tiên gặp con người thật, và có người chấp nhận dàn dựng nếu tổ chức chuyên nghiệp, không làm sai lệch văn hoá.</p>
+<p>MẠCH cần làm rõ đâu là trải nghiệm đời sống thật, đâu là phần được tổ chức để khách dễ tham gia. Nếu người địa phương cũng tự nhiên có mặt hoặc tham gia, cảm giác thật sẽ mạnh hơn.</p>
 </div>
 </section>
 
@@ -228,9 +228,9 @@ print(render_b4_visual(quotes_df, participants_df))
 <h2>IV.B.5. Độ thuyết phục của Nam Định như một điểm đến</h2>
 
 <div class="deck-text">
-<p><strong>Vấn đề hiện tại.</strong> Nam Định chưa có vị trí rõ trong tâm trí nhiều người như một điểm đến du lịch đáng đi. Rào cản này rõ hơn ở nhóm khách chưa quen với du lịch văn hoá, những người cần điểm đến có độ nhận diện trước khi quan tâm đến nội dung tour.</p>
-<p><strong>Bằng chứng.</strong> P5 cho thấy Nam Định không thể chỉ là nơi diễn ra tour. Người tham gia cần thấy vì sao phải là Nam Định, và nơi này có gì đủ hấp dẫn cho một chuyến đi nhiều ngày.</p>
-<p><strong>Hướng xử lý.</strong> MẠCH cần bán Nam Định như một điểm đến có câu chuyện riêng. Truyền thông nên làm rõ các điểm neo dễ hình dung: con người, ẩm thực, làng nghề, tín ngưỡng, nhịp sống địa phương và những góc đẹp cụ thể.</p>
+<p>Nam Định chưa có vị trí rõ trong tâm trí nhiều người như một điểm đến du lịch đáng đi. Rào cản này rõ hơn ở nhóm khách chưa quen với du lịch văn hoá, những người cần điểm đến có độ nhận diện trước khi quan tâm đến nội dung tour.</p>
+<p>P5 cho thấy Nam Định không thể chỉ là nơi diễn ra tour. Người tham gia cần thấy vì sao phải là Nam Định, và nơi này có gì đủ hấp dẫn cho một chuyến đi nhiều ngày.</p>
+<p>MẠCH cần bán Nam Định như một điểm đến có câu chuyện riêng. Truyền thông nên làm rõ các điểm neo dễ hình dung: con người, ẩm thực, làng nghề, tín ngưỡng, nhịp sống địa phương và những góc đẹp cụ thể.</p>
 </div>
 </section>
 
@@ -244,9 +244,9 @@ print(render_b5_visual(quotes_df, participants_df))
 <h2>IV.B.6. Thiên kiến văn hoá Việt thì mình đã biết rồi</h2>
 
 <div class="deck-text">
-<p><strong>Vấn đề hiện tại.</strong> Một rào cản nhỏ nhưng đáng chú ý là một số người Việt không thấy nhu cầu mạnh với tour văn hoá trong nước, vì họ có cảm giác văn hoá Việt là thứ mình đã quen. Khi so với đi nước ngoài, tour văn hoá nội địa dễ bị xem là ít mới lạ hơn nếu không chỉ ra được phần trải nghiệm mà khách thật sự chưa biết hoặc khó tự tiếp cận.</p>
-<p><strong>Bằng chứng.</strong> P6 hiện là tín hiệu sớm, không đủ để kết luận rộng. Tuy vậy, đây là rào cản đáng theo dõi vì nó chạm vào câu hỏi cốt lõi: tour MẠCH khác gì so với tự đi một điểm đến trong nước.</p>
-<p><strong>Hướng xử lý.</strong> MẠCH không nên truyền thông tour như một chuyến khám phá văn hoá Việt quá chung chung. Thay vào đó, cần làm rõ phần khách chưa chắc đã biết: hậu trường tín ngưỡng, câu chuyện làng nghề, bữa ăn tại nhà dân, nhịp sống địa phương và những cuộc gặp với người thật.</p>
+<p>Một rào cản nhỏ nhưng đáng chú ý là một số người Việt không thấy nhu cầu mạnh với tour văn hoá trong nước, vì họ có cảm giác văn hoá Việt là thứ mình đã quen. Khi so với đi nước ngoài, tour văn hoá nội địa dễ bị xem là ít mới lạ hơn nếu không chỉ ra được phần trải nghiệm mà khách thật sự chưa biết hoặc khó tự tiếp cận.</p>
+<p>P6 hiện chỉ có 1 nguồn trong mẫu, là tín hiệu sớm cần theo dõi ở cohort 2, không đủ để kết luận rộng. Tuy vậy, đây là rào cản đáng theo dõi vì nó chạm vào câu hỏi cốt lõi: tour MẠCH khác gì so với tự đi một điểm đến trong nước.</p>
+<p>MẠCH không nên truyền thông tour như một chuyến khám phá văn hoá Việt quá chung chung. Thay vào đó, cần làm rõ phần khách chưa chắc đã biết: hậu trường tín ngưỡng, câu chuyện làng nghề, bữa ăn tại nhà dân, nhịp sống địa phương và những cuộc gặp với người thật.</p>
 </div>
 </section>
 
@@ -260,9 +260,9 @@ print(render_b6_visual(quotes_df, participants_df))
 <h2>IV.B.7. Sức hút với khách nước ngoài / người tò mò văn hoá</h2>
 
 <div class="deck-text">
-<p><strong>Cơ hội hiện tại.</strong> Một số người tham gia cho rằng concept MẠCH có thể hấp dẫn hơn với khách nước ngoài, người nghiên cứu văn hoá Việt, hoặc nhóm người Việt thật sự tò mò về văn hoá. Đây là một cơ hội định vị rõ hơn.</p>
-<p><strong>Bằng chứng.</strong> S1 là giả thuyết vì nhóm khách nước ngoài chưa có mặt trong mẫu. Các nhận định hiện tại là suy đoán của người Việt hoặc góc nhìn ngành, nên không được đọc như demand đã kiểm chứng.</p>
-<p><strong>Cách tận dụng.</strong> MẠCH không nên dùng một thông điệp chung cho tất cả nhóm khách. Có thể thử hai hướng truyền thông riêng: một hướng nhấn vào chiều sâu văn hoá cho khách nước ngoài hoặc người tò mò văn hoá; một hướng mềm hơn cho khách Việt.</p>
+<p>Một số người tham gia cho rằng concept MẠCH có thể hấp dẫn hơn với khách nước ngoài, người nghiên cứu văn hoá Việt, hoặc nhóm người Việt thật sự tò mò về văn hoá. Đây là một cơ hội định vị rõ hơn.</p>
+<p>S1 là giả thuyết vì nhóm khách nước ngoài chưa có mặt trong mẫu. Các nhận định hiện tại là suy đoán của người Việt hoặc góc nhìn ngành, nên không được đọc như demand đã kiểm chứng.</p>
+<p>MẠCH không nên dùng một thông điệp chung cho tất cả nhóm khách. Có thể thử hai hướng truyền thông riêng: một hướng nhấn vào chiều sâu văn hoá cho khách nước ngoài hoặc người tò mò văn hoá; một hướng mềm hơn cho khách Việt.</p>
 </div>
 </section>
 
@@ -276,9 +276,9 @@ print(render_b7_visual(quotes_df, participants_df))
 <h2>IV.B.8. Ẩm thực như điểm vào văn hoá</h2>
 
 <div class="deck-text">
-<p><strong>Cơ hội hiện tại.</strong> Ẩm thực là một điểm vào dễ tiếp cận hơn so với các nội dung văn hoá nặng về kiến thức. Với nhiều người, ăn uống không chỉ là phần phụ của lịch trình, mà là cách nhanh nhất để cảm nhận đời sống địa phương, con người và không khí của điểm đến.</p>
-<p><strong>Bằng chứng.</strong> S2 là tín hiệu có thể khai thác ngay: người tham gia nhắc đến ẩm thực như phần mềm hoá lịch trình, làm tour dễ hình dung hơn và tạo lý do bước vào đời sống địa phương.</p>
-<p><strong>Cách tận dụng.</strong> MẠCH nên dùng ẩm thực như một cửa vào để kéo người tham gia đến gần văn hoá Nam Định hơn, thay vì chỉ xem đây là phần ăn uống trong lịch trình.</p>
+<p>Ẩm thực là một điểm vào dễ tiếp cận hơn so với các nội dung văn hoá nặng về kiến thức. Với nhiều người, ăn uống không chỉ là phần phụ của lịch trình, mà là cách nhanh nhất để cảm nhận đời sống địa phương, con người và không khí của điểm đến.</p>
+<p>S2 là tín hiệu có thể khai thác ngay, dù thiên góc nhìn ngành: người tham gia nhắc đến ẩm thực như phần mềm hoá lịch trình, làm tour dễ hình dung hơn và tạo lý do bước vào đời sống địa phương.</p>
+<p>MẠCH nên dùng ẩm thực như một cửa vào để kéo người tham gia đến gần văn hoá Nam Định hơn, thay vì chỉ xem đây là phần ăn uống trong lịch trình.</p>
 </div>
 </section>
 
@@ -292,9 +292,9 @@ print(render_b8_visual(quotes_df, participants_df))
 <h2>IV.B.9. Sự quan tâm đến yếu tố tín ngưỡng</h2>
 
 <div class="deck-text">
-<p><strong>Cơ hội hiện tại.</strong> Yếu tố tín ngưỡng có thể là một điểm hấp dẫn riêng của tour MẠCH. Tuy nhiên, mức quan tâm này không trải đều ở tất cả nhóm khách và hiện chưa xác nhận được một nhóm giới tính hoặc độ tuổi cụ thể.</p>
-<p><strong>Bằng chứng.</strong> H1 cho thấy khách quan tâm tín ngưỡng là một phạm vi rộng, từ Phật giáo đến Đạo Mẫu và các thực hành văn hoá khác. Quan tâm tín ngưỡng không đồng nghĩa với quan tâm một tour Đạo Mẫu cụ thể.</p>
-<p><strong>Cách tận dụng.</strong> Tín ngưỡng nên được đưa vào như một lớp trải nghiệm sâu cho nhóm phù hợp, với người dẫn đủ tin cậy và ngôn ngữ dễ hiểu. Không nên làm tín ngưỡng trở nên quá bí ẩn hoặc quá học thuật.</p>
+<p>Yếu tố tín ngưỡng có thể là một điểm hấp dẫn riêng của tour MẠCH. Tuy nhiên, mức quan tâm này không trải đều ở tất cả nhóm khách và hiện chưa xác nhận được một nhóm giới tính hoặc độ tuổi cụ thể.</p>
+<p>H1 cho thấy khách quan tâm tín ngưỡng là một phạm vi rộng, từ Phật giáo đến Đạo Mẫu và các thực hành văn hoá khác. Quan tâm tín ngưỡng không đồng nghĩa với quan tâm một tour Đạo Mẫu cụ thể.</p>
+<p>Tín ngưỡng nên được đưa vào như một lớp trải nghiệm sâu cho nhóm phù hợp, với người dẫn đủ tin cậy và ngôn ngữ dễ hiểu. Không nên làm tín ngưỡng trở nên quá bí ẩn hoặc quá học thuật.</p>
 </div>
 </section>
 
