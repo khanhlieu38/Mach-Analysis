@@ -2320,11 +2320,11 @@ _NEEDED_LABELS = {
 }
 
 
-def render_data_placeholder(title, needed):
-    """Render placeholder for visual fields that still need manual coding."""
+def render_data_gap(title, needed):
+    """Render a clear data gap for visual fields that still need manual coding."""
     needed_text = ", ".join(_NEEDED_LABELS.get(col, col) for col in needed)
     return (
-        '<div class="mach-viz mach-viz-placeholder">'
+        '<div class="mach-viz mach-viz-data-gap">'
         f'<strong>{_e(title)}</strong>'
         '<p>Chưa có dữ liệu phân loại, cần Khanh điền trước khi đọc phần này.</p>'
         f'<p><small>Trường cần điền: {html.escape(needed_text, quote=True)}</small></p>'
@@ -2391,7 +2391,7 @@ def render_pattern_matrix(participants_df, quotes_df):
 def render_wtp_plot(participants_df):
     needed = ["wtp_min", "wtp_max"]
     if not _has_values(participants_df, needed):
-        return render_data_placeholder("Vùng giá có thể chấp nhận", needed)
+        return render_data_gap("Vùng giá có thể chấp nhận", needed)
     rows = []
     df = participants_df.sort_values("pid")
     for _, row in df.iterrows():
@@ -2409,7 +2409,7 @@ def render_behaviour_matrix(participants_df):
         "cares_about_authenticity",
     ]
     if not _has_values(participants_df, needed):
-        return render_data_placeholder("Ma trận hành vi du lịch", needed)
+        return render_data_gap("Ma trận hành vi du lịch", needed)
     rows = []
     for col in needed:
         s = participants_df[col].fillna("").astype(str).str.strip().str.lower()
@@ -2420,7 +2420,7 @@ def render_behaviour_matrix(participants_df):
 def render_interest_plot(participants_df):
     needed = ["interest_score"]
     if not _has_values(participants_df, needed):
-        return render_data_placeholder("Điểm quan tâm đến chuyến đi", needed)
+        return render_data_gap("Điểm quan tâm đến chuyến đi", needed)
     rows = []
     for _, row in participants_df.sort_values("pid").iterrows():
         if pd.notna(row.get("interest_score")) and str(row.get("interest_score")).strip():
@@ -2431,7 +2431,7 @@ def render_interest_plot(participants_df):
 def render_sustainability_buckets(participants_df):
     needed = ["sustainability_awareness"]
     if not _has_values(participants_df, needed):
-        return render_data_placeholder("Mức quen thuộc với du lịch bền vững", needed)
+        return render_data_gap("Mức quen thuộc với du lịch bền vững", needed)
     counts = participants_df["sustainability_awareness"].fillna("").astype(str).str.strip()
     counts = counts[counts != ""].value_counts()
     rows = [(label, int(count)) for label, count in counts.items()]
@@ -2441,7 +2441,7 @@ def render_sustainability_buckets(participants_df):
 def render_archetype_scatter(participants_df):
     needed = ["price_sensitivity", "cultural_depth_interest"]
     if not _has_values(participants_df, needed):
-        return render_data_placeholder("Bản đồ nhóm khách theo giá và chiều sâu văn hoá", needed)
+        return render_data_gap("Bản đồ nhóm khách theo giá và chiều sâu văn hoá", needed)
     rows = []
     for _, row in participants_df.sort_values("pid").iterrows():
         price = row.get("price_sensitivity", "")
@@ -2449,3 +2449,597 @@ def render_archetype_scatter(participants_df):
         if str(price).strip() or str(depth).strip():
             rows.append((row["pid"], price, depth))
     return _md_table(["Mã người tham gia", "Nhạy cảm với giá", "Quan tâm chiều sâu văn hoá"], rows)
+
+
+# ----------------------------------------------------------------- deck report helpers
+
+_DECK_PATTERN_LABELS = {
+    "P1": ("Trải nghiệm còn thụ động", "Cao"),
+    "P2": ("Phụ thuộc vào người đi cùng", "Cao"),
+    "P3": ("Lệch định vị khách hàng", "Trung bình"),
+    "P4": ("Lo ngại về tính chân thực", "Trung bình"),
+    "P5": ("Độ thuyết phục của Nam Định", "Trung bình"),
+    "P6": ("Thiên kiến văn hoá Việt đã quen", "Tín hiệu sớm"),
+    "S1": ("Sức hút với khách nước ngoài / người tò mò văn hoá", "Giả thuyết"),
+    "S2": ("Ẩm thực như điểm vào văn hoá", "Trung bình"),
+    "H1": ("Khách quan tâm tín ngưỡng", "Giả thuyết"),
+}
+
+_SUSTAINABILITY_LABELS = {
+    "chua_quen": "Chưa quen",
+    "da_nghe_chua_ro": "Đã nghe nhưng chưa rõ",
+    "hieu_ro_hon": "Hiểu rõ hơn",
+}
+
+
+def _deck_h(value):
+    return html.escape("" if value is None else str(value), quote=True)
+
+
+def _deck_num(value):
+    if value is None or (isinstance(value, float) and pd.isna(value)):
+        return ""
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return str(value)
+    if number.is_integer():
+        return str(int(number))
+    return str(number).replace(".", ",")
+
+
+def _deck_bool_count(participants_df, column):
+    if column not in participants_df.columns:
+        return 0
+    values = participants_df[column].fillna("").astype(str).str.strip().str.lower()
+    return int(values.isin(["true", "1", "yes", "co", "có"]).sum())
+
+
+def _deck_metric(icon, value, label, detail=""):
+    return (
+        '<article class="deck-metric">'
+        f'<span class="deck-icon"><i class="bi bi-{_deck_h(icon)}"></i></span>'
+        f'<strong>{_deck_h(value)}</strong>'
+        f'<span>{_deck_h(label)}</span>'
+        f'<small>{_deck_h(detail)}</small>'
+        '</article>'
+    )
+
+
+def _deck_info_pill(icon, label, value):
+    return (
+        '<div class="deck-info-pill">'
+        f'<i class="bi bi-{_deck_h(icon)}"></i>'
+        f'<span>{_deck_h(label)}</span>'
+        f'<strong>{_deck_h(value)}</strong>'
+        '</div>'
+    )
+
+
+def _deck_takeaway(text):
+    return (
+        '<div class="deck-takeaway">'
+        '<span class="deck-takeaway-icon"><i class="bi bi-lightbulb"></i></span>'
+        f'<p><strong>Takeaway chính:</strong> {_deck_h(text)}</p>'
+        '</div>'
+    )
+
+
+def _deck_note(text):
+    return (
+        '<div class="deck-note">'
+        '<span class="deck-note-icon"><i class="bi bi-info-circle"></i></span>'
+        f'<p><strong>Lưu ý:</strong> {_deck_h(text)}</p>'
+        '</div>'
+    )
+
+
+def _deck_bar(label, count, total, icon="bar-chart-fill"):
+    total = max(int(total), 1)
+    count = int(count)
+    width = max(4, min(100, round(count / total * 100)))
+    return (
+        '<div class="deck-bar-row">'
+        f'<i class="bi bi-{_deck_h(icon)}"></i>'
+        f'<span>{_deck_h(label)}</span>'
+        '<div class="deck-bar-track">'
+        f'<div class="deck-bar-fill" style="width:{width}%"></div>'
+        '</div>'
+        f'<strong>{count}/{total}</strong>'
+        '</div>'
+    )
+
+
+def _deck_step(icon, title, text):
+    return (
+        '<article class="deck-step">'
+        f'<span class="deck-icon"><i class="bi bi-{_deck_h(icon)}"></i></span>'
+        f'<h4>{_deck_h(title)}</h4>'
+        f'<p>{_deck_h(text)}</p>'
+        '</article>'
+    )
+
+
+def _deck_card(icon, title, text, tone="plain"):
+    return (
+        f'<article class="deck-card deck-card-{_deck_h(tone)}">'
+        f'<span class="deck-icon"><i class="bi bi-{_deck_h(icon)}"></i></span>'
+        f'<h4>{_deck_h(title)}</h4>'
+        f'<p>{_deck_h(text)}</p>'
+        '</article>'
+    )
+
+
+def _deck_page_header(title, subtitle):
+    return (
+        '<div class="deck-page-header">'
+        f'<h2>{_deck_h(title)}</h2>'
+        f'<p>{_deck_h(subtitle)}</p>'
+        '</div>'
+    )
+
+
+def render_cover_stats(participants_df, quotes_df, records_df):
+    n = len(participants_df)
+    return (
+        '<div class="deck-cover-stats">'
+        + _deck_metric("people-fill", n, "Người tham gia")
+        + _deck_metric("file-earmark-text", len(records_df), "Quote / record entries")
+        + _deck_metric("chat-square-quote", len(quotes_df), "Bằng chứng chọn lọc")
+        + _deck_metric("clipboard-data", "Định tính", "Convenience sample")
+        + '</div>'
+        + _deck_note(
+            "Đây là qualitative convenience sample, dùng để phát hiện tín hiệu và giả thuyết, không đại diện thị trường."
+        )
+    )
+
+
+def render_sample_deck_visual(participants_df, quotes_df, records_df):
+    n = len(participants_df)
+    exp = participants_df["experience"].fillna("").astype(str).value_counts().to_dict()
+    lens = participants_df["lens"].fillna("").astype(str).value_counts().to_dict()
+    rows = [
+        _deck_metric("people-fill", n, "Người tham gia", "P-code only"),
+        _deck_metric("file-earmark-text", len(records_df), "Quote / record entries", "full compiled record"),
+        _deck_metric("collection", len(quotes_df), "Bằng chứng chọn lọc", "quotes.csv"),
+        _deck_metric("compass", exp.get("chua_tung", 0), "Chưa / ít kinh nghiệm", "du lịch văn hoá"),
+        _deck_metric("map", exp.get("da_tung", 0), "Đã có kinh nghiệm", "hoặc định hướng văn hoá"),
+        _deck_metric("person-badge", lens.get("industry", 0) + lens.get("lead_user", 0), "Góc nhìn chuyên môn", "annotation, không loại khỏi mẫu"),
+    ]
+    return (
+        '<section class="deck-slide deck-visual">'
+        + _deck_page_header("III. Thông tin dữ liệu", "Tổng quan mẫu phỏng vấn")
+        + '<div class="deck-metric-grid">' + "".join(rows) + '</div>'
+        + '<div class="deck-two-col">'
+        '<div class="deck-panel"><h3>Nhóm kinh nghiệm</h3>'
+        + _deck_bar("Chưa hoặc ít kinh nghiệm", exp.get("chua_tung", 0), n, "person-walking")
+        + _deck_bar("Đã có kinh nghiệm", exp.get("da_tung", 0), n, "backpack")
+        + '</div>'
+        '<div class="deck-panel"><h3>Lens khi diễn giải</h3>'
+        + _deck_bar("Khách tiềm năng", lens.get("customer", 0), n, "person")
+        + _deck_bar("Ngành / chuyên môn", lens.get("industry", 0), n, "briefcase")
+        + _deck_bar("Lead user", lens.get("lead_user", 0), n, "star")
+        + '</div></div>'
+        + _deck_note("Tất cả tỷ lệ dùng mẫu số đầy đủ; lens ngành chỉ là chú thích khi diễn giải.")
+        + '</section>'
+    )
+
+
+def _deck_wtp_band_counts(participants_df):
+    df = participants_df.copy()
+    mins = pd.to_numeric(df.get("wtp_min"), errors="coerce")
+    maxs = pd.to_numeric(df.get("wtp_max"), errors="coerce")
+    coded = df[mins.notna() | maxs.notna()].copy()
+    mins = pd.to_numeric(coded.get("wtp_min"), errors="coerce")
+    maxs = pd.to_numeric(coded.get("wtp_max"), errors="coerce")
+    return [
+        ("3-5 triệu", int(((maxs <= 5) & maxs.notna()).sum()), "Vùng thấp được chấp nhận khi chất lượng rõ"),
+        ("5-8 triệu", int(((mins <= 8) & (maxs > 5) & (maxs <= 8)).sum()), "Vùng được nhắc nhiều trong dữ liệu mã hoá"),
+        ("8-10 triệu", int(((maxs > 8) & (maxs <= 10)).sum()), "Có thể cân nhắc nếu dịch vụ rõ"),
+        ("Chưa mã hoá", int(len(df) - len(coded)), "Không hỏi trực tiếp hoặc transcript mơ hồ"),
+    ]
+
+
+def render_decision_deck_visual(participants_df):
+    n = len(participants_df)
+    factors = [
+        ("Tự do lịch trình", _deck_bool_count(participants_df, "prefers_selftour"), "calendar-week"),
+        ("Người đi cùng", _deck_bool_count(participants_df, "companion_dependent"), "people-fill"),
+        ("Cảm giác đáng tiền", _deck_bool_count(participants_df, "price_sensitive"), "tag"),
+        ("Trải nghiệm hơn nghỉ dưỡng", _deck_bool_count(participants_df, "experience_over_resort"), "activity"),
+        ("Tính chân thực", _deck_bool_count(participants_df, "cares_about_authenticity"), "shield-check"),
+    ]
+    wtp_cards = []
+    for idx, (label, count, detail) in enumerate(_deck_wtp_band_counts(participants_df), start=1):
+        wtp_cards.append(
+            '<article class="deck-price-row">'
+            f'<span>{idx}</span><strong>{_deck_h(label)}</strong>'
+            f'<p>{count} người - {_deck_h(detail)}</p>'
+            '</article>'
+        )
+    return (
+        '<section class="deck-slide deck-visual">'
+        + _deck_page_header("IV.A. Hành vi du lịch và yếu tố ra quyết định", "Cách người tham gia chọn một chuyến đi")
+        + '<div class="deck-two-col">'
+        '<div class="deck-panel"><h3>Yếu tố ảnh hưởng quyết định du lịch</h3>'
+        + "".join(_deck_bar(label, count, n, icon) for label, count, icon in factors)
+        + '</div>'
+        '<div class="deck-panel"><h3>Vùng giá được mã hoá cho tour</h3>'
+        '<div class="deck-price-list">'
+        + "".join(wtp_cards)
+        + '</div></div></div>'
+        + _deck_takeaway("Tour không cần rẻ nhất. Tour cần chứng minh rõ vì sao đáng tiền.")
+        + _deck_note("Các band giá chỉ dùng các dòng WTP đã mã hoá rõ; trường hợp mơ hồ được để riêng.")
+        + '</section>'
+    )
+
+
+def _deck_pattern_snapshot(pattern_id, quotes_df, participants_df):
+    occ = pattern_occurrence(pattern_id, quotes_df, participants_df)
+    quote_count = int((quotes_df["pattern_id"] == pattern_id).sum())
+    lens = pattern_lens_breakdown(pattern_id, quotes_df, participants_df)
+    label, confidence = _DECK_PATTERN_LABELS[pattern_id]
+    lens_text = []
+    if lens["customer"]:
+        lens_text.append(f'{lens["customer"]} khách')
+    if lens["industry"]:
+        lens_text.append(f'{lens["industry"]} ngành')
+    if lens["lead_user"]:
+        lens_text.append(f'{lens["lead_user"]} lead user')
+    lens_note = " / ".join(lens_text) if lens_text else "chưa có lens"
+    if lens["industry_leaning"]:
+        lens_note += " - thiên góc nhìn ngành"
+    return (
+        '<div class="deck-snapshot">'
+        + _deck_info_pill("people-fill", "Tần suất", f'{occ["count"]}/{occ["total"]}')
+        + _deck_info_pill("chat-square-quote", "Evidence", f"{quote_count} dòng")
+        + _deck_info_pill("shield-check", "Độ tin cậy", confidence)
+        + _deck_info_pill("diagram-3", "Lens", lens_note)
+        + '</div>'
+    )
+
+
+def _deck_pattern_visual(pattern_id, title, subtitle, insight_cards, action_steps, takeaway, note=None):
+    return (
+        '<section class="deck-slide deck-visual deck-pattern-slide">'
+        + _deck_page_header(title, subtitle)
+        + _deck_pattern_snapshot(pattern_id, _deck_current_quotes, _deck_current_participants)
+        + '<div class="deck-two-col deck-pattern-body">'
+        '<div class="deck-panel"><h3>Tín hiệu chính trong mẫu</h3>'
+        '<div class="deck-card-grid">'
+        + "".join(insight_cards)
+        + '</div></div>'
+        '<div class="deck-panel"><h3>Hướng xử lý</h3>'
+        '<div class="deck-flow">'
+        + "".join(action_steps)
+        + '</div></div></div>'
+        + _deck_takeaway(takeaway)
+        + (_deck_note(note) if note else _deck_note("Đây là qualitative convenience sample, dùng để phát hiện tín hiệu và giả thuyết."))
+        + '</section>'
+    )
+
+
+def _deck_bind(quotes_df, participants_df):
+    # Quarto calls one helper per chunk; this tiny binding avoids passing the same
+    # dataframes through every nested HTML builder.
+    global _deck_current_quotes, _deck_current_participants
+    _deck_current_quotes = quotes_df
+    _deck_current_participants = participants_df
+
+
+def render_b1_visual(quotes_df, participants_df):
+    _deck_bind(quotes_df, participants_df)
+    return _deck_pattern_visual(
+        "P1",
+        "IV.B.1. Trải nghiệm còn thụ động",
+        "Phản ứng với concept tour MẠCH",
+        [
+            _deck_card("ear", "Thiên về nghe và quan sát", "Phần trải nghiệm chưa đủ rõ.", "blue"),
+            _deck_card("hand-index", "Ít hoạt động trực tiếp", "Thiếu phần chạm, làm và tham gia.", "teal"),
+            _deck_card("book", "Nhiều kiến thức, dễ mệt", "Lịch trình có thể gây ngợp.", "plain"),
+            _deck_card("mortarboard", "Dễ giống hoạt động học tập", "Khó tạo cảm giác của một chuyến đi.", "plain"),
+        ],
+        [
+            _deck_step("hand-index", "Tăng hoạt động chạm tay", "Workshop, làm nghề, trải nghiệm trực tiếp."),
+            _deck_step("house-heart", "Đưa khách vào đời sống địa phương", "Ăn cùng nhà dân, trò chuyện, sinh hoạt thật."),
+            _deck_step("bicycle", "Tăng hoạt động di chuyển nhẹ", "Đạp xe, đi bộ, khám phá theo nhịp tự nhiên."),
+            _deck_step("chat-dots", "Giảm cảm giác hàn lâm", "Ít giảng giải dài, nhiều tương tác hơn."),
+        ],
+        "Tour cần chuyển từ nghe về văn hoá sang trực tiếp chạm vào văn hoá.",
+    )
+
+
+def render_b2_visual(quotes_df, participants_df):
+    _deck_bind(quotes_df, participants_df)
+    return _deck_pattern_visual(
+        "P2",
+        "IV.B.2. Phụ thuộc vào người đi cùng",
+        "Phản ứng với concept tour MẠCH",
+        [
+            _deck_card("people", "Người quen cùng gu", "Dễ book nhất khi có bạn bè hoặc người thân cùng quan tâm.", "teal"),
+            _deck_card("person-lines-fill", "Người lạ cùng gu", "Có thể thử nếu format nhóm nhỏ và an toàn.", "blue"),
+            _deck_card("emoji-neutral", "Người quen không cùng gu", "Cần lý do rõ hơn để rủ đi.", "amber"),
+            _deck_card("exclamation-triangle", "Người lạ không cùng gu", "Rủi ro ngại, xa lạ và gượng ép.", "red"),
+        ],
+        [
+            _deck_step("people-fill", "Thiết kế gói nhóm nhỏ", "Gói 2-4 người, gia đình nhỏ, nhóm bạn cùng mối quan tâm."),
+            _deck_step("megaphone", "Truyền thông không khí tour", "Thân mật, an toàn, dễ trò chuyện và chia sẻ trải nghiệm."),
+            _deck_step("heart", "Không ép tương tác", "Tương tác vừa đủ, không tạo cảm giác bị bắt buộc."),
+        ],
+        "Tour văn hoá không chỉ bán cho một cá nhân. Nó cần tạo lý do để một nhóm nhỏ cùng muốn đi.",
+        "P2 có ngoại lệ P03 và P07 thoải mái hơn với việc đi độc lập; không diễn giải như rào cản tuyệt đối.",
+    )
+
+
+def render_b3_visual(quotes_df, participants_df):
+    _deck_bind(quotes_df, participants_df)
+    return _deck_pattern_visual(
+        "P3",
+        "IV.B.3. Lệch định vị khách hàng",
+        "Phản ứng với concept tour MẠCH",
+        [
+            _deck_card("mortarboard", "Giống học tập / nghiên cứu", "Một số phản hồi thấy concept hơi hàn lâm.", "blue"),
+            _deck_card("question-circle", "Chưa rõ tour dành cho ai", "Người đọc khó tự nhận mình là khách phù hợp.", "plain"),
+            _deck_card("person-x", "Tự loại mình khỏi tour", "Có người thấy tour hợp với người khác hơn.", "plain"),
+            _deck_card("person-check", "Tự nhận phù hợp", "Một nhóm khác lại thấy mình có thể là target.", "teal"),
+        ],
+        [
+            _deck_step("sparkles", "Chuyển từ học sang trải nghiệm", "Mở bằng đời sống thật, con người, ẩm thực, hoạt động."),
+            _deck_step("bullseye", "Nói rõ ai sẽ thích tour", "Định vị theo attitude và bối cảnh đi cùng, không chỉ theo tuổi."),
+            _deck_step("image", "Cho thấy trải nghiệm trước chữ", "Visual proof giúp người xem tự hình dung nhanh hơn."),
+        ],
+        "Concept cần giúp người đọc nhận ra tour này dành cho mình trong vài giây đầu.",
+        "P3 có phản ứng trái chiều: cùng một concept tạo cả self-include lẫn self-exclude.",
+    )
+
+
+def render_b4_visual(quotes_df, participants_df):
+    _deck_bind(quotes_df, participants_df)
+    return _deck_pattern_visual(
+        "P4",
+        "IV.B.4. Lo ngại về tính chân thực",
+        "Phản ứng với concept tour MẠCH",
+        [
+            _deck_card("mask", "Sợ bị diễn cho khách xem", "Khách nhạy với cảm giác mọi thứ bị sắp đặt quá mức.", "blue"),
+            _deck_card("person-heart", "Ưu tiên con người thật", "Đời sống và người địa phương là dấu hiệu quan trọng.", "teal"),
+            _deck_card("check-circle", "Chấp nhận tổ chức có chủ đích", "Dàn dựng không xấu nếu không làm sai lệch văn hoá.", "plain"),
+            _deck_card("sliders", "Cần cân bằng", "Không phải nguyên bản tuyệt đối, mà đủ thật để không mất cảm giác sống.", "amber"),
+        ],
+        [
+            _deck_step("signpost", "Nói rõ đâu là đời sống thật", "Tách phần tự nhiên với phần được tổ chức cho khách tham gia."),
+            _deck_step("people", "Đặt người địa phương ở trung tâm", "Để khách gặp con người, không chỉ xem tiết mục."),
+            _deck_step("shield-check", "Giữ tính đúng đắn văn hoá", "Không biến tấu làm lệch nghĩa của thực hành văn hoá."),
+        ],
+        "Khách không đòi trải nghiệm hoàn toàn nguyên bản. Họ cần cảm giác thật, không bị diễn quá mức.",
+    )
+
+
+def render_b5_visual(quotes_df, participants_df):
+    _deck_bind(quotes_df, participants_df)
+    return _deck_pattern_visual(
+        "P5",
+        "IV.B.5. Độ thuyết phục của Nam Định",
+        "Phản ứng với concept tour MẠCH",
+        [
+            _deck_card("geo-alt", "Nam Định chưa là điểm đến rõ", "Một số người chưa thấy lý do đủ mạnh để đi.", "blue"),
+            _deck_card("search", "Cần key selling point", "Người xem cần thấy điểm neo cụ thể: cảnh, người, ẩm thực, làng nghề.", "teal"),
+            _deck_card("arrow-left-right", "Bị so sánh với lựa chọn khác", "Cùng ngân sách, khách cân nhắc điểm đến nổi tiếng hơn.", "amber"),
+            _deck_card("camera", "Cần bằng chứng trực quan", "Ảnh, video và khoảnh khắc cụ thể giúp Nam Định dễ hình dung hơn.", "plain"),
+        ],
+        [
+            _deck_step("map", "Bán Nam Định trước", "Không chỉ nói tour diễn ra ở Nam Định."),
+            _deck_step("stars", "Tạo khoảnh khắc đáng nhớ", "Cần ít nhất một lý do khiến khách thấy nơi này đáng đi."),
+            _deck_step("camera-video", "Chứng minh bằng visual", "Cho thấy con người, món ăn, làng nghề, nhịp sống và góc đẹp."),
+        ],
+        "Trước khi bán tour MẠCH, cần bán được lý do vì sao Nam Định đáng đi.",
+    )
+
+
+def render_b6_visual(quotes_df, participants_df):
+    _deck_bind(quotes_df, participants_df)
+    return _deck_pattern_visual(
+        "P6",
+        "IV.B.6. Thiên kiến văn hoá Việt thì mình đã biết rồi",
+        "Tín hiệu ban đầu",
+        [
+            _deck_card("house", "Văn hoá Việt bị xem là quen", "Một số người không thấy nhu cầu khám phá nội địa quá chung chung.", "amber"),
+            _deck_card("person-walking", "Tự đi được", "Nếu khác biệt không rõ, tour bị so với phương án tự túc.", "blue"),
+            _deck_card("binoculars", "Cần chỉ ra phần khó tự tiếp cận", "Hậu trường tín ngưỡng, làng nghề, bữa ăn và gặp người thật.", "teal"),
+        ],
+        [
+            _deck_step("gem", "Không nói chung chung", "Tránh chỉ gọi là khám phá văn hoá Việt."),
+            _deck_step("door-open", "Mở phần khách chưa biết", "Đưa khách vào lớp trải nghiệm khó tự vào."),
+            _deck_step("clipboard-check", "Đo lại trong pilot", "Theo dõi xem rào cản này xuất hiện ở nhóm nào."),
+        ],
+        "Điểm bán không phải văn hoá Việt nói chung, mà là phần khách khó tự chạm tới.",
+    )
+
+
+def render_b7_visual(quotes_df, participants_df):
+    _deck_bind(quotes_df, participants_df)
+    return _deck_pattern_visual(
+        "S1",
+        "IV.B.7. Sức hút với khách nước ngoài / người tò mò văn hoá",
+        "Cơ hội và giả thuyết cần kiểm chứng",
+        [
+            _deck_card("globe2", "Khách nước ngoài là nhóm vắng mặt", "Hiện mới là suy đoán từ người Việt trong mẫu.", "amber"),
+            _deck_card("translate", "Người học văn hoá Việt", "Có thể hấp dẫn với nhóm muốn hiểu sâu, không chỉ check-in.", "blue"),
+            _deck_card("compass", "Người Việt tò mò văn hoá", "Cần cách kể dễ tiếp cận hơn nếu nhắm khách Việt.", "teal"),
+        ],
+        [
+            _deck_step("signpost-split", "Tách thông điệp theo nhóm", "Không dùng một thông điệp cho tất cả."),
+            _deck_step("passport", "Dành slot pilot để kiểm chứng", "Cần dữ liệu trực tiếp từ khách nước ngoài."),
+            _deck_step("chat-left-text", "Viết bản kể dễ hiểu", "Bản cho khách Việt nên bắt đầu từ đời sống, ẩm thực và con người."),
+        ],
+        "Khách nước ngoài là cơ hội đáng test, chưa phải kết luận demand.",
+        "S1 thiên về góc nhìn ngành và nhóm vắng mặt; không nâng thành kết luận thị trường.",
+    )
+
+
+def render_b8_visual(quotes_df, participants_df):
+    _deck_bind(quotes_df, participants_df)
+    return _deck_pattern_visual(
+        "S2",
+        "IV.B.8. Ẩm thực như điểm vào văn hoá",
+        "Cơ hội có thể tận dụng ngay",
+        [
+            _deck_card("egg-fried", "Ẩm thực là cửa vào mềm", "Dễ tiếp cận hơn nội dung văn hoá nặng kiến thức.", "teal"),
+            _deck_card("house-heart", "Bữa ăn tại nhà dân", "Ăn uống có thể kéo khách vào đời sống địa phương.", "blue"),
+            _deck_card("chat-dots", "Câu chuyện sau món ăn", "Món ăn nên đi cùng người nấu, bối cảnh và ký ức địa phương.", "plain"),
+        ],
+        [
+            _deck_step("utensils", "Đưa ẩm thực thành điểm nhấn", "Không để nó chỉ là logistics bữa ăn."),
+            _deck_step("person-hearts", "Gắn với người địa phương", "Ai nấu, ăn ở đâu, câu chuyện nào phía sau món ăn."),
+            _deck_step("camera", "Dùng làm visual hook", "Hình ảnh món ăn làm tour mềm và dễ hình dung hơn."),
+        ],
+        "Ẩm thực có thể làm phần văn hoá sâu trở nên mềm hơn, đời thường hơn và dễ bước vào hơn.",
+    )
+
+
+def render_b9_visual(quotes_df, participants_df):
+    _deck_bind(quotes_df, participants_df)
+    return _deck_pattern_visual(
+        "H1",
+        "IV.B.9. Sự quan tâm đến yếu tố tín ngưỡng",
+        "Tín hiệu ban đầu",
+        [
+            _deck_card("flower1", "Quan tâm tín ngưỡng là phạm vi rộng", "Không chỉ Đạo Mẫu và không gắn với một giới tính.", "amber"),
+            _deck_card("shield-check", "Cần vùng an toàn", "Chủ đề tâm linh dễ tạo phòng bị nếu kể quá bí ẩn.", "blue"),
+            _deck_card("person-badge", "Cần người dẫn đủ tin cậy", "Người dẫn phải giúp khách hiểu, hỏi và tiếp nhận theo nhịp của mình.", "teal"),
+        ],
+        [
+            _deck_step("layers", "Đặt tín ngưỡng là lớp chiều sâu", "Không biến thành thông điệp chính cho toàn bộ thị trường."),
+            _deck_step("chat-heart", "Kể bằng ngôn ngữ dễ hiểu", "Gắn với con người, đời sống và câu chuyện địa phương."),
+            _deck_step("clipboard-data", "Đo phản ứng trong pilot", "Theo dõi ai thật sự hứng thú sau khi trải nghiệm."),
+        ],
+        "Tín ngưỡng nên là lớp trải nghiệm sâu cho nhóm phù hợp, không phải nhãn bán hàng đại trà.",
+        "Dùng thuật ngữ khách quan tâm tín ngưỡng; không dùng nhãn giới tính hoá.",
+    )
+
+
+def render_sustainability_deck_visual(participants_df):
+    counts_raw = participants_df["sustainability_awareness"].fillna("").astype(str).str.strip()
+    counts = counts_raw[counts_raw != ""].value_counts().to_dict()
+    total_coded = sum(counts.values())
+    cards = [
+        _deck_card("question-circle", "Chưa quen", "Chưa từng nghe hoặc chỉ đoán liên quan đến môi trường.", "plain"),
+        _deck_card("newspaper", "Đã nghe nhưng chưa rõ", "Biết qua báo chí hoặc internet nhưng thấy còn lý thuyết.", "blue"),
+        _deck_card("people", "Hiểu rõ hơn", "Liên hệ với cộng đồng, bảo tồn văn hoá và phân bổ lợi ích.", "teal"),
+    ]
+    bars = []
+    for key, label in _SUSTAINABILITY_LABELS.items():
+        bars.append(_deck_bar(label, counts.get(key, 0), max(total_coded, 1), "leaf"))
+    return (
+        '<section class="deck-slide deck-visual">'
+        + _deck_page_header("IV.C. Mức độ quen thuộc với du lịch bền vững", "Hiểu về khái niệm trong nhóm phỏng vấn")
+        + '<div class="deck-two-col">'
+        '<div class="deck-panel"><h3>Mức độ quen thuộc</h3><div class="deck-card-grid">'
+        + "".join(cards)
+        + '</div></div>'
+        '<div class="deck-panel"><h3>Số người đã mã hoá</h3>'
+        + "".join(bars)
+        + '</div></div>'
+        + '<div class="deck-flow">'
+        + _deck_step("person-heart", "Với khách mua lẻ", "Không nên dùng thuật ngữ quá sớm; chuyển thành lợi ích cụ thể.")
+        + _deck_step("briefcase", "Với đối tác tổ chức", "Có thể dùng trực tiếp hơn nếu họ quen ngôn ngữ phát triển cộng đồng.")
+        + _deck_step("bullseye", "Trong pilot", "Đo xem khách có hiểu bền vững qua trải nghiệm thật hay không.")
+        + '</div>'
+        + _deck_takeaway("Bền vững nên là nguyên tắc thiết kế và lớp ý nghĩa sau trải nghiệm, không phải thuật ngữ đầu tiên để bán tour.")
+        + _deck_note("Chỉ hiển thị các participant đã có mã hoá sustainability_awareness.")
+        + '</section>'
+    )
+
+
+def render_archetype_deck_visual(participants_df):
+    n = len(participants_df)
+    cards = [
+        _deck_card("people-fill", "1. Nhóm gia đình / ưu tiên tiện nghi", "Dấu hiệu: an toàn, thoải mái, lịch trình nhẹ. MẠCH nên nhấn dịch vụ rõ, người dẫn tin cậy và cảm giác đáng tiền.", "blue"),
+        _deck_card("chat-dots", "2. Nhóm tò mò văn hoá nhưng cần người đi cùng", "Dấu hiệu: có hứng thú nhưng khó tự book. MẠCH nên nhấn gói nhóm nhỏ và không khí thân mật.", "teal"),
+        _deck_card("backpack", "3. Nhóm thích tự khám phá và trải nghiệm thật", "Dấu hiệu: thích đời sống thật, ghét dàn dựng. MẠCH cần chứng minh khác biệt so với tự đi.", "plain"),
+        _deck_card("heart", "4. Nhóm quan tâm cộng đồng / chiều sâu văn hoá", "Dấu hiệu: quan tâm văn hoá, cộng đồng, bền vững. MẠCH nên nhấn chiều sâu và vai trò địa phương.", "teal"),
+        _deck_card("globe2", "Nhóm cần test riêng trong pilot", "Khách nước ngoài / người tò mò văn hoá Việt. Hiện chưa có dữ liệu trực tiếp từ nhóm này.", "amber"),
+        _deck_card("person-badge", "Expert / industry voices", "Không phải persona chính; phù hợp hơn với cố vấn sản phẩm, đối tác triển khai và kiểm tra chất lượng.", "plain"),
+    ]
+    return (
+        '<section class="deck-slide deck-visual">'
+        + _deck_page_header("IV.D. Nhóm khách hàng mục tiêu", "Archetype tạm thời từ dữ liệu phỏng vấn")
+        + '<div class="deck-topline">'
+        + _deck_info_pill("people-fill", "Sample", f"N={n}")
+        + _deck_info_pill("clipboard-data", "Loại dữ liệu", "qualitative interviews")
+        + _deck_info_pill("info-circle", "Lưu ý", "convenience sample")
+        + '</div>'
+        + '<div class="deck-card-grid deck-archetype-grid">' + "".join(cards) + '</div>'
+        + _deck_takeaway("MẠCH chưa cần chốt một persona duy nhất. Pilot nên kiểm chứng nhóm nào vừa thích tour, vừa sẵn sàng trả tiền, vừa muốn giới thiệu lại.")
+        + '</section>'
+    )
+
+
+def render_concept_advantage_visual(participants_df, quotes_df):
+    return (
+        '<section class="deck-slide deck-visual">'
+        + _deck_page_header("V.1. Những điểm concept đang có lợi thế", "Kết luận từ nghiên cứu trước pilot")
+        + '<div class="deck-card-grid">'
+        + _deck_card("people", "Gặp người", "Concept có cơ hội chạm vào nhu cầu hiểu con người và đời sống địa phương.", "teal")
+        + _deck_card("bicycle", "Hoạt động địa phương", "Các hoạt động trực tiếp giúp tour khác với việc đọc hoặc nghe kiến thức.", "blue")
+        + _deck_card("egg-fried", "Ẩm thực", "Ẩm thực là điểm vào mềm để kéo khách đến gần văn hoá.", "teal")
+        + _deck_card("gem", "Làng nghề", "Làng nghề và sinh hoạt thật có thể tạo lý do khác biệt.", "plain")
+        + _deck_card("building", "Tín ngưỡng", "Tín ngưỡng là lớp chiều sâu nếu kể an toàn và dễ hiểu.", "amber")
+        + _deck_card("house-heart", "Cộng đồng", "Vai trò địa phương giúp concept có ý nghĩa hơn tour đại trà.", "teal")
+        + '</div>'
+        + '<div class="deck-flow">'
+        + _deck_step("hand-index", "Trực tiếp chạm tay", "Tăng phần làm, ăn, gặp và di chuyển nhẹ.")
+        + _deck_step("map", "Làm rõ Nam Định đáng đi", "Cần điểm neo cụ thể về người, nơi và khoảnh khắc.")
+        + _deck_step("people-fill", "Thiết kế cho nhóm nhỏ", "Bán trải nghiệm đi cùng bạn bè, người thân hoặc người cùng gu.")
+        + '</div>'
+        + _deck_takeaway("Lợi thế của MẠCH là chiều sâu; điều cần làm là chuyển chiều sâu thành trải nghiệm cụ thể, dễ hiểu và đáng tiền.")
+        + '</section>'
+    )
+
+
+def render_limitations_visual(participants_df):
+    return (
+        '<section class="deck-slide deck-visual">'
+        + _deck_page_header("V.2. Giới hạn của nghiên cứu", "Điều cần nhớ khi đọc kết quả nghiên cứu")
+        + '<div class="deck-card-grid">'
+        + _deck_card("pie-chart", "Không đại diện thị trường", f"{len(participants_df)} phỏng vấn định tính, dùng để phát hiện tín hiệu.", "blue")
+        + _deck_card("people", "Mẫu có chủ đích", "Một số người có nền tảng liên quan đến văn hoá, cộng đồng hoặc du lịch.", "plain")
+        + _deck_card("globe2", "Chưa có dữ liệu trực tiếp từ khách nước ngoài", "Nhận định S1 vẫn là giả thuyết cần kiểm chứng.", "amber")
+        + _deck_card("bar-chart", "Một số tín hiệu còn mỏng", "P6 và vài điểm hành vi cần theo dõi thêm.", "plain")
+        + _deck_card("cart-check", "Chưa đo hành vi mua thật", "Hiện mới là phản ứng với concept, chưa phải booking thật.", "teal")
+        + '</div>'
+        + _deck_takeaway("Report này giúp MẠCH biết điều gì đáng theo đuổi. Pilot mới là bước kiểm chứng nhu cầu thật, mức sẵn sàng trả tiền và khả năng giới thiệu lại.")
+        + _deck_note("Khi đưa ra ngoài MẠCH, cần anonymize lại và kiểm tra consent/pháp lý.")
+        + '</section>'
+    )
+
+
+def render_pilot_test_visual(participants_df):
+    return (
+        '<section class="deck-slide deck-visual">'
+        + _deck_page_header("V.3. Những điều cần kiểm chứng trong pilot tour", "Pilot là bước kiểm chứng giả thuyết, không chỉ là chạy thử vận hành")
+        + '<div class="deck-three-col">'
+        '<div class="deck-panel"><h3>1. Experience fit</h3>'
+        + _deck_step("hand-index", "Trải nghiệm trực tiếp", "Ít nghe, nhiều chạm.")
+        + _deck_step("chat-dots", "Storytelling và người dẫn", "Dễ hiểu, có cảm xúc.")
+        + _deck_step("building", "Sức hút của Nam Định", "Có lý do đủ mạnh để đi.")
+        + '</div>'
+        '<div class="deck-panel"><h3>2. Market fit</h3>'
+        + _deck_step("people-fill", "Nhóm bạn / gia đình", "Có làm đăng ký dễ hơn không.")
+        + _deck_step("globe2", "Khách Việt / khách nước ngoài", "Nhóm nào thật sự phù hợp.")
+        + _deck_step("search", "Người tò mò văn hoá", "Có đủ hứng thú và sẵn sàng trả tiền.")
+        + '</div>'
+        '<div class="deck-panel"><h3>3. Value fit</h3>'
+        + _deck_step("megaphone", "Thông điệp truyền thông", "Khách hiểu tour theo cách nào.")
+        + _deck_step("tag", "Giá và cảm nhận đáng tiền", "Phần nào tạo giá trị.")
+        + _deck_step("leaf", "Hiểu về bền vững", "Hiểu qua trải nghiệm, không chỉ định nghĩa.")
+        + '</div></div>'
+        + '<div class="deck-timeline">'
+        + _deck_step("calendar-event", "Trước tour", "Kỳ vọng, lý do đăng ký, người đi cùng.")
+        + _deck_step("person-walking", "Trong tour", "Quan sát tham gia, câu hỏi, điểm nghẽn.")
+        + _deck_step("camera", "Ngay sau tour", "Điểm nhớ, cảm nhận đáng tiền, ý định giới thiệu.")
+        + _deck_step("calendar-check", "Sau 2-4 tuần", "Ký ức còn lại và khả năng kể lại.")
+        + '</div>'
+        + _deck_takeaway("Pilot cần kiểm chứng 3 lớp: khách có thích trải nghiệm không, có hiểu đúng giá trị của MẠCH không, và có thấy tour đủ đáng tiền để giới thiệu hoặc mua lại không.")
+        + _deck_note("Report tạo giả thuyết. Pilot là bước kiểm chứng nhu cầu thật, mức sẵn sàng trả tiền và khả năng giới thiệu lại tour.")
+        + '</section>'
+    )

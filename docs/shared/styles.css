@@ -102,7 +102,7 @@ details.mach-toggle .toggle-content {
   margin: 1.5rem 0;
 }
 
-.mach-viz-placeholder {
+.mach-viz-data-gap {
   border: 1px dashed #c8c8c8;
   border-radius: 6px;
   color: var(--muted);
@@ -169,4 +169,604 @@ details.mach-toggle .toggle-content {
   background: #e7f3e8;
   border-color: #aac8ab;
   color: #315f33;
+}
+
+/* MẠCH deck-style HTML report */
+
+:root {
+  --deck-navy: #071a59;
+  --deck-blue: #0b5fd7;
+  --deck-sky: #b8d2ff;
+  --deck-teal: #08746f;
+  --deck-teal-soft: #e9f7f4;
+  --deck-amber: #f3a900;
+  --deck-amber-soft: #fff7df;
+  --deck-red: #c93b37;
+  --deck-red-soft: #fff0ef;
+  --deck-paper: #ffffff;
+  --deck-soft: #f7fbff;
+  --deck-line: #a8c5f4;
+}
+
+#title-block-header {
+  display: none;
+}
+
+body {
+  background: #f4f7fb;
+  overflow-x: hidden;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+main,
+main.content,
+.page-layout-full main.content {
+  max-width: none;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.deck-report {
+  color: var(--deck-navy);
+  display: grid;
+  gap: 1.35rem;
+  margin: 0 auto 3rem;
+  max-width: 1500px;
+}
+
+.deck-slide,
+.deck-slide * {
+  box-sizing: border-box;
+}
+
+.deck-slide {
+  background: var(--deck-paper);
+  border: 1px solid var(--deck-line);
+  border-radius: 8px;
+  box-shadow: 0 18px 45px rgba(7, 26, 89, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  justify-content: flex-start;
+  margin: 0 auto 1.35rem;
+  min-height: min(760px, calc(100vh - 2rem));
+  padding: clamp(1.15rem, 2.6vw, 2.2rem);
+  position: relative;
+  width: min(100%, 1440px);
+  overflow-x: hidden;
+}
+
+.deck-slide h1,
+.deck-slide h2,
+.deck-slide h3,
+.deck-slide h4 {
+  color: var(--deck-navy);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.12;
+  margin: 0;
+  overflow-wrap: anywhere;
+  white-space: normal !important;
+  word-break: break-word;
+}
+
+.deck-slide h1 {
+  font-size: 4.6rem;
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.deck-slide h2 {
+  font-size: 3.4rem;
+}
+
+.deck-slide h3 {
+  font-size: 1.45rem;
+}
+
+.deck-slide h4 {
+  font-size: 1.15rem;
+}
+
+.deck-slide p,
+.deck-slide li {
+  font-size: 1.1rem;
+  line-height: 1.45;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.deck-slide ul,
+.deck-slide ol {
+  margin-bottom: 0;
+}
+
+.deck-cover {
+  justify-content: center;
+}
+
+.deck-cover .deck-brand {
+  color: var(--deck-teal);
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.deck-cover .deck-subtitle {
+  color: var(--deck-navy);
+  font-size: 2.35rem;
+  font-weight: 700;
+  line-height: 1.2;
+  max-width: 900px;
+  white-space: normal !important;
+  word-break: break-word;
+}
+
+.deck-cover .deck-context {
+  color: #23366f;
+  max-width: 860px;
+}
+
+.deck-cover h1,
+.deck-cover .deck-subtitle,
+.deck-cover .deck-context {
+  width: min(100%, calc(100vw - 6rem));
+}
+
+.deck-cover-stats,
+.deck-metric-grid,
+.deck-card-grid,
+.deck-two-col,
+.deck-three-col,
+.deck-flow,
+.deck-timeline,
+.deck-topline,
+.deck-snapshot {
+  display: grid;
+  gap: 1rem;
+}
+
+.deck-cover-stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.deck-metric-grid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.deck-card-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.deck-archetype-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.deck-two-col {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.deck-three-col {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.deck-flow,
+.deck-timeline {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.deck-topline,
+.deck-snapshot {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.deck-page-header {
+  border-bottom: 3px solid var(--deck-sky);
+  padding-bottom: 0.9rem;
+}
+
+.deck-page-header p {
+  color: var(--deck-teal);
+  font-size: 1.65rem;
+  font-weight: 700;
+  margin-top: 0.35rem;
+}
+
+.deck-narrative {
+  gap: 1.4rem;
+}
+
+.deck-narrative .section-kicker,
+.deck-divider .section-kicker {
+  color: var(--deck-teal);
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.deck-narrative .deck-text {
+  display: grid;
+  gap: 1rem;
+  max-width: 1120px;
+}
+
+.deck-objective-grid,
+.deck-toc-grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.deck-objective,
+.deck-toc-item,
+.deck-metric,
+.deck-card,
+.deck-step,
+.deck-info-pill,
+.deck-price-row {
+  border: 1px solid var(--deck-line);
+  border-radius: 8px;
+  min-width: 0;
+}
+
+.deck-objective,
+.deck-toc-item {
+  align-items: center;
+  background: var(--deck-soft);
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: auto 1fr;
+  padding: 1rem;
+}
+
+.deck-objective span,
+.deck-toc-item span {
+  align-items: center;
+  background: var(--deck-navy);
+  border-radius: 8px;
+  color: #fff;
+  display: inline-flex;
+  font-weight: 800;
+  height: 2.4rem;
+  justify-content: center;
+  width: 2.4rem;
+}
+
+.deck-metric,
+.deck-card,
+.deck-step,
+.deck-info-pill,
+.deck-price-row {
+  background: #fff;
+  padding: 1rem;
+}
+
+.deck-metric {
+  align-items: center;
+  display: grid;
+  gap: 0.35rem;
+  justify-items: center;
+  text-align: center;
+}
+
+.deck-metric strong {
+  color: var(--deck-navy);
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.deck-metric span {
+  font-weight: 800;
+}
+
+.deck-metric small {
+  color: #52628a;
+  font-size: 0.88rem;
+}
+
+.deck-icon,
+.deck-takeaway-icon,
+.deck-note-icon {
+  align-items: center;
+  background: linear-gradient(135deg, #eef5ff, #e8faf6);
+  border-radius: 50%;
+  color: var(--deck-teal);
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 3.2rem;
+  justify-content: center;
+  width: 3.2rem;
+}
+
+.deck-icon i,
+.deck-takeaway-icon i,
+.deck-note-icon i {
+  font-size: 1.65rem;
+}
+
+.deck-card {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.deck-card-blue {
+  background: #f2f7ff;
+}
+
+.deck-card-teal {
+  background: var(--deck-teal-soft);
+  border-color: #8ccdc4;
+}
+
+.deck-card-amber {
+  background: var(--deck-amber-soft);
+  border-color: #f3c24c;
+}
+
+.deck-card-red {
+  background: var(--deck-red-soft);
+  border-color: #ef9a95;
+}
+
+.deck-panel {
+  display: grid;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.deck-bar-row {
+  align-items: center;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 2rem minmax(9rem, 1fr) minmax(9rem, 1.4fr) 4.5rem;
+  padding: 0.45rem 0;
+}
+
+.deck-bar-row i {
+  color: var(--deck-teal);
+  font-size: 1.35rem;
+}
+
+.deck-bar-row span {
+  font-weight: 700;
+}
+
+.deck-bar-row strong {
+  text-align: right;
+}
+
+.deck-bar-track {
+  background: #e8eef8;
+  border-radius: 999px;
+  height: 0.78rem;
+  overflow: hidden;
+}
+
+.deck-bar-fill {
+  background: linear-gradient(90deg, var(--deck-navy), var(--deck-blue));
+  border-radius: inherit;
+  height: 100%;
+}
+
+.deck-price-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.deck-price-row {
+  align-items: center;
+  background: linear-gradient(90deg, #f3fbfa, #fff);
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 3rem minmax(7rem, 0.7fr) minmax(0, 1fr);
+}
+
+.deck-price-row span {
+  align-items: center;
+  background: #e9f7f4;
+  border-radius: 50%;
+  color: var(--deck-navy);
+  display: inline-flex;
+  font-size: 1.35rem;
+  font-weight: 800;
+  height: 2.5rem;
+  justify-content: center;
+  width: 2.5rem;
+}
+
+.deck-price-row strong {
+  font-size: 1.25rem;
+}
+
+.deck-info-pill {
+  align-items: center;
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: auto 1fr;
+}
+
+.deck-info-pill i {
+  color: var(--deck-teal);
+  font-size: 1.55rem;
+}
+
+.deck-info-pill span {
+  color: #52628a;
+  font-weight: 700;
+}
+
+.deck-info-pill strong {
+  grid-column: 2;
+}
+
+.deck-step {
+  background: linear-gradient(180deg, #fff, #f6fbff);
+  display: grid;
+  gap: 0.7rem;
+  position: relative;
+}
+
+.deck-step h4 {
+  color: var(--deck-teal);
+}
+
+.deck-takeaway,
+.deck-note {
+  align-items: center;
+  border-radius: 8px;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: auto 1fr;
+  padding: 1rem 1.25rem;
+}
+
+.deck-takeaway {
+  background: var(--deck-amber-soft);
+  border: 1px solid #f4c03e;
+}
+
+.deck-takeaway-icon {
+  background: var(--deck-amber);
+  color: #fff;
+}
+
+.deck-note {
+  background: #f7fbff;
+  border: 1px solid var(--deck-line);
+}
+
+.deck-note-icon {
+  background: var(--deck-navy);
+  color: #fff;
+}
+
+.deck-divider {
+  align-items: flex-start;
+  background: linear-gradient(180deg, #fff, #f4fbfa);
+  justify-content: center;
+}
+
+.deck-divider-list {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  max-width: 900px;
+}
+
+.deck-divider-list p {
+  border-left: 5px solid var(--deck-teal);
+  font-weight: 700;
+  padding-left: 1rem;
+}
+
+.deck-pattern-body {
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .deck-cover-stats,
+  .deck-metric-grid,
+  .deck-topline,
+  .deck-snapshot,
+  .deck-flow,
+  .deck-timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .deck-three-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .deck-report {
+    gap: 1rem;
+  }
+
+  .deck-slide {
+    min-height: auto;
+    padding: 1rem;
+    width: calc(100vw - 2rem);
+  }
+
+  .deck-slide h1 {
+    font-size: 2.15rem;
+  }
+
+  .deck-slide h2 {
+    font-size: 2rem;
+  }
+
+  .deck-slide h3 {
+    font-size: 1.25rem;
+  }
+
+  .deck-slide h4 {
+    font-size: 1.05rem;
+  }
+
+  .deck-slide p,
+  .deck-slide li {
+    font-size: 1rem;
+  }
+
+  .deck-cover .deck-subtitle,
+  .deck-page-header p {
+    font-size: 1.15rem;
+  }
+
+  .deck-cover h1,
+  .deck-cover .deck-subtitle,
+  .deck-cover .deck-context {
+    width: min(100%, 14rem);
+  }
+
+  .deck-metric strong {
+    font-size: 2rem;
+  }
+
+  .deck-narrative .section-kicker,
+  .deck-divider .section-kicker {
+    font-size: 1rem;
+  }
+
+  .deck-cover-stats,
+  .deck-metric-grid,
+  .deck-card-grid,
+  .deck-archetype-grid,
+  .deck-two-col,
+  .deck-flow,
+  .deck-timeline,
+  .deck-topline,
+  .deck-snapshot,
+  .deck-objective-grid,
+  .deck-toc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .deck-bar-row,
+  .deck-price-row {
+    grid-template-columns: auto 1fr;
+  }
+
+  .deck-bar-track,
+  .deck-bar-row strong,
+  .deck-price-row p {
+    grid-column: 1 / -1;
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .deck-slide {
+    box-shadow: none;
+    break-after: page;
+    min-height: 95vh;
+  }
 }
