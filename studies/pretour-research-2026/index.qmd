@@ -1,6 +1,8 @@
 ---
 title: "MẠCH / Báo cáo nghiên cứu khách hàng"
 jupyter: python3
+execute:
+  freeze: false
 format:
   html:
     toc: false

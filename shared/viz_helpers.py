@@ -78,7 +78,7 @@ PATTERN_META = {
         "confidence": "Hypothesis",
         "note": (
             "Hứng thú thật nhưng phạm vi rộng, từ Phật giáo đến Đạo Mẫu. "
-            "Không định vị là 'tour phụ nữ tâm linh.'"
+            "Không định vị bằng nhãn giới tính hoá."
         ),
     },
     "S1": {
@@ -2579,6 +2579,217 @@ def _deck_page_header(title, subtitle):
     )
 
 
+def _deck_meta_box(items):
+    rows = []
+    for icon, label, value in items:
+        rows.append(
+            '<div class="deck-meta-row">'
+            f'<i class="bi bi-{_deck_h(icon)}"></i>'
+            f'<strong>{_deck_h(label)}</strong>'
+            f'<span>{_deck_h(value)}</span>'
+            '</div>'
+        )
+    return '<aside class="deck-meta-box">' + "".join(rows) + '</aside>'
+
+
+def _deck_page_header_meta(title, subtitle, meta_html):
+    return (
+        '<div class="deck-page-header deck-page-header-with-meta">'
+        '<div class="deck-title-block">'
+        f'<h2>{_deck_h(title)}</h2>'
+        f'<p>{_deck_h(subtitle)}</p>'
+        '</div>'
+        f'{meta_html}'
+        '</div>'
+    )
+
+
+def _deck_panel_html(icon, title, body, extra_class=""):
+    return (
+        f'<div class="deck-panel deck-visual-panel {_deck_h(extra_class)}">'
+        '<div class="deck-panel-heading">'
+        f'<span class="deck-icon"><i class="bi bi-{_deck_h(icon)}"></i></span>'
+        f'<h3>{_deck_h(title)}</h3>'
+        '</div>'
+        f'{body}'
+        '</div>'
+    )
+
+
+_DECK_QUAL_LEVELS = {
+    "very_low": 18,
+    "low": 28,
+    "mid": 48,
+    "high": 72,
+    "very_high": 88,
+}
+
+
+def _deck_qual_width(level):
+    return _DECK_QUAL_LEVELS.get(str(level), _DECK_QUAL_LEVELS["mid"])
+
+
+def _deck_balance_table(rows):
+    body = [
+        '<div class="deck-balance-head"><span></span><span></span><strong>Hiện tại</strong><strong>Nên hướng tới</strong></div>'
+    ]
+    for icon, label, current, target in rows:
+        body.append(
+            '<div class="deck-balance-row">'
+            f'<span class="deck-mini-icon"><i class="bi bi-{_deck_h(icon)}"></i></span>'
+            f'<strong>{_deck_h(label)}</strong>'
+            '<div class="deck-balance-track deck-balance-current">'
+            f'<span style="width:{_deck_qual_width(current)}%"></span>'
+            '</div>'
+            '<div class="deck-balance-track deck-balance-target">'
+            f'<span style="width:{_deck_qual_width(target)}%"></span>'
+            '</div>'
+            '</div>'
+        )
+    return '<div class="deck-balance-table">' + "".join(body) + '</div>'
+
+
+def _deck_bottleneck_list(items):
+    cards = []
+    for idx, title, subtitle, level in items:
+        cards.append(
+            '<article class="deck-bottleneck">'
+            f'<span class="deck-bottleneck-number">{_deck_h(idx)}</span>'
+            '<div>'
+            f'<h4>{_deck_h(title)}</h4>'
+            f'<p>{_deck_h(subtitle)}</p>'
+            '<div class="deck-bottleneck-track">'
+            f'<span style="width:{_deck_qual_width(level)}%"></span>'
+            '</div>'
+            '</div>'
+            '</article>'
+        )
+    return '<div class="deck-bottleneck-list">' + "".join(cards) + '</div>'
+
+
+def _deck_signal_card(icon, title, text, tone="plain"):
+    return (
+        f'<article class="deck-signal-card deck-signal-{_deck_h(tone)}">'
+        f'<span class="deck-mini-icon"><i class="bi bi-{_deck_h(icon)}"></i></span>'
+        f'<h4>{_deck_h(title)}</h4>'
+        f'<p>{_deck_h(text)}</p>'
+        '</article>'
+    )
+
+
+def _deck_signal_grid(cards):
+    return '<div class="deck-signal-grid">' + "".join(cards) + '</div>'
+
+
+def _deck_action_card(icon, title, text):
+    return (
+        '<article class="deck-action-card">'
+        f'<span class="deck-mini-icon"><i class="bi bi-{_deck_h(icon)}"></i></span>'
+        f'<h4>{_deck_h(title)}</h4>'
+        f'<p>{_deck_h(text)}</p>'
+        '</article>'
+    )
+
+
+def _deck_action_flow(items):
+    pieces = []
+    for i, (icon, title, text) in enumerate(items):
+        pieces.append(_deck_action_card(icon, title, text))
+        if i < len(items) - 1:
+            pieces.append('<span class="deck-flow-arrow"><i class="bi bi-chevron-right"></i></span>')
+    return '<div class="deck-action-flow">' + "".join(pieces) + '</div>'
+
+
+def _deck_section_band(title, body, number=None):
+    prefix = f"{number}. " if number is not None else ""
+    return (
+        '<div class="deck-numbered-band">'
+        f'<div class="deck-band-label">{_deck_h(prefix + title)}</div>'
+        f'{body}'
+        '</div>'
+    )
+
+
+def _deck_pattern_meta_box(pattern_id, quotes_df, participants_df):
+    occ = pattern_occurrence(pattern_id, quotes_df, participants_df)
+    quote_count = int((quotes_df["pattern_id"] == pattern_id).sum())
+    lens = pattern_lens_breakdown(pattern_id, quotes_df, participants_df)
+    _, confidence = _DECK_PATTERN_LABELS[pattern_id]
+    lens_bits = []
+    if lens["customer"]:
+        lens_bits.append(f'{lens["customer"]} khách')
+    if lens["industry"]:
+        lens_bits.append(f'{lens["industry"]} ngành')
+    if lens["lead_user"]:
+        lens_bits.append(f'{lens["lead_user"]} lead user')
+    lens_note = " / ".join(lens_bits) if lens_bits else "chưa có lens"
+    if lens["industry_leaning"]:
+        lens_note += "; thiên góc nhìn ngành"
+    return _deck_meta_box([
+        ("people-fill", "Tần suất", f'{occ["count"]}/{occ["total"]} participant'),
+        ("chat-square-quote", "Evidence", f"{quote_count} dòng"),
+        ("shield-check", "Độ tin cậy", confidence),
+        ("diagram-3", "Lens", lens_note),
+    ])
+
+
+def _deck_b_slide(
+    pattern_id,
+    title,
+    subtitle,
+    left_icon,
+    left_title,
+    left_body,
+    right_icon,
+    right_title,
+    right_body,
+    actions,
+    takeaway,
+    note,
+    quotes_df,
+    participants_df,
+):
+    section_id = f"visual-{str(pattern_id).lower()}"
+    return (
+        f'<section id="{_deck_h(section_id)}" class="deck-slide deck-visual deck-b-slide">'
+        + _deck_page_header_meta(title, subtitle, _deck_pattern_meta_box(pattern_id, quotes_df, participants_df))
+        + '<div class="deck-b-top">'
+        + _deck_panel_html(left_icon, left_title, left_body)
+        + _deck_panel_html(right_icon, right_title, right_body)
+        + '</div>'
+        + _deck_section_band("Hướng xử lý", _deck_action_flow(actions))
+        + _deck_takeaway(takeaway)
+        + _deck_note(note)
+        + '</section>'
+    )
+
+
+def _deck_quadrant_matrix(cards):
+    return (
+        '<div class="deck-quadrant-wrap">'
+        '<div class="deck-axis deck-axis-top">Mức cùng gu / cùng mối quan tâm</div>'
+        '<div class="deck-axis deck-axis-left">Độ thân quen</div>'
+        '<div class="deck-quadrant-grid">'
+        + "".join(cards)
+        + '</div>'
+        '</div>'
+    )
+
+
+def _deck_scale(label_left, label_mid, label_right, position="mid"):
+    pos = {"left": 16, "mid": 50, "right": 82}.get(position, 50)
+    return (
+        '<div class="deck-scale">'
+        '<div class="deck-scale-labels">'
+        f'<span>{_deck_h(label_left)}</span><strong>{_deck_h(label_mid)}</strong><span>{_deck_h(label_right)}</span>'
+        '</div>'
+        '<div class="deck-scale-line">'
+        f'<span class="deck-scale-point" style="left:{pos}%"></span>'
+        '</div>'
+        '</div>'
+    )
+
+
 def render_cover_stats(participants_df, quotes_df, records_df):
     n = len(participants_df)
     return (
@@ -2699,26 +2910,6 @@ def _deck_pattern_snapshot(pattern_id, quotes_df, participants_df):
     )
 
 
-def _deck_pattern_visual(pattern_id, title, subtitle, insight_cards, action_steps, takeaway, note=None):
-    return (
-        '<section class="deck-slide deck-visual deck-pattern-slide">'
-        + _deck_page_header(title, subtitle)
-        + _deck_pattern_snapshot(pattern_id, _deck_current_quotes, _deck_current_participants)
-        + '<div class="deck-two-col deck-pattern-body">'
-        '<div class="deck-panel"><h3>Tín hiệu chính trong mẫu</h3>'
-        '<div class="deck-card-grid">'
-        + "".join(insight_cards)
-        + '</div></div>'
-        '<div class="deck-panel"><h3>Hướng xử lý</h3>'
-        '<div class="deck-flow">'
-        + "".join(action_steps)
-        + '</div></div></div>'
-        + _deck_takeaway(takeaway)
-        + (_deck_note(note) if note else _deck_note("Đây là qualitative convenience sample, dùng để phát hiện tín hiệu và giả thuyết."))
-        + '</section>'
-    )
-
-
 def _deck_bind(quotes_df, participants_df):
     # Quarto calls one helper per chunk; this tiny binding avoids passing the same
     # dataframes through every nested HTML builder.
@@ -2728,192 +2919,371 @@ def _deck_bind(quotes_df, participants_df):
 
 
 def render_b1_visual(quotes_df, participants_df):
-    _deck_bind(quotes_df, participants_df)
-    return _deck_pattern_visual(
+    left = _deck_balance_table([
+        ("ear", "Nghe và quan sát", "high", "mid"),
+        ("hand-index", "Chạm tay / làm trực tiếp", "low", "high"),
+        ("people-fill", "Tương tác với địa phương", "low", "high"),
+        ("person-walking", "Nhịp đi vừa phải", "low", "high"),
+    ])
+    right = _deck_bottleneck_list([
+        ("1", "Thiên về nghe và quan sát", "Phần trải nghiệm chưa đủ rõ", "very_high"),
+        ("2", "Ít hoạt động trực tiếp", "Thiếu phần chạm, làm và tham gia", "high"),
+        ("3", "Nhiều kiến thức, dễ mệt", "Lịch trình có thể gây ngợp", "mid"),
+        ("4", "Dễ giống hoạt động học tập", "Khó tạo cảm giác của một chuyến đi", "mid"),
+    ])
+    return _deck_b_slide(
         "P1",
         "IV.B.1. Trải nghiệm còn thụ động",
         "Phản ứng với concept tour MẠCH",
+        "sliders",
+        "Cán cân trải nghiệm hiện tại",
+        left,
+        "bar-chart-fill",
+        "Điểm nghẽn chính",
+        right,
         [
-            _deck_card("ear", "Thiên về nghe và quan sát", "Phần trải nghiệm chưa đủ rõ.", "blue"),
-            _deck_card("hand-index", "Ít hoạt động trực tiếp", "Thiếu phần chạm, làm và tham gia.", "teal"),
-            _deck_card("book", "Nhiều kiến thức, dễ mệt", "Lịch trình có thể gây ngợp.", "plain"),
-            _deck_card("mortarboard", "Dễ giống hoạt động học tập", "Khó tạo cảm giác của một chuyến đi.", "plain"),
-        ],
-        [
-            _deck_step("hand-index", "Tăng hoạt động chạm tay", "Workshop, làm nghề, trải nghiệm trực tiếp."),
-            _deck_step("house-heart", "Đưa khách vào đời sống địa phương", "Ăn cùng nhà dân, trò chuyện, sinh hoạt thật."),
-            _deck_step("bicycle", "Tăng hoạt động di chuyển nhẹ", "Đạp xe, đi bộ, khám phá theo nhịp tự nhiên."),
-            _deck_step("chat-dots", "Giảm cảm giác hàn lâm", "Ít giảng giải dài, nhiều tương tác hơn."),
+            ("hand-index", "Tăng hoạt động chạm tay", "Workshop, làm nghề, trải nghiệm trực tiếp"),
+            ("house-heart", "Đưa khách vào đời sống địa phương", "Ăn cùng nhà dân, trò chuyện, sinh hoạt thật"),
+            ("bicycle", "Tăng hoạt động di chuyển nhẹ", "Đạp xe, đi bộ, khám phá theo nhịp tự nhiên"),
+            ("chat-dots", "Giảm cảm giác hàn lâm", "Ít giảng giải dài, nhiều tương tác hơn"),
         ],
         "Tour cần chuyển từ nghe về văn hoá sang trực tiếp chạm vào văn hoá.",
+        "Các thanh là hướng thiết kế định tính từ coding, không phải tỷ lệ đại diện thị trường.",
+        quotes_df,
+        participants_df,
     )
 
 
 def render_b2_visual(quotes_df, participants_df):
-    _deck_bind(quotes_df, participants_df)
-    return _deck_pattern_visual(
+    left = _deck_quadrant_matrix([
+        _deck_signal_card("people-fill", "Người quen cùng gu", "Dễ book nhất: có bạn bè hoặc người thân cùng quan tâm.", "teal"),
+        _deck_signal_card("person-lines-fill", "Người lạ cùng gu", "Có thể thử nếu nhóm nhỏ, an toàn, có nhịp làm quen.", "blue"),
+        _deck_signal_card("emoji-neutral", "Người quen không cùng gu", "Cần lý do rõ hơn để rủ đi và cùng cam kết.", "amber"),
+        _deck_signal_card("exclamation-triangle", "Người lạ không cùng gu", "Dễ tạo cảm giác ngại, xa lạ hoặc gượng ép.", "red"),
+    ])
+    right = _deck_bottleneck_list([
+        ("1", "Thiếu đúng người rủ", "Hứng thú cá nhân chưa đủ để tự book", "high"),
+        ("2", "Ngại nhóm lạ", "Tour văn hoá cần cảm giác an toàn và có người chia sẻ", "high"),
+        ("3", "Gia đình / bạn bè ảnh hưởng quyết định", "Một số chuyến đi được quyết theo nhóm nhỏ", "mid"),
+        ("4", "Có ngoại lệ", "P03/P07 thoải mái hơn với đi độc lập", "low"),
+    ])
+    return _deck_b_slide(
         "P2",
         "IV.B.2. Phụ thuộc vào người đi cùng",
         "Phản ứng với concept tour MẠCH",
+        "grid-3x3-gap",
+        "Ma trận người đi cùng",
+        left,
+        "bar-chart-fill",
+        "Điểm nghẽn chính",
+        right,
         [
-            _deck_card("people", "Người quen cùng gu", "Dễ book nhất khi có bạn bè hoặc người thân cùng quan tâm.", "teal"),
-            _deck_card("person-lines-fill", "Người lạ cùng gu", "Có thể thử nếu format nhóm nhỏ và an toàn.", "blue"),
-            _deck_card("emoji-neutral", "Người quen không cùng gu", "Cần lý do rõ hơn để rủ đi.", "amber"),
-            _deck_card("exclamation-triangle", "Người lạ không cùng gu", "Rủi ro ngại, xa lạ và gượng ép.", "red"),
-        ],
-        [
-            _deck_step("people-fill", "Thiết kế gói nhóm nhỏ", "Gói 2-4 người, gia đình nhỏ, nhóm bạn cùng mối quan tâm."),
-            _deck_step("megaphone", "Truyền thông không khí tour", "Thân mật, an toàn, dễ trò chuyện và chia sẻ trải nghiệm."),
-            _deck_step("heart", "Không ép tương tác", "Tương tác vừa đủ, không tạo cảm giác bị bắt buộc."),
+            ("people-fill", "Thiết kế gói nhóm nhỏ", "Gói 2-4 người, gia đình nhỏ, nhóm bạn cùng mối quan tâm"),
+            ("megaphone", "Truyền thông không khí tour", "Thân mật, an toàn, dễ trò chuyện và chia sẻ"),
+            ("heart", "Không ép tương tác", "Tương tác vừa đủ, không tạo cảm giác bị bắt buộc"),
+            ("ticket-perforated", "Mở cơ chế rủ bạn", "Ưu đãi nhóm nhỏ hoặc form đăng ký đi cùng"),
         ],
         "Tour văn hoá không chỉ bán cho một cá nhân. Nó cần tạo lý do để một nhóm nhỏ cùng muốn đi.",
         "P2 có ngoại lệ P03 và P07 thoải mái hơn với việc đi độc lập; không diễn giải như rào cản tuyệt đối.",
+        quotes_df,
+        participants_df,
     )
 
 
 def render_b3_visual(quotes_df, participants_df):
-    _deck_bind(quotes_df, participants_df)
-    return _deck_pattern_visual(
+    left = _deck_signal_grid([
+        _deck_signal_card("mortarboard", "Giống học tập / nghiên cứu", "Một số phản hồi thấy concept hơi hàn lâm.", "blue"),
+        _deck_signal_card("question-circle", "Chưa rõ dành cho ai", "Người đọc khó tự nhận mình là khách phù hợp.", "plain"),
+        _deck_signal_card("person-x", "Tự loại mình khỏi tour", "Có người thấy tour hợp với nhóm khác hơn.", "amber"),
+        _deck_signal_card("person-check", "Tự nhận phù hợp", "Một nhóm khác lại thấy mình có thể là target.", "teal"),
+    ])
+    right = _deck_bottleneck_list([
+        ("1", "Giá trị có nhưng chưa hiện hình", "Người đọc cần thấy trải nghiệm trước khi đọc lý thuyết", "high"),
+        ("2", "Target bị suy đoán theo tuổi", "Phân khúc nên dựa vào attitude và bối cảnh đi cùng", "mid"),
+        ("3", "Thông điệp dễ làm tour nặng", "Nội dung văn hoá cần được kể bằng đời sống", "high"),
+        ("4", "Phản ứng trái chiều", "Self-include và self-exclude cùng xuất hiện", "mid"),
+    ])
+    return _deck_b_slide(
         "P3",
         "IV.B.3. Lệch định vị khách hàng",
         "Phản ứng với concept tour MẠCH",
+        "signpost-split",
+        "Cách concept hiện tại bị đọc",
+        left,
+        "bar-chart-fill",
+        "Chỗ lệch định vị",
+        right,
         [
-            _deck_card("mortarboard", "Giống học tập / nghiên cứu", "Một số phản hồi thấy concept hơi hàn lâm.", "blue"),
-            _deck_card("question-circle", "Chưa rõ tour dành cho ai", "Người đọc khó tự nhận mình là khách phù hợp.", "plain"),
-            _deck_card("person-x", "Tự loại mình khỏi tour", "Có người thấy tour hợp với người khác hơn.", "plain"),
-            _deck_card("person-check", "Tự nhận phù hợp", "Một nhóm khác lại thấy mình có thể là target.", "teal"),
-        ],
-        [
-            _deck_step("sparkles", "Chuyển từ học sang trải nghiệm", "Mở bằng đời sống thật, con người, ẩm thực, hoạt động."),
-            _deck_step("bullseye", "Nói rõ ai sẽ thích tour", "Định vị theo attitude và bối cảnh đi cùng, không chỉ theo tuổi."),
-            _deck_step("image", "Cho thấy trải nghiệm trước chữ", "Visual proof giúp người xem tự hình dung nhanh hơn."),
+            ("sparkles", "Chuyển từ học sang trải nghiệm", "Mở bằng đời sống thật, con người, ẩm thực, hoạt động"),
+            ("bullseye", "Nói rõ ai sẽ thích tour", "Định vị theo thái độ và bối cảnh đi cùng"),
+            ("image", "Cho thấy trải nghiệm trước chữ", "Visual proof giúp người xem tự hình dung nhanh"),
+            ("chat-left-text", "Viết lại lời hứa", "Một chuyến đi có cảm xúc, không phải lớp học văn hoá"),
         ],
         "Concept cần giúp người đọc nhận ra tour này dành cho mình trong vài giây đầu.",
         "P3 có phản ứng trái chiều: cùng một concept tạo cả self-include lẫn self-exclude.",
+        quotes_df,
+        participants_df,
     )
 
 
 def render_b4_visual(quotes_df, participants_df):
-    _deck_bind(quotes_df, participants_df)
-    return _deck_pattern_visual(
+    left = (
+        _deck_scale("Quá dàn dựng", "Tổ chức có chủ đích", "Đời sống thật", "mid")
+        + _deck_signal_grid([
+            _deck_signal_card("mask", "Sợ bị diễn cho khách xem", "Khách nhạy với cảm giác bị sắp đặt quá mức.", "blue"),
+            _deck_signal_card("person-heart", "Ưu tiên con người thật", "Đời sống và người địa phương là dấu hiệu quan trọng.", "teal"),
+            _deck_signal_card("check-circle", "Chấp nhận có tổ chức", "Tổ chức tốt không xấu nếu không làm sai lệch văn hoá.", "plain"),
+        ])
+    )
+    right = _deck_bottleneck_list([
+        ("1", "Mất cảm giác sống", "Trải nghiệm quá sạch hoặc quá diễn sẽ bị cảnh giác", "high"),
+        ("2", "Không rõ đâu là thật", "Khách cần phân biệt phần đời sống với phần tổ chức cho khách", "high"),
+        ("3", "Người địa phương bị biến thành đạo cụ", "Cần tránh cảm giác chỉ xem một tiết mục", "mid"),
+        ("4", "Biến tấu lệch nghĩa", "Rủi ro cao với tín ngưỡng và thực hành văn hoá", "mid"),
+    ])
+    return _deck_b_slide(
         "P4",
         "IV.B.4. Lo ngại về tính chân thực",
         "Phản ứng với concept tour MẠCH",
+        "shield-check",
+        "Phổ cảm nhận về tính thật",
+        left,
+        "exclamation-triangle",
+        "Điểm cần tránh",
+        right,
         [
-            _deck_card("mask", "Sợ bị diễn cho khách xem", "Khách nhạy với cảm giác mọi thứ bị sắp đặt quá mức.", "blue"),
-            _deck_card("person-heart", "Ưu tiên con người thật", "Đời sống và người địa phương là dấu hiệu quan trọng.", "teal"),
-            _deck_card("check-circle", "Chấp nhận tổ chức có chủ đích", "Dàn dựng không xấu nếu không làm sai lệch văn hoá.", "plain"),
-            _deck_card("sliders", "Cần cân bằng", "Không phải nguyên bản tuyệt đối, mà đủ thật để không mất cảm giác sống.", "amber"),
-        ],
-        [
-            _deck_step("signpost", "Nói rõ đâu là đời sống thật", "Tách phần tự nhiên với phần được tổ chức cho khách tham gia."),
-            _deck_step("people", "Đặt người địa phương ở trung tâm", "Để khách gặp con người, không chỉ xem tiết mục."),
-            _deck_step("shield-check", "Giữ tính đúng đắn văn hoá", "Không biến tấu làm lệch nghĩa của thực hành văn hoá."),
+            ("signpost", "Nói rõ đâu là đời sống thật", "Tách phần tự nhiên với phần tổ chức cho khách tham gia"),
+            ("people", "Đặt người địa phương ở trung tâm", "Để khách gặp con người, không chỉ xem tiết mục"),
+            ("shield-check", "Giữ đúng nghĩa văn hoá", "Không biến tấu làm lệch thực hành văn hoá"),
+            ("camera-video", "Dùng visual hậu trường", "Cho thấy bối cảnh thật trước khi bán lời hứa"),
         ],
         "Khách không đòi trải nghiệm hoàn toàn nguyên bản. Họ cần cảm giác thật, không bị diễn quá mức.",
+        "Dàn dựng không mặc định là xấu; rủi ro nằm ở cảm giác giả hoặc làm sai lệch văn hoá.",
+        quotes_df,
+        participants_df,
     )
 
 
 def render_b5_visual(quotes_df, participants_df):
-    _deck_bind(quotes_df, participants_df)
-    return _deck_pattern_visual(
+    left = _deck_signal_grid([
+        _deck_signal_card("geo-alt", "Nam Định chưa là điểm đến rõ", "Một số người chưa thấy lý do đủ mạnh để đi.", "blue"),
+        _deck_signal_card("search", "Cần key selling point", "Người xem cần điểm neo cụ thể để nhớ và rủ đi.", "teal"),
+        _deck_signal_card("arrow-left-right", "Bị so sánh với lựa chọn khác", "Cùng ngân sách, khách cân nhắc nơi nổi tiếng hơn.", "amber"),
+        _deck_signal_card("camera", "Cần bằng chứng trực quan", "Ảnh, video, khoảnh khắc cụ thể giúp dễ hình dung.", "plain"),
+    ])
+    right = _deck_bottleneck_list([
+        ("1", "Thương hiệu điểm đến còn yếu", "Nam Định không tự bán được bằng tên gọi", "high"),
+        ("2", "Lý do đi chưa đủ sắc", "Concept cần trả lời vì sao phải là Nam Định", "very_high"),
+        ("3", "Khoảng cách / logistics", "Với một số nhóm, vị trí làm tăng rào cản cân nhắc", "mid"),
+        ("4", "Thiếu hình ảnh neo", "Khó tưởng tượng cảnh, người, món ăn, làng nghề", "high"),
+    ])
+    return _deck_b_slide(
         "P5",
         "IV.B.5. Độ thuyết phục của Nam Định",
         "Phản ứng với concept tour MẠCH",
+        "map",
+        "Nam Định trong tâm trí khách",
+        left,
+        "bar-chart-fill",
+        "Điểm nghẽn chính",
+        right,
         [
-            _deck_card("geo-alt", "Nam Định chưa là điểm đến rõ", "Một số người chưa thấy lý do đủ mạnh để đi.", "blue"),
-            _deck_card("search", "Cần key selling point", "Người xem cần thấy điểm neo cụ thể: cảnh, người, ẩm thực, làng nghề.", "teal"),
-            _deck_card("arrow-left-right", "Bị so sánh với lựa chọn khác", "Cùng ngân sách, khách cân nhắc điểm đến nổi tiếng hơn.", "amber"),
-            _deck_card("camera", "Cần bằng chứng trực quan", "Ảnh, video và khoảnh khắc cụ thể giúp Nam Định dễ hình dung hơn.", "plain"),
-        ],
-        [
-            _deck_step("map", "Bán Nam Định trước", "Không chỉ nói tour diễn ra ở Nam Định."),
-            _deck_step("stars", "Tạo khoảnh khắc đáng nhớ", "Cần ít nhất một lý do khiến khách thấy nơi này đáng đi."),
-            _deck_step("camera-video", "Chứng minh bằng visual", "Cho thấy con người, món ăn, làng nghề, nhịp sống và góc đẹp."),
+            ("map", "Bán Nam Định trước", "Không chỉ nói tour diễn ra ở Nam Định"),
+            ("stars", "Tạo khoảnh khắc đáng nhớ", "Ít nhất một lý do khiến khách thấy nơi này đáng đi"),
+            ("camera-video", "Chứng minh bằng visual", "Cho thấy con người, món ăn, làng nghề, nhịp sống"),
+            ("signpost", "Đặt tuyến kể rõ", "Từ cảnh quan đến người dẫn, từ món ăn đến câu chuyện"),
         ],
         "Trước khi bán tour MẠCH, cần bán được lý do vì sao Nam Định đáng đi.",
+        "P5 là pattern về rào cản điểm đến, không phải chỉ là vấn đề wording trong lịch trình.",
+        quotes_df,
+        participants_df,
     )
 
 
 def render_b6_visual(quotes_df, participants_df):
-    _deck_bind(quotes_df, participants_df)
-    return _deck_pattern_visual(
+    left = _deck_signal_grid([
+        _deck_signal_card("house", "Văn hoá Việt bị xem là quen", "Một số người không thấy nhu cầu khám phá nội địa quá chung.", "amber"),
+        _deck_signal_card("person-walking", "Tự đi được", "Nếu khác biệt không rõ, tour bị so với phương án tự túc.", "blue"),
+        _deck_signal_card("binoculars", "Cần lớp khó tự tiếp cận", "Hậu trường tín ngưỡng, làng nghề, bữa ăn, người thật.", "teal"),
+    ])
+    right = _deck_bottleneck_list([
+        ("1", "Cảm giác đã biết rồi", "Văn hoá Việt nói chung không đủ mới", "mid"),
+        ("2", "Giá trị tour chưa khác tự túc", "Cần chứng minh phần MẠCH mở được mà khách tự đi khó có", "high"),
+        ("3", "Dễ bị đọc là tour nội địa bình thường", "Thông điệp chung chung làm giảm lý do mua", "mid"),
+        ("4", "Tín hiệu còn mỏng", "Chưa đủ để kết luận rộng, cần theo dõi cohort/pilot", "low"),
+    ])
+    return _deck_b_slide(
         "P6",
         "IV.B.6. Thiên kiến văn hoá Việt thì mình đã biết rồi",
         "Tín hiệu ban đầu",
+        "door-open",
+        "Khi văn hoá Việt bị xem là quen",
+        left,
+        "clipboard-check",
+        "Phần phải chứng minh",
+        right,
         [
-            _deck_card("house", "Văn hoá Việt bị xem là quen", "Một số người không thấy nhu cầu khám phá nội địa quá chung chung.", "amber"),
-            _deck_card("person-walking", "Tự đi được", "Nếu khác biệt không rõ, tour bị so với phương án tự túc.", "blue"),
-            _deck_card("binoculars", "Cần chỉ ra phần khó tự tiếp cận", "Hậu trường tín ngưỡng, làng nghề, bữa ăn và gặp người thật.", "teal"),
-        ],
-        [
-            _deck_step("gem", "Không nói chung chung", "Tránh chỉ gọi là khám phá văn hoá Việt."),
-            _deck_step("door-open", "Mở phần khách chưa biết", "Đưa khách vào lớp trải nghiệm khó tự vào."),
-            _deck_step("clipboard-check", "Đo lại trong pilot", "Theo dõi xem rào cản này xuất hiện ở nhóm nào."),
+            ("gem", "Không nói chung chung", "Tránh chỉ gọi là khám phá văn hoá Việt"),
+            ("door-open", "Mở phần khách chưa biết", "Đưa khách vào lớp trải nghiệm khó tự vào"),
+            ("person-heart", "Gắn với người thật", "Con người và bối cảnh tạo khác biệt với tự túc"),
+            ("clipboard-check", "Đo lại trong pilot", "Theo dõi rào cản này xuất hiện ở nhóm nào"),
         ],
         "Điểm bán không phải văn hoá Việt nói chung, mà là phần khách khó tự chạm tới.",
+        "P6 là tín hiệu sớm; không gán quê quán hay mở rộng thành kết luận thị trường.",
+        quotes_df,
+        participants_df,
     )
 
 
 def render_b7_visual(quotes_df, participants_df):
-    _deck_bind(quotes_df, participants_df)
-    return _deck_pattern_visual(
+    left = _deck_signal_grid([
+        _deck_signal_card("globe2", "Khách nước ngoài là nhóm vắng mặt", "Hiện mới là suy đoán từ người Việt trong mẫu.", "amber"),
+        _deck_signal_card("translate", "Người học văn hoá Việt", "Có thể hấp dẫn nếu muốn hiểu sâu, không chỉ check-in.", "blue"),
+        _deck_signal_card("compass", "Người Việt tò mò văn hoá", "Cần cách kể đời thường và dễ tiếp cận hơn.", "teal"),
+    ])
+    right = _deck_bottleneck_list([
+        ("1", "Demand chưa kiểm chứng", "Không có khách nước ngoài trong sample hiện tại", "very_high"),
+        ("2", "Thiên góc nhìn ngành", "Một số nhận định xuất phát từ người có lens chuyên môn", "high"),
+        ("3", "Thông điệp cần tách nhóm", "Khách Việt và khách nước ngoài cần lời hứa khác nhau", "mid"),
+        ("4", "Cần dữ liệu trực tiếp", "Pilot phải dành slot kiểm chứng nhóm vắng mặt", "high"),
+    ])
+    return _deck_b_slide(
         "S1",
         "IV.B.7. Sức hút với khách nước ngoài / người tò mò văn hoá",
         "Cơ hội và giả thuyết cần kiểm chứng",
+        "globe2",
+        "Đọc đúng cơ hội",
+        left,
+        "bullseye",
+        "Cần kiểm chứng",
+        right,
         [
-            _deck_card("globe2", "Khách nước ngoài là nhóm vắng mặt", "Hiện mới là suy đoán từ người Việt trong mẫu.", "amber"),
-            _deck_card("translate", "Người học văn hoá Việt", "Có thể hấp dẫn với nhóm muốn hiểu sâu, không chỉ check-in.", "blue"),
-            _deck_card("compass", "Người Việt tò mò văn hoá", "Cần cách kể dễ tiếp cận hơn nếu nhắm khách Việt.", "teal"),
-        ],
-        [
-            _deck_step("signpost-split", "Tách thông điệp theo nhóm", "Không dùng một thông điệp cho tất cả."),
-            _deck_step("passport", "Dành slot pilot để kiểm chứng", "Cần dữ liệu trực tiếp từ khách nước ngoài."),
-            _deck_step("chat-left-text", "Viết bản kể dễ hiểu", "Bản cho khách Việt nên bắt đầu từ đời sống, ẩm thực và con người."),
+            ("signpost-split", "Tách thông điệp theo nhóm", "Không dùng một lời hứa cho tất cả"),
+            ("globe2", "Dành slot pilot để kiểm chứng", "Cần dữ liệu trực tiếp từ khách nước ngoài"),
+            ("chat-left-text", "Viết bản kể dễ hiểu", "Bản cho khách Việt bắt đầu từ đời sống và con người"),
+            ("clipboard-data", "Theo dõi sau trải nghiệm", "Đo hiểu, thích, sẵn sàng trả tiền và giới thiệu"),
         ],
         "Khách nước ngoài là cơ hội đáng test, chưa phải kết luận demand.",
         "S1 thiên về góc nhìn ngành và nhóm vắng mặt; không nâng thành kết luận thị trường.",
+        quotes_df,
+        participants_df,
     )
 
 
 def render_b8_visual(quotes_df, participants_df):
-    _deck_bind(quotes_df, participants_df)
-    return _deck_pattern_visual(
+    left = _deck_signal_grid([
+        _deck_signal_card("egg-fried", "Ẩm thực là cửa vào mềm", "Dễ tiếp cận hơn nội dung văn hoá nặng kiến thức.", "teal"),
+        _deck_signal_card("house-heart", "Bữa ăn tại nhà dân", "Có thể kéo khách vào đời sống địa phương.", "blue"),
+        _deck_signal_card("chat-dots", "Câu chuyện sau món ăn", "Món ăn cần đi cùng người nấu, bối cảnh và ký ức.", "plain"),
+    ])
+    right = _deck_bottleneck_list([
+        ("1", "Nếu chỉ là bữa ăn logistics", "Ẩm thực mất vai trò mở cửa vào văn hoá", "high"),
+        ("2", "Nếu tách khỏi người nấu", "Thiếu lớp con người và đời sống phía sau món ăn", "mid"),
+        ("3", "Nếu trình bày quá nặng", "Câu chuyện món ăn cần mềm, gần, dễ nghe", "mid"),
+        ("4", "Nếu thiếu visual hook", "Người xem khó hình dung tour hấp dẫn ra sao", "high"),
+    ])
+    return _deck_b_slide(
         "S2",
         "IV.B.8. Ẩm thực như điểm vào văn hoá",
         "Cơ hội có thể tận dụng ngay",
+        "egg-fried",
+        "Ẩm thực như cửa vào",
+        left,
+        "signpost",
+        "Cách biến thành trải nghiệm",
+        right,
         [
-            _deck_card("egg-fried", "Ẩm thực là cửa vào mềm", "Dễ tiếp cận hơn nội dung văn hoá nặng kiến thức.", "teal"),
-            _deck_card("house-heart", "Bữa ăn tại nhà dân", "Ăn uống có thể kéo khách vào đời sống địa phương.", "blue"),
-            _deck_card("chat-dots", "Câu chuyện sau món ăn", "Món ăn nên đi cùng người nấu, bối cảnh và ký ức địa phương.", "plain"),
-        ],
-        [
-            _deck_step("utensils", "Đưa ẩm thực thành điểm nhấn", "Không để nó chỉ là logistics bữa ăn."),
-            _deck_step("person-hearts", "Gắn với người địa phương", "Ai nấu, ăn ở đâu, câu chuyện nào phía sau món ăn."),
-            _deck_step("camera", "Dùng làm visual hook", "Hình ảnh món ăn làm tour mềm và dễ hình dung hơn."),
+            ("utensils", "Đưa ẩm thực thành điểm nhấn", "Không để nó chỉ là logistics bữa ăn"),
+            ("person-heart", "Gắn với người địa phương", "Ai nấu, ăn ở đâu, câu chuyện nào phía sau"),
+            ("camera", "Dùng làm visual hook", "Hình ảnh món ăn làm tour mềm và dễ hình dung"),
+            ("house-heart", "Nối với đời sống", "Từ món ăn mở sang nhà dân, làng nghề, ký ức địa phương"),
         ],
         "Ẩm thực có thể làm phần văn hoá sâu trở nên mềm hơn, đời thường hơn và dễ bước vào hơn.",
+        "S2 là tín hiệu có thể tận dụng ngay, nhưng vẫn cần đo trong pilot xem món ăn nào tạo giá trị nhớ lại.",
+        quotes_df,
+        participants_df,
     )
 
 
 def render_b9_visual(quotes_df, participants_df):
-    _deck_bind(quotes_df, participants_df)
-    return _deck_pattern_visual(
+    left = _deck_signal_grid([
+        _deck_signal_card("flower1", "Quan tâm tín ngưỡng là phạm vi rộng", "Từ Phật giáo, Đạo Mẫu đến các thực hành văn hoá khác.", "amber"),
+        _deck_signal_card("shield-check", "Cần vùng an toàn", "Chủ đề tín ngưỡng dễ tạo phòng bị nếu kể quá bí ẩn.", "blue"),
+        _deck_signal_card("person-badge", "Cần người dẫn đủ tin cậy", "Người dẫn giúp khách hiểu, hỏi và tiếp nhận theo nhịp của mình.", "teal"),
+    ])
+    right = _deck_bottleneck_list([
+        ("1", "Không phải thị hiếu đại trà", "Mức quan tâm không trải đều ở mọi nhóm khách", "mid"),
+        ("2", "Không chỉ là Đạo Mẫu", "Quan tâm tín ngưỡng rộng hơn một nghi lễ cụ thể", "high"),
+        ("3", "Không giới tính hoá", "Tránh mọi nhãn giới tính hoá", "very_high"),
+        ("4", "Cần kể bằng đời sống", "Nếu quá bí ẩn hoặc học thuật, khách dễ phòng bị", "mid"),
+    ])
+    return _deck_b_slide(
         "H1",
         "IV.B.9. Sự quan tâm đến yếu tố tín ngưỡng",
         "Tín hiệu ban đầu",
+        "flower1",
+        "Vùng quan tâm tín ngưỡng",
+        left,
+        "exclamation-triangle",
+        "Vùng rủi ro truyền thông",
+        right,
         [
-            _deck_card("flower1", "Quan tâm tín ngưỡng là phạm vi rộng", "Không chỉ Đạo Mẫu và không gắn với một giới tính.", "amber"),
-            _deck_card("shield-check", "Cần vùng an toàn", "Chủ đề tâm linh dễ tạo phòng bị nếu kể quá bí ẩn.", "blue"),
-            _deck_card("person-badge", "Cần người dẫn đủ tin cậy", "Người dẫn phải giúp khách hiểu, hỏi và tiếp nhận theo nhịp của mình.", "teal"),
-        ],
-        [
-            _deck_step("layers", "Đặt tín ngưỡng là lớp chiều sâu", "Không biến thành thông điệp chính cho toàn bộ thị trường."),
-            _deck_step("chat-heart", "Kể bằng ngôn ngữ dễ hiểu", "Gắn với con người, đời sống và câu chuyện địa phương."),
-            _deck_step("clipboard-data", "Đo phản ứng trong pilot", "Theo dõi ai thật sự hứng thú sau khi trải nghiệm."),
+            ("layers", "Đặt tín ngưỡng là lớp chiều sâu", "Không biến thành thông điệp chính cho toàn thị trường"),
+            ("chat-heart", "Kể bằng ngôn ngữ dễ hiểu", "Gắn với con người, đời sống và câu chuyện địa phương"),
+            ("person-badge", "Dùng người dẫn tin cậy", "Cho phép hỏi, hiểu và tiếp nhận theo nhịp của khách"),
+            ("clipboard-data", "Đo phản ứng trong pilot", "Theo dõi ai thật sự hứng thú sau trải nghiệm"),
         ],
         "Tín ngưỡng nên là lớp trải nghiệm sâu cho nhóm phù hợp, không phải nhãn bán hàng đại trà.",
         "Dùng thuật ngữ khách quan tâm tín ngưỡng; không dùng nhãn giới tính hoá.",
+        quotes_df,
+        participants_df,
+    )
+
+
+def _deck_awareness_card(icon, title, bullets, footer, count=None, total=None):
+    count_html = ""
+    if count is not None and total is not None:
+        count_html = f'<span class="deck-count-badge">{int(count)}/{int(total)}</span>'
+    return (
+        '<article class="deck-awareness-card">'
+        '<div class="deck-awareness-title">'
+        f'<span class="deck-mini-icon"><i class="bi bi-{_deck_h(icon)}"></i></span>'
+        f'<h4>{_deck_h(title)}</h4>'
+        f'{count_html}'
+        '</div>'
+        '<ul>'
+        + "".join(f'<li>{_deck_h(b)}</li>' for b in bullets)
+        + '</ul>'
+        f'<p class="deck-card-footer">{_deck_h(footer)}</p>'
+        '</article>'
+    )
+
+
+def _deck_term_card(label, text):
+    return (
+        '<article class="deck-term-card">'
+        f'<strong>{_deck_h(label)}</strong>'
+        f'<p>{_deck_h(text)}</p>'
+        '</article>'
+    )
+
+
+def _deck_show_cell(icon, label):
+    return (
+        '<article class="deck-show-cell">'
+        f'<span class="deck-mini-icon"><i class="bi bi-{_deck_h(icon)}"></i></span>'
+        f'<strong>{_deck_h(label)}</strong>'
+        '</article>'
+    )
+
+
+def _deck_implication_card(icon, title, text, tone="plain"):
+    return (
+        f'<article class="deck-implication-card deck-implication-{_deck_h(tone)}">'
+        f'<span class="deck-mini-icon"><i class="bi bi-{_deck_h(icon)}"></i></span>'
+        f'<h4>{_deck_h(title)}</h4>'
+        f'<p>{_deck_h(text)}</p>'
+        '</article>'
     )
 
 
@@ -2921,54 +3291,189 @@ def render_sustainability_deck_visual(participants_df):
     counts_raw = participants_df["sustainability_awareness"].fillna("").astype(str).str.strip()
     counts = counts_raw[counts_raw != ""].value_counts().to_dict()
     total_coded = sum(counts.values())
-    cards = [
-        _deck_card("question-circle", "Chưa quen", "Chưa từng nghe hoặc chỉ đoán liên quan đến môi trường.", "plain"),
-        _deck_card("newspaper", "Đã nghe nhưng chưa rõ", "Biết qua báo chí hoặc internet nhưng thấy còn lý thuyết.", "blue"),
-        _deck_card("people", "Hiểu rõ hơn", "Liên hệ với cộng đồng, bảo tồn văn hoá và phân bổ lợi ích.", "teal"),
-    ]
-    bars = []
-    for key, label in _SUSTAINABILITY_LABELS.items():
-        bars.append(_deck_bar(label, counts.get(key, 0), max(total_coded, 1), "leaf"))
-    return (
-        '<section class="deck-slide deck-visual">'
-        + _deck_page_header("IV.C. Mức độ quen thuộc với du lịch bền vững", "Hiểu về khái niệm trong nhóm phỏng vấn")
-        + '<div class="deck-two-col">'
-        '<div class="deck-panel"><h3>Mức độ quen thuộc</h3><div class="deck-card-grid">'
-        + "".join(cards)
-        + '</div></div>'
-        '<div class="deck-panel"><h3>Số người đã mã hoá</h3>'
-        + "".join(bars)
-        + '</div></div>'
-        + '<div class="deck-flow">'
-        + _deck_step("person-heart", "Với khách mua lẻ", "Không nên dùng thuật ngữ quá sớm; chuyển thành lợi ích cụ thể.")
-        + _deck_step("briefcase", "Với đối tác tổ chức", "Có thể dùng trực tiếp hơn nếu họ quen ngôn ngữ phát triển cộng đồng.")
-        + _deck_step("bullseye", "Trong pilot", "Đo xem khách có hiểu bền vững qua trải nghiệm thật hay không.")
+    coded_base = max(total_coded, 1)
+    familiarity = (
+        '<div class="deck-familiarity-flow">'
+        + _deck_awareness_card(
+            "question-circle",
+            "Chưa quen",
+            ["Chưa từng nghe", "Hoặc chỉ đoán là môi trường"],
+            "Không nên dùng thuật ngữ quá sớm",
+            counts.get("chua_quen", 0),
+            coded_base,
+        )
+        + '<span class="deck-flow-arrow"><i class="bi bi-chevron-right"></i></span>'
+        + _deck_awareness_card(
+            "ear",
+            "Đã nghe nhưng chưa rõ",
+            ["Biết qua báo chí / internet", "Nhưng còn khá lý thuyết"],
+            "Cần giải thích bằng ví dụ cụ thể",
+            counts.get("da_nghe_chua_ro", 0),
+            coded_base,
+        )
+        + '<span class="deck-flow-arrow"><i class="bi bi-chevron-right"></i></span>'
+        + _deck_awareness_card(
+            "lightbulb",
+            "Hiểu rõ hơn",
+            ["Liên hệ với cộng đồng", "Bảo tồn văn hoá, môi trường", "Giá trị quay lại cộng đồng"],
+            "Có thể dùng như lớp ý nghĩa sâu hơn",
+            counts.get("hieu_ro_hon", 0),
+            coded_base,
+        )
         + '</div>'
+    )
+    b2c_bridge = (
+        '<div class="deck-sustain-bridge">'
+        + _deck_term_card("Không nên bắt đầu bằng", "“Du lịch bền vững”")
+        + '<span class="deck-flow-arrow"><i class="bi bi-chevron-right"></i></span>'
+        + '<div class="deck-show-panel"><h4>Nên cho khách thấy</h4><div class="deck-show-grid">'
+        + _deck_show_cell("people-fill", "Gặp người địa phương")
+        + _deck_show_cell("house-heart", "Ăn cùng nhà dân")
+        + _deck_show_cell("journal-text", "Hiểu câu chuyện làng nghề")
+        + _deck_show_cell("heart", "Tôn trọng đời sống thật")
+        + _deck_show_cell("recycle", "Giá trị quay lại cộng đồng")
+        + '</div></div></div>'
+    )
+    implications = (
+        '<div class="deck-implication-grid">'
+        + _deck_implication_card("person-fill", "Với khách mua lẻ", "Bền vững là lớp ý nghĩa phía sau trải nghiệm.", "teal")
+        + _deck_implication_card("briefcase", "Với đối tác tổ chức", "Có thể dùng thuật ngữ trực tiếp hơn nếu họ quen ngôn ngữ phát triển cộng đồng.", "blue")
+        + _deck_implication_card("bullseye", "Pilot", "Đo xem khách có hiểu rõ hơn sau trải nghiệm hay không.", "amber")
+        + '</div>'
+    )
+    return (
+        '<section id="visual-sustainability" class="deck-slide deck-visual deck-sustainability-slide">'
+        + _deck_page_header_meta(
+            "IV.C. Mức độ quen thuộc với du lịch bền vững",
+            "Hiểu về khái niệm trong nhóm phỏng vấn",
+            _deck_meta_box([
+                ("people-fill", "Sample", f"N={len(participants_df)}"),
+                ("clipboard-data", "Mã hoá", f"{total_coded}/{len(participants_df)} participant"),
+                ("info-circle", "Lưu ý", "mẫu có chủ đích, không đại diện thị trường"),
+            ]),
+        )
+        + _deck_section_band("Mức độ quen thuộc", familiarity, 1)
+        + _deck_section_band("Cách nói dễ hiểu hơn với khách mua lẻ", b2c_bridge, 2)
+        + _deck_section_band("Hàm ý sử dụng", implications, 3)
         + _deck_takeaway("Bền vững nên là nguyên tắc thiết kế và lớp ý nghĩa sau trải nghiệm, không phải thuật ngữ đầu tiên để bán tour.")
-        + _deck_note("Chỉ hiển thị các participant đã có mã hoá sustainability_awareness.")
         + '</section>'
+    )
+
+
+def _deck_archetype_card(icon, title, rows, tone="plain"):
+    return (
+        f'<article class="deck-archetype-card-rich deck-archetype-{_deck_h(tone)}">'
+        '<div class="deck-archetype-card-head">'
+        f'<span class="deck-icon"><i class="bi bi-{_deck_h(icon)}"></i></span>'
+        f'<h4>{_deck_h(title)}</h4>'
+        '</div>'
+        '<div class="deck-archetype-rows">'
+        + "".join(
+            '<div class="deck-archetype-row">'
+            f'<strong>{_deck_h(label)}</strong>'
+            f'<span>{_deck_h(text)}</span>'
+            '</div>'
+            for label, text in rows
+        )
+        + '</div>'
+        '</article>'
     )
 
 
 def render_archetype_deck_visual(participants_df):
     n = len(participants_df)
-    cards = [
-        _deck_card("people-fill", "1. Nhóm gia đình / ưu tiên tiện nghi", "Dấu hiệu: an toàn, thoải mái, lịch trình nhẹ. MẠCH nên nhấn dịch vụ rõ, người dẫn tin cậy và cảm giác đáng tiền.", "blue"),
-        _deck_card("chat-dots", "2. Nhóm tò mò văn hoá nhưng cần người đi cùng", "Dấu hiệu: có hứng thú nhưng khó tự book. MẠCH nên nhấn gói nhóm nhỏ và không khí thân mật.", "teal"),
-        _deck_card("backpack", "3. Nhóm thích tự khám phá và trải nghiệm thật", "Dấu hiệu: thích đời sống thật, ghét dàn dựng. MẠCH cần chứng minh khác biệt so với tự đi.", "plain"),
-        _deck_card("heart", "4. Nhóm quan tâm cộng đồng / chiều sâu văn hoá", "Dấu hiệu: quan tâm văn hoá, cộng đồng, bền vững. MẠCH nên nhấn chiều sâu và vai trò địa phương.", "teal"),
-        _deck_card("globe2", "Nhóm cần test riêng trong pilot", "Khách nước ngoài / người tò mò văn hoá Việt. Hiện chưa có dữ liệu trực tiếp từ nhóm này.", "amber"),
-        _deck_card("person-badge", "Expert / industry voices", "Không phải persona chính; phù hợp hơn với cố vấn sản phẩm, đối tác triển khai và kiểm tra chất lượng.", "plain"),
-    ]
-    return (
-        '<section class="deck-slide deck-visual">'
-        + _deck_page_header("IV.D. Nhóm khách hàng mục tiêu", "Archetype tạm thời từ dữ liệu phỏng vấn")
-        + '<div class="deck-topline">'
-        + _deck_info_pill("people-fill", "Sample", f"N={n}")
-        + _deck_info_pill("clipboard-data", "Loại dữ liệu", "qualitative interviews")
-        + _deck_info_pill("info-circle", "Lưu ý", "convenience sample")
+    companion = _deck_bool_count(participants_df, "companion_dependent")
+    selftour = _deck_bool_count(participants_df, "prefers_selftour")
+    authenticity = _deck_bool_count(participants_df, "cares_about_authenticity")
+    sustainability = int((participants_df["sustainability_awareness"].fillna("") == "hieu_ro_hon").sum())
+    signal_strip = (
+        '<div class="deck-archetype-signal-strip">'
+        + _deck_info_pill("people-fill", "Phụ thuộc người đi cùng", f"{companion}/{n}")
+        + _deck_info_pill("person-walking", "Tự tổ chức / tự khám phá", f"{selftour}/{n}")
+        + _deck_info_pill("shield-check", "Quan tâm tính thật", f"{authenticity}/{n}")
+        + _deck_info_pill("leaf", "Hiểu rõ hơn về bền vững", f"{sustainability}/{n}")
         + '</div>'
-        + '<div class="deck-card-grid deck-archetype-grid">' + "".join(cards) + '</div>'
+    )
+    cards = [
+        _deck_archetype_card(
+            "people-fill",
+            "1. Gia đình / ưu tiên yên tâm",
+            [
+                ("Dấu hiệu", "Cần an toàn, lịch trình nhẹ, dịch vụ rõ và người dẫn đáng tin."),
+                ("MẠCH nên nhấn", "Đi cùng người thân, tiện nghi đủ tốt, cảm giác đáng tiền."),
+                ("Rào cản", "Nếu lịch trình quá nặng kiến thức hoặc thiếu nghỉ ngơi."),
+            ],
+            "blue",
+        ),
+        _deck_archetype_card(
+            "chat-dots",
+            "2. Tò mò văn hoá nhưng cần bạn đồng hành",
+            [
+                ("Dấu hiệu", "Có hứng thú, nhưng khó tự book nếu đi một mình hoặc nhóm lạ."),
+                ("MẠCH nên nhấn", "Nhóm nhỏ thân mật, dễ rủ bạn, không khí dễ trò chuyện."),
+                ("Rào cản", "Ngại gượng ép, ngại không cùng gu, thiếu người chia sẻ."),
+            ],
+            "teal",
+        ),
+        _deck_archetype_card(
+            "backpack",
+            "3. Tự khám phá / thích đời sống thật",
+            [
+                ("Dấu hiệu", "Thích tự do, ghét tour đóng khung, nhạy với cảm giác dàn dựng."),
+                ("MẠCH nên nhấn", "Phần khó tự tiếp cận: người thật, hậu trường, nhịp sống địa phương."),
+                ("Rào cản", "Nếu tour không khác rõ với tự đi hoặc quá bị quản lý."),
+            ],
+            "plain",
+        ),
+        _deck_archetype_card(
+            "heart",
+            "4. Chiều sâu văn hoá / cộng đồng",
+            [
+                ("Dấu hiệu", "Quan tâm câu chuyện con người, làng nghề, tín ngưỡng, cộng đồng."),
+                ("MẠCH nên nhấn", "Ý nghĩa phía sau trải nghiệm và vai trò của người địa phương."),
+                ("Rào cản", "Nếu kể quá học thuật hoặc dùng thuật ngữ bền vững quá sớm."),
+            ],
+            "teal",
+        ),
+    ]
+    bottom = (
+        '<div class="deck-archetype-bottom">'
+        + _deck_archetype_card(
+            "globe2",
+            "Nhóm cần test riêng trong pilot",
+            [
+                ("Giả thuyết", "Khách nước ngoài / người tò mò văn hoá Việt có thể hấp dẫn."),
+                ("Cần đo", "Hiểu đúng giá trị, sẵn sàng trả tiền, khả năng giới thiệu lại."),
+                ("Lưu ý", "Hiện chưa có dữ liệu trực tiếp từ khách nước ngoài."),
+            ],
+            "amber",
+        )
+        + _deck_archetype_card(
+            "person-badge",
+            "Góc nhìn chuyên môn / ngành",
+            [
+                ("Vai trò", "Nguồn kiểm tra sản phẩm, đối tác triển khai, góc kiểm tra chất lượng."),
+                ("Không nên dùng", "Không biến thành persona khách hàng chính."),
+                ("Giá trị", "Giúp soi vận hành, tính chân thực và mức sẵn sàng của đối tác."),
+            ],
+            "plain",
+        )
+        + '</div>'
+    )
+    return (
+        '<section id="visual-archetypes" class="deck-slide deck-visual deck-archetype-slide">'
+        + _deck_page_header_meta(
+            "IV.D. Nhóm khách hàng mục tiêu",
+            "Archetype tạm thời từ dữ liệu phỏng vấn",
+            _deck_meta_box([
+                ("people-fill", "Sample", f"N={n}"),
+                ("clipboard-data", "Loại dữ liệu", "qualitative interviews"),
+                ("info-circle", "Lưu ý", "không ép thành persona duy nhất"),
+            ]),
+        )
+        + _deck_section_band("Tín hiệu nền để đọc archetype", signal_strip)
+        + '<div class="deck-archetype-board">' + "".join(cards) + '</div>'
+        + bottom
         + _deck_takeaway("MẠCH chưa cần chốt một persona duy nhất. Pilot nên kiểm chứng nhóm nào vừa thích tour, vừa sẵn sàng trả tiền, vừa muốn giới thiệu lại.")
         + '</section>'
     )
