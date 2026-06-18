@@ -786,6 +786,12 @@ main.content,
   transform: translateY(-1px);
 }
 
+.b-interactive:focus-visible {
+  box-shadow: 0 0 0 2px var(--deck-teal);
+  outline: 2px solid var(--deck-teal);
+  outline-offset: 2px;
+}
+
 .b-interactive.b-active {
   box-shadow: 0 0 0 2px var(--deck-teal);
   outline: 2px solid var(--deck-teal);
@@ -797,6 +803,10 @@ main.content,
   border-top: 1px solid var(--deck-line);
   margin-top: 0.5rem;
   padding-top: 0.85rem;
+}
+
+.deck-b-quote-panel[hidden] {
+  display: none !important;
 }
 
 .deck-b-quote-panel.bqp-open {

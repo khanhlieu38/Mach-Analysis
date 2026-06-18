@@ -2654,7 +2654,7 @@ def _deck_bottleneck_list(items):
     for item in items:
         idx, title, subtitle, level = item[:4]
         pids = item[4] if len(item) > 4 else None
-        pids_attr = f' data-b-pids="{html.escape(",".join(pids), quote=True)}"' if pids else ""
+        pids_attr = _deck_b_pids_attrs(pids)
         cls = "deck-bottleneck" + (" b-interactive" if pids else "")
         cards.append(
             f'<article class="{cls}"{pids_attr}>'
@@ -2672,7 +2672,7 @@ def _deck_bottleneck_list(items):
 
 
 def _deck_signal_card(icon, title, text, tone="plain", pids=None):
-    pids_attr = f' data-b-pids="{html.escape(",".join(pids), quote=True)}"' if pids else ""
+    pids_attr = _deck_b_pids_attrs(pids)
     cls = f"deck-signal-card deck-signal-{_deck_h(tone)}" + (" b-interactive" if pids else "")
     return (
         f'<article class="{cls}"{pids_attr}>'
@@ -2704,6 +2704,18 @@ def _deck_action_flow(items):
         if i < len(items) - 1:
             pieces.append('<span class="deck-flow-arrow"><i class="bi bi-chevron-right"></i></span>')
     return '<div class="deck-action-flow">' + "".join(pieces) + '</div>'
+
+
+def _deck_b_pids_attrs(pids):
+    if not pids:
+        return ""
+    pids_value = html.escape(",".join(pids), quote=True)
+    return (
+        f' data-b-pids="{pids_value}"'
+        ' role="button"'
+        ' tabindex="0"'
+        ' aria-expanded="false"'
+    )
 
 
 def _deck_b_quote_panel(pattern_id, quotes_df, participants_df):
@@ -2739,7 +2751,7 @@ def _deck_b_quote_panel(pattern_id, quotes_df, participants_df):
         )
     panel_id = f"bqp-{str(pattern_id).lower()}"
     return (
-        f'<div class="deck-b-quote-panel" id="{_deck_h(panel_id)}">'
+        f'<div class="deck-b-quote-panel" id="{_deck_h(panel_id)}" hidden>'
         '<p class="bqp-hint"><i class="bi bi-cursor-fill"></i> Bấm vào thẻ để xem bằng chứng liên quan</p>'
         f'<div class="bqp-dots">{dots}</div>'
         f'<div class="bqp-quotes">{"".join(quote_items)}</div>'
@@ -2764,34 +2776,50 @@ def render_b_interactive_js():
     return (
         "<script>(function(){"
         "function resetPanel(panel){"
+        "panel.hidden=true;"
         "panel.classList.remove('bqp-open');"
         "panel.querySelectorAll('.b-dot,.bqp-quote').forEach(function(x){x.classList.remove('bqp-hidden');});"
         "}"
-        "document.addEventListener('click',function(e){"
-        "var el=e.target.closest('[data-b-pids]');"
-        "if(!el){"
-        "document.querySelectorAll('[data-b-pids]').forEach(function(x){x.classList.remove('b-active');});"
+        "function clearActive(){"
+        "document.querySelectorAll('[data-b-pids]').forEach(function(x){x.classList.remove('b-active');x.setAttribute('aria-expanded','false');});"
         "document.querySelectorAll('.deck-b-quote-panel').forEach(resetPanel);"
-        "return;"
         "}"
-        "var pids=el.getAttribute('data-b-pids').split(',');"
+        "function activate(el){"
         "var slide=el.closest('.deck-b-slide');"
         "if(!slide)return;"
         "var panel=slide.querySelector('.deck-b-quote-panel');"
         "if(!panel)return;"
         "var wasActive=el.classList.contains('b-active');"
-        "slide.querySelectorAll('[data-b-pids]').forEach(function(x){x.classList.remove('b-active');});"
-        "if(wasActive){resetPanel(panel);}"
-        "else{"
+        "var pids=el.getAttribute('data-b-pids').split(',');"
+        "clearActive();"
+        "if(wasActive)return;"
         "el.classList.add('b-active');"
+        "el.setAttribute('aria-expanded','true');"
+        "panel.hidden=false;"
         "panel.classList.add('bqp-open');"
         "panel.querySelectorAll('.b-dot').forEach(function(d){"
         "d.classList.toggle('bqp-hidden',pids.indexOf(d.getAttribute('data-pid'))===-1);"
         "});"
         "panel.querySelectorAll('.bqp-quote').forEach(function(q){"
         "q.classList.toggle('bqp-hidden',pids.indexOf(q.getAttribute('data-pid'))===-1);"
-        "});}"
+        "});"
+        "}"
+        "document.addEventListener('click',function(e){"
+        "var el=e.target.closest('[data-b-pids]');"
+        "if(!el){"
+        "clearActive();"
+        "return;"
+        "}"
+        "activate(el);"
         "e.stopPropagation();"
+        "});"
+        "document.addEventListener('keydown',function(e){"
+        "var el=e.target.closest('[data-b-pids]');"
+        "if(!el)return;"
+        "if(e.key==='Enter'||e.key===' '){"
+        "e.preventDefault();"
+        "activate(el);"
+        "}"
         "});"
         "})();</script>"
     )
