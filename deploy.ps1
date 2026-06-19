@@ -22,7 +22,14 @@ Write-Host "-> Rendering Quarto site..."
 quarto render
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-# 3. Encrypt — overwrite each HTML file in place
+# 3. Remove raw Quarto search index
+$searchIndex = Join-Path "docs" "search.json"
+if (Test-Path -LiteralPath $searchIndex) {
+    Remove-Item -LiteralPath $searchIndex -Force
+    Write-Host "-> Removed raw Quarto search index."
+}
+
+# 4. Encrypt — overwrite each HTML file in place
 Write-Host "-> Encrypting docs/ with StatiCrypt..."
 $htmlFiles = Get-ChildItem -Path docs -Filter "*.html" -Recurse
 
@@ -42,7 +49,7 @@ foreach ($f in $htmlFiles) {
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 }
 
-# 4. Push
+# 5. Push
 Write-Host "-> Pushing to GitHub Pages..."
 git add docs/
 git commit -m "Deploy: update encrypted site $(Get-Date -Format 'yyyy-MM-dd HH:mm')"

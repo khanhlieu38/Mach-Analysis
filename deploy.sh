@@ -16,6 +16,11 @@ fi
 echo "→ Rendering Quarto site..."
 quarto render
 
+if [ -f docs/search.json ]; then
+  rm docs/search.json
+  echo "→ Removed raw Quarto search index."
+fi
+
 # ── 3. Encrypt ────────────────────────────────────────────────────
 echo "→ Encrypting docs/ with StatiCrypt..."
 

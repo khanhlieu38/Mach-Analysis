@@ -16,6 +16,7 @@ jupyter: python3
 
 website:
   title: "MẠCH · Nghiên cứu định tính"
+  search: false
   navbar:
     left:
       - text: "Nghiên cứu trước chuyến thử nghiệm 2026"
