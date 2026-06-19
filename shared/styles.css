@@ -1519,6 +1519,267 @@ main.content,
   color: var(--deck-teal);
 }
 
+.pilot-readiness-visual {
+  gap: 0.55rem;
+}
+
+.pilot-readiness-header {
+  border-bottom: 2px solid var(--deck-sky);
+  display: grid;
+  gap: 0.18rem;
+  min-width: 0;
+  padding-bottom: 0.45rem;
+}
+
+.pilot-readiness-kicker {
+  color: var(--deck-teal) !important;
+  font-size: 0.88rem !important;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.deck-visual .pilot-readiness-header h2 {
+  color: var(--deck-navy);
+  font-size: 2.35rem;
+  line-height: 1.05;
+}
+
+.deck-visual .pilot-readiness-header p {
+  color: #56637d;
+  font-size: 0.98rem;
+  line-height: 1.35;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal !important;
+  word-break: break-word;
+}
+
+.pilot-readiness-panel,
+.pilot-signal-panel {
+  background: #fff;
+  border: 1px solid #cbdcf4;
+  border-radius: 8px;
+  display: grid;
+  gap: 0.65rem;
+  padding: 0.75rem;
+}
+
+.pilot-readiness-visual *,
+.pilot-readiness-panel *,
+.pilot-signal-panel * {
+  max-width: 100%;
+}
+
+.pilot-section-copy {
+  display: grid;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
+.deck-visual .pilot-section-copy h3 {
+  color: var(--deck-navy);
+  font-size: 1.1rem;
+}
+
+.deck-visual .pilot-section-copy p {
+  color: #66718a;
+  font-size: 0.82rem;
+  line-height: 1.3;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal !important;
+  word-break: break-word;
+}
+
+.pilot-funnel {
+  align-items: stretch;
+  display: grid;
+  gap: 0.42rem;
+  grid-template-columns:
+    minmax(0, 1fr) 1rem minmax(0, 1fr) 1rem minmax(0, 1fr) 1rem
+    minmax(0, 1fr) 1rem minmax(0, 1fr);
+}
+
+.pilot-funnel-card {
+  background: linear-gradient(180deg, #fff, #f7fbff);
+  border: 1px solid #b9cbe6;
+  border-radius: 8px;
+  display: grid;
+  gap: 0.48rem;
+  grid-template-rows: auto auto minmax(3.1rem, 1fr) auto;
+  min-height: 12rem;
+  min-width: 0;
+  padding: 0.58rem;
+}
+
+.pilot-funnel-card > * {
+  min-width: 0;
+}
+
+.pilot-funnel-head {
+  align-items: center;
+  display: grid;
+  gap: 0.42rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-width: 0;
+}
+
+.pilot-step-number,
+.pilot-signal-number {
+  align-items: center;
+  background: #e6f7f3;
+  border: 1px solid #b9ddd8;
+  border-radius: 50%;
+  color: var(--deck-teal);
+  display: inline-flex;
+  font-weight: 900;
+  justify-content: center;
+}
+
+.pilot-step-number {
+  font-size: 0.78rem;
+  height: 2rem;
+  width: 2rem;
+}
+
+.pilot-step-label {
+  background: #ecf3ff;
+  border-radius: 6px;
+  color: var(--deck-navy);
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 900;
+  line-height: 1.15;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  padding: 0.32rem 0.45rem;
+}
+
+.deck-visual .pilot-funnel-card h3 {
+  color: var(--deck-navy);
+  font-size: 1.05rem;
+  line-height: 1.12;
+}
+
+.pilot-question {
+  align-self: start;
+  display: grid;
+  gap: 0.16rem;
+  min-width: 0;
+}
+
+.pilot-question strong,
+.pilot-measure strong {
+  color: var(--deck-teal);
+  font-size: 0.72rem;
+}
+
+.deck-visual .pilot-question p,
+.deck-visual .pilot-measure {
+  color: #31416d;
+  font-size: 0.73rem;
+  line-height: 1.22;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal !important;
+  word-break: break-word;
+}
+
+.pilot-measure {
+  border-top: 1px solid #dde6f3;
+  margin: 0;
+  padding-top: 0.35rem;
+}
+
+.pilot-funnel-arrow,
+.pilot-timeline-arrow {
+  align-items: center;
+  align-self: center;
+  color: var(--deck-teal);
+  display: inline-flex;
+  font-size: 1.2rem;
+  justify-content: center;
+}
+
+.pilot-signal-timeline {
+  align-items: center;
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns:
+    minmax(0, 1fr) 1.2rem minmax(0, 1fr) 1.2rem minmax(0, 1fr) 1.2rem
+    minmax(0, 1fr);
+}
+
+.pilot-signal-item {
+  align-items: center;
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-width: 0;
+}
+
+.pilot-signal-item > div {
+  min-width: 0;
+}
+
+.pilot-signal-number {
+  background: var(--deck-teal);
+  color: #fff;
+  font-size: 0.78rem;
+  height: 1.85rem;
+  width: 1.85rem;
+}
+
+.deck-visual .pilot-signal-item h4 {
+  color: var(--deck-navy);
+  font-size: 0.95rem;
+  line-height: 1.15;
+}
+
+.deck-visual .pilot-signal-item p {
+  color: #66718a;
+  font-size: 0.74rem;
+  line-height: 1.2;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal !important;
+  word-break: break-word;
+}
+
+.pilot-decision-rule {
+  align-items: center;
+  background: var(--deck-amber-soft);
+  border: 1px solid #f4c03e;
+  border-radius: 8px;
+  color: #5b4212;
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  padding: 0.58rem 0.75rem;
+}
+
+.pilot-decision-rule span {
+  align-items: center;
+  background: var(--deck-amber);
+  border-radius: 50%;
+  color: #fff;
+  display: inline-flex;
+  height: 2rem;
+  justify-content: center;
+  width: 2rem;
+}
+
+.deck-visual .pilot-decision-rule p {
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.25;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal !important;
+  word-break: break-word;
+}
+
 @media (max-width: 1100px) {
   .deck-cover-stats,
   .deck-metric-grid,
@@ -1548,6 +1809,20 @@ main.content,
   .deck-action-card,
   .deck-awareness-card {
     flex-basis: calc(50% - 0.65rem);
+  }
+
+  .pilot-funnel {
+    grid-template-columns: repeat(5, minmax(12rem, 1fr));
+    overflow-x: auto;
+    padding-bottom: 0.15rem;
+  }
+
+  .pilot-funnel-card {
+    min-width: 12rem;
+  }
+
+  .pilot-funnel-arrow {
+    display: none;
   }
 
   .deck-show-grid {
@@ -1672,6 +1947,48 @@ main.content,
 
   .deck-flow-arrow {
     align-self: center;
+    transform: rotate(90deg);
+  }
+
+  .pilot-readiness-visual {
+    gap: 0.75rem;
+  }
+
+  .deck-visual .pilot-readiness-header h2 {
+    font-size: 1.82rem;
+  }
+
+  .deck-visual .pilot-readiness-header h2,
+  .deck-visual .pilot-readiness-header p,
+  .deck-visual .pilot-section-copy p,
+  .deck-visual .pilot-question p,
+  .deck-visual .pilot-measure,
+  .deck-visual .pilot-signal-item p,
+  .deck-visual .pilot-decision-rule p,
+  .deck-visual .deck-note p {
+    max-width: calc(100vw - 4.5rem);
+  }
+
+  .pilot-readiness-panel,
+  .pilot-signal-panel {
+    padding: 0.7rem;
+  }
+
+  .pilot-funnel,
+  .pilot-signal-timeline {
+    grid-template-columns: 1fr;
+    overflow-x: visible;
+  }
+
+  .pilot-funnel-card {
+    min-height: auto;
+    min-width: 0;
+  }
+
+  .pilot-funnel-arrow,
+  .pilot-timeline-arrow {
+    display: inline-flex;
+    justify-self: center;
     transform: rotate(90deg);
   }
 

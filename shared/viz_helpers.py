@@ -3663,33 +3663,86 @@ def render_limitations_visual(participants_df):
     )
 
 
-def render_pilot_test_visual(participants_df):
+def _pilot_funnel_card(number, label, question, pilot_question, measure):
     return (
-        '<section class="deck-slide deck-visual">'
-        + _deck_page_header("V.3. Những điều cần kiểm chứng trong pilot tour", "Pilot là bước kiểm chứng giả thuyết, không chỉ là chạy thử vận hành")
-        + '<div class="deck-three-col">'
-        '<div class="deck-panel"><h3>1. Experience fit</h3>'
-        + _deck_step("hand-index", "Trải nghiệm trực tiếp", "Ít nghe, nhiều chạm.")
-        + _deck_step("chat-dots", "Storytelling và người dẫn", "Dễ hiểu, có cảm xúc.")
-        + _deck_step("building", "Sức hút của Nam Định", "Có lý do đủ mạnh để đi.")
-        + '</div>'
-        '<div class="deck-panel"><h3>2. Market fit</h3>'
-        + _deck_step("people-fill", "Nhóm bạn / gia đình", "Có làm đăng ký dễ hơn không.")
-        + _deck_step("globe2", "Khách Việt / khách nước ngoài", "Nhóm nào thật sự phù hợp.")
-        + _deck_step("search", "Người tò mò văn hoá", "Có đủ hứng thú và sẵn sàng trả tiền.")
-        + '</div>'
-        '<div class="deck-panel"><h3>3. Value fit</h3>'
-        + _deck_step("megaphone", "Thông điệp truyền thông", "Khách hiểu tour theo cách nào.")
-        + _deck_step("tag", "Giá và cảm nhận đáng tiền", "Phần nào tạo giá trị.")
-        + _deck_step("leaf", "Hiểu về bền vững", "Hiểu qua trải nghiệm, không chỉ định nghĩa.")
-        + '</div></div>'
-        + '<div class="deck-timeline">'
-        + _deck_step("calendar-event", "Trước tour", "Kỳ vọng, lý do đăng ký, người đi cùng.")
-        + _deck_step("person-walking", "Trong tour", "Quan sát tham gia, câu hỏi, điểm nghẽn.")
-        + _deck_step("camera", "Ngay sau tour", "Điểm nhớ, cảm nhận đáng tiền, ý định giới thiệu.")
-        + _deck_step("calendar-check", "Sau 2-4 tuần", "Ký ức còn lại và khả năng kể lại.")
-        + '</div>'
-        + _deck_takeaway("Pilot cần kiểm chứng 3 lớp: khách có thích trải nghiệm không, có hiểu đúng giá trị của MẠCH không, và có thấy tour đủ đáng tiền để giới thiệu hoặc mua lại không.")
-        + _deck_note("Report tạo giả thuyết. Pilot là bước kiểm chứng nhu cầu thật, mức sẵn sàng trả tiền và khả năng giới thiệu lại tour.")
+        '<article class="pilot-funnel-card">'
+        '<div class="pilot-funnel-head">'
+        f'<span class="pilot-step-number">{_deck_h(number)}</span>'
+        f'<span class="pilot-step-label">{_deck_h(label)}</span>'
+        '</div>'
+        f'<h3>{_deck_h(question)}</h3>'
+        '<div class="pilot-question">'
+        '<strong>Câu hỏi pilot</strong>'
+        f'<p>{_deck_h(pilot_question)}</p>'
+        '</div>'
+        f'<p class="pilot-measure"><strong>Đo bằng:</strong> {_deck_h(measure)}</p>'
+        '</article>'
+    )
+
+
+def _pilot_signal_item(number, title, text):
+    return (
+        '<article class="pilot-signal-item">'
+        f'<span class="pilot-signal-number">{_deck_h(number)}</span>'
+        '<div>'
+        f'<h4>{_deck_h(title)}</h4>'
+        f'<p>{_deck_h(text)}</p>'
+        '</div>'
+        '</article>'
+    )
+
+
+def render_pilot_test_visual():
+    funnel_cards = [
+        ("01", "Nhu cầu", "Có muốn đi không?", "Ai đăng ký khi lời mời tour đủ rõ?", "Đăng ký, lý do huỷ, người đi cùng"),
+        ("02", "Thông điệp", "Có hiểu đúng giá trị MẠCH không?", "Khách hiểu tour theo cách nào?", "Thông điệp nhớ được, điểm hấp dẫn"),
+        ("03", "Trải nghiệm", "Trải nghiệm có chạm không?", "Khoảnh khắc nào khiến khách thấy mình đang ở trong đời sống văn hoá?", "Khoảnh khắc nhớ nhất, mức tham gia"),
+        ("04", "Giá trị", "Có thấy đáng tiền không?", "Phần nào tạo giá trị so với mức giá?", "Mức sẵn sàng trả tiền, so sánh lựa chọn khác"),
+        ("05", "Lan toả", "Có kể lại hoặc quay lại không?", "Sau 2-4 tuần, khách còn nhớ và kể lại điều gì?", "Giới thiệu, mua lại, câu chuyện kể lại"),
+    ]
+    signal_items = [
+        ("1", "Trước tour", "Kỳ vọng, lý do đăng ký, người đi cùng"),
+        ("2", "Trong tour", "Quan sát tham gia, câu hỏi, điểm nghẽn"),
+        ("3", "Ngay sau tour", "Phản ứng đầu, cảm nhận, ý định giới thiệu"),
+        ("4", "Sau 2-4 tuần", "Ký ức còn lại, câu chuyện kể lại, mua lại"),
+    ]
+    funnel_parts = []
+    for idx, card in enumerate(funnel_cards):
+        funnel_parts.append(_pilot_funnel_card(*card))
+        if idx < len(funnel_cards) - 1:
+            funnel_parts.append('<span class="pilot-funnel-arrow" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>')
+
+    signal_parts = []
+    for idx, item in enumerate(signal_items):
+        signal_parts.append(_pilot_signal_item(*item))
+        if idx < len(signal_items) - 1:
+            signal_parts.append('<span class="pilot-timeline-arrow" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>')
+
+    return (
+        '<section id="pilot-readiness" class="deck-slide deck-visual pilot-readiness-visual">'
+        '<div class="pilot-readiness-header">'
+        '<p class="pilot-readiness-kicker">KẾT LUẬN PILOT TOUR</p>'
+        '<h2>Pilot cần chứng minh 5 điều trước khi nhân rộng</h2>'
+        '<p>Không chỉ kiểm tra vận hành, pilot phải xác nhận nhu cầu thật, trải nghiệm thật và khả năng giới thiệu lại tour.</p>'
+        '</div>'
+        '<div class="pilot-readiness-panel">'
+        '<div class="pilot-section-copy">'
+        '<h3>5 câu hỏi quyết định</h3>'
+        '<p>Nếu một câu trả lời còn yếu, không nên nhân rộng ngay, cần chỉnh sản phẩm, thông điệp hoặc dịch vụ trước.</p>'
+        '</div>'
+        f'<div class="pilot-funnel">{"".join(funnel_parts)}</div>'
+        '</div>'
+        '<div class="pilot-signal-panel">'
+        '<div class="pilot-section-copy">'
+        '<h3>4 thời điểm thu thập tín hiệu</h3>'
+        '<p>Dùng cùng một bộ câu hỏi ngắn để thấy khách thay đổi kỳ vọng, cảm nhận và ký ức sau tour.</p>'
+        '</div>'
+        f'<div class="pilot-signal-timeline">{"".join(signal_parts)}</div>'
+        '</div>'
+        '<div class="pilot-decision-rule">'
+        '<span><i class="bi bi-exclamation-circle-fill"></i></span>'
+        '<p><strong>Quy tắc quyết định:</strong> Nếu pilot chỉ chạy mượt nhưng khách không hiểu, không thấy đáng tiền và không kể lại được, tour chưa sẵn sàng nhân rộng.</p>'
+        '</div>'
+        + _deck_note("Đây là khung đo cho pilot sắp tới, không phải kết quả đã thu thập.")
         + '</section>'
     )

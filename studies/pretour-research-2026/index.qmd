@@ -384,14 +384,14 @@ print(render_limitations_visual(participants_df))
 <h2>3. Những điều cần kiểm chứng trong pilot tour</h2>
 
 <div class="deck-text">
-<p>Pilot tour nên được xem là bước kiểm chứng tiếp theo, không chỉ là lần chạy thử vận hành. Mục tiêu là xem các giả thuyết từ phỏng vấn có còn đúng khi khách thật sự trải nghiệm tour hay không.</p>
-<p>Pilot nên đo ba lớp: khách có thích trải nghiệm không, họ có hiểu đúng giá trị của MẠCH không, và họ có thấy tour đủ đáng tiền để giới thiệu hoặc mua lại không.</p>
-<p>Chi tiết câu hỏi, dấu hiệu quan sát và thời điểm đo nên được chuyển thành testing matrix vận hành cho pilot.</p>
+<p>Pilot tour nên được xem là bước kiểm chứng chuỗi quyết định trước khi nhân rộng, không chỉ là lần chạy thử vận hành. Mục tiêu là xem khách thật có muốn đi, hiểu đúng giá trị, thấy trải nghiệm đủ chạm, cảm nhận đáng tiền và còn kể lại được sau tour hay không.</p>
+<p>Các câu hỏi này cần được đo bằng tín hiệu cụ thể trong từng thời điểm của pilot, từ trước tour đến sau tour 2-4 tuần.</p>
+<p>Chi tiết câu hỏi, dấu hiệu quan sát và thời điểm đo nên được chuyển thành ma trận kiểm chứng vận hành cho pilot.</p>
 </div>
 </section>
 
 ```{python}
 #| output: asis
-print(render_pilot_test_visual(participants_df))
+print(render_pilot_test_visual())
 ```
 
