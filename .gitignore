@@ -34,6 +34,13 @@ _freeze/
 .venv/
 venv/
 
+# Node dependencies and deploy staging
+node_modules/
+.deploy-staging/
+.deploy-backup/
+.debug-render/
+.mach-staticrypt-*/
+
 # Raw sensitive data per study (track folder + .gitkeep, ignore content)
 studies/*/data/raw/*
 !studies/*/data/raw/.gitkeep

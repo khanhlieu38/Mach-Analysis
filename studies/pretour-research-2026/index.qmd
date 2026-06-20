@@ -15,6 +15,7 @@ format:
 #| message: false
 import sys
 from pathlib import Path
+from IPython.display import HTML, display
 
 def _find_root(start):
     for p in [start] + list(start.parents):
@@ -51,6 +52,9 @@ from viz_helpers import (
 study_dir = _root / "studies" / "pretour-research-2026"
 participants_df, quotes_df = load_study_data(study_dir)
 records_df = load_records_data(study_dir)
+
+def show_html(value):
+    display(HTML(value))
 ```
 
 
@@ -62,7 +66,7 @@ records_df = load_records_data(study_dir)
 
 ```{python}
 #| output: asis
-print(render_cover_stats(participants_df, quotes_df, records_df))
+show_html(render_cover_stats(participants_df, quotes_df, records_df))
 ```
 </section>
 
@@ -129,7 +133,7 @@ print(render_cover_stats(participants_df, quotes_df, records_df))
 
 ```{python}
 #| output: asis
-print(render_sample_deck_visual(participants_df, quotes_df, records_df))
+show_html(render_sample_deck_visual(participants_df, quotes_df, records_df))
 ```
 
 <section class="deck-slide  deck-divider">
@@ -157,7 +161,7 @@ print(render_sample_deck_visual(participants_df, quotes_df, records_df))
 
 ```{python}
 #| output: asis
-print(render_decision_deck_visual(participants_df))
+show_html(render_decision_deck_visual(participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
@@ -173,8 +177,8 @@ print(render_decision_deck_visual(participants_df))
 
 ```{python}
 #| output: asis
-print(render_b_interactive_js())
-print(render_b1_visual(quotes_df, participants_df))
+show_html(render_b_interactive_js())
+show_html(render_b1_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
@@ -190,7 +194,7 @@ print(render_b1_visual(quotes_df, participants_df))
 
 ```{python}
 #| output: asis
-print(render_b2_visual(quotes_df, participants_df))
+show_html(render_b2_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
@@ -206,7 +210,7 @@ print(render_b2_visual(quotes_df, participants_df))
 
 ```{python}
 #| output: asis
-print(render_b3_visual(quotes_df, participants_df))
+show_html(render_b3_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
@@ -222,7 +226,7 @@ print(render_b3_visual(quotes_df, participants_df))
 
 ```{python}
 #| output: asis
-print(render_b4_visual(quotes_df, participants_df))
+show_html(render_b4_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
@@ -238,7 +242,7 @@ print(render_b4_visual(quotes_df, participants_df))
 
 ```{python}
 #| output: asis
-print(render_b5_visual(quotes_df, participants_df))
+show_html(render_b5_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
@@ -254,7 +258,7 @@ print(render_b5_visual(quotes_df, participants_df))
 
 ```{python}
 #| output: asis
-print(render_b6_visual(quotes_df, participants_df))
+show_html(render_b6_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
@@ -270,7 +274,7 @@ print(render_b6_visual(quotes_df, participants_df))
 
 ```{python}
 #| output: asis
-print(render_b7_visual(quotes_df, participants_df))
+show_html(render_b7_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
@@ -286,7 +290,7 @@ print(render_b7_visual(quotes_df, participants_df))
 
 ```{python}
 #| output: asis
-print(render_b8_visual(quotes_df, participants_df))
+show_html(render_b8_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
@@ -302,7 +306,7 @@ print(render_b8_visual(quotes_df, participants_df))
 
 ```{python}
 #| output: asis
-print(render_b9_visual(quotes_df, participants_df))
+show_html(render_b9_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
@@ -318,7 +322,7 @@ print(render_b9_visual(quotes_df, participants_df))
 
 ```{python}
 #| output: asis
-print(render_sustainability_deck_visual(participants_df))
+show_html(render_sustainability_deck_visual(participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
@@ -334,16 +338,16 @@ print(render_sustainability_deck_visual(participants_df))
 
 ```{python}
 #| output: asis
-print(render_archetype_deck_visual(participants_df))
+show_html(render_archetype_deck_visual(participants_df))
 ```
 
 <section class="deck-slide  deck-divider">
 <p class="section-kicker">Phần V</p>
 <h2>Kết luận</h2>
 <div class="deck-divider-list">
-  <p>1. Những điểm concept đang có lợi thế</p>
-  <p>2. Giới hạn của nghiên cứu</p>
-  <p>3. Những điều cần kiểm chứng trong pilot tour</p>
+  <p>&#49;. Những điểm concept đang có lợi thế</p>
+  <p>&#50;. Giới hạn của nghiên cứu</p>
+  <p>&#51;. Những điều cần kiểm chứng trong pilot tour</p>
 </div>
 </section>
 
@@ -360,7 +364,7 @@ print(render_archetype_deck_visual(participants_df))
 
 ```{python}
 #| output: asis
-print(render_concept_advantage_visual(participants_df, quotes_df))
+show_html(render_concept_advantage_visual(participants_df, quotes_df))
 ```
 
 <section class="deck-slide  deck-narrative">
@@ -376,7 +380,7 @@ print(render_concept_advantage_visual(participants_df, quotes_df))
 
 ```{python}
 #| output: asis
-print(render_limitations_visual(participants_df))
+show_html(render_limitations_visual(participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
@@ -392,6 +396,6 @@ print(render_limitations_visual(participants_df))
 
 ```{python}
 #| output: asis
-print(render_pilot_test_visual())
+show_html(render_pilot_test_visual())
 ```
 

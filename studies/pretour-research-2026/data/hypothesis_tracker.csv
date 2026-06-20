@@ -1,0 +1,10 @@
+finding_id,cohort,status,evidence_delta,confidence_after,date,note
+P1,cohort_1,new,12 participants / 16 curated rows,cao,2026-06-20,Đa số nguồn là khách thật; tiếp tục kiểm chứng trong pilot.
+P2,cohort_1,new,5 participants / 5 curated rows,cao,2026-06-20,Hai ngoại lệ đi độc lập được theo dõi riêng.
+P3,cohort_1,new,10 participants / 12 curated rows,trung_binh,2026-06-20,Có phản ứng trái chiều giữa self-include và self-exclude.
+P4,cohort_1,new,11 participants / 11 curated rows,trung_binh,2026-06-20,Phản ứng trải từ cảnh giác đến chấp nhận có điều kiện.
+P5,cohort_1,new,8 participants / 10 curated rows,trung_binh,2026-06-20,Rào cản điểm đến cần được kiểm chứng bằng thông điệp pilot.
+P6,cohort_1,new,2 participants / 2 curated rows,som,2026-06-20,Hai nguồn P05 và P15; giữ ở mức tín hiệu sớm.
+H1,cohort_1,new,4 participants / 5 curated rows,hypothesis,2026-06-20,Quan tâm tín ngưỡng là phạm vi rộng; không suy ra demand cho một tour cụ thể.
+S1,cohort_1,new,5 participants / 5 curated rows,hypothesis,2026-06-20,Nhóm khách nước ngoài vắng mặt; tín hiệu thiên góc nhìn ngành.
+S2,cohort_1,new,8 participants / 9 curated rows,trung_binh,2026-06-20,Tín hiệu có action pilot và thiên góc nhìn ngành.

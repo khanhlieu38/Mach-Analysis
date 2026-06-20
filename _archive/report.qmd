@@ -86,7 +86,7 @@ print(finding_badges(findings))
 
 # Sample Overview
 
-Profile rất đa dạng — từ senior business 50+ (budget >50M) đến nhân viên văn phòng 18–29. Đây là strength (nhiều góc nhìn) nhưng cũng là limitation (không thể generalize cho 1 segment cụ thể).
+Profile rất đa dạng — từ nhóm lớn tuổi có mức chi cao đến nhóm 18–29 làm công việc văn phòng. Đây là strength (nhiều góc nhìn) nhưng cũng là limitation (không thể generalize cho 1 segment cụ thể).
 
 ```{python}
 #| label: profile-cards

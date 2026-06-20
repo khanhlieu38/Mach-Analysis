@@ -1,0 +1,7 @@
+{
+  "name": "mach-nonparticipant-analysis",
+  "private": true,
+  "devDependencies": {
+    "staticrypt": "3.5.4"
+  }
+}

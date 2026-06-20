@@ -37,15 +37,15 @@ Chi tiết confidence labels và mẫu số: [README.md](../../README.md).
 | `pid` | P01…P15 | ID cố định — ổn định, KHÔNG renumber (quotes link theo `pid`). Hiển thị sắp theo `convert_type` qua compute (vd `participants_table()` trong `shared/viz_helpers.py`), KHÔNG sắp lại trong CSV. |
 | `experience` | `da_tung` / `chua_tung` | thay cột `group` cũ — đây là split có ý nghĩa |
 | `lens` | `customer` / `industry` / `lead_user` | **annotation only**, KHÔNG filter % |
-| `age_group` | text | |
+| `age_group` | `18_29` / `30_44` / `45_plus` / `unknown` | Chỉ phân nhóm khi nguồn xác nhận; không commit tuổi/năm sinh chính xác. |
 | `residence` | `mien_bac` / `mien_trung` / `mien_nam` | vùng sinh sống hiện tại — **CHỈ region-level, KHÔNG ghi city cụ thể** (anonymization). Source được phép: (a) participant tự nêu trong transcript, HOẶC (b) MẠCH team confirm từ interview/recruitment metadata. Abstraction: Hà Nội/Hải Phòng/etc. → `mien_bac`; Đà Nẵng/Huế/etc. → `mien_trung`; HCM/Cần Thơ/etc. → `mien_nam`. Để rỗng nếu cả 2 source không có. Note ghi source ("transcript" / "MẠCH team confirm + date"). |
-| `occupation` | text | |
+| `occupation` | text tổng quát | Không ghi tên công ty/tổ chức hoặc chức danh đủ cụ thể để tái nhận diện. |
 | `convert_type` | `true_target` / `conditional` / `passive` / `harder` / `future` / `non_target` | |
 | `convert_condition` | text | điều kiện để convert |
 | `decision_style` | text | vd family-led, self-directed |
 | `travel_spend_range` | text | **mức chi du lịch THẬT** (đổi tên từ `travel_budget_range`) |
 | `acceptable_tour_price` | text | **giá tour CHẤP NHẬN ĐƯỢC** — KHÁC spend, đừng gộp |
-| `note` | text | |
+| `note` | provenance-only | Chỉ giữ nguồn của `residence`; tiểu sử và coding narrative chi tiết thuộc `data/raw/`. |
 | `wtp_min` | numeric hoặc rỗng | cận dưới giá chuyến đi có thể chấp nhận, chỉ điền khi đã mã hoá rõ từ dữ liệu |
 | `wtp_max` | numeric hoặc rỗng | cận trên giá chuyến đi có thể chấp nhận, chỉ điền khi đã mã hoá rõ từ dữ liệu |
 | `interest_score` | numeric hoặc rỗng | điểm quan tâm dùng cho visual, cần Khanh mã hoá trước khi dùng |

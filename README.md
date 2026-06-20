@@ -49,6 +49,13 @@ Prerequisites:
 - VS Code or Cursor with Quarto support
 - Node/npm only if deploying with StatiCrypt
 
+Install the pinned project dependencies:
+
+```bash
+python -m pip install -r requirements.txt
+npm ci
+```
+
 Local preview and render:
 
 ```bash
@@ -60,7 +67,7 @@ The site renders to `docs/`. Current `_quarto.yml` intentionally renders only th
 
 ## Data Model
 
-`participants.csv` is the sample source. One row equals one anonymized participant, using stable P-codes such as `P01`, `P02`, etc. Do not include real names.
+`participants.csv` is the anonymized sample source. One row equals one participant using a stable P-code such as `P01`. Age is stored only as a broad band, occupations are generalized, and `note` is provenance-only. Detailed profiles belong in ignored `data/raw/` storage.
 
 `records.csv` is the full compiled participant record table. For `pretour-research-2026`, it is extracted from `data/raw/MACH_participant_record_compiled.pdf` and contains 143 entries. It preserves the full reviewable quote/record layer, with `source_status` marking quotes as `participant quote, edited for clarity`.
 
@@ -102,6 +109,7 @@ records_df = load_records_data(study_dir)
 - Do not expose names, phone numbers, Zalo, email, company-identifying details, consent forms, raw transcripts, audio, photos, or crosswalk files in rendered output.
 - `studies/*/data/raw/` is private source material. Treat it as non-rendered and internal-only.
 - Crosswalks from P-code to real name belong only in private raw storage.
+- Do not commit exact ages/birth years, employer or organization names, detailed family profiles, or combined quasi-identifiers. Generalize them before they enter structured committed data.
 - If output is ever shared outside MẠCH, anonymize again and check consent/legal requirements first.
 - If a quote comes from polished compiled notes and has not been checked against audio/transcript, label it as `participant quote, edited for clarity` or avoid presenting it as verbatim.
 
@@ -197,13 +205,7 @@ quarto render
 
 ## Deploy
 
-Deploy scripts render the site, encrypt HTML in `docs/` with StatiCrypt, then push `docs/`.
-
-Install StatiCrypt once:
-
-```bash
-npm install -g staticrypt
-```
+Deploy scripts render into a staging directory, validate raw output, encrypt every HTML file in place with the pinned local StatiCrypt, validate the encrypted tree, then replace and publish `docs/`. A failed render or encryption leaves the previous `docs/` intact.
 
 Set the password outside the repo. Do not commit passwords.
 
@@ -219,6 +221,16 @@ Git Bash / macOS:
 ```bash
 export MACH_PASSWORD="your-password-here"
 bash deploy.sh
+```
+
+Build and validate encrypted `docs/` without committing or pushing:
+
+```powershell
+.\deploy.ps1 -BuildOnly
+```
+
+```bash
+bash deploy.sh --build-only
 ```
 
 If `MACH_PASSWORD` is not set, the scripts prompt for it. The scripts use `staticrypt` with remember duration and custom Vietnamese prompt text.
@@ -246,36 +258,27 @@ You should see the password prompt before accessing the report.
 
 Before commit or deploy:
 
-1. Confirm no raw PII is rendered:
+1. Run the structured data/privacy/interaction checks:
 
    ```bash
-   rg "known-real-name-or-sensitive-token" docs
+   python scripts/validate_repo.py
    ```
 
-2. Confirm retired standalone docs are not referenced in active files.
+2. Confirm no private audit term appears in committed source or rendered output. Keep the term list under ignored `data/raw/`, never in Git.
 
-3. Confirm obsolete sample-size wording is gone by searching for prior sample-count variants.
+3. Confirm retired standalone docs are not referenced in active files and obsolete sample-size wording is gone.
 
-4. Confirm source counts:
+4. Confirm source counts and tracker reconciliation via `scripts/validate_repo.py`.
 
-   ```bash
-   python - <<'PY'
-   import pandas as pd
-   from pathlib import Path
-   base = Path("studies/pretour-research-2026/data")
-   print(len(pd.read_csv(base / "participants.csv")))
-   print(len(pd.read_csv(base / "records.csv")))
-   print(len(pd.read_csv(base / "quotes.csv")))
-   PY
-   ```
-
-5. Render:
+5. Render and require a warning-free build:
 
    ```bash
    quarto render
    ```
 
-6. If deploying, run `deploy.ps1` or `deploy.sh` and verify the StatiCrypt password prompt.
+6. Run `python scripts/test_deploy_layout.py` to confirm duplicate HTML basenames remain encrypted at their original paths.
+
+7. If deploying, run the appropriate deploy script and verify both encrypted HTML paths plus the StatiCrypt password prompt.
 
 ## AI Agent Workflow
 

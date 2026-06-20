@@ -6,7 +6,7 @@ Rule #1: số trong báo cáo compute từ CSV, KHÔNG hardcode.
 - Confidence pattern lấy từ PATTERN_META (sync STUDY_RULES.md mục 5; caveats báo cáo trong STUDY_RULES),
   KHÔNG lấy từ field `confidence_level` của quote (field đó là per-quote, mơ hồ
   để derive pattern-level).
-- P-code only. `OCCUPATION_GENERALIZED` đã bỏ tên công ty/tổ chức.
+- P-code only. Cột `occupation` committed đã được khái quát hoá.
 
 Báo cáo là prose + markdown table. Không có chart.
 """
@@ -28,7 +28,9 @@ _CONVERT_ORDER = {c: i for i, c in enumerate(CONVERT_TYPE_ORDER)}
 PATTERN_META = {
     "P1": {
         "name": "Thiết kế tour quá thụ động",
+        "deck_name": "Trải nghiệm còn thụ động",
         "confidence": "Cao",
+        "industry_leaning": False,
         "note": (
             "Hình thức quá thụ động, không phải nội dung quá sâu. "
             "Giảm liều, tăng hoạt động tự tay làm."
@@ -36,7 +38,9 @@ PATTERN_META = {
     },
     "P2": {
         "name": "Phụ thuộc người đồng hành",
+        "deck_name": "Phụ thuộc vào người đi cùng",
         "confidence": "Cao",
+        "industry_leaning": False,
         "note": (
             "Rào cản là thiếu đúng người đi cùng, không phải từ chối tour. "
             "Cần mời theo nhóm thay vì để từng người tự đăng ký."
@@ -44,7 +48,9 @@ PATTERN_META = {
     },
     "P3": {
         "name": "Nhận diện phân khúc: 'tour cho người khác, không hẳn tôi'",
+        "deck_name": "Lệch định vị khách hàng",
         "confidence": "Trung bình",
+        "industry_leaning": False,
         "note": (
             "Phân hóa rõ giữa người tự nhận phù hợp và tự loại. Phân khúc "
             "là tư duy, không phải tuổi. Truyền thông nhắm vào thái độ."
@@ -52,7 +58,9 @@ PATTERN_META = {
     },
     "P4": {
         "name": "Cảnh giác văn hoá \"dàn dựng giả\"",
+        "deck_name": "Lo ngại về tính chân thực",
         "confidence": "Trung bình",
+        "industry_leaning": False,
         "note": (
             "3 nhóm phản ứng khác nhau. Cần nói rõ 'nghi lễ thật có khách "
             "chứng kiến' trước khi vào lễ."
@@ -60,7 +68,9 @@ PATTERN_META = {
     },
     "P5": {
         "name": "Uy tín điểm đến (Nam Định)",
+        "deck_name": "Độ thuyết phục của Nam Định",
         "confidence": "Trung bình",
+        "industry_leaning": False,
         "note": (
             "Ba bản chất khác nhau: thương hiệu, địa lý, góc ngành. "
             "Mỗi bản chất cần cách giải riêng."
@@ -68,15 +78,19 @@ PATTERN_META = {
     },
     "P6": {
         "name": "Quá quen, không còn nhu cầu khám phá",
+        "deck_name": "Thiên kiến văn hoá Việt đã quen",
         "confidence": "Tín hiệu sớm",
+        "industry_leaning": False,
         "note": (
-            "Tín hiệu đơn lẻ. Cần theo dõi ở đợt phỏng vấn tiếp theo "
-            "trước khi kết luận."
+            "Hai nguồn (P05, P15), vẫn là tín hiệu sớm. Cần theo dõi ở "
+            "đợt phỏng vấn tiếp theo trước khi kết luận."
         ),
     },
     "H1": {
         "name": "Khách quan tâm tín ngưỡng",
+        "deck_name": "Khách quan tâm tín ngưỡng",
         "confidence": "Hypothesis",
+        "industry_leaning": False,
         "note": (
             "Hứng thú thật nhưng phạm vi rộng, từ Phật giáo đến Đạo Mẫu. "
             "Không định vị bằng nhãn giới tính hoá."
@@ -84,7 +98,9 @@ PATTERN_META = {
     },
     "S1": {
         "name": "Tiềm năng khách nước ngoài",
+        "deck_name": "Sức hút với khách nước ngoài / người tò mò văn hoá",
         "confidence": "Hypothesis",
+        "industry_leaning": True,
         "note": (
             "Phỏng đoán của người Việt về nhóm vắng mặt. Cần dành suất "
             "pilot cho khách nước ngoài để kiểm chứng trực tiếp."
@@ -92,30 +108,14 @@ PATTERN_META = {
     },
     "S2": {
         "name": "Ẩm thực là đòn bẩy mềm",
+        "deck_name": "Ẩm thực như điểm vào văn hoá",
         "confidence": "Trung bình",
+        "industry_leaning": True,
         "note": (
             "Tín hiệu có thể khai thác ngay. Ẩm thực có thể là điểm vào "
             "mềm cho người chưa sẵn sàng với nội dung văn hóa nặng hơn."
         ),
     },
-}
-
-OCCUPATION_GENERALIZED = {
-    "P01": "Chức danh không nêu (đi công tác)",
-    "P02": "Trợ lý giám đốc",
-    "P03": "Giảng viên đại học",
-    "P04": "Bán quần áo tự do",
-    "P05": "Nhân viên văn phòng",
-    "P06": "Nhân viên ngành xuất khẩu",
-    "P07": "Ngành thời trang (cựu ngành tour outbound)",
-    "P08": "Nhân sự ngân hàng",
-    "P09": "Sales xuất khẩu",
-    "P10": "Giám đốc (cựu giám đốc xuất khẩu)",
-    "P11": "NGO — phát triển cộng đồng",
-    "P12": "Nghỉ hưu",
-    "P13": "Giảng viên đại học (cựu agency du lịch)",
-    "P14": "Founder startup du lịch (chuyển từ CSR)",
-    "P15": "Du học sinh",
 }
 
 
@@ -151,7 +151,7 @@ def pattern_occurrence(pattern_id, quotes_df, participants_df):
 
 
 def pattern_lens_breakdown(pattern_id, quotes_df, participants_df):
-    """Lens distribution của pids có pattern. industry_leaning = industry >= customer."""
+    """Lens distribution plus the locked study-level interpretation caveat."""
     pids = quotes_df.loc[quotes_df["pattern_id"] == pattern_id, "pid"].unique()
     sub = participants_df[participants_df["pid"].isin(pids)]
     counts = sub["lens"].value_counts().to_dict()
@@ -163,7 +163,7 @@ def pattern_lens_breakdown(pattern_id, quotes_df, participants_df):
         "customer": customer,
         "industry": industry,
         "lead_user": lead_user,
-        "industry_leaning": industry >= customer and (industry + customer) > 0,
+        "industry_leaning": bool(PATTERN_META[pattern_id]["industry_leaning"]),
     }
 
 
@@ -2158,7 +2158,7 @@ def participants_table(participants_df, sort_by="convert_type"):
             r["experience"],
             r["lens"],
             r["convert_type"],
-            OCCUPATION_GENERALIZED.get(r["pid"], "(missing)"),
+            r["occupation"] if pd.notna(r["occupation"]) else "",
             r["travel_spend_range"] if pd.notna(r["travel_spend_range"]) else "",
             r["acceptable_tour_price"] if pd.notna(r["acceptable_tour_price"]) else "",
         ))
@@ -2191,7 +2191,7 @@ def spend_vs_wtp_table(participants_df):
         wtp_raw = r["acceptable_tour_price"] if pd.notna(r["acceptable_tour_price"]) else ""
         rows.append((
             r["pid"],
-            OCCUPATION_GENERALIZED.get(r["pid"], "(missing)"),
+            r["occupation"] if pd.notna(r["occupation"]) else "",
             spend,
             wtp_raw,
             _wtp_band(wtp_raw),
@@ -2343,7 +2343,7 @@ def render_participant_grid(participants_df):
             '<div class="participant-card">'
             f'<strong>{_e(pid)}</strong>'
             f'<small>{_e(row.get("experience", ""))}</small>'
-            f'<p>{_e(OCCUPATION_GENERALIZED.get(pid, ""))}</p>'
+            f'<p>{_e(row.get("occupation", ""))}</p>'
             f'<p><small>{_e(row.get("convert_type", ""))}</small></p>'
             '</div>'
         )
@@ -2454,18 +2454,6 @@ def render_archetype_scatter(participants_df):
 
 # ----------------------------------------------------------------- deck report helpers
 
-_DECK_PATTERN_LABELS = {
-    "P1": ("Trải nghiệm còn thụ động", "Cao"),
-    "P2": ("Phụ thuộc vào người đi cùng", "Cao"),
-    "P3": ("Lệch định vị khách hàng", "Trung bình"),
-    "P4": ("Lo ngại về tính chân thực", "Trung bình"),
-    "P5": ("Độ thuyết phục của Nam Định", "Trung bình"),
-    "P6": ("Thiên kiến văn hoá Việt đã quen", "Tín hiệu sớm"),
-    "S1": ("Sức hút với khách nước ngoài / người tò mò văn hoá", "Giả thuyết"),
-    "S2": ("Ẩm thực như điểm vào văn hoá", "Trung bình"),
-    "H1": ("Khách quan tâm tín ngưỡng", "Giả thuyết"),
-}
-
 _SUSTAINABILITY_LABELS = {
     "chua_quen": "Chưa quen",
     "da_nghe_chua_ro": "Đã nghe nhưng chưa rõ",
@@ -2489,11 +2477,34 @@ def _deck_num(value):
     return str(number).replace(".", ",")
 
 
-def _deck_bool_count(participants_df, column):
+def _deck_bool_stats(participants_df, column):
     if column not in participants_df.columns:
-        return 0
+        raise KeyError(f"Missing boolean evidence column: {column}")
     values = participants_df[column].fillna("").astype(str).str.strip().str.lower()
-    return int(values.isin(["true", "1", "yes", "co", "có"]).sum())
+    true_values = {"true", "1", "yes", "co", "có"}
+    false_values = {"false", "0", "no", "khong", "không"}
+    valid_values = true_values | false_values | {""}
+    invalid = sorted(set(values) - valid_values)
+    if invalid:
+        raise ValueError(f"Invalid boolean evidence values in {column}: {invalid}")
+    true_count = int(values.isin(true_values).sum())
+    false_count = int(values.isin(false_values).sum())
+    unknown_count = int((values == "").sum())
+    return {
+        "true": true_count,
+        "false": false_count,
+        "unknown": unknown_count,
+        "coded": true_count + false_count,
+        "total": len(values),
+    }
+
+
+def _deck_bool_label(stats):
+    parts = [f'{stats["true"]} có bằng chứng']
+    if stats["false"]:
+        parts.append(f'{stats["false"]} không')
+    parts.append(f'{stats["unknown"]} chưa mã hoá')
+    return " · ".join(parts)
 
 
 def _deck_metric(icon, value, label, detail=""):
@@ -2535,18 +2546,19 @@ def _deck_note(text):
     )
 
 
-def _deck_bar(label, count, total, icon="bar-chart-fill"):
+def _deck_bar(label, count, total, icon="bar-chart-fill", value_label=None):
     total = max(int(total), 1)
     count = int(count)
     width = max(4, min(100, round(count / total * 100)))
+    row_class = "deck-bar-row deck-bar-evidence" if value_label is not None else "deck-bar-row"
     return (
-        '<div class="deck-bar-row">'
+        f'<div class="{row_class}">'
         f'<i class="bi bi-{_deck_h(icon)}"></i>'
         f'<span>{_deck_h(label)}</span>'
         '<div class="deck-bar-track">'
         f'<div class="deck-bar-fill" style="width:{width}%"></div>'
         '</div>'
-        f'<strong>{count}/{total}</strong>'
+        f'<strong>{_deck_h(value_label) if value_label is not None else f"{count}/{total}"}</strong>'
         '</div>'
     )
 
@@ -2869,7 +2881,9 @@ def _deck_pattern_meta_box(pattern_id, quotes_df, participants_df):
     occ = pattern_occurrence(pattern_id, quotes_df, participants_df)
     quote_count = int((quotes_df["pattern_id"] == pattern_id).sum())
     lens = pattern_lens_breakdown(pattern_id, quotes_df, participants_df)
-    _, confidence = _DECK_PATTERN_LABELS[pattern_id]
+    confidence = PATTERN_META[pattern_id]["confidence"]
+    if confidence == "Hypothesis":
+        confidence = "Giả thuyết"
     lens_bits = []
     if lens["customer"]:
         lens_bits.append(f'{lens["customer"]} khách')
@@ -3008,11 +3022,11 @@ def _deck_wtp_band_counts(participants_df):
 def render_decision_deck_visual(participants_df):
     n = len(participants_df)
     factors = [
-        ("Tự do lịch trình", _deck_bool_count(participants_df, "prefers_selftour"), "calendar-week"),
-        ("Người đi cùng", _deck_bool_count(participants_df, "companion_dependent"), "people-fill"),
-        ("Cảm giác đáng tiền", _deck_bool_count(participants_df, "price_sensitive"), "tag"),
-        ("Trải nghiệm hơn nghỉ dưỡng", _deck_bool_count(participants_df, "experience_over_resort"), "activity"),
-        ("Tính chân thực", _deck_bool_count(participants_df, "cares_about_authenticity"), "shield-check"),
+        ("Tự do lịch trình", _deck_bool_stats(participants_df, "prefers_selftour"), "calendar-week"),
+        ("Người đi cùng", _deck_bool_stats(participants_df, "companion_dependent"), "people-fill"),
+        ("Cảm giác đáng tiền", _deck_bool_stats(participants_df, "price_sensitive"), "tag"),
+        ("Trải nghiệm hơn nghỉ dưỡng", _deck_bool_stats(participants_df, "experience_over_resort"), "activity"),
+        ("Tính chân thực", _deck_bool_stats(participants_df, "cares_about_authenticity"), "shield-check"),
     ]
     wtp_cards = []
     for idx, (label, count, detail) in enumerate(_deck_wtp_band_counts(participants_df), start=1):
@@ -3027,7 +3041,16 @@ def render_decision_deck_visual(participants_df):
         + _deck_page_header("IV.A. Hành vi du lịch và yếu tố ra quyết định", "Cách người tham gia chọn một chuyến đi")
         + '<div class="deck-two-col">'
         '<div class="deck-panel"><h3>Yếu tố ảnh hưởng quyết định du lịch</h3>'
-        + "".join(_deck_bar(label, count, n, icon) for label, count, icon in factors)
+        + "".join(
+            _deck_bar(
+                label,
+                stats["true"],
+                n,
+                icon,
+                value_label=_deck_bool_label(stats),
+            )
+            for label, stats, icon in factors
+        )
         + '</div>'
         '<div class="deck-panel"><h3>Vùng giá được mã hoá cho tour</h3>'
         '<div class="deck-price-list">'
@@ -3043,7 +3066,9 @@ def _deck_pattern_snapshot(pattern_id, quotes_df, participants_df):
     occ = pattern_occurrence(pattern_id, quotes_df, participants_df)
     quote_count = int((quotes_df["pattern_id"] == pattern_id).sum())
     lens = pattern_lens_breakdown(pattern_id, quotes_df, participants_df)
-    label, confidence = _DECK_PATTERN_LABELS[pattern_id]
+    meta = PATTERN_META[pattern_id]
+    label = meta["deck_name"]
+    confidence = "Giả thuyết" if meta["confidence"] == "Hypothesis" else meta["confidence"]
     lens_text = []
     if lens["customer"]:
         lens_text.append(f'{lens["customer"]} khách')
@@ -3527,16 +3552,23 @@ def _deck_archetype_card(icon, title, rows, tone="plain"):
 
 def render_archetype_deck_visual(participants_df):
     n = len(participants_df)
-    companion = _deck_bool_count(participants_df, "companion_dependent")
-    selftour = _deck_bool_count(participants_df, "prefers_selftour")
-    authenticity = _deck_bool_count(participants_df, "cares_about_authenticity")
+    companion = _deck_bool_stats(participants_df, "companion_dependent")
+    selftour = _deck_bool_stats(participants_df, "prefers_selftour")
+    authenticity = _deck_bool_stats(participants_df, "cares_about_authenticity")
+    sustainability_values = participants_df["sustainability_awareness"].fillna("").astype(str).str.strip()
     sustainability = int((participants_df["sustainability_awareness"].fillna("") == "hieu_ro_hon").sum())
+    sustainability_coded = int((sustainability_values != "").sum())
+    sustainability_unknown = n - sustainability_coded
     signal_strip = (
         '<div class="deck-archetype-signal-strip">'
-        + _deck_info_pill("people-fill", "Phụ thuộc người đi cùng", f"{companion}/{n}")
-        + _deck_info_pill("person-walking", "Tự tổ chức / tự khám phá", f"{selftour}/{n}")
-        + _deck_info_pill("shield-check", "Quan tâm tính thật", f"{authenticity}/{n}")
-        + _deck_info_pill("leaf", "Hiểu rõ hơn về bền vững", f"{sustainability}/{n}")
+        + _deck_info_pill("people-fill", "Phụ thuộc người đi cùng", _deck_bool_label(companion))
+        + _deck_info_pill("person-walking", "Tự tổ chức / tự khám phá", _deck_bool_label(selftour))
+        + _deck_info_pill("shield-check", "Quan tâm tính thật", _deck_bool_label(authenticity))
+        + _deck_info_pill(
+            "leaf",
+            "Hiểu rõ hơn về bền vững",
+            f"{sustainability}/{sustainability_coded} đã mã hoá · {sustainability_unknown} chưa mã hoá",
+        )
         + '</div>'
     )
     cards = [
