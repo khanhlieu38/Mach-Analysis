@@ -548,6 +548,16 @@ main.content,
   text-align: right;
 }
 
+.deck-bar-row.deck-bar-evidence {
+  grid-template-columns: 2rem minmax(8rem, 0.9fr) minmax(7rem, 1fr) minmax(11rem, 1.35fr);
+}
+
+.deck-bar-evidence strong {
+  font-size: 0.8rem;
+  line-height: 1.2;
+  white-space: normal;
+}
+
 .deck-bar-track {
   background: #e8eef8;
   border-radius: 999px;
@@ -1436,7 +1446,7 @@ main.content,
 .deck-archetype-signal-strip .deck-info-pill {
   align-items: center;
   gap: 0.45rem;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr);
   padding: 0.45rem 0.55rem;
 }
 
@@ -1450,9 +1460,11 @@ main.content,
 }
 
 .deck-archetype-signal-strip .deck-info-pill strong {
-  font-size: 0.92rem;
-  grid-column: auto;
-  white-space: nowrap;
+  font-size: 0.78rem;
+  grid-column: 1 / -1;
+  line-height: 1.2;
+  text-align: left;
+  white-space: normal;
 }
 
 .deck-archetype-bottom {

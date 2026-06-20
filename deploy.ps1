@@ -32,6 +32,15 @@ function Remove-SafeDirectory([string]$Path) {
     }
 }
 
+function Get-PathRelativeTo([string]$BasePath, [string]$FullPath) {
+    $base = [System.IO.Path]::GetFullPath($BasePath).TrimEnd("\") + "\"
+    $full = [System.IO.Path]::GetFullPath($FullPath)
+    if (-not $full.StartsWith($base, [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw "Path is outside expected base directory: $full"
+    }
+    return $full.Substring($base.Length)
+}
+
 foreach ($command in @("quarto", "python", "npx")) {
     if (-not (Get-Command $command -ErrorAction SilentlyContinue)) {
         throw "Missing required command: $command"
@@ -74,7 +83,7 @@ try {
     $htmlFiles = @(Get-ChildItem -LiteralPath $Staging -Filter "*.html" -Recurse -File)
     $expectedPaths = @(
         $htmlFiles | ForEach-Object {
-            [System.IO.Path]::GetRelativePath($Staging, $_.FullName)
+            Get-PathRelativeTo $Staging $_.FullName
         } | Sort-Object
     )
 
@@ -92,7 +101,7 @@ try {
 
     $actualPaths = @(
         Get-ChildItem -LiteralPath $Staging -Filter "*.html" -Recurse -File |
-            ForEach-Object { [System.IO.Path]::GetRelativePath($Staging, $_.FullName) } |
+            ForEach-Object { Get-PathRelativeTo $Staging $_.FullName } |
             Sort-Object
     )
     if (Compare-Object $expectedPaths $actualPaths) {
