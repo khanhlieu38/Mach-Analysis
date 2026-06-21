@@ -227,7 +227,7 @@ def patterns_summary_table(quotes_df, participants_df):
     rows.sort(key=lambda r: (r[0], r[1]))
     body = [r[2:] for r in rows]
     return _md_table(
-        ["Pattern", "Số người", "Lens", "Độ tin cậy", "Điểm chính"], body
+        ["Kiểu phản hồi", "Số người", "Góc nhìn", "Độ tin cậy", "Điểm chính"], body
     )
 
 
@@ -691,7 +691,7 @@ def render_p1_dotplot_interactive(quotes_df, participants_df):
         '<span class="p1-legend-item">'
         '<span class="p1-leg p1-leg--square"></span>industry</span>'
         '<span class="p1-legend-item">'
-        '<span class="p1-leg p1-leg--diamond"></span>lead user</span>'
+        '<span class="p1-leg p1-leg--diamond"></span>khách hiểu sâu</span>'
         '</div>'
     )
 
@@ -790,7 +790,7 @@ def render_p1_dotplot_interactive(quotes_df, participants_df):
         f'<p class="p1-qfull"></p>'
         f'<p class="p1-qref"></p>'
         f'</div>\n'
-        f'<p class="p1-hint">Ch\u1ecdn m\u1ed9t participant \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
+        f'<p class="p1-hint">Ch\u1ecdn m\u1ed9t ng\u01b0\u1eddi \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
         f'</div>\n'
         f'<script>\n{js}\n</script>\n'
         f'</section>\n'
@@ -873,7 +873,7 @@ def render_p2_dotplot_interactive(quotes_df, participants_df):
         '<span class="p2-legend-item">'
         '<span class="p2-leg p2-leg--square"></span>industry</span>'
         '<span class="p2-legend-item">'
-        '<span class="p2-leg p2-leg--diamond"></span>lead user</span>'
+        '<span class="p2-leg p2-leg--diamond"></span>khách hiểu sâu</span>'
         '</div>'
     )
 
@@ -972,7 +972,7 @@ def render_p2_dotplot_interactive(quotes_df, participants_df):
         f'<p class="p2-qfull"></p>'
         f'<p class="p2-qref"></p>'
         f'</div>\n'
-        f'<p class="p2-hint">Ch\u1ecdn m\u1ed9t participant \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
+        f'<p class="p2-hint">Ch\u1ecdn m\u1ed9t ng\u01b0\u1eddi \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
         f'</div>\n'
         f'<script>\n{js}\n</script>\n'
         f'</section>\n'
@@ -1069,7 +1069,7 @@ def render_p3_dotplot_interactive(quotes_df, participants_df):
         '<span class="p3-legend-item">'
         '<span class="p3-leg p3-leg--square"></span>industry</span>'
         '<span class="p3-legend-item">'
-        '<span class="p3-leg p3-leg--diamond"></span>lead user</span>'
+        '<span class="p3-leg p3-leg--diamond"></span>khách hiểu sâu</span>'
         '</div>'
     )
 
@@ -1168,7 +1168,7 @@ def render_p3_dotplot_interactive(quotes_df, participants_df):
         f'<p class="p3-qfull"></p>'
         f'<p class="p3-qref"></p>'
         f'</div>\n'
-        f'<p class="p3-hint">Ch\u1ecdn m\u1ed9t participant \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
+        f'<p class="p3-hint">Ch\u1ecdn m\u1ed9t ng\u01b0\u1eddi \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
         f'</div>\n'
         f'<script>\n{js}\n</script>\n'
         f'</section>\n'
@@ -1259,7 +1259,7 @@ def render_h1_dotplot_interactive(quotes_df, participants_df):
         '<span class="h1-legend-item">'
         '<span class="h1-leg h1-leg--square"></span>industry</span>'
         '<span class="h1-legend-item">'
-        '<span class="h1-leg h1-leg--diamond"></span>lead user</span>'
+        '<span class="h1-leg h1-leg--diamond"></span>khách hiểu sâu</span>'
         '</div>'
     )
 
@@ -1358,7 +1358,7 @@ def render_h1_dotplot_interactive(quotes_df, participants_df):
         f'<p class="h1-qfull"></p>'
         f'<p class="h1-qref"></p>'
         f'</div>\n'
-        f'<p class="h1-hint">Ch\u1ecdn m\u1ed9t participant \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
+        f'<p class="h1-hint">Ch\u1ecdn m\u1ed9t ng\u01b0\u1eddi \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
         f'</div>\n'
         f'<script>\n{js}\n</script>\n'
         f'</section>\n'
@@ -1450,7 +1450,7 @@ def render_s1_dotplot_interactive(quotes_df, participants_df):
         '<span class="s1-legend-item">'
         '<span class="s1-leg s1-leg--square"></span>industry</span>'
         '<span class="s1-legend-item">'
-        '<span class="s1-leg s1-leg--diamond"></span>lead user</span>'
+        '<span class="s1-leg s1-leg--diamond"></span>khách hiểu sâu</span>'
         '</div>'
     )
 
@@ -1549,7 +1549,7 @@ def render_s1_dotplot_interactive(quotes_df, participants_df):
         f'<p class="s1-qfull"></p>'
         f'<p class="s1-qref"></p>'
         f'</div>\n'
-        f'<p class="s1-hint">Ch\u1ecdn m\u1ed9t participant \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
+        f'<p class="s1-hint">Ch\u1ecdn m\u1ed9t ng\u01b0\u1eddi \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
         f'</div>\n'
         f'<script>\n{js}\n</script>\n'
         f'</section>\n'
@@ -1642,7 +1642,7 @@ def render_s2_dotplot_interactive(quotes_df, participants_df):
         '<span class="s2-legend-item">'
         '<span class="s2-leg s2-leg--square"></span>industry</span>'
         '<span class="s2-legend-item">'
-        '<span class="s2-leg s2-leg--diamond"></span>lead user</span>'
+        '<span class="s2-leg s2-leg--diamond"></span>khách hiểu sâu</span>'
         '</div>'
     )
 
@@ -1741,7 +1741,7 @@ def render_s2_dotplot_interactive(quotes_df, participants_df):
         f'<p class="s2-qfull"></p>'
         f'<p class="s2-qref"></p>'
         f'</div>\n'
-        f'<p class="s2-hint">Ch\u1ecdn m\u1ed9t participant \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
+        f'<p class="s2-hint">Ch\u1ecdn m\u1ed9t ng\u01b0\u1eddi \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
         f'</div>\n'
         f'<script>\n{js}\n</script>\n'
         f'</section>\n'
@@ -1831,7 +1831,7 @@ def render_p5_dotplot_interactive(quotes_df, participants_df):
         '<span class="p5-legend-item">'
         '<span class="p5-leg p5-leg--square"></span>industry</span>'
         '<span class="p5-legend-item">'
-        '<span class="p5-leg p5-leg--diamond"></span>lead user</span>'
+        '<span class="p5-leg p5-leg--diamond"></span>khách hiểu sâu</span>'
         '</div>'
     )
 
@@ -1877,7 +1877,7 @@ def render_p5_dotplot_interactive(quotes_df, participants_df):
     )
 
     warn_text = (
-        "\u26a0\ufe0f Q060 \u0111ang ch\u1edd x\u00e1c minh transcript th\u00f4. "
+        "\u26a0\ufe0f Q060 \u0111ang ch\u1edd x\u00e1c minh b\u1ea3n ghi th\u00f4. "
         "K\u1ebft lu\u1eadn t\u1eeb tr\u00edch d\u1eabn n\u00e0y c\u1ea7n \u0111\u1ecdc c\u00f3 ch\u00fa \u00fd."
     )
 
@@ -1942,7 +1942,7 @@ def render_p5_dotplot_interactive(quotes_df, participants_df):
         f'<p class="p5-qref"></p>'
         f'<p class="p5-qwarn" style="display:none"></p>'
         f'</div>\n'
-        f'<p class="p5-hint">Ch\u1ecdn m\u1ed9t participant \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
+        f'<p class="p5-hint">Ch\u1ecdn m\u1ed9t ng\u01b0\u1eddi \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
         f'</div>\n'
         f'<script>\n{js}\n</script>\n'
         f'</section>\n'
@@ -2019,7 +2019,7 @@ def render_p4_dotplot_interactive(quotes_df, participants_df):
         '<span class="p4-legend-item">'
         '<span class="p4-leg p4-leg--square"></span>industry</span>'
         '<span class="p4-legend-item">'
-        '<span class="p4-leg p4-leg--diamond"></span>lead user</span>'
+        '<span class="p4-leg p4-leg--diamond"></span>khách hiểu sâu</span>'
         '</div>'
     )
 
@@ -2118,7 +2118,7 @@ def render_p4_dotplot_interactive(quotes_df, participants_df):
         f'<p class="p4-qfull"></p>'
         f'<p class="p4-qref"></p>'
         f'</div>\n'
-        f'<p class="p4-hint">Ch\u1ecdn m\u1ed9t participant \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
+        f'<p class="p4-hint">Ch\u1ecdn m\u1ed9t ng\u01b0\u1eddi \u0111\u1ec3 xem tr\u00edch d\u1eabn</p>\n'
         f'</div>\n'
         f'<script>\n{js}\n</script>\n'
         f'</section>\n'
@@ -2163,7 +2163,7 @@ def participants_table(participants_df, sort_by="convert_type"):
             r["acceptable_tour_price"] if pd.notna(r["acceptable_tour_price"]) else "",
         ))
     return _md_table(
-        ["pid", "experience", "lens", "convert_type", "Nghề", "Spend", "WTP"], rows
+        ["pid", "experience", "lens", "convert_type", "Nghề", "Spend", "mức khách chịu chi"], rows
     )
 
 
@@ -2197,7 +2197,7 @@ def spend_vs_wtp_table(participants_df):
             _wtp_band(wtp_raw),
         ))
     return _md_table(
-        ["pid", "Nghề", "Spend (thật)", "WTP (raw)", "Band WTP"], rows
+        ["pid", "Nghề", "Spend (thật)", "mức khách chịu chi (raw)", "Khoảng mức khách chịu chi"], rows
     )
 
 
@@ -2251,7 +2251,7 @@ def quote_evidence_table(quotes_df, participants_df, pattern_id=None, theme=None
         ))
     if not rows:
         rows = [("—", "No coded evidence in quotes.csv", "—")]
-    return _md_table(["pid", "Evidence", "ref_id"], rows)
+    return _md_table(["pid", "Dẫn chứng", "ref_id"], rows)
 
 
 # ----------------------------------------------------------------- public report visuals
@@ -2261,7 +2261,7 @@ _VI_REPLACEMENTS = {
     "â€”": " / ",
     "tour": "chuyến đi",
     "Tour": "Chuyến đi",
-    "WTP": "giá có thể chấp nhận",
+    "WTP": "mức khách chịu chi",
     "Spend": "mức chi",
     "Hypothesis": "Giả thuyết",
     "lead_user": "người dùng dẫn dắt",
@@ -2415,7 +2415,7 @@ def render_behaviour_matrix(participants_df):
     for col in needed:
         s = participants_df[col].fillna("").astype(str).str.strip().str.lower()
         rows.append((col, int(s.isin(["true", "1", "yes", "co", "có"]).sum())))
-    return _md_table(["Tín hiệu", "Số người đã mã hoá"], rows)
+    return _md_table(["Tín hiệu", "Số người đã gắn chủ đề"], rows)
 
 
 def render_interest_plot(participants_df):
@@ -2436,7 +2436,7 @@ def render_sustainability_buckets(participants_df):
     counts = participants_df["sustainability_awareness"].fillna("").astype(str).str.strip()
     counts = counts[counts != ""].value_counts()
     rows = [(label, int(count)) for label, count in counts.items()]
-    return _md_table(["Mức quen thuộc", "Số người đã mã hoá"], rows)
+    return _md_table(["Mức quen thuộc", "Số người đã gắn chủ đề"], rows)
 
 
 def render_archetype_scatter(participants_df):
@@ -2503,7 +2503,7 @@ def _deck_bool_label(stats):
     parts = [f'{stats["true"]} có bằng chứng']
     if stats["false"]:
         parts.append(f'{stats["false"]} không')
-    parts.append(f'{stats["unknown"]} chưa mã hoá')
+    parts.append(f'{stats["unknown"]} chưa gắn chủ đề')
     return " · ".join(parts)
 
 
@@ -2532,7 +2532,7 @@ def _deck_takeaway(text):
     return (
         '<div class="deck-takeaway">'
         '<span class="deck-takeaway-icon"><i class="bi bi-lightbulb"></i></span>'
-        f'<p><strong>Takeaway chính:</strong> {_deck_h(text)}</p>'
+        f'<p><strong>Chốt lại:</strong> {_deck_h(text)}</p>'
         '</div>'
     )
 
@@ -2801,7 +2801,7 @@ def _deck_b_footer(actions, takeaway):
         f'<div class="deck-action-grid">{action_cards}</div>'
         '<div class="deck-b-takeaway">'
         '<span class="deck-b-takeaway-icon"><i class="bi bi-lightbulb-fill"></i></span>'
-        f'<p><strong>Takeaway chính:</strong> {_deck_h(takeaway)}</p>'
+        f'<p><strong>Chốt lại:</strong> {_deck_h(takeaway)}</p>'
         "</div>"
         "</div>"
     )
@@ -2890,15 +2890,15 @@ def _deck_pattern_meta_box(pattern_id, quotes_df, participants_df):
     if lens["industry"]:
         lens_bits.append(f'{lens["industry"]} ngành')
     if lens["lead_user"]:
-        lens_bits.append(f'{lens["lead_user"]} lead user')
-    lens_note = " / ".join(lens_bits) if lens_bits else "chưa có lens"
+        lens_bits.append(f'{lens["lead_user"]} khách hiểu sâu')
+    lens_note = " / ".join(lens_bits) if lens_bits else "chưa có góc nhìn"
     if lens["industry_leaning"]:
         lens_note += "; thiên góc nhìn ngành"
     return _deck_meta_box([
-        ("people-fill", "Tần suất", f'{occ["count"]}/{occ["total"]} participant'),
-        ("chat-square-quote", "Evidence", f"{quote_count} dòng"),
+        ("people-fill", "Tần suất", f'{occ["count"]}/{occ["total"]} người'),
+        ("chat-square-quote", "Dẫn chứng", f"{quote_count} dòng"),
         ("shield-check", "Độ tin cậy", confidence),
-        ("diagram-3", "Lens", lens_note),
+        ("diagram-3", "Góc nhìn", lens_note),
     ])
 
 
@@ -2963,12 +2963,12 @@ def render_cover_stats(participants_df, quotes_df, records_df):
     return (
         '<div class="deck-cover-stats">'
         + _deck_metric("people-fill", n, "Người tham gia")
-        + _deck_metric("file-earmark-text", len(records_df), "Quote / record entries")
+        + _deck_metric("file-earmark-text", len(records_df), "Câu trích và bản ghi")
         + _deck_metric("chat-square-quote", len(quotes_df), "Bằng chứng chọn lọc")
-        + _deck_metric("clipboard-data", "Định tính", "Convenience sample")
+        + _deck_metric("clipboard-data", "Định tính", "Mẫu tự nguyện, không chọn ngẫu nhiên")
         + '</div>'
         + _deck_note(
-            "Đây là qualitative convenience sample, dùng để phát hiện tín hiệu và giả thuyết, không đại diện thị trường."
+            "Đây là mẫu định tính tự nguyện, không chọn ngẫu nhiên, dùng để phát hiện tín hiệu và giả thuyết, không đại diện thị trường."
         )
     )
 
@@ -2978,12 +2978,12 @@ def render_sample_deck_visual(participants_df, quotes_df, records_df):
     exp = participants_df["experience"].fillna("").astype(str).value_counts().to_dict()
     lens = participants_df["lens"].fillna("").astype(str).value_counts().to_dict()
     rows = [
-        _deck_metric("people-fill", n, "Người tham gia", "P-code only"),
-        _deck_metric("file-earmark-text", len(records_df), "Quote / record entries", "full compiled record"),
-        _deck_metric("collection", len(quotes_df), "Bằng chứng chọn lọc", "quotes.csv"),
+        _deck_metric("people-fill", n, "Người tham gia", "chỉ dùng mã định danh"),
+        _deck_metric("file-earmark-text", len(records_df), "Câu trích và bản ghi", "bản ghi tổng hợp đầy đủ"),
+        _deck_metric("collection", len(quotes_df), "Bằng chứng chọn lọc", "tệp trích dẫn"),
         _deck_metric("compass", exp.get("chua_tung", 0), "Chưa / ít kinh nghiệm", "du lịch văn hoá"),
         _deck_metric("map", exp.get("da_tung", 0), "Đã có kinh nghiệm", "hoặc định hướng văn hoá"),
-        _deck_metric("person-badge", lens.get("industry", 0) + lens.get("lead_user", 0), "Góc nhìn chuyên môn", "annotation, không loại khỏi mẫu"),
+        _deck_metric("person-badge", lens.get("industry", 0) + lens.get("lead_user", 0), "Góc nhìn chuyên môn", "chú thích, không loại khỏi mẫu"),
     ]
     return (
         '<section class="deck-slide deck-visual">'
@@ -2994,12 +2994,12 @@ def render_sample_deck_visual(participants_df, quotes_df, records_df):
         + _deck_bar("Chưa hoặc ít kinh nghiệm", exp.get("chua_tung", 0), n, "person-walking")
         + _deck_bar("Đã có kinh nghiệm", exp.get("da_tung", 0), n, "backpack")
         + '</div>'
-        '<div class="deck-panel"><h3>Lens khi diễn giải</h3>'
+        '<div class="deck-panel"><h3>Góc nhìn khi diễn giải</h3>'
         + _deck_bar("Khách tiềm năng", lens.get("customer", 0), n, "person")
         + _deck_bar("Ngành / chuyên môn", lens.get("industry", 0), n, "briefcase")
-        + _deck_bar("Lead user", lens.get("lead_user", 0), n, "star")
+        + _deck_bar("khách hiểu sâu", lens.get("lead_user", 0), n, "star")
         + '</div></div>'
-        + _deck_note("Tất cả tỷ lệ dùng mẫu số đầy đủ; lens ngành chỉ là chú thích khi diễn giải.")
+        + _deck_note("Tất cả tỷ lệ dùng mẫu số đầy đủ; góc nhìn ngành chỉ là chú thích khi diễn giải.")
         + '</section>'
     )
 
@@ -3013,9 +3013,9 @@ def _deck_wtp_band_counts(participants_df):
     maxs = pd.to_numeric(coded.get("wtp_max"), errors="coerce")
     return [
         ("3-5 triệu", int(((maxs <= 5) & maxs.notna()).sum()), "Vùng thấp được chấp nhận khi chất lượng rõ"),
-        ("5-8 triệu", int(((mins <= 8) & (maxs > 5) & (maxs <= 8)).sum()), "Vùng được nhắc nhiều trong dữ liệu mã hoá"),
+        ("5-8 triệu", int(((mins <= 8) & (maxs > 5) & (maxs <= 8)).sum()), "Khách nhắc tới nhiều trong phỏng vấn"),
         ("8-10 triệu", int(((maxs > 8) & (maxs <= 10)).sum()), "Có thể cân nhắc nếu dịch vụ rõ"),
-        ("Chưa mã hoá", int(len(df) - len(coded)), "Không hỏi trực tiếp hoặc transcript mơ hồ"),
+        ("Chưa rõ", int(len(df) - len(coded)), "Không hỏi trực tiếp hoặc bản ghi mơ hồ"),
     ]
 
 
@@ -3052,12 +3052,12 @@ def render_decision_deck_visual(participants_df):
             for label, stats, icon in factors
         )
         + '</div>'
-        '<div class="deck-panel"><h3>Vùng giá được mã hoá cho tour</h3>'
+        '<div class="deck-panel"><h3>Các khoảng giá khách nhắc tới</h3>'
         '<div class="deck-price-list">'
         + "".join(wtp_cards)
         + '</div></div></div>'
         + _deck_takeaway("Tour không cần rẻ nhất. Tour cần chứng minh rõ vì sao đáng tiền.")
-        + _deck_note("Các band giá chỉ dùng các dòng WTP đã mã hoá rõ; trường hợp mơ hồ được để riêng.")
+        + _deck_note("Các khoảng giá chỉ dùng các dòng mức khách chịu chi (từ phỏng vấn) ghi rõ; trường hợp mơ hồ được để riêng.")
         + '</section>'
     )
 
@@ -3075,16 +3075,16 @@ def _deck_pattern_snapshot(pattern_id, quotes_df, participants_df):
     if lens["industry"]:
         lens_text.append(f'{lens["industry"]} ngành')
     if lens["lead_user"]:
-        lens_text.append(f'{lens["lead_user"]} lead user')
+        lens_text.append(f'{lens["lead_user"]} khách hiểu sâu')
     lens_note = " / ".join(lens_text) if lens_text else "chưa có lens"
     if lens["industry_leaning"]:
         lens_note += " - thiên góc nhìn ngành"
     return (
         '<div class="deck-snapshot">'
         + _deck_info_pill("people-fill", "Tần suất", f'{occ["count"]}/{occ["total"]}')
-        + _deck_info_pill("chat-square-quote", "Evidence", f"{quote_count} dòng")
+        + _deck_info_pill("chat-square-quote", "Dẫn chứng", f"{quote_count} dòng")
         + _deck_info_pill("shield-check", "Độ tin cậy", confidence)
-        + _deck_info_pill("diagram-3", "Lens", lens_note)
+        + _deck_info_pill("diagram-3", "Góc nhìn", lens_note)
         + '</div>'
     )
 
@@ -3113,7 +3113,7 @@ def render_b1_visual(quotes_df, participants_df):
     return _deck_b_slide(
         "P1",
         "IV.B.1. Trải nghiệm còn thụ động",
-        "Phản ứng với concept tour MẠCH",
+        "Phản ứng với mô hình tour MẠCH",
         "sliders",
         "Cán cân trải nghiệm hiện tại",
         left,
@@ -3134,13 +3134,13 @@ def render_b1_visual(quotes_df, participants_df):
 
 def render_b2_visual(quotes_df, participants_df):
     left = _deck_quadrant_matrix([
-        _deck_signal_card("people-fill", "Người quen cùng gu", "Dễ book nhất: có bạn bè hoặc người thân cùng quan tâm.", "teal", pids=["P05", "P11"]),
+        _deck_signal_card("people-fill", "Người quen cùng gu", "Dễ đặt tour nhất: có bạn bè hoặc người thân cùng quan tâm.", "teal", pids=["P05", "P11"]),
         _deck_signal_card("person-lines-fill", "Người lạ cùng gu", "Có thể thử nếu nhóm nhỏ, an toàn, có nhịp làm quen.", "blue"),
         _deck_signal_card("emoji-neutral", "Người quen không cùng gu", "Cần lý do rõ hơn để rủ đi và cùng cam kết.", "amber", pids=["P04", "P10"]),
         _deck_signal_card("exclamation-triangle", "Người lạ không cùng gu", "Dễ tạo cảm giác ngại, xa lạ hoặc gượng ép.", "red"),
     ])
     right = _deck_bottleneck_list([
-        ("1", "Thiếu đúng người rủ", "Hứng thú cá nhân chưa đủ để tự book", "high", ["P05", "P11"]),
+        ("1", "Thiếu đúng người rủ", "Hứng thú cá nhân chưa đủ để tự đặt tour", "high", ["P05", "P11"]),
         ("2", "Ngại nhóm lạ", "Tour văn hoá cần cảm giác an toàn và có người chia sẻ", "high"),
         ("3", "Gia đình / bạn bè ảnh hưởng quyết định", "Một số chuyến đi được quyết theo nhóm nhỏ", "mid", ["P04", "P10"], ["Q077", "Q078"]),
         ("4", "Có ngoại lệ", "P03/P07 thoải mái hơn với đi độc lập", "low"),
@@ -3148,7 +3148,7 @@ def render_b2_visual(quotes_df, participants_df):
     return _deck_b_slide(
         "P2",
         "IV.B.2. Phụ thuộc vào người đi cùng",
-        "Phản ứng với concept tour MẠCH",
+        "Phản ứng với mô hình tour MẠCH",
         "grid-3x3-gap",
         "Ma trận người đi cùng",
         left,
@@ -3169,23 +3169,23 @@ def render_b2_visual(quotes_df, participants_df):
 
 def render_b3_visual(quotes_df, participants_df):
     left = _deck_signal_grid([
-        _deck_signal_card("mortarboard", "Giống học tập / nghiên cứu", "Một số phản hồi thấy concept hơi hàn lâm.", "blue", pids=["P01", "P02", "P07", "P14"]),
+        _deck_signal_card("mortarboard", "Giống học tập / nghiên cứu", "Một số phản hồi thấy mô hình tour hơi hàn lâm.", "blue", pids=["P01", "P02", "P07", "P14"]),
         _deck_signal_card("question-circle", "Chưa rõ dành cho ai", "Người đọc khó tự nhận mình là khách phù hợp.", "plain", pids=["P03", "P05", "P08"]),
         _deck_signal_card("person-x", "Tự loại mình khỏi tour", "Có người thấy tour hợp với nhóm khác hơn.", "amber", pids=["P02", "P04", "P06", "P07"]),
-        _deck_signal_card("person-check", "Tự nhận phù hợp", "Một nhóm khác lại thấy mình có thể là target.", "teal", pids=["P10"]),
+        _deck_signal_card("person-check", "Tự nhận phù hợp", "Một nhóm khác lại thấy mình có thể là nhóm khách nhắm tới.", "teal", pids=["P10"]),
     ])
     right = _deck_bottleneck_list([
         ("1", "Giá trị có nhưng chưa hiện hình", "Người đọc cần thấy trải nghiệm trước khi đọc lý thuyết", "high", None, ["Q079"]),
-        ("2", "Target bị suy đoán theo tuổi", "Phân khúc nên dựa vào attitude và bối cảnh đi cùng", "mid"),
+        ("2", "Nhóm khách nhắm tới bị suy đoán theo tuổi", "Phân khúc nên dựa vào thái độ và bối cảnh đi cùng", "mid"),
         ("3", "Thông điệp dễ làm tour nặng", "Nội dung văn hoá cần được kể bằng đời sống", "high"),
-        ("4", "Phản ứng trái chiều", "Self-include và self-exclude cùng xuất hiện", "mid"),
+        ("4", "Phản ứng trái chiều", "Tự thấy hợp và tự loại mình cùng xuất hiện", "mid"),
     ])
     return _deck_b_slide(
         "P3",
         "IV.B.3. Lệch định vị khách hàng",
-        "Phản ứng với concept tour MẠCH",
+        "Phản ứng với mô hình tour MẠCH",
         "signpost-split",
-        "Cách concept hiện tại bị đọc",
+        "Cách mô hình tour hiện tại bị đọc",
         left,
         "bar-chart-fill",
         "Chỗ lệch định vị",
@@ -3193,10 +3193,10 @@ def render_b3_visual(quotes_df, participants_df):
         [
             ("sparkles", "Chuyển từ học sang trải nghiệm", "Mở bằng đời sống thật, con người, ẩm thực, hoạt động"),
             ("bullseye", "Nói rõ ai sẽ thích tour", "Định vị theo thái độ và bối cảnh đi cùng"),
-            ("image", "Cho thấy trải nghiệm trước chữ", "Visual proof giúp người xem tự hình dung nhanh"),
+            ("image", "Cho thấy trải nghiệm trước chữ", "Bằng chứng hình ảnh giúp người xem tự hình dung nhanh"),
             ("chat-left-text", "Viết lại lời hứa", "Một chuyến đi có cảm xúc, không phải lớp học văn hoá"),
         ],
-        "Concept cần giúp người đọc nhận ra tour này dành cho mình trong vài giây đầu.",
+        "Mô hình tour cần giúp người đọc nhận ra tour này dành cho mình trong vài giây đầu.",
         quotes_df,
         participants_df,
     )
@@ -3220,7 +3220,7 @@ def render_b4_visual(quotes_df, participants_df):
     return _deck_b_slide(
         "P4",
         "IV.B.4. Lo ngại về tính chân thực",
-        "Phản ứng với concept tour MẠCH",
+        "Phản ứng với mô hình tour MẠCH",
         "shield-check",
         "Phổ cảm nhận về tính thật",
         left,
@@ -3231,7 +3231,7 @@ def render_b4_visual(quotes_df, participants_df):
             ("signpost", "Nói rõ đâu là đời sống thật", "Tách phần tự nhiên với phần tổ chức cho khách tham gia"),
             ("people", "Đặt người địa phương ở trung tâm", "Để khách gặp con người, không chỉ xem tiết mục"),
             ("shield-check", "Giữ đúng nghĩa văn hoá", "Không biến tấu làm lệch thực hành văn hoá"),
-            ("camera-video", "Dùng visual hậu trường", "Cho thấy bối cảnh thật trước khi bán lời hứa"),
+            ("camera-video", "Dùng hình ảnh hậu trường", "Cho thấy bối cảnh thật trước khi bán lời hứa"),
         ],
         "Khách không đòi trải nghiệm hoàn toàn nguyên bản. Họ cần cảm giác thật, không bị diễn quá mức.",
         quotes_df,
@@ -3242,20 +3242,20 @@ def render_b4_visual(quotes_df, participants_df):
 def render_b5_visual(quotes_df, participants_df):
     left = _deck_signal_grid([
         _deck_signal_card("geo-alt", "Nam Định chưa là điểm đến rõ", "Một số người chưa thấy lý do đủ mạnh để đi.", "blue", pids=["P04", "P08", "P09"]),
-        _deck_signal_card("search", "Cần key selling point", "Người xem cần điểm neo cụ thể để nhớ và rủ đi.", "teal", pids=["P07", "P08", "P13"]),
+        _deck_signal_card("search", "Cần điểm bán chính", "Người xem cần điểm neo cụ thể để nhớ và rủ đi.", "teal", pids=["P07", "P08", "P13"]),
         _deck_signal_card("arrow-left-right", "Bị so sánh với lựa chọn khác", "Cùng ngân sách, khách cân nhắc nơi nổi tiếng hơn.", "amber", pids=["P07", "P09"]),
         _deck_signal_card("camera", "Cần bằng chứng trực quan", "Ảnh, video, khoảnh khắc cụ thể giúp dễ hình dung.", "plain", quote_ids=["Q084", "Q085", "Q086"]),
     ])
     right = _deck_bottleneck_list([
         ("1", "Thương hiệu điểm đến còn yếu", "Nam Định không tự bán được bằng tên gọi", "high"),
-        ("2", "Lý do đi chưa đủ sắc", "Concept cần trả lời vì sao phải là Nam Định", "very_high"),
-        ("3", "Khoảng cách / logistics", "Với một số nhóm, vị trí làm tăng rào cản cân nhắc", "mid"),
+        ("2", "Lý do đi chưa đủ sắc", "Mô hình tour cần trả lời vì sao phải là Nam Định", "very_high"),
+        ("3", "Khoảng cách / lo chuyến đi", "Với một số nhóm, vị trí làm tăng rào cản cân nhắc", "mid"),
         ("4", "Thiếu hình ảnh neo", "Khó tưởng tượng cảnh, người, món ăn, làng nghề", "high", None, ["Q084", "Q085", "Q086"]),
     ])
     return _deck_b_slide(
         "P5",
         "IV.B.5. Độ thuyết phục của Nam Định",
-        "Phản ứng với concept tour MẠCH",
+        "Phản ứng với mô hình tour MẠCH",
         "map",
         "Nam Định trong tâm trí khách",
         left,
@@ -3265,7 +3265,7 @@ def render_b5_visual(quotes_df, participants_df):
         [
             ("map", "Bán Nam Định trước", "Không chỉ nói tour diễn ra ở Nam Định"),
             ("stars", "Tạo khoảnh khắc đáng nhớ", "Ít nhất một lý do khiến khách thấy nơi này đáng đi"),
-            ("camera-video", "Chứng minh bằng visual", "Cho thấy con người, món ăn, làng nghề, nhịp sống"),
+            ("camera-video", "Chứng minh bằng hình ảnh", "Cho thấy con người, món ăn, làng nghề, nhịp sống"),
             ("signpost", "Đặt tuyến kể rõ", "Từ cảnh quan đến người dẫn, từ món ăn đến câu chuyện"),
         ],
         "Trước khi bán tour MẠCH, cần bán được lý do vì sao Nam Định đáng đi.",
@@ -3284,7 +3284,7 @@ def render_b6_visual(quotes_df, participants_df):
         ("1", "Cảm giác đã biết rồi", "Văn hoá Việt nói chung không đủ mới", "mid", ["P05", "P15"]),
         ("2", "Giá trị tour chưa khác tự túc", "Cần chứng minh phần MẠCH mở được mà khách tự đi khó có", "high", ["P05", "P15"]),
         ("3", "Dễ bị đọc là tour nội địa bình thường", "Thông điệp chung chung làm giảm lý do mua", "mid"),
-        ("4", "Tín hiệu còn mỏng", "Chưa đủ để kết luận rộng, cần theo dõi cohort/pilot", "low"),
+        ("4", "Tín hiệu còn mỏng", "Chưa đủ để kết luận rộng, cần theo dõi đợt khách/pilot", "low"),
     ])
     return _deck_b_slide(
         "P6",
@@ -3311,12 +3311,12 @@ def render_b6_visual(quotes_df, participants_df):
 def render_b7_visual(quotes_df, participants_df):
     left = _deck_signal_grid([
         _deck_signal_card("globe2", "Khách nước ngoài là nhóm vắng mặt", "Hiện mới là suy đoán từ người Việt trong mẫu.", "amber", pids=["P03", "P07", "P09", "P12"]),
-        _deck_signal_card("translate", "Người học văn hoá Việt", "Có thể hấp dẫn nếu muốn hiểu sâu, không chỉ check-in.", "blue"),
+        _deck_signal_card("translate", "Người học văn hoá Việt", "Có thể hấp dẫn nếu muốn hiểu sâu, không chỉ điểm danh chụp ảnh.", "blue"),
         _deck_signal_card("compass", "Người Việt tò mò văn hoá", "Cần cách kể đời thường và dễ tiếp cận hơn.", "teal", pids=["P09", "P11"]),
     ])
     right = _deck_bottleneck_list([
-        ("1", "Demand chưa kiểm chứng", "Không có khách nước ngoài trong sample hiện tại", "very_high"),
-        ("2", "Thiên góc nhìn ngành", "Một số nhận định xuất phát từ người có lens chuyên môn", "high"),
+        ("1", "Nhu cầu chưa kiểm chứng", "Không có khách nước ngoài trong mẫu hiện tại", "very_high"),
+        ("2", "Thiên góc nhìn ngành", "Một số nhận định xuất phát từ người có góc nhìn chuyên môn", "high"),
         ("3", "Thông điệp cần tách nhóm", "Khách Việt và khách nước ngoài cần lời hứa khác nhau", "mid"),
         ("4", "Cần dữ liệu trực tiếp", "Pilot phải dành slot kiểm chứng nhóm vắng mặt", "high"),
     ])
@@ -3336,7 +3336,7 @@ def render_b7_visual(quotes_df, participants_df):
             ("chat-left-text", "Viết bản kể dễ hiểu", "Bản cho khách Việt bắt đầu từ đời sống và con người"),
             ("clipboard-data", "Theo dõi sau trải nghiệm", "Đo hiểu, thích, sẵn sàng trả tiền và giới thiệu"),
         ],
-        "Khách nước ngoài là cơ hội đáng test, chưa phải kết luận demand.",
+        "Khách nước ngoài là cơ hội đáng kiểm chứng, chưa phải kết luận nhu cầu.",
         quotes_df,
         participants_df,
     )
@@ -3349,10 +3349,10 @@ def render_b8_visual(quotes_df, participants_df):
         _deck_signal_card("chat-dots", "Câu chuyện sau món ăn", "Món ăn cần đi cùng người nấu, bối cảnh và ký ức.", "plain", quote_ids=["Q087", "Q088"]),
     ])
     right = _deck_bottleneck_list([
-        ("1", "Nếu chỉ là bữa ăn logistics", "Ẩm thực mất vai trò mở cửa vào văn hoá", "high", None, ["Q087", "Q088", "Q089"]),
+        ("1", "Nếu chỉ lo cho khách ăn", "Ẩm thực mất vai trò mở cửa vào văn hoá", "high", None, ["Q087", "Q088", "Q089"]),
         ("2", "Nếu tách khỏi người nấu", "Thiếu lớp con người và đời sống phía sau món ăn", "mid", None, ["Q087", "Q088"]),
         ("3", "Nếu trình bày quá nặng", "Câu chuyện món ăn cần mềm, gần, dễ nghe", "mid", None, ["Q088"]),
-        ("4", "Nếu thiếu visual hook", "Người xem khó hình dung tour hấp dẫn ra sao", "high", None, ["Q089"]),
+        ("4", "Nếu thiếu điểm nhấn hình ảnh", "Người xem khó hình dung tour hấp dẫn ra sao", "high", None, ["Q089"]),
     ])
     return _deck_b_slide(
         "S2",
@@ -3362,12 +3362,12 @@ def render_b8_visual(quotes_df, participants_df):
         "Ẩm thực như cửa vào",
         left,
         "signpost",
-        "Cách biến thành trải nghiệm",
+        "Những bẫy cần tránh",
         right,
         [
-            ("utensils", "Đưa ẩm thực thành điểm nhấn", "Không để nó chỉ là logistics bữa ăn"),
+            ("utensils", "Đưa ẩm thực thành điểm nhấn", "Không để nó chỉ lo cho khách ăn"),
             ("person-heart", "Gắn với người địa phương", "Ai nấu, ăn ở đâu, câu chuyện nào phía sau"),
-            ("camera", "Dùng làm visual hook", "Hình ảnh món ăn làm tour mềm và dễ hình dung"),
+            ("camera", "Dùng làm điểm nhấn hình ảnh", "Hình ảnh món ăn làm tour mềm và dễ hình dung"),
             ("house-heart", "Nối với đời sống", "Từ món ăn mở sang nhà dân, làng nghề, ký ức địa phương"),
         ],
         "Ẩm thực có thể làm phần văn hoá sâu trở nên mềm hơn, đời thường hơn và dễ bước vào hơn.",
@@ -3517,8 +3517,8 @@ def render_sustainability_deck_visual(participants_df):
             "IV.C. Mức độ quen thuộc với du lịch bền vững",
             "Hiểu về khái niệm trong nhóm phỏng vấn",
             _deck_meta_box([
-                ("people-fill", "Sample", f"N={len(participants_df)}"),
-                ("clipboard-data", "Mã hoá", f"{total_coded}/{len(participants_df)} participant"),
+                ("people-fill", "Mẫu", f"N={len(participants_df)}"),
+                ("clipboard-data", "Đã gắn chủ đề", f"{total_coded}/{len(participants_df)} người"),
                 ("info-circle", "Lưu ý", "mẫu có chủ đích, không đại diện thị trường"),
             ]),
         )
@@ -3567,7 +3567,7 @@ def render_archetype_deck_visual(participants_df):
         + _deck_info_pill(
             "leaf",
             "Hiểu rõ hơn về bền vững",
-            f"{sustainability}/{sustainability_coded} đã mã hoá · {sustainability_unknown} chưa mã hoá",
+            f"{sustainability}/{sustainability_coded} đã gắn chủ đề · {sustainability_unknown} chưa gắn chủ đề",
         )
         + '</div>'
     )
@@ -3586,7 +3586,7 @@ def render_archetype_deck_visual(participants_df):
             "chat-dots",
             "2. Tò mò văn hoá nhưng cần bạn đồng hành",
             [
-                ("Dấu hiệu", "Có hứng thú, nhưng khó tự book nếu đi một mình hoặc nhóm lạ."),
+                ("Dấu hiệu", "Có hứng thú, nhưng khó tự đặt tour nếu đi một mình hoặc nhóm lạ."),
                 ("MẠCH nên nhấn", "Nhóm nhỏ thân mật, dễ rủ bạn, không khí dễ trò chuyện."),
                 ("Rào cản", "Ngại gượng ép, ngại không cùng gu, thiếu người chia sẻ."),
             ],
@@ -3617,7 +3617,7 @@ def render_archetype_deck_visual(participants_df):
         '<div class="deck-archetype-bottom">'
         + _deck_archetype_card(
             "globe2",
-            "Nhóm cần test riêng trong pilot",
+            "Nhóm cần kiểm chứng riêng trong pilot",
             [
                 ("Giả thuyết", "Khách nước ngoài / người tò mò văn hoá Việt có thể hấp dẫn."),
                 ("Cần đo", "Hiểu đúng giá trị, sẵn sàng trả tiền, khả năng giới thiệu lại."),
@@ -3630,7 +3630,7 @@ def render_archetype_deck_visual(participants_df):
             "Góc nhìn chuyên môn / ngành",
             [
                 ("Vai trò", "Nguồn kiểm tra sản phẩm, đối tác triển khai, góc kiểm tra chất lượng."),
-                ("Không nên dùng", "Không biến thành persona khách hàng chính."),
+                ("Không nên dùng", "Không biến thành chân dung khách hàng chính."),
                 ("Giá trị", "Giúp soi vận hành, tính chân thực và mức sẵn sàng của đối tác."),
             ],
             "plain",
@@ -3641,17 +3641,17 @@ def render_archetype_deck_visual(participants_df):
         '<section id="visual-archetypes" class="deck-slide deck-visual deck-archetype-slide">'
         + _deck_page_header_meta(
             "IV.D. Nhóm khách hàng mục tiêu",
-            "Archetype tạm thời từ dữ liệu phỏng vấn",
+            "Kiểu khách tạm thời từ dữ liệu phỏng vấn",
             _deck_meta_box([
-                ("people-fill", "Sample", f"N={n}"),
-                ("clipboard-data", "Loại dữ liệu", "qualitative interviews"),
-                ("info-circle", "Lưu ý", "không ép thành persona duy nhất"),
+                ("people-fill", "Mẫu", f"N={n}"),
+                ("clipboard-data", "Loại dữ liệu", "phỏng vấn định tính"),
+                ("info-circle", "Lưu ý", "không ép thành chân dung khách hàng duy nhất"),
             ]),
         )
-        + _deck_section_band("Tín hiệu nền để đọc archetype", signal_strip)
+        + _deck_section_band("Tín hiệu nền để đọc kiểu khách", signal_strip)
         + '<div class="deck-archetype-board">' + "".join(cards) + '</div>'
         + bottom
-        + _deck_takeaway("MẠCH chưa cần chốt một persona duy nhất. Pilot nên kiểm chứng nhóm nào vừa thích tour, vừa sẵn sàng trả tiền, vừa muốn giới thiệu lại.")
+        + _deck_takeaway("MẠCH chưa cần chốt một chân dung khách hàng duy nhất. Pilot nên kiểm chứng nhóm nào vừa thích tour, vừa sẵn sàng trả tiền, vừa muốn giới thiệu lại.")
         + '</section>'
     )
 
@@ -3659,14 +3659,14 @@ def render_archetype_deck_visual(participants_df):
 def render_concept_advantage_visual(participants_df, quotes_df):
     return (
         '<section class="deck-slide deck-visual">'
-        + _deck_page_header("V.1. Những điểm concept đang có lợi thế", "Kết luận từ nghiên cứu trước pilot")
+        + _deck_page_header("V.1. Những điểm mô hình tour đang có lợi thế", "Kết luận từ nghiên cứu trước pilot")
         + '<div class="deck-card-grid">'
-        + _deck_card("people", "Gặp người", "Concept có cơ hội chạm vào nhu cầu hiểu con người và đời sống địa phương.", "teal")
+        + _deck_card("people", "Gặp người", "Mô hình tour có cơ hội chạm vào nhu cầu hiểu con người và đời sống địa phương.", "teal")
         + _deck_card("bicycle", "Hoạt động địa phương", "Các hoạt động trực tiếp giúp tour khác với việc đọc hoặc nghe kiến thức.", "blue")
         + _deck_card("egg-fried", "Ẩm thực", "Ẩm thực là điểm vào mềm để kéo khách đến gần văn hoá.", "teal")
         + _deck_card("gem", "Làng nghề", "Làng nghề và sinh hoạt thật có thể tạo lý do khác biệt.", "plain")
         + _deck_card("building", "Tín ngưỡng", "Tín ngưỡng là lớp chiều sâu nếu kể an toàn và dễ hiểu.", "amber")
-        + _deck_card("house-heart", "Cộng đồng", "Vai trò địa phương giúp concept có ý nghĩa hơn tour đại trà.", "teal")
+        + _deck_card("house-heart", "Cộng đồng", "Vai trò địa phương giúp mô hình tour có ý nghĩa hơn tour đại trà.", "teal")
         + '</div>'
         + '<div class="deck-flow">'
         + _deck_step("hand-index", "Trực tiếp chạm tay", "Tăng phần làm, ăn, gặp và di chuyển nhẹ.")
@@ -3687,10 +3687,10 @@ def render_limitations_visual(participants_df):
         + _deck_card("people", "Mẫu có chủ đích", "Một số người có nền tảng liên quan đến văn hoá, cộng đồng hoặc du lịch.", "plain")
         + _deck_card("globe2", "Chưa có dữ liệu trực tiếp từ khách nước ngoài", "Nhận định S1 vẫn là giả thuyết cần kiểm chứng.", "amber")
         + _deck_card("bar-chart", "Một số tín hiệu còn mỏng", "P6 và vài điểm hành vi cần theo dõi thêm.", "plain")
-        + _deck_card("cart-check", "Chưa đo hành vi mua thật", "Hiện mới là phản ứng với concept, chưa phải booking thật.", "teal")
+        + _deck_card("cart-check", "Chưa đo hành vi mua thật", "Hiện mới là phản ứng với mô hình tour, chưa phải đặt tour thật.", "teal")
         + '</div>'
-        + _deck_takeaway("Report này giúp MẠCH biết điều gì đáng theo đuổi. Pilot mới là bước kiểm chứng nhu cầu thật, mức sẵn sàng trả tiền và khả năng giới thiệu lại.")
-        + _deck_note("Khi đưa ra ngoài MẠCH, cần anonymize lại và kiểm tra consent/pháp lý.")
+        + _deck_takeaway("Báo cáo này giúp MẠCH biết điều gì đáng theo đuổi. Pilot mới là bước kiểm chứng nhu cầu thật, mức sẵn sàng trả tiền và khả năng giới thiệu lại.")
+        + _deck_note("Khi đưa ra ngoài MẠCH, cần ẩn danh lại và kiểm tra đồng thuận/pháp lý.")
         + '</section>'
     )
 

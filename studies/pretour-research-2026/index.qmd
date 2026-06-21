@@ -62,7 +62,7 @@ def show_html(value):
 <p class="deck-brand">MẠCH</p>
 <h1>Báo cáo nghiên cứu khách hàng</h1>
 <p class="deck-subtitle">Nghiên cứu khách hàng trước chuyến thử nghiệm</p>
-<p class="deck-context">Tổng hợp dữ liệu phỏng vấn định tính và visualization trước giai đoạn pilot tour MẠCH.</p>
+<p class="deck-context">Tổng hợp dữ liệu phỏng vấn định tính và biểu đồ trước giai đoạn pilot tour MẠCH.</p>
 
 ```{python}
 #| output: asis
@@ -79,7 +79,7 @@ show_html(render_cover_stats(participants_df, quotes_df, records_df))
   <div class="deck-toc-item"><span>II</span><p>Phương pháp nghiên cứu</p></div>
   <div class="deck-toc-item"><span>III</span><p>Thông tin dữ liệu</p></div>
   <div class="deck-toc-item"><span>IV.A</span><p>Hành vi du lịch và yếu tố ra quyết định</p></div>
-  <div class="deck-toc-item"><span>IV.B</span><p>Phản ứng với concept tour MẠCH</p></div>
+  <div class="deck-toc-item"><span>IV.B</span><p>Phản ứng với mô hình tour MẠCH</p></div>
   <div class="deck-toc-item"><span>IV.C</span><p>Mức độ quen thuộc với du lịch bền vững</p></div>
   <div class="deck-toc-item"><span>IV.D</span><p>Nhóm khách hàng mục tiêu</p></div>
   <div class="deck-toc-item"><span>V</span><p>Kết luận và điều cần kiểm chứng trong pilot</p></div>
@@ -91,12 +91,12 @@ show_html(render_cover_stats(participants_df, quotes_df, records_df))
 <h2>Mục đích và mục tiêu</h2>
 
 <div class="deck-text">
-<p>Báo cáo này tổng hợp dữ liệu phỏng vấn khách hàng nhằm đánh giá mức độ phù hợp của concept tour MẠCH trước khi triển khai thử nghiệm. Trọng tâm là hiểu khách hàng tiềm năng đang đi du lịch như thế nào, họ quan tâm điều gì, họ phản ứng ra sao với concept tour, và đâu là những điểm cần điều chỉnh trước khi đưa tour vào pilot.</p>
+<p>Báo cáo này tổng hợp dữ liệu phỏng vấn khách hàng nhằm đánh giá mức độ phù hợp của mô hình tour MẠCH trước khi triển khai thử nghiệm. Trọng tâm là hiểu khách hàng tiềm năng đang đi du lịch như thế nào, họ quan tâm điều gì, họ phản ứng ra sao với mô hình tour, và đâu là những điểm cần điều chỉnh trước khi đưa tour vào pilot.</p>
 <p>Các phát hiện được dùng để hỗ trợ team MẠCH trong ba hướng chính: điều chỉnh thiết kế tour, xác định nhóm khách hàng ưu tiên, và chuẩn bị thông điệp truyền thông phù hợp cho giai đoạn thử nghiệm.</p>
 </div>
 
 <div class="deck-objective-grid">
-  <div class="deck-objective"><span>1</span><p>Xác định nhóm khách hàng có phản ứng tích cực nhất với concept tour MẠCH.</p></div>
+  <div class="deck-objective"><span>1</span><p>Xác định nhóm khách hàng có phản ứng tích cực nhất với mô hình tour MẠCH.</p></div>
   <div class="deck-objective"><span>2</span><p>Hiểu hành vi du lịch, động lực ra quyết định và rào cản khi lựa chọn tour trải nghiệm văn hoá.</p></div>
   <div class="deck-objective"><span>3</span><p>Đánh giá mức sẵn sàng chi trả cho một tour trải nghiệm văn hoá tại Nam Định.</p></div>
   <div class="deck-objective"><span>4</span><p>Xác định điểm cần cải thiện về sản phẩm, định vị và truyền thông trước pilot.</p></div>
@@ -108,15 +108,15 @@ show_html(render_cover_stats(participants_df, quotes_df, records_df))
 <h2>Phương pháp nghiên cứu</h2>
 
 <div class="deck-text">
-<p>Dữ liệu trong báo cáo được thu thập thông qua các cuộc phỏng vấn định tính theo hướng bán cấu trúc. Đây không phải khảo sát chọn đáp án, mà là phỏng vấn khám phá để hiểu động lực, rào cản và cách người tham gia diễn giải concept tour.</p>
+<p>Dữ liệu trong báo cáo được thu thập thông qua các cuộc phỏng vấn định tính theo hướng bán cấu trúc. Đây không phải khảo sát chọn đáp án, mà là phỏng vấn khám phá để hiểu động lực, rào cản và cách người tham gia diễn giải mô hình tour.</p>
 <p>Mẫu được chọn có chủ đích, bao gồm khách hàng tiềm năng, người quen/người thân và một số người có chuyên môn hoặc kinh nghiệm liên quan đến du lịch, văn hoá và phát triển cộng đồng. Vì vậy, kết quả nên được đọc như tín hiệu giúp ra quyết định pilot, không phải kết luận đại diện thị trường.</p>
 </div>
 
 <div class="deck-flow">
   <article class="deck-step"><span class="deck-icon"><i class="bi bi-chat-square-text"></i></span><h4>Phỏng vấn khám phá</h4><p>Tập trung vào câu chuyện, phản ứng và lý do phía sau lựa chọn.</p></article>
   <article class="deck-step"><span class="deck-icon"><i class="bi bi-bullseye"></i></span><h4>Chọn mẫu có chủ đích</h4><p>Ưu tiên người có bối cảnh phù hợp để tìm tín hiệu cho pilot.</p></article>
-  <article class="deck-step"><span class="deck-icon"><i class="bi bi-file-earmark-text"></i></span><h4>Record tổng hợp</h4><p>Bảo toàn lớp bằng chứng review được qua P-code và ref_id.</p></article>
-  <article class="deck-step"><span class="deck-icon"><i class="bi bi-shield-check"></i></span><h4>Ẩn danh</h4><p>Report public source chỉ dùng P-code, không đưa tên thật hoặc PII.</p></article>
+  <article class="deck-step"><span class="deck-icon"><i class="bi bi-file-earmark-text"></i></span><h4>Bản ghi tổng hợp</h4><p>Bảo toàn lớp bằng chứng rà soát được qua P-code và ref_id.</p></article>
+  <article class="deck-step"><span class="deck-icon"><i class="bi bi-shield-check"></i></span><h4>Ẩn danh</h4><p>Báo cáo nguồn công khai chỉ dùng P-code, không đưa tên thật hoặc thông tin cá nhân.</p></article>
 </div>
 </section>
 
@@ -125,8 +125,8 @@ show_html(render_cover_stats(participants_df, quotes_df, records_df))
 <h2>Thông tin dữ liệu</h2>
 
 <div class="deck-text">
-<p>Báo cáo sử dụng dữ liệu phỏng vấn đã được cấu trúc thành ba lớp: thông tin người tham gia, record phỏng vấn tổng hợp và bằng chứng chọn lọc theo từng chủ đề. Các con số trong report được render từ CSV và helper, không gõ tay trong prose.</p>
-<p>Phần dữ liệu này hỗ trợ team nội bộ MẠCH nhận diện hành vi du lịch, nhu cầu, rào cản và phản ứng của khách hàng đối với concept tour.</p>
+<p>Báo cáo sử dụng dữ liệu phỏng vấn đã được cấu trúc thành ba lớp: thông tin người tham gia, bản ghi phỏng vấn tổng hợp và bằng chứng chọn lọc theo từng chủ đề. Các con số trong báo cáo được tính tự động từ dữ liệu gốc, không gõ tay.</p>
+<p>Phần dữ liệu này hỗ trợ team nội bộ MẠCH nhận diện hành vi du lịch, nhu cầu, rào cản và phản ứng của khách hàng đối với mô hình tour.</p>
 <p>Biểu đồ tổng quan mẫu phỏng vấn ở trang tiếp theo.</p>
 </div>
 </section>
@@ -141,7 +141,7 @@ show_html(render_sample_deck_visual(participants_df, quotes_df, records_df))
 <h2>Phát hiện chính</h2>
 <div class="deck-divider-list">
   <p>A. Hành vi du lịch và yếu tố ra quyết định</p>
-  <p>B. Phản ứng với concept tour MẠCH</p>
+  <p>B. Phản ứng với mô hình tour MẠCH</p>
   <p>C. Mức độ quen thuộc với du lịch bền vững</p>
   <p>D. Nhóm khách hàng mục tiêu</p>
 </div>
@@ -165,11 +165,11 @@ show_html(render_decision_deck_visual(participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
-<p class="section-kicker">IV.B - Phản ứng với concept tour MẠCH</p>
+<p class="section-kicker">IV.B - Phản ứng với mô hình tour MẠCH</p>
 <h2>IV.B.1. Trải nghiệm còn thụ động</h2>
 
 <div class="deck-text">
-<p>Concept tour hiện tại vẫn tạo cảm giác thiên về nghe, đọc và quan sát hơn là trực tiếp tham gia. Một số người thấy lịch trình có nhiều kiến thức, dễ gây mệt hoặc giống hoạt động học tập hơn là một chuyến du lịch văn hoá dễ tiếp cận.</p>
+<p>Mô hình tour hiện tại vẫn tạo cảm giác thiên về nghe, đọc và quan sát hơn là trực tiếp tham gia. Một số người thấy lịch trình có nhiều kiến thức, dễ gây mệt hoặc giống hoạt động học tập hơn là một chuyến du lịch văn hoá dễ tiếp cận.</p>
 <p>Các phản hồi được mã hoá ở P1 cho thấy nhu cầu tăng phần chạm tay, hoạt động làm nghề, tương tác với đời sống địa phương và nhịp đi nhẹ hơn. Phản ứng này xuất hiện ở cả người chưa quen du lịch văn hoá và người có kinh nghiệm hơn.</p>
 <p>Tour nên tăng các hoạt động có tính chạm, làm và tham gia trực tiếp. Những phần như ăn cùng người địa phương, đạp xe, tham gia làng nghề, hoạt động cộng đồng hoặc trải nghiệm sinh hoạt thường ngày nên được đặt rõ hơn trong lịch trình.</p>
 </div>
@@ -182,11 +182,11 @@ show_html(render_b1_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
-<p class="section-kicker">IV.B - Phản ứng với concept tour MẠCH</p>
+<p class="section-kicker">IV.B - Phản ứng với mô hình tour MẠCH</p>
 <h2>IV.B.2. Phụ thuộc vào người đi cùng</h2>
 
 <div class="deck-text">
-<p>Một số người không hẳn từ chối concept MẠCH, nhưng họ khó tự book nếu phải đi một mình hoặc đi cùng nhóm người lạ. Với tour văn hoá, người đi cùng không chỉ là bạn đồng hành, mà còn là người để cùng chia sẻ, trao đổi và làm cho chuyến đi bớt ngại.</p>
+<p>Một số người không hẳn từ chối mô hình tour MẠCH, nhưng họ khó tự đặt tour nếu phải đi một mình hoặc đi cùng nhóm người lạ. Với tour văn hoá, người đi cùng không chỉ là bạn đồng hành, mà còn là người để cùng chia sẻ, trao đổi và làm cho chuyến đi bớt ngại.</p>
 <p>Dữ liệu P2 cho thấy người đi cùng là yếu tố quyết định ở nhiều tình huống. Tuy nhiên, đây không phải rào cản tuyệt đối: vẫn có ngoại lệ thoải mái đi một mình (P03, P07), hoặc nhìn vấn đề từ góc thiết kế tour.</p>
 <p>Tour nên được thiết kế và truyền thông như một trải nghiệm để đi cùng người thân, bạn bè hoặc nhóm nhỏ có cùng mối quan tâm, thay vì tạo cảm giác như một tour ghép với người lạ.</p>
 </div>
@@ -198,12 +198,12 @@ show_html(render_b2_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
-<p class="section-kicker">IV.B - Phản ứng với concept tour MẠCH</p>
+<p class="section-kicker">IV.B - Phản ứng với mô hình tour MẠCH</p>
 <h2>IV.B.3. Lệch định vị khách hàng</h2>
 
 <div class="deck-text">
-<p>Concept MẠCH không thiếu giá trị, nhưng cách trình bày hiện tại dễ khiến người đọc chưa thấy rõ tour này dành cho mình. Với một số người, tour đang gợi cảm giác giống một hoạt động học tập hoặc ngoại khoá hơn là một chuyến du lịch có trải nghiệm, cảm xúc và thời gian để tận hưởng.</p>
-<p>P3 là pattern có phản ứng trái chiều: có người tự nhận phù hợp, nhưng cũng có người tự loại mình khỏi concept hoặc cho rằng tour hợp với nhóm khác hơn. Điều này cho thấy vấn đề nằm ở định vị và cách kể, không chỉ ở bản thân nội dung văn hoá.</p>
+<p>Mô hình tour MẠCH không thiếu giá trị, nhưng cách trình bày hiện tại dễ khiến người đọc chưa thấy rõ tour này dành cho mình. Với một số người, tour đang gợi cảm giác giống một hoạt động học tập hoặc ngoại khoá hơn là một chuyến du lịch có trải nghiệm, cảm xúc và thời gian để tận hưởng.</p>
+<p>P3 là kiểu phản hồi có phản ứng trái chiều: có người tự nhận phù hợp, nhưng cũng có người tự loại mình khỏi mô hình tour hoặc cho rằng tour hợp với nhóm khác hơn. Điều này cho thấy vấn đề nằm ở định vị và cách kể, không chỉ ở bản thân nội dung văn hoá.</p>
 <p>MẠCH cần định vị lại tour theo hướng dễ hình dung hơn: không phải đi học văn hoá, mà là một chuyến đi để chạm vào đời sống, con người, món ăn, làng nghề và lớp tín ngưỡng của Nam Định.</p>
 </div>
 </section>
@@ -214,7 +214,7 @@ show_html(render_b3_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
-<p class="section-kicker">IV.B - Phản ứng với concept tour MẠCH</p>
+<p class="section-kicker">IV.B - Phản ứng với mô hình tour MẠCH</p>
 <h2>IV.B.4. Lo ngại về tính chân thực</h2>
 
 <div class="deck-text">
@@ -230,7 +230,7 @@ show_html(render_b4_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
-<p class="section-kicker">IV.B - Phản ứng với concept tour MẠCH</p>
+<p class="section-kicker">IV.B - Phản ứng với mô hình tour MẠCH</p>
 <h2>IV.B.5. Độ thuyết phục của Nam Định như một điểm đến</h2>
 
 <div class="deck-text">
@@ -246,12 +246,12 @@ show_html(render_b5_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
-<p class="section-kicker">IV.B - Phản ứng với concept tour MẠCH</p>
+<p class="section-kicker">IV.B - Phản ứng với mô hình tour MẠCH</p>
 <h2>IV.B.6. Thiên kiến văn hoá Việt thì mình đã biết rồi</h2>
 
 <div class="deck-text">
 <p>Một rào cản nhỏ nhưng đáng chú ý là một số người Việt không thấy nhu cầu mạnh với tour văn hoá trong nước, vì họ có cảm giác văn hoá Việt là thứ mình đã quen. Khi so với đi nước ngoài, tour văn hoá nội địa dễ bị xem là ít mới lạ hơn nếu không chỉ ra được phần trải nghiệm mà khách thật sự chưa biết hoặc khó tự tiếp cận.</p>
-<p>P6 hiện có 2 nguồn trong mẫu (P05, P15), vẫn là tín hiệu sớm cần theo dõi ở cohort 2, không đủ để kết luận rộng. Tuy vậy, đây là rào cản đáng theo dõi vì nó chạm vào câu hỏi cốt lõi: tour MẠCH khác gì so với tự đi một điểm đến trong nước.</p>
+<p>P6 hiện có 2 nguồn trong mẫu (P05, P15), vẫn là tín hiệu sớm cần theo dõi ở đợt khách 2, không đủ để kết luận rộng. Tuy vậy, đây là rào cản đáng theo dõi vì nó chạm vào câu hỏi cốt lõi: tour MẠCH khác gì so với tự đi một điểm đến trong nước.</p>
 <p>MẠCH không nên truyền thông tour như một chuyến khám phá văn hoá Việt quá chung chung. Thay vào đó, cần làm rõ phần khách chưa chắc đã biết: hậu trường tín ngưỡng, câu chuyện làng nghề, bữa ăn tại nhà dân, nhịp sống địa phương và những cuộc gặp với người thật.</p>
 </div>
 </section>
@@ -262,12 +262,12 @@ show_html(render_b6_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
-<p class="section-kicker">IV.B - Phản ứng với concept tour MẠCH</p>
+<p class="section-kicker">IV.B - Phản ứng với mô hình tour MẠCH</p>
 <h2>IV.B.7. Sức hút với khách nước ngoài / người tò mò văn hoá</h2>
 
 <div class="deck-text">
-<p>Một số người tham gia cho rằng concept MẠCH có thể hấp dẫn hơn với khách nước ngoài, người nghiên cứu văn hoá Việt, hoặc nhóm người Việt thật sự tò mò về văn hoá. Đây là một cơ hội định vị rõ hơn.</p>
-<p>S1 là giả thuyết vì nhóm khách nước ngoài chưa có mặt trong mẫu. Các nhận định hiện tại là suy đoán của người Việt hoặc góc nhìn ngành, nên không được đọc như demand đã kiểm chứng.</p>
+<p>Một số người tham gia cho rằng mô hình tour MẠCH có thể hấp dẫn hơn với khách nước ngoài, người nghiên cứu văn hoá Việt, hoặc nhóm người Việt thật sự tò mò về văn hoá. Đây là một cơ hội định vị rõ hơn.</p>
+<p>S1 là giả thuyết vì nhóm khách nước ngoài chưa có mặt trong mẫu. Các nhận định hiện tại là suy đoán của người Việt hoặc góc nhìn ngành, nên không được đọc như nhu cầu đã kiểm chứng.</p>
 <p>MẠCH không nên dùng một thông điệp chung cho tất cả nhóm khách. Có thể thử hai hướng truyền thông riêng: một hướng nhấn vào chiều sâu văn hoá cho khách nước ngoài hoặc người tò mò văn hoá; một hướng mềm hơn cho khách Việt.</p>
 </div>
 </section>
@@ -278,12 +278,12 @@ show_html(render_b7_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
-<p class="section-kicker">IV.B - Phản ứng với concept tour MẠCH</p>
+<p class="section-kicker">IV.B - Phản ứng với mô hình tour MẠCH</p>
 <h2>IV.B.8. Ẩm thực như điểm vào văn hoá</h2>
 
 <div class="deck-text">
 <p>Ẩm thực là một điểm vào dễ tiếp cận hơn so với các nội dung văn hoá nặng về kiến thức. Với nhiều người, ăn uống không chỉ là phần phụ của lịch trình, mà là cách nhanh nhất để cảm nhận đời sống địa phương, con người và không khí của điểm đến.</p>
-<p>S2 là tín hiệu có thể khai thác ngay, dù thiên góc nhìn ngành: người tham gia nhắc đến ẩm thực như phần mềm hoá lịch trình, làm tour dễ hình dung hơn và tạo lý do bước vào đời sống địa phương.</p>
+<p>S2 là tín hiệu có thể khai thác ngay, dù thiên góc nhìn ngành: người tham gia nhắc đến ẩm thực như đơn giản hoá lịch trình, làm tour dễ hình dung hơn và tạo lý do bước vào đời sống địa phương.</p>
 <p>MẠCH nên dùng ẩm thực như một cửa vào để kéo người tham gia đến gần văn hoá Nam Định hơn, thay vì chỉ xem đây là phần ăn uống trong lịch trình.</p>
 </div>
 </section>
@@ -294,7 +294,7 @@ show_html(render_b8_visual(quotes_df, participants_df))
 ```
 
 <section class="deck-slide  deck-narrative">
-<p class="section-kicker">IV.B - Phản ứng với concept tour MẠCH</p>
+<p class="section-kicker">IV.B - Phản ứng với mô hình tour MẠCH</p>
 <h2>IV.B.9. Sự quan tâm đến yếu tố tín ngưỡng</h2>
 
 <div class="deck-text">
@@ -330,9 +330,9 @@ show_html(render_sustainability_deck_visual(participants_df))
 <h2>D. Nhóm khách hàng mục tiêu</h2>
 
 <div class="deck-text">
-<p>Các nhóm dưới đây là archetype tạm thời từ dữ liệu phỏng vấn. Pilot cần kiểm chứng nhóm nào thật sự có nhu cầu, sẵn sàng trả tiền và muốn giới thiệu lại tour.</p>
-<p>Phần này là nơi các phát hiện về hành vi du lịch, phản ứng với concept và mức độ quen thuộc với bền vững hội tụ theo góc nhìn thực dụng: bán cho ai, bằng lời hứa nào, và cần giảm rào cản gì.</p>
-<p>Không nên ép toàn bộ người tham gia vào một persona duy nhất. Một số người nằm giữa các nhóm, còn expert hoặc industry voices nên được dùng như nguồn kiểm tra sản phẩm và partner insight hơn là customer persona chính.</p>
+<p>Các nhóm dưới đây là kiểu khách tạm thời từ dữ liệu phỏng vấn. Pilot cần kiểm chứng nhóm nào thật sự có nhu cầu, sẵn sàng trả tiền và muốn giới thiệu lại tour.</p>
+<p>Phần này là nơi các phát hiện về hành vi du lịch, phản ứng với mô hình tour và mức độ quen thuộc với bền vững hội tụ theo góc nhìn thực dụng: bán cho ai, bằng lời hứa nào, và cần giảm rào cản gì.</p>
+<p>Không nên ép toàn bộ người tham gia vào một chân dung khách hàng duy nhất. Một số người nằm giữa các nhóm, còn chuyên gia hoặc tiếng nói trong ngành nên được dùng như nguồn kiểm tra sản phẩm và góc nhìn đối tác hơn là chân dung khách hàng chính.</p>
 </div>
 </section>
 
@@ -345,7 +345,7 @@ show_html(render_archetype_deck_visual(participants_df))
 <p class="section-kicker">Phần V</p>
 <h2>Kết luận</h2>
 <div class="deck-divider-list">
-  <p>&#49;. Những điểm concept đang có lợi thế</p>
+  <p>&#49;. Những điểm mô hình tour đang có lợi thế</p>
   <p>&#50;. Giới hạn của nghiên cứu</p>
   <p>&#51;. Những điều cần kiểm chứng trong pilot tour</p>
 </div>
@@ -353,10 +353,10 @@ show_html(render_archetype_deck_visual(participants_df))
 
 <section class="deck-slide  deck-narrative">
 <p class="section-kicker">Phần V - Kết luận</p>
-<h2>1. Những điểm concept đang có lợi thế</h2>
+<h2>1. Những điểm mô hình tour đang có lợi thế</h2>
 
 <div class="deck-text">
-<p>Concept MẠCH có nền tảng tốt vì chạm vào nhu cầu hiểu con người, đời sống địa phương và các lớp văn hoá phía sau một vùng đất. Điểm mạnh lớn nhất của concept là chiều sâu: nếu được kể đúng cách, tour có thể khác biệt với cả du lịch tự túc lẫn tour đại trà.</p>
+<p>Mô hình tour MẠCH có nền tảng tốt vì chạm vào nhu cầu hiểu con người, đời sống địa phương và các lớp văn hoá phía sau một vùng đất. Điểm mạnh lớn nhất của mô hình tour là chiều sâu: nếu được kể đúng cách, tour có thể khác biệt với cả du lịch tự túc lẫn tour đại trà.</p>
 <p>Tuy nhiên, giá trị này chưa tự động rõ với mọi nhóm khách. MẠCH cần chuyển nội dung văn hoá thành trải nghiệm cụ thể, dễ chạm, dễ hiểu và đủ đáng tiền.</p>
 <p>Ưu tiên tiếp theo là tăng trải nghiệm trực tiếp, làm rõ vì sao Nam Định đáng đi, và thiết kế tour phù hợp với nhóm khách đi cùng bạn bè, người thân hoặc nhóm nhỏ.</p>
 </div>
@@ -372,9 +372,9 @@ show_html(render_concept_advantage_visual(participants_df, quotes_df))
 <h2>2. Giới hạn của nghiên cứu</h2>
 
 <div class="deck-text">
-<p>Các phát hiện trong report này nên được xem là tín hiệu để định hướng thiết kế sản phẩm, truyền thông và pilot tour, không phải kết luận định lượng về nhu cầu thị trường.</p>
-<p>Dữ liệu hiện tại đến từ phỏng vấn định tính và convenience sample. Một số nhóm trong mẫu có nền tảng liên quan đến giáo dục, du lịch cộng đồng, phát triển cộng đồng hoặc trách nhiệm xã hội, nên mức quan tâm đến văn hoá và bền vững có thể cao hơn khách phổ thông.</p>
-<p>Report cũng chưa có dữ liệu trực tiếp từ khách nước ngoài. Vì vậy, nhận định về sức hút với foreign audience hiện mới là giả thuyết cần kiểm chứng trong pilot.</p>
+<p>Các phát hiện trong báo cáo này nên được xem là tín hiệu để định hướng thiết kế sản phẩm, truyền thông và pilot tour, không phải kết luận định lượng về nhu cầu thị trường.</p>
+<p>Dữ liệu hiện tại đến từ phỏng vấn định tính và mẫu tự nguyện, không chọn ngẫu nhiên. Một số nhóm trong mẫu có nền tảng liên quan đến giáo dục, du lịch cộng đồng, phát triển cộng đồng hoặc trách nhiệm xã hội, nên mức quan tâm đến văn hoá và bền vững có thể cao hơn khách phổ thông.</p>
+<p>Báo cáo cũng chưa có dữ liệu trực tiếp từ khách nước ngoài. Vì vậy, nhận định về sức hút với khách nước ngoài hiện mới là giả thuyết cần kiểm chứng trong pilot.</p>
 </div>
 </section>
 
